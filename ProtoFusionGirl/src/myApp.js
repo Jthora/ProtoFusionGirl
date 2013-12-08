@@ -102,7 +102,14 @@ var ProtoFusionGirl = cc.Layer.extend({
                 var pad = pads[i];
                 if(pad)
                 {
-                    console.log(i + ": (" + pad.start + ", " + pad.select + ")");
+                    if(pad.leftStickX > 0.25 || pad.leftStickX < -0.25)
+                    {
+                        this.sprite.setPosition(cc.p(this.sprite.getPosition().x + pad.leftStickX, this.sprite.getPosition().y));
+                    }
+                    if(pad.leftStickY > 0.25 || pad.leftStickY < -0.25)
+                    {
+                        this.sprite.setPosition(cc.p(this.sprite.getPosition().x, this.sprite.getPosition().y - pad.leftStickY));
+                    }
                 }
             }
         }
@@ -118,7 +125,7 @@ var ProtoFusionGirl = cc.Layer.extend({
     onTouchesMoved:function (touches, event) {
         if (this.isMouseDown) {
             if (touches) {
-                //this.circle.setPosition(cc.p(touches[0].getLocation().x, touches[0].getLocation().y));
+                this.sprite.setPosition(cc.p(touches[0].getLocation().x, touches[0].getLocation().y));
             }
         }
     },
