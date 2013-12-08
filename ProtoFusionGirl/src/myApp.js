@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var Helloworld = cc.Layer.extend({
+var ProtoFusionGirl = cc.Layer.extend({
     isMouseDown:false,
     helloImg:null,
     helloLabel:null,
@@ -48,7 +48,7 @@ var Helloworld = cc.Layer.extend({
             "res/CloseNormal.png",
             "res/CloseSelected.png",
             function () {
-                history.go(-1);
+                console.log("Button Clicked");
             },this);
         closeItem.setAnchorPoint(cc.p(0.5, 0.5));
 
@@ -61,7 +61,7 @@ var Helloworld = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Hello World", "Arial", 38);
+        this.helloLabel = cc.LabelTTF.create("ProtoFusionGirl", "Arial", 38);
         // position the label on the center of the screen
         this.helloLabel.setPosition(cc.p(size.width / 2, 0));
         // add the label as a child to this layer
@@ -85,8 +85,29 @@ var Helloworld = cc.Layer.extend({
         this.helloLabel.runAction(cc.Spawn.create(cc.MoveBy.create(2.5, cc.p(0, size.height - 40)),cc.TintTo.create(2.5,255,125,0)));
 
         this.setTouchEnabled(true);
+
+        this.scheduleUpdate();
+
         return true;
     },
+
+    // Main Update Loop
+    update:function (dt) {
+        if(Gamepad.supported)
+        {
+            var pads = Gamepad.getStates();
+
+            for(var i = 0; i < pads.length; ++i)
+            {
+                var pad = pads[i];
+                if(pad)
+                {
+                    console.log(i + ": (" + pad.start + ", " + pad.select + ")");
+                }
+            }
+        }
+    },
+
     // a selector callback
     menuCloseCallback:function (sender) {
         cc.Director.getInstance().end();
@@ -109,10 +130,10 @@ var Helloworld = cc.Layer.extend({
     }
 });
 
-var HelloWorldScene = cc.Scene.extend({
+var ProtoFusionGirlScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new Helloworld();
+        var layer = new ProtoFusionGirl();
         layer.init();
         this.addChild(layer);
     }

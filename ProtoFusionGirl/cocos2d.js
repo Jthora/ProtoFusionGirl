@@ -31,7 +31,7 @@
         box2d:false,
         chipmunk:false,
         showFPS:true,
-        frameRate:60,
+        frameRate:61,
         loadExtension:false,
         renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag:'gameCanvas', //the dom element to run cocos2d on
@@ -61,19 +61,7 @@
         this.removeEventListener('DOMContentLoaded', arguments.callee, false);
         //first load engine file if specified
         var s = d.createElement('script');
-        /*********Delete this section if you have packed all files into one*******/
-        if (c.SingleEngineFile && !c.engineDir) {
-            s.src = c.SingleEngineFile;
-        }
-        else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
-        }
-        else {
-            alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
-        }
-        /*********Delete this section if you have packed all files into one*******/
-
-            //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+        s.src = 'ProtoFusionGirl.js'; 
 
         document.ccConfig = c;
         s.id = 'cocos2d-html5';

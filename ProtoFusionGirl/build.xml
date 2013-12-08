@@ -2,17 +2,17 @@
 <project name="Javascript compress project" basedir="." default="compile">
 
     <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
-             classpath="${basedir}/../tools/compiler/compiler.jar"/>
+             classpath="${basedir}/../../cocos2d-html5/tools/compiler/compiler.jar"/>
 
     <target name="compile">
         <jscomp compilationLevel="simple" warning="quiet"
-                debug="false" output="myApp-HelloWorld.js"
+                debug="false" output="ProtoFusionGirl.js"
                 sourceMapOutputFile="sourcemap"
                 sourceMapFormat="V3">
-            <externs dir="${basedir}/../cocos2d">
+            <externs dir="${basedir}/../../cocos2d-html5/cocos2d/">
                 <file name="cocos2d_externs.js"/>
             </externs>
-            <sources dir="${basedir}/../cocos2d">
+            <sources dir="${basedir}/../../cocos2d-html5/cocos2d">
                 <file name="platform/CCClass.js"/>
                 <file name="cocoa/CCGeometry.js"/>
                 <file name="platform/Sys.js"/>
@@ -127,11 +127,11 @@
                 <file name="tileMap_parallax_nodes/CCTMXLayer.js"/>
                 <file name="tileMap_parallax_nodes/CCParallaxNode.js"/>
             </sources>
-            <sources dir="${basedir}/../CocosDenshion">
+            <sources dir="${basedir}/../../cocos2d-html5/CocosDenshion">
                 <file name="SimpleAudioEngine.js"/>
             </sources>
             <!-- extensions -->
-            <sources dir="${basedir}/../extensions">
+            <sources dir="${basedir}/../../cocos2d-html5/extensions">
                 <file name="CCBReader/CCBReaderUtil.js"/>
                 <file name="CCBReader/CCBValue.js"/>
                 <file name="CCBReader/CCBKeyframe.js"/>
@@ -216,6 +216,7 @@
                 <file name="CocoStudio/Reader/SceneReader.js"/>
             </sources>
             <sources dir="${basedir}">
+                <file name="../../gamepadjs/gamepad.js"/>
                 <file name="src/resource.js"/>
                 <file name="src/myApp.js"/>
                 <file name="main.js"/>
