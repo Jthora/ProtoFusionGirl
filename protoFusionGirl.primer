@@ -1,0 +1,360 @@
+protoFusionGirl Project Prompt for GitHub Copilot (Abstracted with Pseudo Code)
+
+Project: protoFusionGirl, a 2D side-scroller prototype for FusionGirl, a decentralized Web3 game. Goal is a free, website-easy game (no downloads, instant browser play) with modding like Terraria/RimWorld. Dev on Mac Mini M2 with JavaScript/TypeScript, React Native, Vite, SWC skills. Project in new folder in cloned Git repo.
+
+Objectives:
+- Build 2D side-scroller with player movement, tilemap levels.
+- Add Web3 (wallets, smart contracts) and IPFS (asset/mod storage).
+- Ensure web-based, mobile-friendly, 60 FPS performance.
+- Support mods via plugin system, plan for expansion packs.
+- Deploy to web, mobile (iOS/Android), desktop (macOS/Windows/Linux).
+
+Tech Stack:
+- Engine: Phaser.js (HTML5, 2D games, TypeScript).
+- Build: Vite (fast hot-reload, TypeScript).
+- Web3: thirdweb SDK or Ethers.js, Polygon Mumbai testnet.
+- IPFS: ipfs-http-client or Pinata for decentralized storage.
+- Networking: Libp2p for future multiplayer.
+- Mods: Plugin system, smart contract registry.
+- Env: Mac Mini M2, VS Code (TypeScript, ESLint, Prettier, GitLens), Node.js, Git.
+- Perf: Sprite atlases, lazy loading, Chrome DevTools profiling.
+- Test: Jest (game logic), Hardhat (contracts).
+- Git: Commit often, push to GitHub.
+
+Setup:
+- Folder: protoFusionGirl in cloned repo.
+- Structure: src/assets (sprites), src/mods (mod loader), src/scenes (game scenes).
+
+Pseudo Code for Setup:
+
+SETUP_PROJECT:
+  RUN: npm create vite@latest . --template vanilla-ts
+  RUN: npm install
+  RUN: npm install phaser @thirdweb-dev/sdk ipfs-http-client
+  CREATE_FOLDERS: src/assets, src/mods, src/scenes
+  CREATE_FILES: src/main.ts, src/scenes/GameScene.ts, src/mods/mod_loader.ts
+
+CONFIGURE_VITE:
+  WRITE_FILE: vite.config.ts
+    base = './'
+    server.port = 8080
+
+UPDATE_HTML:
+  WRITE_FILE: index.html
+    html
+      head: meta charset=UTF-8, viewport=width=device-width, initial-scale=1.0
+      body: div id=game-container, script type=module src=/src/main.ts
+
+INIT_PHASER:
+  WRITE_FILE: src/main.ts
+    IMPORT: Phaser, GameScene
+    CONFIG: width=800, height=600, physics=arcade(gravity.y=500), scene=[GameScene], parent=game-container
+    CREATE: new Phaser.Game(config)
+
+GAME_SCENE:
+  WRITE_FILE: src/scenes/GameScene.ts
+    CLASS: GameScene extends Phaser.Scene
+      player: Physics.Arcade.Sprite
+      cursors: Input.Keyboard.CursorKeys
+      CONSTRUCTOR: super(key=GameScene)
+      PRELOAD:
+        LOAD_IMAGE: player from assets/player.png
+      CREATE:
+        player = physics.add.sprite(400, 300, player)
+        player.setCollideWorldBounds(true)
+        cursors = input.keyboard.createCursorKeys()
+      UPDATE:
+        player.setVelocity(0)
+        IF cursors.left.isDown: player.setVelocityX(-200)
+        IF cursors.right.isDown: player.setVelocityX(200)
+        IF cursors.up.isDown AND player.body.touching.down: player.setVelocityY(-350)
+
+MOD_LOADER:
+  WRITE_FILE: src/mods/mod_loader.ts
+    IMPORT: create from ipfs-http-client
+    ipfs = create(host=ipfs.infura.io, port=5001, protocol=https)
+    FUNCTION: loadModFromIPFS(cid)
+      TRY:
+        response = FETCH: https://ipfs.io/ipfs/{cid}
+        modData = response.json()
+        IF NOT modData.name OR modData.version OR modData.entry: THROW Error
+        scriptUrl = https://ipfs.io/ipfs/{modData.entry}
+        CREATE: script element, set src=scriptUrl, append to document.body
+        LOG: Loaded mod {modData.name} v{modData.version}
+      CATCH: LOG Error
+
+WEB3:
+  WRITE_FILE: src/web3.ts
+    IMPORT: ThirdwebSDK
+    sdk = new ThirdwebSDK(polygon-mumbai)
+    FUNCTION: connectWallet
+      TRY:
+        address = sdk.wallet.connect()
+        LOG: Connected {address}
+        RETURN: address
+      CATCH: LOG Error, RETURN null
+
+ADD_ASSET:
+  RUN: mkdir assets
+  RUN: curl -o assets/player.png https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/ship.png
+
+TEST:
+  RUN: npm run dev
+  OPEN: http://localhost:8080
+
+GIT:
+  RUN: git add .
+  RUN: git commit -m "Initial protoFusionGirl setup"
+  RUN: git push origin main
+
+Tasks:
+- Add tilemap to GameScene.ts (JSON from assets/tiles.json).
+- Create Web3 wallet button in UI.
+- Build mod to add enemy sprite from IPFS.
+- Optimize GameScene.ts with sprite atlases.
+- Add Jest tests for player movement.
+- Plan Solidity contract for mod registry.
+- Document modding API in docs/modding.md.
+
+Ease of Play:
+- Web-based, no logins, guest play.
+- Host on IPFS with ENS URL (e.g., fusiongirl.eth).
+- Responsive design for mobile/desktop.
+- Fast load with lazy loading, sprite atlases.
+
+Modding:
+- Plugin system for scenes, sprites, mechanics.
+- IPFS mod loading, smart contract registry.
+- DAO (Aragon) for community governance.
+
+Multi-Platform:
+- Web: IPFS or server.
+- Mobile: Cordova.
+- Desktop: Electron.
+
+Future:
+- Procedural generation (rot-js).
+- Physics (Matter.js).
+- Multiplayer (Libp2p).
+- Expansion packs as NFTs.
+
+Resources:
+- Phaser.js: https://phaser.io
+- thirdweb: https://thirdweb.com
+- IPFS: https://ipfs.io
+- Pinata: https://pinata.cloud
+- Aavegotchi Template: https://github.com/aavegotchi/aavegotchi-minigame-template
+- Hardhat: https://hardhat.org
+- Libp2p: https://libp2p.io
+- Aragon: https://aragon.org
+
+Notes:
+- Use TypeScript with strict typing.
+- Commit often to Git.
+- Focus on prototype, add Web3/IPFS incrementally.
+- Ensure 60 FPS with Chrome DevTools.
+- Reference this prompt for all tasks.
+
+Assist with implementing tasks, starting with GameScene.ts gameplay, and suggest FusionGirl-specific improvements.
+
+Appended Section: Additional Notes and Details for protoFusionGirl
+
+Below is the appended section to be added to the existing prompt for GitHub Copilot. It includes new considerations, best practices, and technical details to enhance the development process, ensuring the project is robust, scalable, and community-ready.
+
+Additional Notes and Details for protoFusionGirl Development
+
+The following details complement the existing setup and tasks to ensure protoFusionGirl is a robust, accessible, and scalable 2D side-scroller prototype. These notes focus on ease-of-play, modding ecosystem, performance optimization, and future-proofing, tailored for development on a Mac Mini M2 using Phaser.js, TypeScript, Vite, and Web3/IPFS technologies.
+
+    Ease-of-Play Considerations
+        Guest Mode: Implement a guest mode where players can start the game without a Web3 wallet, using local storage (e.g., browser's localStorage) for temporary progress. Offer optional wallet connection for saving progress or accessing Web3 features like NFTs.
+        Progressive Web App (PWA): Configure the game as a PWA to allow players to "install" it on mobile or desktop without app stores. Use a service worker to cache assets for offline play, ensuring instant access even with poor connectivity.
+        Browser Compatibility: Test the game in Chrome, Firefox, and Safari on macOS and mobile devices to ensure universal access. Avoid WebAssembly or experimental features that may not work in all browsers.
+        Minimal UI: Design a clean, intuitive UI with a start screen, basic controls (arrows for movement, space for jump), and minimal text. Include a skippable tutorial (e.g., tooltips) for new players.
+    Modding Ecosystem Design
+        Mod Metadata Standard: Define a JSON schema for mods (e.g., { name, version, entry, assets: [{ type, cid }] }) stored on IPFS. Validate this schema in mod_loader.ts to ensure compatibility and prevent errors.
+        Mod Types: Support multiple mod types:
+            Content Mods: New sprites, levels, or audio loaded from IPFS.
+            Code Mods: JavaScript/TypeScript plugins to add mechanics (e.g., new abilities).
+            UI Mods: Custom HUD or menus, injectable via Phaser.js scenes.
+        Mod Loader Safety: Use WebAssembly or a sandboxed environment (e.g., iframe) to run mod scripts, preventing malicious code from affecting the game or player data.
+        Community Portal: Plan a web-based portal (hosted on IPFS) for modders to submit CIDs, browse mods, and view documentation. Integrate with the DAO for community approval.
+    Performance Optimization Strategies
+        Asset Compression: Use WebP for images and MP3 for audio to reduce load times. Generate sprite atlases with TexturePacker (installable via npm or macOS) to minimize draw calls.
+        Lazy Loading: Load non-critical assets (e.g., background layers, secondary sprites) only when needed, using Phaser.js's load.on('filecomplete') event.
+        Frame Rate Control: Cap the game at 60 FPS using Phaser.js's game.loop.targetFps. Monitor performance with Chrome DevTools (Performance tab) or Xcode Instruments on macOS for mobile testing.
+        IPFS Optimization: Cache frequently accessed IPFS assets in localStorage or IndexedDB to reduce gateway latency. Implement a fallback to local assets if IPFS requests fail.
+    Web3 Integration Best Practices
+        Wallet UX: Use thirdweb's useConnect hook for seamless wallet connections (e.g., MetaMask, WalletConnect). Display a "Connect Wallet" button only for Web3 features, keeping core gameplay accessible without login.
+        Gas Optimization: Write gas-efficient smart contracts (e.g., use uint256 for IDs, minimize storage writes). Test on Polygon Mumbai to reduce costs, using Hardhat's gas reporter plugin.
+        Security: Validate all user inputs in smart contracts to prevent reentrancy or overflow attacks. Use OpenZeppelin's standard contracts (e.g., ERC721 for NFTs) for reliability.
+        NFT Mods: Allow modders to mint mods as NFTs, with metadata stored on IPFS. Use thirdweb's NFTDrop contract for easy minting and trading.
+    Multi-Platform Deployment Planning
+        Web Deployment: Host the game on IPFS using Pinata for pinning. Use an ENS domain (e.g., fusiongirl.eth) for a memorable URL. Configure a service worker for offline caching.
+        Mobile Deployment: Install Apache Cordova (npm install -g cordova) and use cordova create to package the game for iOS/Android. Test on iOS Simulator via Xcode on your Mac Mini M2.
+        Desktop Deployment: Use Electron (npm install electron) for macOS/Windows/Linux builds. Ensure assets load from IPFS or a local cache to maintain decentralization.
+        Cross-Platform Mods: Standardize mod formats (JSON, TypeScript) to ensure compatibility across platforms. Store platform-specific configs (e.g., mobile touch controls) in separate IPFS files.
+    Future-Proofing for Complexity
+        Procedural Generation: Plan to integrate rot-js (npm install rot-js) for dynamic level generation, similar to Terraria's world creation. Start with simple randomization (e.g., enemy spawn points).
+        Advanced Physics: Use Matter.js (npm install matter-js) for destructible environments or complex collisions, upgradeable from Arcade Physics later.
+        Multiplayer: Prepare for Libp2p integration (npm install libp2p) for decentralized peer-to-peer networking. Start with single-player, adding multiplayer hooks in the codebase.
+        Crafting System: Design a JSON-based crafting system (stored on IPFS) with recipes like { inputs: [{ item, quantity }], output: item }. Allow modders to extend recipes.
+    Community Engagement
+        Modding Tutorials: Create a docs/modding.md file with examples for creating sprites, levels, and code mods. Host on IPFS and share via X to engage modders.
+        DAO Setup: Use Aragon to create a DAO for mod approvals and game updates. Start with a simple voting contract for community governance.
+        Feedback Loop: Integrate a feedback form in the game UI (using Phaser.js text input) that submits to an IPFS-hosted JSON file or a smart contract for community suggestions.
+    Development Workflow Tips
+        Hot-Reloading: Use Vite's npm run dev for instant feedback during development. Restart the server if adding new assets or mods.
+        Debugging: Enable Phaser.js debug mode (physics.arcade.debug = true) for collision testing. Use VS Code's debugger for TypeScript breakpoints.
+        Testing: Write Jest tests for game logic (e.g., npm install -D jest @types/jest ts-jest, then npx jest --init). Test smart contracts with Hardhat (npx hardhat test).
+        Git Practices: Use feature branches (e.g., git checkout -b feature/tilemap) for major changes. Commit frequently with descriptive messages (e.g., git commit -m "Add tilemap to GameScene").
+    Accessibility Enhancements
+        Touch Controls: Add virtual buttons for mobile (e.g., Phaser.js's input.addPointer for touch events) to complement keyboard controls.
+        Localization: Prepare a JSON-based language file (e.g., assets/languages/en.json) on IPFS for future translations, supporting community contributions.
+        Performance Monitoring: Log load times and FPS to the console during development to ensure website-like speed.
+    Resources Not Previously Mentioned
+
+    TexturePacker: https://www.codeandweb.com/texturepacker for sprite atlases.
+    rot-js: https://github.com/ondras/rot.js for procedural generation.
+    OpenZeppelin: https://openzeppelin.com for secure smart contracts.
+    Phaser.js Examples: https://phaser.io/examples for side-scroller mechanics.
+    Web3.js: https://web3js.readthedocs.io as an alternative to thirdweb.
+
+Tasks for Copilot:
+
+    // TODO: Add touch controls for mobile in GameScene.ts
+    // TODO: Implement a JSON-based tilemap in GameScene.ts
+    // TODO: Create a sample mod JSON file and load it in mod_loader.ts
+    // TODO: Add a Web3 wallet connect button to the start screen
+    // TODO: Write Jest test for player movement in GameScene.test.ts
+    // TODO: Create a sample Solidity contract for mod registry in contracts/ModRegistry.sol
+
+Notes:
+
+    Ensure all code uses TypeScript with strict typing (--strict in tsconfig.json).
+    Prioritize rapid prototyping, adding Web3/IPFS incrementally.
+    Test in Chrome and Safari on macOS to ensure browser compatibility.
+    Share progress on X (@Jono_Thora) to engage the community.
+    Reference this section for all Copilot tasks to maintain consistency.
+
+Appended Section for protoFusionGirl Project Prompt: Additional Notes and Details
+
+Project Context Clarifications:
+The FusionGirl franchise emphasizes a futuristic, possibly cyberpunk aesthetic with narrative elements that may involve player-driven stories or community lore. protoFusionGirl should reflect this through placeholder art (e.g., neon-styled sprites) and a simple story hook (e.g., a hero navigating a decentralized digital world). The prototype’s gameplay should be extensible to include mechanics like crafting, inventory systems, or NPC interactions, preparing for Terraria/RimWorld-like complexity. The Web3 environment implies players may own in-game assets as NFTs, so the prototype should include a proof-of-concept for NFT integration (e.g., a collectible item).
+
+Development Environment Details:
+
+    Mac Mini M2 has 8-core CPU, 10-core GPU, and at least 8GB RAM (assumed base model). Ensure Node.js is version 18 or higher for optimal ARM performance. Use npm 8+ to avoid dependency issues.
+    Install Homebrew if not present for easy package management: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)".
+    VS Code should use the latest ARM64 build. Recommended settings: editor.formatOnSave=true, typescript.validate.enable=true, eslint.codeActionsOnSave=true.
+    Configure Git with a global .gitignore to exclude macOS-specific files (e.g., .DS_Store): echo ".DS_Store" >> ~/.gitignore_global; git config --global core.excludesfile ~/.gitignore_global.
+
+Asset Management:
+
+    Create a sample sprite sheet in src/assets/spritesheet.png using tools like Aseprite (https://www.aseprite.org, $19.99, trial available) or free alternatives like Piskel (https://www.piskelapp.com). Example: 32x32 pixel player sprite with idle, run, jump animations (4 frames each).
+    Generate audio placeholders with Audacity (https://www.audacityteam.org, free) for background music (loopable WAV) and sound effects (e.g., jump.wav). Store in src/assets/audio.
+    Use TexturePacker (https://www.codeandweb.com/texturepacker, free version available) to create sprite atlases, reducing draw calls. Example command: texturepacker --format phaser --data src/assets/spritesheet.json --sheet src/assets/spritesheet.png src/assets/*.png.
+    Plan for IPFS-hosted assets in production. Upload a sample sprite to Pinata (sign up at https://pinata.cloud, free tier) to get a CID for testing in GameScene.ts preload.
+
+Gameplay Enhancements:
+
+    Add a camera follow system in GameScene.ts to track the player in a larger level: this.cameras.main.startFollow(player, true, 0.1, 0.1).
+    Implement a basic HUD (heads-up display) with Phaser.Text for health or score: this.add.text(10, 10, 'Health: 100', { fontSize: '16px', color: '#fff' }).
+    Plan for a level transition system using Phaser’s scene management. Example: create src/scenes/Level2.ts, switch with this.scene.start('Level2').
+    Include a pause menu: this.scene.pause() on ESC key, with a resume button (Phaser.GameObjects.Rectangle + Text).
+
+Web3 Nuances:
+
+    Use thirdweb’s React hooks for UI integration (e.g., wallet connect button). Install: npm install @thirdweb-dev/react. Example: import { ConnectWallet } from '@thirdweb-dev/react'; add to a UI scene.
+    Design a sample NFT for a unique player skin. Example contract: create ERC-721 token with metadata stored on IPFS (name, description, image CID).
+    Test Web3 features on Polygon Mumbai testnet. Get test MATIC from a faucet (e.g., https://mumbaifaucet.com). Use Alchemy (https://www.alchemy.com) for a free Polygon node.
+    Handle wallet connection errors gracefully (e.g., no MetaMask installed). Show a fallback message: this.add.text(400, 300, 'Please install MetaMask', { fontSize: '20px', color: '#f00' }).
+
+IPFS Considerations:
+
+    Cache IPFS assets locally to reduce latency. Use localStorage for small assets: localStorage.setItem('playerSprite', JSON.stringify(modData)).
+    Handle IPFS gateway downtime by falling back to multiple gateways (e.g., ipfs.io, dweb.link). Example: try ipfs.io, catch and retry with dweb.link.
+    Validate mod security: check modData for malicious scripts (e.g., reject eval() usage). Use a whitelist of allowed file types (.png, .json, .js).
+
+Modding Framework Details:
+
+    Define a mod JSON schema: { name: string, version: string, entry: string, assets: { key: string, cid: string }[] }. Validate in mod_loader.ts.
+    Allow mods to register new Phaser scenes. Example: mod script exports a class extending Phaser.Scene, added via this.scene.add(modData.name, modScene).
+    Create a modding tutorial in docs/modding.md: explain how to create a mod (sprite + script), upload to IPFS, register via smart contract.
+    Plan for a mod marketplace UI in a future scene (e.g., src/scenes/ModMarket.ts), fetching mod metadata from the smart contract.
+
+Performance Optimization:
+
+    Limit physics calculations: set player.maxVelocity = { x: 300, y: 500 }.
+    Use Phaser’s object pooling for enemies/projectiles: this.enemies = this.add.group({ classType: Enemy, maxSize: 50 }).
+    Enable WebGL in Phaser config: type=Phaser.WEBGL if Canvas fallback isn’t needed.
+    Compress assets: convert PNGs to WebP (npm install imagemin-webp), MP3s to OGG for smaller sizes.
+
+Testing Strategy:
+
+    Write Jest tests for utility functions (e.g., mod validation). Example: test('validates mod structure', () => expect(validateMod({ name: 'Test', version: '1.0', entry: 'script.js' })).toBe(true)).
+    Mock IPFS responses with jest-fetch-mock (npm install jest-fetch-mock) to test mod_loader.ts offline.
+    Test smart contracts with Hardhat’s local node: npx hardhat node, npx hardhat test.
+    Manually test on multiple browsers (Safari, Chrome, Firefox) on macOS to ensure compatibility.
+
+Multi-Platform Planning:
+
+    Add touch controls for mobile: use Phaser’s input system (this.input.on('pointerdown', () => player.setVelocityY(-350))).
+    Configure Cordova for mobile builds: cordova create mobile-build; cordova platform add ios android. Test with Xcode on your Mac Mini.
+    Use Electron for desktop: electron-forge init desktop-build; npm install electron. Ensure IPFS assets load in packaged apps.
+    Test responsive design: set Phaser config scale.mode=Phaser.Scale.FIT, scale.autoCenter=Phaser.Scale.CENTER_BOTH.
+
+Community Engagement:
+
+    Create a GitHub README.md with setup instructions, gameplay overview, and modding guide. Example: echo "# protoFusionGirl\n2D side-scroller prototype\n## Setup\nnpm install; npm run dev" > README.md.
+    Plan for a community Discord or X account (https://x.com) to share IPFS CIDs and gather feedback. Example post: "Try protoFusionGirl at https://ipfs.io/ipfs/<cid>! Modders, share your creations."</cid>
+    Use GitHub Issues for feature requests and bug tracking: gh issue create --title "Add enemy AI" --body "Implement basic enemy patrol logic."
+
+Error Handling:
+
+    Add a global error boundary in main.ts: window.addEventListener('error', (e) => console.error('Game error:', e.message)).
+    Handle Phaser scene crashes: wrap create/update in try-catch, log errors to console.
+    Ensure Web3 errors don’t break gameplay: if wallet connection fails, default to guest mode.
+
+Future Features:
+
+    Add a crafting system: store recipes as JSON on IPFS (e.g., { input: [{ item: 'wood', qty: 2 }], output: 'sword' }).
+    Implement procedural generation with rot-js (npm install rot-js): generate random level layouts like Terraria.
+    Plan for save states stored on IPFS or blockchain: serialize player data (position, inventory) as JSON, upload to IPFS.
+    Add achievements as NFTs: mint ERC-721 tokens for milestones (e.g., "Defeated Boss 1").
+
+Debugging Tips:
+
+    Enable Phaser debug mode for development: physics.arcade.debug=true in config.
+    Use VS Code debugger: create .vscode/launch.json with { "type": "node", "request": "launch", "program": "${workspaceFolder}/node_modules/vite/bin/vite.js" }.
+    Log IPFS fetch times to optimize gateways: console.time('IPFS'); await fetch(...); console.timeEnd('IPFS').
+
+Security Notes:
+
+    Sanitize mod scripts to prevent XSS: use a library like sanitize-html (npm install sanitize-html) for dynamic content.
+    Avoid storing sensitive data (e.g., wallet private keys) in the client. Use thirdweb’s secure wallet management.
+    Plan for smart contract audits with tools like Mythril (https://github.com/ConsenSys/mythril) in production.
+
+Localization:
+
+    Prepare for multi-language support: store strings in src/assets/lang/en.json (e.g., { "welcome": "Welcome to protoFusionGirl" }), load with Phaser’s text system.
+    Use navigator.language to detect player locale and switch JSON files.
+
+Analytics:
+
+    Add basic telemetry for prototype feedback: track playtime, level completion with a custom event system (e.g., this.events.emit('level_complete', { level: 1 })).
+    Store anonymized data on IPFS for community analysis, ensuring privacy compliance.
+
+Dependencies to Watch:
+
+    Monitor Phaser.js updates (check https://github.com/phaserjs/phaser/releases) for WebGL2 support or performance improvements.
+    Ensure thirdweb SDK compatibility with Polygon upgrades: check https://thirdweb.com/changelog.
+    Update ipfs-http-client if Infura deprecates free tier: consider Kubo (https://github.com/ipfs/kubo) as a local IPFS node.
+
+Initial Tasks for Copilot:
+
+    // TODO: Add a scrolling background in GameScene.ts with parallax effect
+    // TODO: Implement a health bar UI above the player sprite
+    // TODO: Create a sample mod JSON file and load it in mod_loader.ts
+    // TODO: Add a Web3 button to connect MetaMask in a new UI scene
+    // TODO: Write Jest test for mod_loader.ts validateMod function
+    // TODO: Configure .eslintrc.json for strict TypeScript rules

@@ -1,0 +1,9 @@
+// sample_mod.json - Example mod metadata for protoFusionGirl
+{
+  "name": "SampleEnemyMod",
+  "version": "1.0.0",
+  "entry": "QmSampleEnemyScriptCID", // Replace with actual IPFS CID for the mod script
+  "assets": [
+    { "type": "sprite", "cid": "QmSampleEnemySpriteCID" } // Replace with actual IPFS CID for the sprite
+  ]
+}
