@@ -1,0 +1,52 @@
+.
+├── .eslintrc.json
+├── .gitignore
+├── contracts
+│   ├── Lock.sol
+│   └── ModRegistry.sol
+├── coverage
+│   ├── clover.xml
+│   ├── coverage-final.json
+│   ├── lcov-report
+│   │   ├── base.css
+│   │   ├── block-navigation.js
+│   │   ├── favicon.png
+│   │   ├── index.html
+│   │   ├── mod_loader.ts.html
+│   │   ├── prettify.css
+│   │   ├── prettify.js
+│   │   ├── sort-arrow-sprite.png
+│   │   └── sorter.js
+│   └── lcov.info
+├── directory-structure.txt
+├── hardhat.config.cjs
+├── ignition
+│   └── modules
+│       └── Lock.js
+├── index.html
+├── jest.config.ts
+├── package-lock.json
+├── package.json
+├── public
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   ├── counter.ts
+│   ├── main.ts
+│   ├── mods
+│   │   ├── mod_loader.test.ts
+│   │   ├── mod_loader.ts
+│   │   └── sample_mod.json
+│   ├── scenes
+│   │   ├── GameScene.ts
+│   │   └── StartScene.ts
+│   ├── style.css
+│   ├── typescript.svg
+│   ├── vite-env.d.ts
+│   └── web3.ts
+├── test
+│   └── Lock.js
+└── tsconfig.json
+
+12 directories, 38 files

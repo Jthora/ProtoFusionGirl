@@ -13,6 +13,32 @@
 
 // Remove TypeScript interfaces for CommonJS Jest compatibility
 
+import { z } from 'zod';
+
+// Zod schema for mod validation
+export const ModAssetSchema = z.object({
+  key: z.string(),
+  cid: z.string(),
+});
+
+export const ModSchema = z.object({
+  name: z.string(),
+  version: z.string(),
+  entry: z.string(),
+  assets: z.array(ModAssetSchema).optional(),
+  description: z.string().optional(),
+});
+
+/**
+ * Utility: Validate mod metadata structure using zod.
+ * @param {any} modData - The mod metadata to validate.
+ * @returns {boolean} True if the metadata is valid, false otherwise.
+ */
+export function validateMod(modData: unknown): boolean {
+  const result = ModSchema.safeParse(modData);
+  return result.success;
+}
+
 /**
  * Loads a mod from IPFS using the given CID.
  * @param {string} cid - The CID of the mod to load.
@@ -22,11 +48,8 @@ async function loadModFromIPFS(cid) {
   try {
     const response = await fetch(`https://ipfs.io/ipfs/${cid}`);
     const modData = await response.json();
-    if (!modData.name || !modData.version || !modData.entry) {
-      throw new Error('Invalid mod metadata: missing required fields');
-    }
-    if (modData.assets && !Array.isArray(modData.assets)) {
-      throw new Error('Invalid mod metadata: assets must be an array');
+    if (!validateMod(modData)) {
+      throw new Error('Invalid mod metadata: schema validation failed');
     }
     const scriptUrl = `https://ipfs.io/ipfs/${modData.entry}`;
     const script = document.createElement('script');
@@ -39,19 +62,24 @@ async function loadModFromIPFS(cid) {
   }
 }
 
-/**
- * Utility: Validate mod metadata structure.
- * @param {any} modData - The mod metadata to validate.
- * @returns {boolean} True if the metadata is valid, false otherwise.
- */
-function validateMod(modData) {
-  return (
-    typeof modData === 'object' &&
-    typeof modData.name === 'string' &&
-    typeof modData.version === 'string' &&
-    typeof modData.entry === 'string' &&
-    (modData.assets === undefined || Array.isArray(modData.assets))
-  );
+import sampleMod from './sample_mod.json';
+
+export function loadSampleMod() {
+  if (!validateMod(sampleMod)) {
+    console.error('Invalid mod schema:', sampleMod);
+    return;
+  }
+  // Log mod info
+  console.log(`Loading mod: ${sampleMod.name} v${sampleMod.version}`);
+  // Load assets from IPFS (mocked: just log CIDs)
+  sampleMod.assets.forEach(asset => {
+    console.log(`Would load asset key: ${asset.key}, CID: ${asset.cid}`);
+    // In production, fetch from IPFS and add to game cache
+  });
+  // Simulate loading mod script (entry)
+  console.log(`Would load mod script from IPFS: ${sampleMod.entry}`);
+  // In production, dynamically load and execute the mod script
 }
 
-module.exports = { loadModFromIPFS, validateMod };
+// Optionally, call loadSampleMod() for testing
+// loadSampleMod();

@@ -1,9 +1,12 @@
-// sample_mod.json - Example mod metadata for protoFusionGirl
 {
-  "name": "SampleEnemyMod",
+  "name": "Sample Enemy Mod",
   "version": "1.0.0",
-  "entry": "QmSampleEnemyScriptCID", // Replace with actual IPFS CID for the mod script
+  "entry": "enemy_mod.js",
   "assets": [
-    { "type": "sprite", "cid": "QmSampleEnemySpriteCID" } // Replace with actual IPFS CID for the sprite
-  ]
+    {
+      "key": "enemySprite",
+      "cid": "bafybeibwzif2w3k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2"
+    }
+  ],
+  "description": "Adds a new enemy sprite loaded from IPFS and spawns it in the level."
 }

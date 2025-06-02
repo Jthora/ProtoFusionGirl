@@ -358,3 +358,155 @@ Initial Tasks for Copilot:
     // TODO: Add a Web3 button to connect MetaMask in a new UI scene
     // TODO: Write Jest test for mod_loader.ts validateMod function
     // TODO: Configure .eslintrc.json for strict TypeScript rules
+
+// === Next Phase Instructions: Web3, Modding, and Project Expansion (Expanded) ===
+
+Next Phase: Web3 Integration, Modding, Architecture, and Design Expansion
+
+1. Web3 Smart Contract Integration & Architecture
+    - Deploy ModRegistry.sol to Polygon Mumbai using Hardhat. Save the deployed address and ABI for frontend use.
+    - In src/web3.ts, add:
+        * registerMod(name, version, ipfsCID): Registers a mod on-chain.
+        * getModCount(): Returns the number of registered mods.
+        * getMod(modId): Returns mod metadata (name, version, ipfsCID, owner).
+        * fetchAllMods(): Helper to fetch all mods for UI display.
+    - Use ethers.js for contract calls, but abstract contract logic into a service layer (e.g., src/services/ModRegistryService.ts) for testability and separation of concerns.
+    - Implement a global Web3 context/provider for wallet state, connection, and error handling. Use React context if you migrate to React, or a singleton pattern for vanilla/Phaser.
+    - Add support for multiple wallet providers (MetaMask, WalletConnect, Coinbase Wallet) for broader accessibility.
+    - Store the last connected wallet in localStorage for auto-reconnect UX.
+    - Add a utility to detect network and prompt user to switch to Polygon Mumbai if needed.
+    - Implement a guest mode fallback: if wallet connection fails, allow play with limited features and prompt to connect for Web3 actions.
+    - Add a UI for contract/network errors, with retry and troubleshooting links.
+    - Plan for contract upgrades: use OpenZeppelin's upgradeable contracts or proxy pattern for future-proofing.
+    - Document contract addresses, ABIs, and network info in a versioned JSON (e.g., src/contracts/addresses.json) for easy frontend updates.
+
+2. Mod Loader, Dynamic Content, and Plugin System
+    - Expand mod_loader.ts:
+        * fetchModListFromChain(): Loads mod CIDs from ModRegistry.
+        * fetchModJsonFromIPFS(cid): Loads mod JSON from IPFS.
+        * validateModSchema(mod): Strongly validate against a JSON schema (use ajv or zod for runtime validation).
+        * loadModAssets(mod): Fetches and caches assets (sprites, audio) from IPFS, with IndexedDB/localStorage fallback.
+        * loadModScript(mod): Loads and executes mod entry script in a sandboxed iframe or Web Worker for security.
+        * registerModScene(mod): If mod exports a Phaser.Scene, add it to the game dynamically.
+    - Design a plugin API for mods:
+        * Expose hooks: onInit, onUpdate, onPlayerJoin, onEnemySpawn, etc.
+        * Allow mods to register new entities, UI elements, or mechanics.
+        * Document a safe subset of the game API for mods (no direct DOM access, no eval, etc.).
+    - Add a mod management UI:
+        * List mods from chain/IPFS, show metadata, enable/disable mods.
+        * Allow users to submit new mods (with wallet signature for authenticity).
+        * Show mod status (active, error, update available).
+    - Implement mod versioning and compatibility checks (e.g., mod.version >= game.minModVersion).
+    - Plan for mod dependency resolution (mods can require other mods, with version constraints).
+    - Add mod signature verification (optional): mods can be signed by their authors, and the signature can be checked on load.
+    - Store mod load errors and logs for debugging (in localStorage or a debug overlay).
+
+3. NFT, Asset Ownership, and Marketplace (Advanced)
+    - Integrate thirdweb's NFTDrop or custom ERC-721 contract for mod/item NFTs.
+    - Add UI to mint, view, and transfer NFTs. Show owned NFTs in a player inventory.
+    - Allow NFT-based mods: only users who own a specific NFT can activate certain mods.
+    - Store NFT metadata (name, description, image, mod CID) on IPFS. Use a metadata schema compatible with OpenSea/thirdweb.
+    - Add a marketplace UI for trading NFTs (mods, skins, items) using thirdweb or OpenSea APIs.
+    - Implement lazy minting for NFTs to reduce gas costs (mint on first transfer/use).
+    - Add NFT gating for special content (e.g., expansion packs, rare skins).
+    - Plan for cross-game NFT compatibility (e.g., FusionGirl NFTs usable in other games).
+    - Add NFT event listeners: update UI in real time when NFTs are transferred or burned.
+
+4. Community, DAO, and Governance
+    - Integrate Aragon or Snapshot for DAO voting on mod approval, feature requests, and governance.
+    - Add a proposal UI: users can submit proposals (e.g., "Add new enemy mod"), and DAO members can vote.
+    - Store proposal metadata on IPFS for transparency and decentralization.
+    - Add a feedback form in-game (Phaser text input or modal) that submits suggestions to IPFS or a smart contract.
+    - Display community stats: number of mods, active players, DAO proposals, etc.
+    - Plan for community moderation: allow DAO to flag or remove malicious/incompatible mods.
+    - Add a Discord/X integration for real-time community updates and mod sharing.
+    - Document all governance processes in docs/governance.md.
+
+5. Testing, Security, and Quality Assurance
+    - Write Hardhat tests for ModRegistry.sol:
+        * Test mod registration, duplicate prevention, retrieval, and edge cases.
+        * Test access control (only owner can update/delete mods, if implemented).
+        * Test contract upgradeability (if using proxies).
+    - Add Jest tests for:
+        * Web3 utility functions (wallet connect, contract calls).
+        * Mod loader logic (schema validation, asset loading, error handling).
+        * Plugin API (mock mods, test hooks and lifecycle).
+    - Use jest-fetch-mock to mock IPFS and contract responses for offline testing.
+    - Add e2e tests for mod registration and activation (using Cypress or Playwright).
+    - Use ESLint and Prettier for code quality, with strict TypeScript settings.
+    - Add a security review checklist:
+        * Sanitize all mod content (use sanitize-html for dynamic HTML/text).
+        * Restrict mod API surface (no eval, no direct DOM access, no network requests outside IPFS/gateway).
+        * Monitor dependencies for vulnerabilities (npm audit, Snyk).
+        * Plan for bug bounty or responsible disclosure process.
+    - Add a debug overlay in-game (toggleable) to show FPS, mod load status, Web3/network state, and errors.
+    - Log all mod load and contract errors to a central error handler (with user-friendly messages).
+
+6. Multi-Platform, Performance, and UX
+    - Test wallet connection, mod loading, and gameplay on Chrome, Safari, Firefox, and mobile browsers.
+    - Profile asset and mod loading with Chrome DevTools, optimize for fast startup (lazy load, cache, compress assets).
+    - Use TexturePacker for sprite atlases, and convert PNGs to WebP for smaller downloads.
+    - Add a service worker for offline/PWA support (cache assets, mods, and UI for instant load).
+    - Implement responsive UI scaling (Phaser.Scale.FIT, autoCenter, mobile touch controls).
+    - For Cordova/Electron:
+        * Test wallet and mod features in packaged apps.
+        * Add platform-specific configs (e.g., mobile touch controls, desktop hotkeys).
+        * Ensure IPFS assets load in offline/packaged mode (fallback to local cache if needed).
+    - Add a settings UI for graphics, controls, and accessibility (colorblind mode, font size, etc.).
+    - Log load times, FPS, and mod activation times to the console and optionally to IPFS for analytics.
+    - Add a loading/progress bar for asset and mod loading.
+    - Plan for save states: serialize player data (position, inventory, mods) and store on IPFS or blockchain.
+    - Add achievements and leaderboards (optionally as NFTs or on-chain data).
+
+7. Documentation, Developer Experience, and Onboarding
+    - Expand README.md with:
+        * Setup, build, and deployment instructions for all platforms.
+        * Modding guide (how to create, test, and submit mods).
+        * Web3 guide (wallet setup, contract addresses, troubleshooting).
+        * Contribution guidelines and code of conduct.
+    - Create docs/modding.md:
+        * Mod JSON schema, asset requirements, plugin API reference.
+        * Example mods (sprite mod, code mod, UI mod).
+        * How to upload mods to IPFS and register on-chain.
+    - Create docs/web3.md:
+        * Contract addresses, ABI, and usage examples.
+        * How to interact with the ModRegistry contract from the frontend.
+        * Security best practices for Web3 users.
+    - Add in-game tooltips and a skippable tutorial for new players.
+    - Add a developer console (toggleable) for mod/script debugging.
+    - Plan for localization: store all UI strings in JSON, support multiple languages, and allow community translations.
+    - Add a changelog and versioning for both the game and mod API.
+    - Document all architectural decisions in docs/architecture.md (e.g., why Phaser, why thirdweb, plugin API design).
+
+8. Advanced Architecture, Extensibility, and Future-Proofing
+    - Modularize the codebase:
+        * Separate core engine, mod loader, Web3, and UI into distinct modules/services.
+        * Use dependency injection or service locator pattern for testability and flexibility.
+    - Plan for multiplayer:
+        * Integrate Libp2p for peer-to-peer networking (start with lobby/discovery, then sync gameplay state).
+        * Design a multiplayer API for mods (onPlayerJoin, onSync, etc.).
+        * Add anti-cheat and validation logic for multiplayer mods.
+    - Plan for procedural generation:
+        * Use rot-js for random level layouts, enemy spawns, and loot tables.
+        * Allow mods to extend procedural generation logic via hooks.
+    - Add a crafting system:
+        * Store recipes as JSON on IPFS, allow mods to add new recipes.
+        * Add a crafting UI and integrate with inventory system.
+    - Plan for expansion packs as NFTs:
+        * Expansion mods can be minted/traded as NFTs, with on-chain gating for access.
+    - Add analytics and telemetry:
+        * Track playtime, mod usage, errors, and feedback (store anonymized data on IPFS or a privacy-compliant backend).
+        * Add opt-in analytics toggle in settings.
+    - Plan for smart contract upgrades and migration:
+        * Use proxy pattern or versioned contracts for future upgrades.
+        * Document upgrade/migration process for users and modders.
+    - Add a plugin marketplace UI:
+        * Fetch mod/plugin metadata from chain/IPFS, allow install/activate/deactivate.
+        * Show ratings, reviews, and compatibility info.
+    - Plan for cross-game interoperability:
+        * Allow mods, NFTs, and assets to be used in other FusionGirl or partner games.
+        * Use standard metadata schemas and open APIs.
+    - Add a bug bounty and responsible disclosure program for security.
+    - Plan for legal/compliance (NFTs, user data, mod content, copyright, etc.).
+
+// === End Next Phase Instructions (Expanded) ===

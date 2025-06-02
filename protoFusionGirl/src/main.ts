@@ -1,6 +1,7 @@
 import './style.css'
 import Phaser from 'phaser';
 import GameScene from './scenes/GameScene';
+import { StartScene } from './scenes/StartScene';
 
 const appDiv = document.querySelector<HTMLDivElement>('#app');
 if (appDiv) appDiv.innerHTML = '';
@@ -17,7 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: true, // Enable for development
     },
   },
-  scene: [GameScene],
+  scene: [StartScene, GameScene],
   backgroundColor: '#222',
 };
 

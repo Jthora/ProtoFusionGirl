@@ -1,6 +1,5 @@
 // Jest test for validateMod function in mod_loader.ts
-// Use CommonJS require for Jest compatibility
-const { validateMod } = require('./mod_loader');
+import { validateMod } from './mod_loader';
 
 describe('validateMod', () => {
   it('validates correct mod metadata', () => {
@@ -9,7 +8,7 @@ describe('validateMod', () => {
       version: '1.0.0',
       entry: 'QmTestEntryCID',
       assets: [
-        { type: 'sprite', cid: 'QmTestSpriteCID' }
+        { key: 'sprite', cid: 'QmTestSpriteCID' }
       ]
     };
     expect(validateMod(validMod)).toBe(true);
@@ -31,5 +30,44 @@ describe('validateMod', () => {
       assets: 'not-an-array'
     };
     expect(validateMod(invalidMod)).toBe(false);
+  });
+
+  it('should validate a correct mod structure with optional description', () => {
+    const validMod = {
+      name: 'Test Mod',
+      version: '1.0.0',
+      entry: 'test.js',
+      assets: [],
+      description: 'A test mod.'
+    };
+    expect(validateMod(validMod)).toBe(true);
+  });
+
+  it('should reject a mod missing required fields', () => {
+    const invalidMod = {
+      version: '1.0.0',
+      entry: 'test.js',
+      assets: []
+    };
+    expect(validateMod(invalidMod)).toBe(false);
+  });
+
+  it('should reject a mod with invalid asset structure', () => {
+    const invalidMod = {
+      name: 'BadAssetMod',
+      version: '1.0.0',
+      entry: 'bad.js',
+      assets: [{ cid: 'QmTest' }] // missing key
+    };
+    expect(validateMod(invalidMod)).toBe(false);
+  });
+
+  it('should accept a mod with no assets', () => {
+    const validMod = {
+      name: 'NoAssetsMod',
+      version: '1.0.0',
+      entry: 'noassets.js'
+    };
+    expect(validateMod(validMod)).toBe(true);
   });
 });
