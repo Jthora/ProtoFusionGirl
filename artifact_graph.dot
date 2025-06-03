@@ -1,0 +1,25 @@
+digraph ArtifactGraph {
+  "ai_onboarding_2025-06-03.artifact" [style=filled, fillcolor=green];
+  "artifact_index.artifact" [style=filled, fillcolor=blue];
+  "combat_mechanics.artifact" [style=filled, fillcolor=orange];
+  "copilot_advanced_todos_2025-06-03.artifact" [style=filled, fillcolor=red];
+  "copilot_build_instructions_2025-06-03.artifact" [style=filled, fillcolor=orange];
+  "copilot_memory.artifact" [style=filled, fillcolor=purple];
+  "copilot_next_steps_2025-06-03.artifact" [style=filled, fillcolor=red];
+  "copilot_next_steps_2025-06-03_20250603T194710.artifact" [style=filled, fillcolor=red];
+  "copilot_todos_2025-06-03.artifact" [style=filled, fillcolor=red];
+  "directory_structure_2025-06-03.artifact" [style=filled, fillcolor=blue];
+  "feedback_2025-06-03.artifact" [style=filled, fillcolor=gray];
+  "phase1_brainstorm.artifact" [style=filled, fillcolor=orange];
+  "project_state_2025-06-03.artifact" [style=filled, fillcolor=blue];
+  "retrospective_tilemap_2025-06-03.artifact" [style=filled, fillcolor=gray];
+  "test_artifact_2025-06-03.artifact" [style=filled, fillcolor=orange];
+  "test_results_2025-06-03.artifact" [style=filled, fillcolor=orange];
+  "tilemap_system_design.artifact" [style=filled, fillcolor=orange];
+  "ai_onboarding_2025-06-03.artifact" -> "copilot_memory.artifact";
+  "ai_onboarding_2025-06-03.artifact" -> "artifact_index.artifact";
+  "copilot_advanced_todos_2025-06-03.artifact" -> "copilot_memory.artifact";
+  "copilot_advanced_todos_2025-06-03.artifact" -> "artifact_index.artifact";
+  "copilot_build_instructions_2025-06-03.artifact" -> "artifact_index.artifact";
+  "copilot_memory.artifact" -> "artifact_index.artifact";
+}

@@ -1,0 +1,53 @@
+---
+artifact: ai_onboarding_2025-06-03
+created: 2025-06-03
+purpose: Onboarding guide and checklist for new AI or human agents joining the ProtoFusionGirl project. Summarizes artifact types, key scripts, onboarding flow, and "start here" pointers.
+type: onboarding
+tags: [onboarding, ai, checklist, artifact, workflow, discoverability]
+format: markdown
+related: [copilot_advanced_todos_2025-06-03.artifact, copilot_memory.artifact, .primer, artifact_index.artifact]
+---
+
+# AI Onboarding Artifact (2025-06-03)
+
+Welcome! This artifact is your starting point for understanding and contributing to the ProtoFusionGirl project as an AI or human agent.
+
+## Artifact Types & Their Roles
+- **Design:** System blueprints, pseudocode, and architecture (e.g., `tilemap_system_design.artifact`)
+- **Feedback/Retrospective:** Blockers, insights, and lessons learned (e.g., `feedback_2025-06-03.artifact`)
+- **TODO/Next Steps:** Actionable tasks and project priorities (e.g., `copilot_next_steps_2025-06-03.artifact`)
+- **Index/Directory:** Artifact manifest and project structure snapshots (e.g., `artifact_index.artifact`, `directory_structure_*.artifact`)
+- **Memory:** Persistent context, heuristics, and lessons for AI agents (e.g., `copilot_memory.artifact`)
+- **Onboarding:** This artifact and the primer
+
+## Key Scripts for Automation
+- `generateArtifactIndex.js` — Update artifact index
+- `snapshotDirectory.js` — Save directory structure snapshot
+- `listScripts.js` — List all scripts
+- `searchArtifacts.js` — Search artifacts by tag/type/keyword
+- `listArtifactRelations.js` — Show artifact relationship map
+- `versionArtifact.js` — Version an artifact
+- `listOrDiffArtifactVersions.js` — List/diff artifact versions
+- `checkArtifactCodeSync.js` — Check code/artifact references
+- `updatePrimer.js` — Update onboarding primer
+
+## Onboarding Flow (Checklist)
+1. **Read this artifact and `.primer`** for project context and conventions.
+2. **Run `node scripts/listScripts.js`** to see available automation tools.
+3. **Review `artifact_index.artifact`** for a manifest of all artifacts.
+4. **Run `node scripts/checkArtifactCodeSync.js`** to verify code/artifact linkage.
+5. **Explore recent artifacts and directory snapshots** for current project state.
+6. **Expand `copilot_memory.artifact`** as you learn new heuristics or context.
+7. **Reference artifacts in code and keep cross-links up to date.**
+8. **Use feedback/retrospective scripts** to log blockers, insights, and lessons.
+
+## “Start Here” Pointers
+- `.primer` — High-level overview and onboarding
+- `artifact_index.artifact` — Artifact manifest
+- `copilot_next_steps_2025-06-03.artifact` — Next-step TODOs
+- `copilot_memory.artifact` — Persistent AI memory
+- This artifact — Onboarding flow and checklist
+
+---
+
+(End of artifact)

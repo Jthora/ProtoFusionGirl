@@ -1,0 +1,176 @@
+---
+artifact: artifact_index
+created: 2025-06-03
+purpose: Manifest and metadata index for all artifacts in the folder.
+type: index
+tags: [index, manifest, automation]
+format: json
+---
+
+[
+  {
+    "filename": "ai_onboarding_2025-06-03.artifact",
+    "artifact": "ai_onboarding_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Onboarding guide and checklist for new AI or human agents joining the ProtoFusionGirl project. Summarizes artifact types, key scripts, onboarding flow, and \"start here\" pointers.",
+    "type": "onboarding",
+    "tags": "[onboarding, ai, checklist, artifact, workflow, discoverability]",
+    "format": "markdown",
+    "related": "[copilot_advanced_todos_2025-06-03.artifact, copilot_memory.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+  },
+  {
+    "filename": "combat_mechanics.artifact",
+    "artifact": "combat_mechanics",
+    "created": "2025-06-03",
+    "purpose": "Combat system logic, balancing notes, and sample data for ProtoFusionGirl.",
+    "type": "design",
+    "tags": "[combat, balancing, json]",
+    "format": "json + markdown",
+    "related": "["
+  },
+  {
+    "filename": "copilot_advanced_todos_2025-06-03.artifact",
+    "artifact": "copilot_advanced_todos_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Advanced TODOs and recommendations for closing cracks, edge cases, and optimizing AI/human onboarding and artifact-driven workflows.",
+    "type": "todo",
+    "format": "markdown",
+    "tags": "[todo, advanced, ai, onboarding, artifact, workflow, context, edge-case]",
+    "related": "[copilot_next_steps_2025-06-03.artifact, copilot_memory.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+  },
+  {
+    "filename": "copilot_build_instructions_2025-06-03.artifact",
+    "artifact": "copilot_build_instructions_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Step-by-step instructions for GitHub Copilot (or any AI agent) to build, maintain, and optimize the ProtoFusionGirl artifact-driven, automation-first workflow.",
+    "type": "instructions",
+    "format": "markdown",
+    "tags": "[instructions, build, ai, copilot, automation, artifact, onboarding, dashboard]",
+    "related": "[protoFusionGirl.primer, artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, project_dashboard.js]"
+  },
+  {
+    "filename": "copilot_memory.artifact",
+    "artifact": "copilot_memory",
+    "created": "2025-06-03",
+    "purpose": "Persistent, high-value memory and heuristics for the Copilot/AI agent. Stores lessons, context, and reusable strategies for automation, onboarding, and project optimization.",
+    "type": "memory",
+    "tags": "[memory, ai, context, heuristics, onboarding, automation]",
+    "format": "markdown",
+    "related": "[copilot_next_steps_2025-06-03.artifact, copilot_todos_2025-06-03.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+  },
+  {
+    "filename": "copilot_next_steps_2025-06-03.artifact",
+    "artifact": "copilot_next_steps_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Next-step TODOs for verifying, expanding, and optimizing Copilot/AI agent functional capacity, memory, and automation in the project.",
+    "type": "todo",
+    "tags": "[todo, automation, artifact, ai, workflow, memory, next-steps]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "copilot_next_steps_2025-06-03_20250603T194710.artifact",
+    "artifact": "copilot_next_steps_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Next-step TODOs for verifying, expanding, and optimizing Copilot/AI agent functional capacity, memory, and automation in the project.",
+    "type": "todo",
+    "tags": "[todo, automation, artifact, ai, workflow, memory, next-steps]",
+    "format": "markdown",
+    "related": "[",
+    "version": "20250603T194710"
+  },
+  {
+    "filename": "copilot_todos_2025-06-03.artifact",
+    "artifact": "copilot_todos_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Actionable, context-rich TODOs for Copilot/AI agent to optimize project structure, automation, and artifact-driven development. Enhanced with project-specific context and actionable details.",
+    "type": "todo",
+    "tags": "[todo, automation, artifact, ai, workflow, context]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "directory_structure_2025-06-03.artifact",
+    "artifact": "directory_structure_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Snapshot of the full project directory structure for context and change tracking.",
+    "type": "directory",
+    "tags": "[directory, structure, snapshot, context]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "feedback_2025-06-03.artifact",
+    "artifact": "feedback_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Log blockers, insights, and workflow improvements for Copilot/AI and human collaborators.",
+    "type": "feedback",
+    "tags": "[feedback, workflow, blockers, insights, improvement]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "phase1_brainstorm.artifact",
+    "artifact": "phase1_brainstorm",
+    "created": "2025-06-03",
+    "purpose": "Initial brainstorming and raw idea capture for ProtoFusionGirl game development.",
+    "type": "brainstorm",
+    "tags": "[ideas, vision, planning]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "project_state_2025-06-03.artifact",
+    "artifact": "project_state_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Summarize current project state, open questions, and next priorities for both AI and human contributors.",
+    "type": "state",
+    "format": "markdown",
+    "tags": "[state, summary, next-steps, ai, onboarding, artifact, workflow]",
+    "related": "[copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, copilot_next_steps_2025-06-03.artifact, protoFusionGirl.primer]"
+  },
+  {
+    "filename": "retrospective_tilemap_2025-06-03.artifact",
+    "artifact": "retrospective_tilemap_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Retrospective for initial tilemap system design and integration.",
+    "type": "retrospective",
+    "tags": "[retrospective, tilemap, milestone, summary]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "test_artifact_2025-06-03.artifact",
+    "artifact": "test_artifact_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Test artifact for verifying artifact index automation.",
+    "type": "test",
+    "tags": "[test, automation, artifact, index]",
+    "format": "markdown",
+    "related": "["
+  },
+  {
+    "filename": "test_results_2025-06-03.artifact",
+    "artifact": "test_results_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Store raw output from test runs and benchmarks for reference and debugging.",
+    "type": "test",
+    "tags": "[test, results, debugging]",
+    "format": "raw text",
+    "related": "["
+  },
+  {
+    "filename": "tilemap_system_design.artifact",
+    "artifact": "tilemap_system_design",
+    "created": "2025-06-03",
+    "purpose": "Pseudocode, diagrams, and notes for the tilemap and chunk management system.",
+    "type": "design",
+    "tags": "[tilemap, chunk, pseudocode]",
+    "format": "markdown + pseudocode",
+    "related": "["
+  }
+]
+
+---
+
+(End of artifact)

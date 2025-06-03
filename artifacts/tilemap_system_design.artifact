@@ -1,0 +1,47 @@
+---
+artifact: tilemap_system_design
+created: 2025-06-03
+purpose: Pseudocode, diagrams, and notes for the tilemap and chunk management system.
+type: design
+tags: [tilemap, chunk, pseudocode]
+format: markdown + pseudocode
+related: [
+  "phase1_brainstorm.artifact",
+  "retrospective_tilemap_2025-06-03.artifact",
+  "copilot_todos_2025-06-03.artifact"
+]
+---
+
+# Tilemap System Design
+
+## Overview
+- World is divided into chunks (NxN tiles per chunk).
+- Chunks are loaded/unloaded based on player position.
+- TileRegistry manages tile types and metadata.
+
+## Pseudocode
+```
+class TilemapManager {
+  loadChunk(x, y): Chunk
+  unloadChunk(x, y): void
+  getTile(x, y): Tile
+  setTile(x, y, tile): void
+}
+
+class ChunkManager {
+  activeChunks: Map<(x, y), Chunk>
+  update(playerPosition): void
+}
+```
+
+## Data Structure
+- Tiles: `{ id, type, metadata }`
+- Chunks: `{ position, tiles[][] }`
+
+## Open Questions
+- How to serialize chunk data for persistence?
+- Should tile updates be event-driven?
+
+---
+
+(End of artifact)

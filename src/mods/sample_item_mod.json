@@ -1,0 +1,13 @@
+{
+  "id": "sample_item_mod",
+  "items": [
+    {
+      "id": "neon_sword",
+      "name": "Neon Sword",
+      "icon": "🗡️",
+      "type": "weapon",
+      "stackSize": 1,
+      "description": "A glowing blade forged in the digital realm."
+    }
+  ]
+}

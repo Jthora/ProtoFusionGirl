@@ -1,0 +1,13 @@
+{
+  "id": "sample_equipment_mod",
+  "equipment": [
+    {
+      "id": "cyber_helmet",
+      "name": "Cyber Helmet",
+      "icon": "🪖",
+      "slot": "head",
+      "stats": { "defense": 2, "health": 5 },
+      "description": "A helmet with digital HUD overlay."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+---
+artifact: copilot_todo_automation_upgrades_2025-06-03
+created: 2025-06-03
+purpose: TODOs for automation, AI/Copilot integration, and workflow upgrades for artifact/task/project management.
+type: todo
+tags: [todo, automation, ai, copilot, workflow, upgrade, task, artifact, script]
+related: [task_template.artifact, aiTaskManager.js, project_dashboard.js, copilot_advanced_todos_2025-06-03.artifact]
+format: markdown
+---
+
+# TODO: Automation & AI/Copilot Workflow Upgrades (2025-06-03)
+
+## 1. Task/Artifact/Code Auto-Sync
+- [ ] Implement the `sync` command in `aiTaskManager.js` to auto-create/update task.artifact files from code TODOs, link tasks to code/artifacts, and mark tasks as done if code reference is removed.
+
+## 2. Machine-Readable Output Everywhere
+- [ ] Add a `--json` flag to all major scripts (list, index, dashboard, task scripts) for JSON output.
+
+## 3. VSCode Tasks/Commands Integration
+- [ ] Add `.vscode/tasks.json` to expose key scripts as VSCode tasks for one-click access.
+- [ ] (Optional) Create a VSCode extension or npm scripts for even easier automation.
+
+## 4. Auto-Indexing and Pre-Commit Hooks
+- [ ] Add a Git pre-commit hook or npm script to auto-run artifact/task indexing and cleanup scripts before every commit.
+
+## 5. Task/Artifact Notification System
+- [ ] Add a script (e.g., `notifyOpenTasks.js`) to output summaries of open/high-priority/blocked/overdue tasks, optionally integrate with VSCode notifications.
+
+## 6. Self-Healing/Auto-Repair
+- [ ] Add a script (e.g., `autoRepairArtifacts.js`) to detect/fix missing headers, broken links, outdated fields, or inconsistent tags in artifacts/tasks.
+
+## 7. Enhanced Dashboard
+- [ ] Upgrade `project_dashboard.js` to accept commands (e.g., `--next-action`, `--json`) and output actionable next steps for Copilot.
+- [ ] Allow dashboard to trigger other scripts directly (chaining).
+
+## 8. AI-Optimized Onboarding
+- [ ] Enhance onboarding script to detect missing context, outdated artifacts, or onboarding gaps and auto-create tasks to address them.
+- [ ] Output onboarding status as JSON for Copilot to act on.
+
+## 9. Artifact/Task Templates as Scriptable Generators
+- [ ] Provide scripts to generate new artifact/task templates with all required fields (e.g., `newArtifact.js`).
+
+## 10. Documentation/Help Automation
+- [ ] Add a `help` command to `aiTaskManager.js` and other scripts to output usage/options/examples in text and JSON.
+- [ ] Auto-update a `scripts_index.artifact` with all script metadata.
+
+## 11. Self-Prompt Automation
+- [ ] Add a script that helps enable Copilot to automatically and autonomously self-prompt in a cycle.
+    - [ ] Sub-upgrade: Integrate self-prompt triggers into dashboard, onboarding, and task manager scripts so that new self-prompts are automatically enqueued based on detected gaps, TODOs, or next actions.
+- [ ] Provide JSON interface and easy-to-use formatting techniques that enable copilot to self-prompt and maintain multiple iterative development cycles.
+    - [x] Sub-upgrade: Add a persistent, versioned JSON state for the self-prompt pipeline (queue, history, results) and expose a CLI/JSON API for programmatic enqueue, dequeue, and inspection of self-prompts.
+- [ ] Establish a Self-Prompt Pipeline Request Queue and an easy entry-point for initialization and onboarding.
+    - [x] Sub-upgrade: Script onboarding to auto-create an initial self-prompt if none exists, and provide a template for new self-prompt entries with fields for context, goal, dependencies, and expected output.
+
+## 12. Check all previous 11 upgrades and find ways to improve all of them together
+- [ ] Apply upgrades that can be universally applied to all 11 upgrades previously mentioned on this list.
+
+---
+
+(End of TODOs for automation upgrades)

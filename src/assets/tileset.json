@@ -1,0 +1,14 @@
+// Reference: See .primer for tileset JSON structure and usage
+{
+  "name": "basic-tileset",
+  "tilewidth": 32,
+  "tileheight": 32,
+  "tilecount": 2,
+  "tiles": [
+    { "id": 0, "type": "empty", "properties": { "collides": false } },
+    { "id": 1, "type": "ground", "properties": { "collides": true } }
+  ],
+  "image": "tileset.png",
+  "imagewidth": 64,
+  "imageheight": 32
+}

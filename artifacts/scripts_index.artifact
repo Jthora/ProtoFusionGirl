@@ -1,0 +1,101 @@
+---
+artifact: scripts_index
+created: 2025-06-03
+purpose: Auto-generated index of all scripts, their usage, options, and onboarding relevance for Copilot/AI agent workflows.
+type: index
+tags: [script, index, automation, ai, copilot]
+related: [artifact_index.artifact, aiTaskManager.js, listScripts.js]
+format: markdown
+---
+
+# Scripts Index
+
+- This file is auto-updated by the `listScripts.js --update-index` output.
+- Lists all scripts, their usage, onboarding relevance, and options for discoverability and automation.
+
+## Scripts
+
+- aiTaskManager.js: aiTaskManager.js
+    Usage: node scripts/aiTaskManager.js <command> [...args]
+    Onboarding: Central AI/Copilot task management interface for creating, listing, updating, and syncing tasks with full automation.
+- autoRepairArtifacts.js: autoRepairArtifacts.js
+    Usage: node scripts/autoRepairArtifacts.js [--json]
+    Onboarding: Detects and fixes missing headers, broken links, outdated fields, or inconsistent tags in artifacts/tasks. Outputs a summary (optionally as JSON).
+- autoUpdateArtifactRefs.js: autoUpdateArtifactRefs.js
+    Usage: node scripts/autoUpdateArtifactRefs.js <oldArtifactName> <newArtifactName>
+    Onboarding: Updates all code references from old artifact name to new artifact name, and warns if the old artifact is still referenced or missing.
+- biDirectionalArtifactMap.js: biDirectionalArtifactMap.js
+    Usage: node scripts/biDirectionalArtifactMap.js
+    Onboarding: Lists, for each artifact, all code files that reference it, and for each code file, all artifacts it references. Optionally, updates artifact headers with "referenced_by" fields.
+- checkArtifactCodeSync.js: checkArtifactCodeSync.js
+    Usage: node scripts/checkArtifactCodeSync.js
+    Onboarding: Scans code for artifact references, checks if referenced artifacts exist and are current, and reports unused or outdated artifacts.
+- generateArtifactIndex.js: scripts/generateArtifactIndex.js
+    Usage: node scripts/generateArtifactIndex.js
+    Onboarding: Auto-generates artifact_index.artifact from artifact headers for discoverability and traceability.
+- guidedOnboarding.js: guidedOnboarding.js
+    Usage: node scripts/guidedOnboarding.js [--json] [--auto-task]
+    Onboarding: Automated onboarding and self-test for Copilot/AI agent workflows. Detects missing context, outdated artifacts, or onboarding gaps and auto-creates tasks if --auto-task is set.
+- listArtifactRelations.js: listArtifactRelations.js
+    Usage: node scripts/listArtifactRelations.js
+    Onboarding: Outputs a relationship map/list of artifact dependencies and cross-links for context expansion.
+- listOrDiffArtifactVersions.js: listOrDiffArtifactVersions.js
+    Usage: node scripts/listOrDiffArtifactVersions.js <artifact-base-name> [<version1> <version2>]
+    Onboarding: Lists all versions of an artifact or diffs two versions for version control and traceability.
+- listScripts.js: List all available scripts in the scripts/ directory with descriptions
+    Usage: node scripts/listScripts.js [--json]
+    Onboarding: Lists all available scripts with descriptions, usage, and onboarding relevance for discoverability and onboarding.
+- listTasks.js: listTasks.js
+    Usage: node scripts/listTasks.js [--status=open|in-progress|done|blocked] [--assignee=copilot|human|name] [--priority=high|medium|low|urgent] [--json]
+    Onboarding: Lists all task.artifact files with status, priority, assignee, and summary for AI/human workflow.
+- newArtifact.js: newArtifact.js
+    Usage: node scripts/newArtifact.js --type=<type> --purpose="<purpose>" --tags=tag1,tag2 --format=<format> --related=artifact1,script2
+    Onboarding: Scriptable generator for new artifact templates with all required fields for Copilot/AI agent workflows.
+- newFeedbackOrRetrospective.js: newFeedbackOrRetrospective.js
+    Usage: node scripts/newFeedbackOrRetrospective.js <type:feedback|retrospective> <related-artifact-filename>
+    Onboarding: Creates a new feedback or retrospective artifact and links it to related artifacts for project learning and improvement.
+- newTask.js: newTask.js
+    Usage: node scripts/newTask.js <short-description> [--priority=medium] [--assignee=copilot] [--related=artifact1,script2]
+    Onboarding: Creates a new task artifact with standardized metadata for AI/human workflow.
+- notifyOpenTasks.js: notifyOpenTasks.js
+    Usage: node scripts/notifyOpenTasks.js [--json]
+    Onboarding: Outputs summaries of open/high-priority/blocked/overdue tasks for Copilot/AI agent workflows. Optionally outputs JSON for integration with VSCode notifications.
+- project_dashboard.js: project_dashboard.js
+    Usage: node scripts/project_dashboard.js [--json] [--next-action]
+    Onboarding: Central command/dashboard for ProtoFusionGirl. Summarizes project state, lists key artifacts/scripts, and provides actionable next steps.
+- promptFeedbackLinkage.js: promptFeedbackLinkage.js
+    Usage: node scripts/promptFeedbackLinkage.js <feedbackArtifact> <relatedArtifactOrCode>
+    Onboarding: Prompts for feedback/retrospective linkage and updates both artifacts with cross-links.
+- searchArtifacts.js: scripts/searchArtifacts.js
+    Usage: node scripts/searchArtifacts.js <tag|type|keyword>
+    Onboarding: Searches artifacts by tag, type, or keyword for rapid context recall and onboarding support.
+- selfPromptPipeline.js: selfPromptPipeline.js
+    Usage: node scripts/selfPromptPipeline.js [--json] [--init] [--queue=<file>]
+    Onboarding: Enables Copilot to autonomously self-prompt in a cycle, with a JSON interface and a pipeline request queue for iterative development.
+- snapshotDirectory.js: scripts/snapshotDirectory.js
+    Usage: node scripts/snapshotDirectory.js
+    Onboarding: Captures a snapshot of the directory structure for traceability and onboarding.
+- summarizeAndCleanUnusedArtifacts.js: summarizeAndCleanUnusedArtifacts.js
+    Usage: node scripts/summarizeAndCleanUnusedArtifacts.js [--delete]
+    Onboarding: Summarizes unused or deprecated artifacts and optionally prompts for archival or deletion.
+- syncTasksWithCode.js: syncTasksWithCode.js
+    Usage: node scripts/syncTasksWithCode.js
+    Onboarding: Scans code for TODO/FIXME/@task comments, auto-creates/updates task.artifact files, and marks tasks as done if code reference is removed.
+- taskIndexUpdate.js: taskIndexUpdate.js
+    Usage: node scripts/taskIndexUpdate.js
+    Onboarding: Regenerates the task_index.artifact from all task.artifact files for discoverability and tracking.
+- updatePrimer.js: updatePrimer.js
+    Usage: node scripts/updatePrimer.js
+    Onboarding: Updates the protoFusionGirl.primer with new onboarding, context, or project state information.
+- updateTask.js: updateTask.js
+    Usage: node scripts/updateTask.js <task_filename> [--status=...] [--assignee=...] [--priority=...] [--comment="..."]
+    Onboarding: Updates status, assignee, priority, or adds a comment/history entry to a task artifact.
+- versionArtifact.js: versionArtifact.js
+    Usage: node scripts/versionArtifact.js <artifact-filename>
+    Onboarding: Copies the artifact to a versioned filename and optionally updates a version field in the header for version control.
+- visualizeArtifactGraph.js: visualizeArtifactGraph.js
+    Usage: node scripts/visualizeArtifactGraph.js > artifact_graph.dot
+    Onboarding: Outputs a Graphviz DOT file visualizing artifact dependency/importance graph (foundational vs. advanced artifacts, onboarding order).
+- warnNonCanonicalArtifactRefs.js: warnNonCanonicalArtifactRefs.js
+    Usage: node scripts/warnNonCanonicalArtifactRefs.js
+    Onboarding: Warns if code references a non-canonical (not latest) artifact version.

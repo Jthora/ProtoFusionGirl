@@ -1,0 +1,40 @@
+---
+artifact: combat_mechanics
+created: 2025-06-03
+purpose: Combat system logic, balancing notes, and sample data for ProtoFusionGirl.
+type: design
+tags: [combat, balancing, json]
+format: json + markdown
+related: [
+  "test_results_2025-06-03.artifact"
+]
+---
+
+# Combat Mechanics
+
+## System Overview
+- Turn-based with real-time elements.
+- Supports player, enemy, and environmental actions.
+
+## Sample Data (JSON)
+{
+  "player": {
+    "baseAttack": 10,
+    "baseDefense": 5,
+    "abilities": ["slash", "block", "heal"]
+  },
+  "enemy": {
+    "baseAttack": 8,
+    "baseDefense": 3,
+    "abilities": ["bite", "roar"]
+  },
+  "damageFormula": "(attacker.baseAttack - defender.baseDefense) * random(0.8, 1.2)"
+}
+
+## Balancing Notes
+- Consider scaling enemy stats by world region.
+- Add status effects (stun, poison, etc).
+
+---
+
+(End of artifact)

@@ -1,0 +1,67 @@
+---
+artifact: copilot_build_instructions_2025-06-03
+created: 2025-06-03
+purpose: Step-by-step instructions for GitHub Copilot (or any AI agent) to build, maintain, and optimize the ProtoFusionGirl artifact-driven, automation-first workflow.
+type: instructions
+format: markdown
+tags: [instructions, build, ai, copilot, automation, artifact, onboarding, dashboard]
+related: [.primer, artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, project_dashboard.js]
+---
+
+# Copilot Build & Optimization Instructions (2025-06-03)
+
+## 1. Orientation & Entry Points
+- **Start with the `.primer`**: Always review `.primer` for project vision, conventions, and the latest onboarding flow.
+- **Run the Dashboard**: If available, run `project_dashboard.js` for a live overview, health checks, and actionable next steps.
+- **Artifact Index**: Use `artifact_index.artifact` for a canonical, cross-referenced list of all artifacts.
+
+## 2. Artifact-Driven Workflow
+- **Artifacts**: All persistent knowledge, design, feedback, TODOs, and onboarding are in `artifacts/`.
+- **Headers & Cross-Links**: Every artifact should have a standardized header and `related` field for traceability.
+- **Versioning**: Use `versionArtifact.js` and `listOrDiffArtifactVersions.js` to manage artifact history.
+
+## 3. Automation Scripts
+- **Discoverability**: Use `listScripts.js` to see all scripts, with descriptions, usage, and onboarding relevance. Address any missing metadata.
+- **Onboarding**: Run `guidedOnboarding.js` for a step-by-step, interactive onboarding (self-test included).
+- **Indexing**: Use `generateArtifactIndex.js` after adding/editing artifacts to keep the index current.
+- **Code/Artifact Linkage**: Use `biDirectionalArtifactMap.js` and `checkArtifactCodeSync.js` to ensure all code and artifacts are properly referenced and in sync.
+- **Cleanup**: Use `summarizeAndCleanUnusedArtifacts.js` to find and clean up unused or deprecated artifacts.
+- **Visualization**: Use `visualizeArtifactGraph.js` to generate and review the artifact dependency/importance graph.
+
+## 4. Central Command & Health
+- **Dashboard**: Maintain and improve a `project_dashboard.js` script as the main entry point for:
+  - Project state summary
+  - Key artifact/script links
+  - Onboarding, health checks, and context expansion prompts
+  - Warnings for missing/outdated artifacts, scripts, or cross-links
+- **Dashboard Artifact**: Optionally, maintain a `project_dashboard.artifact` that is auto-updated by the dashboard script for persistent, human-readable state.
+
+## 5. Maintenance & Self-Improvement
+- **Memory Expansion**: Regularly update `copilot_memory.artifact` with new heuristics, lessons, and context as the project evolves.
+- **Feedback Loop**: Use feedback and retrospective scripts to capture, link, and act on project learnings.
+- **Documentation Hygiene**: Ensure all scripts and artifacts are discoverable, documented, and cross-referenced. Use scripts to detect and warn about missing documentation or metadata.
+- **Periodic Review**: Schedule regular reviews to clean up unused, outdated, or redundant artifacts/scripts.
+
+## 6. Edge Case & Robustness Handling
+- **Automated Checks**: Use scripts to detect and resolve:
+  - Outdated or non-canonical artifact references
+  - Artifacts deleted/renamed but still referenced in code
+  - Multiple artifacts with similar/confusing names
+  - Feedback artifacts not linked to their source
+  - Primer bloat or onboarding gaps
+  - Scripts added but not documented
+  - AI agent starts with no context
+
+## 7. Onboarding New Agents (AI or Human)
+- **AI Onboarding Artifact**: Keep `ai_onboarding_2025-06-03.artifact` up to date with artifact types, key scripts, onboarding flow, and a checklist for new agents.
+- **Guided Onboarding**: Ensure `guidedOnboarding.js` is current and covers all critical artifacts, scripts, and conventions.
+- **Clear Start Here**: The `.primer` and dashboard should always point to the current onboarding flow and checklist.
+- **Self-Test**: Include a self-test or checklist in onboarding scripts/artifacts to verify understanding.
+
+## 8. Continuous Improvement
+- **Propose Enhancements**: If you (Copilot/AI) see cracks, inefficiencies, or new needs, propose or implement new scripts, artifact types, or dashboard features.
+- **Document Everything**: Every new script, artifact, or convention should be documented and cross-linked for future agents.
+
+---
+
+(End of enhanced instructions)

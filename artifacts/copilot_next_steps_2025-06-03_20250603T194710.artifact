@@ -1,0 +1,61 @@
+---
+artifact: copilot_next_steps_2025-06-03
+created: 2025-06-03
+purpose: Next-step TODOs for verifying, expanding, and optimizing Copilot/AI agent functional capacity, memory, and automation in the project.
+type: todo
+tags: [todo, automation, artifact, ai, workflow, memory, next-steps]
+format: markdown
+related: [
+  "copilot_todos_2025-06-03.artifact",
+  "artifact_index.artifact",
+  "protoFusionGirl.primer",
+  "feedback_2025-06-03.artifact",
+  "directory_structure_2025-06-03.artifact"
+]
+version: 20250603T194710
+---
+
+# Copilot Next-Step TODOs (2025-06-03)
+
+## Verification & Utility
+- [ ] **Verify artifact index automation:**
+    - Run `node scripts/generateArtifactIndex.js` after adding/editing artifacts and confirm all new/updated artifacts are indexed.
+    - Add a test artifact and check for its presence in the index, then remove it and confirm removal.
+- [ ] **Verify directory snapshot utility:**
+    - Run `node scripts/snapshotDirectory.js` after major structure changes and confirm the snapshot matches the actual directory.
+    - Compare two snapshots to ensure changes are accurately reflected.
+- [ ] **Test meta-script discovery:**
+    - Run `node scripts/listScripts.js` and confirm all scripts are listed with clear descriptions.
+    - Add a new script and verify it appears in the list.
+- [ ] **Check artifact/code linkage:**
+    - Review code files for artifact reference comments and ensure they point to the correct, up-to-date artifacts.
+    - Update or add missing references as needed.
+
+## Expanding AI Memory & Context
+- [ ] **Implement artifact search/recall script:**
+    - Create a script (e.g., `scripts/searchArtifacts.js`) to search artifacts by tag, type, or keyword for rapid context recall.
+    - Test by searching for design, feedback, or retrospective artifacts.
+- [ ] **Enable artifact cross-referencing:**
+    - Add or update `related` fields in artifact headers to form a navigable web of context.
+    - Create a script to visualize or list artifact relationships.
+- [ ] **Automate artifact versioning:**
+    - Implement a simple versioning system for key artifacts (e.g., append version/timestamp to filename or header).
+    - Test restoring or comparing previous artifact versions.
+- [ ] **Enhance feedback/retrospective loop:**
+    - After each major change, prompt for a feedback or retrospective artifact and link it to the relevant code/artifacts.
+    - Summarize lessons learned and next steps in each retrospective.
+
+## Automation & Self-Service
+- [ ] **Script for artifact/code sync check:**
+    - Create a script to scan code for artifact references and verify the referenced artifacts exist and are current.
+    - Report missing or outdated references for follow-up.
+- [ ] **Onboarding/primer auto-update:**
+    - Automate updating the primer with new artifact highlights, directory snapshots, and onboarding steps after major changes.
+    - Test by adding a new system and confirming the primer reflects it.
+- [ ] **Memory expansion artifact:**
+    - Create a dedicated artifact (e.g., `copilot_memory.artifact`) to store persistent, high-value context, heuristics, and lessons for the AI agent.
+    - Reference this artifact in all future automation and onboarding scripts.
+
+---
+
+(End of artifact)

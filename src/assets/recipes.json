@@ -1,0 +1,12 @@
+[
+  {
+    "id": "wooden_plank",
+    "inputs": [ { "item": "wood", "quantity": 2 } ],
+    "output": { "item": "plank", "quantity": 1 }
+  },
+  {
+    "id": "torch",
+    "inputs": [ { "item": "plank", "quantity": 1 }, { "item": "coal", "quantity": 1 } ],
+    "output": { "item": "torch", "quantity": 4 }
+  }
+]

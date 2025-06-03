@@ -1,0 +1,184 @@
+---
+artifact: directory_structure_2025-06-03
+created: 2025-06-03
+purpose: Snapshot of the full project directory structure for context and change tracking.
+type: directory
+tags: [directory, structure, snapshot, context]
+format: markdown
+related: [
+  "artifact_index.artifact",
+  "copilot_next_steps_2025-06-03.artifact"
+]
+---
+
+/ (root)
+├── FusionGirl_Icon_x1024.png
+├── README.md
+├── animated_morphing_resized_final_optimized.gif
+├── artifacts/
+│   ├── artifact_index.artifact
+│   ├── combat_mechanics.artifact
+│   ├── copilot_next_steps_2025-06-03.artifact
+│   ├── copilot_todos_2025-06-03.artifact
+│   ├── directory_structure_2025-06-03.artifact
+│   ├── feedback_2025-06-03.artifact
+│   ├── instructions.md
+│   ├── phase1_brainstorm.artifact
+│   ├── retrospective_tilemap_2025-06-03.artifact
+│   ├── test_artifact_2025-06-03.artifact
+│   ├── test_results_2025-06-03.artifact
+│   └── tilemap_system_design.artifact
+├── fusiongirl_profileicon_a_0001_by_jonothora_da4eprs-375w-2x-1.jpg
+├── jane__born_of_sovi_by_jonothora_d1tjn7u-375w-2x-1.jpg
+├── package-artifact.json
+├── pfg_facebookbanner_0001_by_jonothora_da4eqkp-414w-2x-1.jpg
+├── protoFusionGirl/
+│   ├── README.md
+│   ├── contracts/
+│   │   ├── Lock.sol
+│   │   └── ModRegistry.sol
+│   ├── directory-structure.txt
+│   ├── docs/
+│   │   └── modding.md
+│   ├── hardhat.config.cjs
+│   ├── ignition/
+│   │   └── modules/
+│   │       └── Lock.js
+│   ├── index.html
+│   ├── jest.config.mjs
+│   ├── jest.config.ts.bak
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public/
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── recipes.json
+│   │   │   ├── tiles.json
+│   │   │   └── tileset.json
+│   │   ├── core/
+│   │   │   └── controls/
+│   │   │       ├── AIInput.ts
+│   │   │       ├── GamepadInput.ts
+│   │   │       ├── InputManager.ts
+│   │   │       ├── KeyboardInput.ts
+│   │   │       └── TouchInput.ts
+│   │   ├── counter.ts
+│   │   ├── lang/
+│   │   ├── main.ts
+│   │   ├── mods/
+│   │   │   ├── index.ts
+│   │   │   ├── mod_loader.test.ts
+│   │   │   ├── mod_loader.ts
+│   │   │   ├── sample_crafting_mod.json
+│   │   │   ├── sample_enemy_mod.json
+│   │   │   ├── sample_equipment_mod.json
+│   │   │   ├── sample_item_mod.json
+│   │   │   └── sample_mod.json
+│   │   ├── scenes/
+│   │   │   ├── GameScene.test.ts
+│   │   │   ├── GameScene.ts
+│   │   │   ├── PauseMenuScene.ts
+│   │   │   ├── SettingsScene.ts
+│   │   │   ├── StartScene.ts
+│   │   │   └── index.ts
+│   │   ├── services/
+│   │   │   ├── ModRegistryService.ts
+│   │   │   ├── SettingsService.ts
+│   │   │   └── index.ts
+│   │   ├── style.css
+│   │   ├── tests/
+│   │   │   ├── GameScene.test.ts
+│   │   │   └── mod_loader.test.ts
+│   │   ├── typescript.svg
+│   │   ├── ui/
+│   │   │   ├── components/
+│   │   │   │   ├── CraftingPanel.ts
+│   │   │   │   ├── DamageNumber.ts
+│   │   │   │   ├── Dropdown.ts
+│   │   │   │   ├── EnemyHealthBar.ts
+│   │   │   │   ├── EquipmentPanel.ts
+│   │   │   │   ├── FeedbackModal.ts
+│   │   │   │   ├── GuestModeButton.ts
+│   │   │   │   ├── HealthBar.ts
+│   │   │   │   ├── InventoryPanel.ts
+│   │   │   │   ├── Label.ts
+│   │   │   │   ├── MenuButton.ts
+│   │   │   │   ├── ModCountButton.ts
+│   │   │   │   ├── ModToggleButton.ts
+│   │   │   │   ├── SettingsButton.ts
+│   │   │   │   ├── Slider.ts
+│   │   │   │   ├── TitleText.ts
+│   │   │   │   ├── ToggleButton.ts
+│   │   │   │   ├── TouchControls.ts
+│   │   │   │   ├── WalletButton.ts
+│   │   │   │   └── index.ts
+│   │   │   └── layouts/
+│   │   ├── vite-env.d.ts
+│   │   ├── web3.ts
+│   │   └── world/
+│   │       ├── combat/
+│   │       │   ├── AttackDefinition.ts
+│   │       │   ├── AttackRegistry.ts
+│   │       │   └── CombatService.ts
+│   │       ├── crafting/
+│   │       │   ├── CraftingRegistry.ts
+│   │       │   └── CraftingService.ts
+│   │       ├── enemies/
+│   │       │   ├── EnemyDefinition.ts
+│   │       │   ├── EnemyInstance.ts
+│   │       │   └── EnemyRegistry.ts
+│   │       ├── equipment/
+│   │       │   ├── Equipment.ts
+│   │       │   ├── EquipmentInstance.ts
+│   │       │   ├── EquipmentRegistry.ts
+│   │       │   ├── EquipmentService.ts
+│   │       │   └── EquipmentSlot.ts
+│   │       ├── index.ts
+│   │       ├── inventory/
+│   │       │   ├── Inventory.ts
+│   │       │   └── InventoryService.ts
+│   │       ├── items/
+│   │       │   ├── ItemInstance.ts
+│   │       │   └── ItemRegistry.ts
+│   │       ├── player/
+│   │       │   └── PlayerStats.ts
+│   │       └── tilemap/
+│   │           ├── ChunkManager.ts
+│   │           ├── EditorHistory.ts
+│   │           ├── TileBrush.ts
+│   │           ├── TileClipboard.ts
+│   │           ├── TileHistoryVisualizer.ts
+│   │           ├── TileInspector.ts
+│   │           ├── TilePalette.ts
+│   │           ├── TileRegistry.edge.test.ts
+│   │           ├── TileRegistry.integration.test.ts
+│   │           ├── TileRegistry.test.ts
+│   │           ├── TileRegistry.ts
+│   │           ├── TileSelectionOverlay.ts
+│   │           ├── TileUndoManager.test.ts
+│   │           ├── TileUndoManager.ts
+│   │           ├── TilemapManager.ts
+│   │           ├── WorldEditAutosave.ts
+│   │           ├── WorldEditInput.ts
+│   │           ├── WorldEditOverlay.ts
+│   │           ├── WorldEditPermissions.ts
+│   │           ├── WorldEditService.ts
+│   │           ├── WorldEditSession.ts
+│   │           ├── WorldEvents.ts
+│   │           ├── WorldGen.ts
+│   │           ├── WorldPersistence.ts
+│   │           └── WorldSelection.ts
+│   ├── test/
+│   │   └── Lock.js
+│   └── tsconfig.json
+├── .primer
+└── scripts/
+    ├── artifact-index-update.sh
+    ├── generateArtifactIndex.js
+    ├── listScripts.js
+    └── snapshotDirectory.js
+
+---
+
+(End of artifact)

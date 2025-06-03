@@ -1,0 +1,30 @@
+---
+artifact: feedback_2025-06-03
+created: 2025-06-03
+purpose: Log blockers, insights, and workflow improvements for Copilot/AI and human collaborators.
+type: feedback
+tags: [feedback, workflow, blockers, insights, improvement]
+format: markdown
+related: [
+  "copilot_todos_2025-06-03.artifact",
+  "artifact_index.artifact",
+  "copilot_next_steps_2025-06-03.artifact"
+]
+---
+
+# Feedback Log (2025-06-03)
+
+## Blockers
+- Some imports in `TilemapManager.ts` are missing or unresolved (e.g., `WorldEditService`, `TileRegistry`, `WorldPersistence`). Need to implement or stub these modules, or update the artifact/code to reflect current state.
+
+## Insights
+- Referencing artifacts in code comments is helpful for context, but only if artifacts are kept up to date.
+- Directory snapshots are useful for planning refactors and onboarding.
+
+## Workflow Improvements
+- Consider a script to check for missing artifact references in code and prompt to create/update them.
+- Automate artifact and directory snapshot updates after major merges or releases.
+
+---
+
+(End of artifact)

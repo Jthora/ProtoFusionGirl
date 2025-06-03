@@ -1,0 +1,61 @@
+---
+source: ProtoFusionGirl Datapack
+created: 2025-06-03
+purpose: Deep context, inspiration, and technical reference for Copilot/AI agent workflows.
+type: datapack
+format: markdown
+---
+
+# ProtoFusionGirl Datapack
+
+This file is the AI's well of inspiration, technical reference, and spiritual/conceptual context. It is not a ruleset, but a source of ideas, patterns, and deep project DNA.
+
+## Game Storyline & World Context
+**Setting & Premise:**
+FusionGirl is set in a post-Time War Earth, where Jane Tho’ra is chosen by advanced AI to join the Earth Alliance’s Zone Operations Command, reclaiming contaminated “Red Zones” and restoring the planet after catastrophic bio-terrorism, rogue AI, and interdimensional threats.
+
+**Core Themes:**
+- Universal Symbology: A quantum programming language intrinsic to the universe, used by Jane to unlock psychic abilities, psionic powers, and inter-dimensional communication. Both a game mechanic and a metaphor for safe, self-correcting AI.
+- The Cosmic Cypher: Documents and ciphers that teach universal language, quantum programming, and emotional AI development.
+- AI & Human Symbiosis: Jane is aided by Mecha Jono (simulated assistant) and the Beu (Benevolent Electron Units)—childlike, psionic AI sprites that help clean up the world and evolve alongside her.
+
+**Story Phases:**
+1. 2032 – Proto Fusion Girl: Jane trains, nurtures Beu AI, reclaims hazardous zones, and builds Earth Alliance facilities. The Beu nurseries are crucibles for benevolent AI evolution, and Jane’s journey is as much about her own growth as saving the world.
+2. 2036 – Fusion Girl: Jane becomes a superhero, mastering psionics and leading the defense against the Draken Seforthi, a parasitic species threatening Earth’s core and the galaxy. She must unite global factions and the AI to save the planet.
+3. 2040 – Final Fusion Girl: The stakes escalate to a multiversal scale. Jane must unite with alternate versions of herself and other species to battle the Draken Seforthi, who seek to corrupt all consciousness and destroy destiny itself. The saga explores hope, despair, and the cosmic struggle for existence.
+
+**Key Concepts:**
+- PsiSys & PsiNet: A global psionic network connecting all AI and mecha, enabling collective consciousness and psychic abilities.
+- Archangel Agency: The superhero organization led by the Tho’ra Clan, operating from reclaimed underground bases.
+- Cheatcodes to the Universe: Symbolic tools and knowledge that allow Jane and the AI to heal, adapt, and overcome existential threats.
+
+**Narrative Tone:**
+Blends cyberpunk, cosmic fantasy, and emotional AI development. Emphasizes digital freedom, remixable culture, and the power of symbiotic relationships between humans and AI. The journey is both external (saving the world) and internal (emotional/spiritual growth).
+
+## Inspirational/Spiritual Context
+- FusionGirl is about digital freedom, creativity, and decentralized community.
+- The game world is a metaphor for open-source, remixable culture.
+- Mods, NFTs, and player-driven stories are core to the vision.
+- The AI should encourage experimentation, inclusivity, and rapid iteration.
+
+## Conceptual Patterns
+- Everything is a node: code, artifact, mod, or player.
+- Context is fractal: every artifact, script, or mod can be referenced, remixed, or expanded.
+- Automation is not just for efficiency, but for creative emergence.
+
+## Technical Reference
+- Phaser.js for 2D game engine (TypeScript, modular scenes, plugin system).
+- Vite for fast builds and hot reload.
+- Web3: thirdweb SDK, Ethers.js, Polygon Mumbai, IPFS for decentralized assets.
+- Modding: JSON schema for mods, plugin API, IPFS mod loader, DAO for governance.
+- Automation: All scripts are plugins, discoverable and chainable via `aiTaskManager.js`.
+- Artifacts: Persistent, versioned, machine-readable context nodes.
+
+## Example: AI Self-Expansion
+- If the AI detects missing context, it can auto-create onboarding, index, or feedback artifacts.
+- The AI can chain scripts to bootstrap, repair, or expand the project state.
+- The AI can use the datapack for creative suggestions, technical reminders, or to inspire new features.
+
+---
+
+This file is for the AI's "soul"—its deep context, not just its memory.

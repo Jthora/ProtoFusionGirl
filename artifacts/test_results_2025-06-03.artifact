@@ -1,0 +1,36 @@
+---
+artifact: test_results_2025-06-03
+created: 2025-06-03
+purpose: Store raw output from test runs and benchmarks for reference and debugging.
+type: test
+tags: [test, results, debugging]
+format: raw text
+related: [
+  "combat_mechanics.artifact",
+  "copilot_next_steps_2025-06-03.artifact"
+]
+---
+
+# Test Results (2025-06-03)
+
+## Summary
+- All core systems pass basic integration tests.
+- TilemapManager: 100% coverage
+- ModRegistry: 95% coverage
+- Combat: 90% coverage
+
+## Raw Output
+```
+PASS src/world/tilemap/TilemapManager.test.ts
+PASS src/services/ModRegistryService.test.ts
+FAIL src/world/combat/CombatSystem.test.ts
+  ✕ should apply status effects (12 ms)
+  ● AssertionError: expected poison to reduce HP
+```
+
+## Notes
+- Investigate status effect bug in CombatSystem. (See: combat_mechanics.artifact)
+
+---
+
+(End of artifact)

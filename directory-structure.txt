@@ -1,0 +1,160 @@
+.
+├── .eslintrc.json
+├── .gitignore
+├── contracts
+│   ├── Lock.sol
+│   └── ModRegistry.sol
+├── coverage
+│   ├── clover.xml
+│   ├── coverage-final.json
+│   ├── lcov-report
+│   │   ├── base.css
+│   │   ├── block-navigation.js
+│   │   ├── favicon.png
+│   │   ├── index.html
+│   │   ├── mod_loader.ts.html
+│   │   ├── prettify.css
+│   │   ├── prettify.js
+│   │   ├── sort-arrow-sprite.png
+│   │   └── sorter.js
+│   └── lcov.info
+├── directory-structure.txt
+├── docs
+│   └── modding.md
+├── hardhat.config.cjs
+├── ignition
+│   └── modules
+│       └── Lock.js
+├── index.html
+├── jest.config.mjs
+├── jest.config.ts.bak
+├── package-lock.json
+├── package.json
+├── public
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── recipes.json
+│   ├── core
+│   │   ├── .keep
+│   │   └── controls
+│   │       ├── AIInput.ts
+│   │       ├── GamepadInput.ts
+│   │       ├── InputManager.ts
+│   │       ├── KeyboardInput.ts
+│   │       └── TouchInput.ts
+│   ├── counter.ts
+│   ├── lang
+│   │   └── .keep
+│   ├── main.ts
+│   ├── mods
+│   │   ├── index.ts
+│   │   ├── mod_loader.test.ts
+│   │   ├── mod_loader.ts
+│   │   ├── sample_crafting_mod.json
+│   │   ├── sample_enemy_mod.json
+│   │   ├── sample_equipment_mod.json
+│   │   ├── sample_item_mod.json
+│   │   └── sample_mod.json
+│   ├── scenes
+│   │   ├── GameScene.test.ts
+│   │   ├── GameScene.ts
+│   │   ├── index.ts
+│   │   ├── PauseMenuScene.ts
+│   │   ├── SettingsScene.ts
+│   │   └── StartScene.ts
+│   ├── services
+│   │   ├── index.ts
+│   │   ├── ModRegistryService.ts
+│   │   └── SettingsService.ts
+│   ├── style.css
+│   ├── tests
+│   │   ├── .keep
+│   │   ├── GameScene.test.ts
+│   │   └── mod_loader.test.ts
+│   ├── typescript.svg
+│   ├── ui
+│   │   ├── components
+│   │   │   ├── CraftingPanel.ts
+│   │   │   ├── DamageNumber.ts
+│   │   │   ├── Dropdown.ts
+│   │   │   ├── EnemyHealthBar.ts
+│   │   │   ├── EquipmentPanel.ts
+│   │   │   ├── FeedbackModal.ts
+│   │   │   ├── GuestModeButton.ts
+│   │   │   ├── HealthBar.ts
+│   │   │   ├── index.ts
+│   │   │   ├── InventoryPanel.ts
+│   │   │   ├── Label.ts
+│   │   │   ├── MenuButton.ts
+│   │   │   ├── ModCountButton.ts
+│   │   │   ├── ModToggleButton.ts
+│   │   │   ├── SettingsButton.ts
+│   │   │   ├── Slider.ts
+│   │   │   ├── TitleText.ts
+│   │   │   ├── ToggleButton.ts
+│   │   │   ├── TouchControls.ts
+│   │   │   └── WalletButton.ts
+│   │   └── layouts
+│   │       └── .keep
+│   ├── vite-env.d.ts
+│   ├── web3.ts
+│   └── world
+│       ├── combat
+│       │   ├── AttackDefinition.ts
+│       │   ├── AttackRegistry.ts
+│       │   └── CombatService.ts
+│       ├── crafting
+│       │   ├── CraftingRegistry.ts
+│       │   └── CraftingService.ts
+│       ├── enemies
+│       │   ├── EnemyDefinition.ts
+│       │   ├── EnemyInstance.ts
+│       │   └── EnemyRegistry.ts
+│       ├── equipment
+│       │   ├── Equipment.ts
+│       │   ├── EquipmentInstance.ts
+│       │   ├── EquipmentRegistry.ts
+│       │   ├── EquipmentService.ts
+│       │   └── EquipmentSlot.ts
+│       ├── index.ts
+│       ├── inventory
+│       │   ├── Inventory.ts
+│       │   └── InventoryService.ts
+│       ├── items
+│       │   ├── ItemInstance.ts
+│       │   └── ItemRegistry.ts
+│       ├── player
+│       │   └── PlayerStats.ts
+│       └── tilemap
+│           ├── ChunkManager.ts
+│           ├── EditorHistory.ts
+│           ├── TileBrush.ts
+│           ├── TileClipboard.ts
+│           ├── TileHistoryVisualizer.ts
+│           ├── TileInspector.ts
+│           ├── TilemapManager.ts
+│           ├── TilePalette.ts
+│           ├── TileRegistry.edge.test.ts
+│           ├── TileRegistry.integration.test.ts
+│           ├── TileRegistry.test.ts
+│           ├── TileRegistry.ts
+│           ├── TileSelectionOverlay.ts
+│           ├── TileUndoManager.test.ts
+│           ├── TileUndoManager.ts
+│           ├── WorldEditAutosave.ts
+│           ├── WorldEditInput.ts
+│           ├── WorldEditOverlay.ts
+│           ├── WorldEditPermissions.ts
+│           ├── WorldEditService.ts
+│           ├── WorldEditSession.ts
+│           ├── WorldEvents.ts
+│           ├── WorldGen.ts
+│           ├── WorldPersistence.ts
+│           └── WorldSelection.ts
+├── test
+│   └── Lock.js
+└── tsconfig.json
+
+30 directories, 128 files

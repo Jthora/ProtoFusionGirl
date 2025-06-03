@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Auto-run artifact/task indexing and cleanup scripts before every commit
+npm run precommit-autoindex
+
+# Lint, format, and test before commit
+cd protoFusionGirl || exit 1
+npx eslint . || exit 1
+npx prettier --check . || exit 1
+npm test -- --bail --passWithNoTests || exit 1

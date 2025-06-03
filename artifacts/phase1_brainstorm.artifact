@@ -1,0 +1,35 @@
+---
+artifact: phase1_brainstorm
+created: 2025-06-03
+purpose: Initial brainstorming and raw idea capture for ProtoFusionGirl game development.
+type: brainstorm
+tags: [ideas, vision, planning]
+format: markdown
+related: [
+  "tilemap_system_design.artifact",
+  "copilot_todos_2025-06-03.artifact"
+]
+---
+
+# Phase 1: Brainstorming Notes
+
+## Game Vision
+- Fusion of action RPG and procedural world generation.
+- Modular systems for combat, crafting, and AI.
+
+## Key Features
+- Tilemap-based world with dynamic chunk loading.
+- Modding support via JSON and scriptable modules.
+- Persistent world state and player progression.
+
+## Open Questions
+- How to structure mod registry for extensibility?
+- What data format is best for world persistence?
+
+## Next Steps
+- Draft tilemap system pseudocode. (See: tilemap_system_design.artifact)
+- Research ECS (Entity Component System) patterns for gameplay logic.
+
+---
+
+(End of artifact)

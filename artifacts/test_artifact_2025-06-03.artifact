@@ -1,0 +1,20 @@
+---
+artifact: test_artifact_2025-06-03
+created: 2025-06-03
+purpose: Test artifact for verifying artifact index automation.
+type: test
+tags: [test, automation, artifact, index]
+format: markdown
+related: [
+  "copilot_next_steps_2025-06-03.artifact",
+  "artifact_index.artifact"
+]
+---
+
+# Test Artifact (2025-06-03)
+
+This artifact is created to verify that the artifact index automation script correctly indexes new artifacts and removes them when deleted.
+
+---
+
+(End of artifact)

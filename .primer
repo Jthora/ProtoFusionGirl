@@ -1,0 +1,41 @@
+---
+project: ProtoFusionGirl
+created: 2025-06-03
+purpose: AI/Human onboarding, project header, and automation conventions
+format: markdown
+---
+
+# ProtoFusionGirl Primer
+
+This file is the AI's header and onboarding guide. It defines the project's purpose, automation entry points, and best practices for both AI and human contributors.
+
+## How the AI Operates (Primer Technique)
+- **Read the Primer First:** The AI always reads `.primer` before acting. This sets the rules, conventions, and automation entry points.
+- **Use the Datapack for Deep Context:** The AI references `.datapack` for inspiration, technical details, and conceptual patterns.
+- **Automate via Scripts:** All automation is driven by scripts in `scripts/`, with `aiTaskManager.js` as the universal entry point. Every script is a plugin, discoverable and invokable by the AI.
+- **Persist Context as Artifacts:** All persistent memory, tasks, and design context are stored as `.artifact` files. These are indexed and cross-linked for rapid recall and automation.
+- **Self-Healing & Self-Expanding:** The AI can bootstrap, repair, and expand its own context using onboarding, dashboard, and self-prompt scripts. If context is missing, the AI can regenerate it from scratch.
+- **Human-AI Collaboration:** The system signals when human input is needed, but maximizes AI autonomy for onboarding, automation, and context expansion.
+
+## Onboarding Checklist (AI & Human)
+1. **Read this `.primer`** for project rules, conventions, and automation entry points.
+2. **Read `artifacts/instructions.md`** for a detailed guide to artifacts, automation, best practices, and the full Copilot/AI workflow. This file explains:
+   - What artifacts are and how to use them
+   - Folder structure and key files
+   - The modular command center and plugin architecture
+   - Artifact lifecycle, best practices, and quickstart for Copilot/AI
+   - Human contributor guidelines and example artifact headers
+   - Key automation scripts and workflows
+3. **Read `.datapack`** for deep context, inspiration, and technical details.
+4. **Run `aiTaskManager.js`** for all automation, onboarding, and context actions. Use `help` for discoverability.
+5. **Use artifacts and scripts** for all persistent memory, automation, and context expansion. Keep everything indexed and cross-linked.
+
+## Quickstart
+- Start with this `.primer` and `artifacts/instructions.md`.
+- Use `aiTaskManager.js` for all actions (automation, onboarding, task, artifact, and self-prompt management).
+- Reference `.datapack` for deep context and creative/technical inspiration.
+- Let Copilot/AI automate, recall, and expand context as much as possible. Human contributors should assist as needed and keep documentation up to date.
+
+---
+
+For deep context, see `.datapack`. For persistent memory, see artifacts/. For full onboarding and automation details, see `artifacts/instructions.md`.

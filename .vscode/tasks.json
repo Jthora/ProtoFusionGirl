@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "AI Task Manager: New Task",
+      "type": "shell",
+      "command": "node scripts/aiTaskManager.js new",
+      "args": ["<desc>", "--priority=medium", "--assignee=copilot"],
+      "problemMatcher": [],
+      "detail": "Create a new task artifact via Copilot's task manager."
+    },
+    {
+      "label": "AI Task Manager: List Tasks",
+      "type": "shell",
+      "command": "node scripts/aiTaskManager.js list",
+      "args": ["--json"],
+      "problemMatcher": [],
+      "detail": "List all tasks as JSON for Copilot/AI agent workflows."
+    },
+    {
+      "label": "AI Task Manager: Sync Tasks with Code",
+      "type": "shell",
+      "command": "node scripts/aiTaskManager.js sync",
+      "problemMatcher": [],
+      "detail": "Auto-sync code TODOs with task artifacts."
+    },
+    {
+      "label": "AI Task Manager: Update Task Index",
+      "type": "shell",
+      "command": "node scripts/aiTaskManager.js index",
+      "problemMatcher": [],
+      "detail": "Regenerate the task index artifact."
+    },
+    {
+      "label": "Project Dashboard (JSON)",
+      "type": "shell",
+      "command": "node scripts/project_dashboard.js",
+      "args": ["--json"],
+      "problemMatcher": [],
+      "detail": "Show the project dashboard as machine-readable JSON."
+    },
+    {
+      "label": "List Scripts (JSON)",
+      "type": "shell",
+      "command": "node scripts/listScripts.js",
+      "args": ["--json"],
+      "problemMatcher": [],
+      "detail": "List all scripts as JSON for Copilot/AI agent workflows."
+    }
+  ]
+}

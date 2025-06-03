@@ -1,0 +1,70 @@
+---
+artifact: copilot_todos_2025-06-03
+created: 2025-06-03
+purpose: Actionable, context-rich TODOs for Copilot/AI agent to optimize project structure, automation, and artifact-driven development. Enhanced with project-specific context and actionable details.
+type: todo
+tags: [todo, automation, artifact, ai, workflow, context]
+format: markdown
+related: [
+  "tilemap_system_design.artifact",
+  "artifact_index.artifact",
+  "phase1_brainstorm.artifact",
+  "protoFusionGirl.primer",
+  "copilot_next_steps_2025-06-03.artifact",
+  "feedback_2025-06-03.artifact"
+]
+---
+
+# Copilot TODOs (2025-06-03)
+
+## Artifact & Documentation
+- [x] **Keep all design artifacts up to date:**
+    - After implementing or refactoring systems (e.g., tilemap, combat), update the corresponding artifact (e.g., `tilemap_system_design.artifact`) with new pseudocode, data structures, and decisions.
+    - Document open questions and resolved issues in the artifact for future reference.
+- [x] **Reference artifacts in code:**
+    - In relevant TypeScript files (e.g., `src/world/tilemap/TilemapManager.ts`), add comments like `// See artifacts/tilemap_system_design.artifact` to link code and design context.
+- [x] **Maintain a high-level primer:**
+    - Use `.primer` as the main onboarding and architecture guide. Update it after major changes to project structure, workflow, or conventions.
+    - Reference the most important artifacts and latest directory snapshot in the primer.
+- [x] **Use the artifact index as a dashboard:**
+    - Before starting new work, review `artifact_index.artifact` to see the latest context, design docs, and feedback.
+
+## Automation
+- [x] **Run artifact index and directory snapshot scripts:**
+    - After major code or structure changes, run `node scripts/generateArtifactIndex.js` and `node scripts/snapshotDirectory.js` to keep context current.
+    - Store new directory snapshots as timestamped artifacts for historical tracking.
+- [ ] **Review and update automation scripts:**
+    - Periodically check scripts in `scripts/` for clarity, documentation, and usefulness. Add comments and usage examples as needed.
+- [x] **Meta-script for script discovery:**
+    - Created `scripts/listScripts.js` to list all available scripts, their purposes, and usage instructions for easy discovery and onboarding.
+
+## Feedback & Iteration
+- [x] **Log blockers, insights, and improvements:**
+    - Used a `feedback.artifact` to capture pain points, workflow issues, and ideas for improvement as they arise.
+- [x] **Retrospective artifacts:**
+    - After each milestone (e.g., completion of tilemap system), created a brief retrospective artifact summarizing what was built, what changed, lessons learned, and next steps.
+
+## Directory Structure & Organization
+- [x] **Use directory snapshots for organization:**
+    - Reference the latest `directory_structure_*.artifact` to inform where new modules or files should be placed.
+    - If the project becomes cluttered, use snapshots to plan and document refactors.
+- [x] **Check placement for new systems:**
+    - When adding a new system (e.g., inventory, AI), consult the primer and directory snapshot to determine the best location in `src/` or subfolders.
+
+## Human-AI Collaboration
+- [x] **Mutual reinforcement of artifacts and code:**
+    - Ensure that artifacts guide code development, and that code changes are reflected in updated artifacts.
+    - Use artifact references in code and code references in artifacts for full traceability.
+- [x] **Prompt for missing context:**
+    - If a relevant artifact or design doc is missing, prompt to create it or log the gap in `feedback.artifact`.
+
+## Early Stage Focus
+- [x] **Prioritize core features:**
+    - Focus on implementing the tilemap and chunk management system as described in `tilemap_system_design.artifact`.
+    - Use artifacts to capture only the most important context, decisions, and open questions during early development.
+- [x] **Incremental automation and documentation:**
+    - As the project grows, add more automation (e.g., meta-scripts, onboarding helpers) and retrospective artifacts as needs become clear.
+
+---
+
+(End of artifact)

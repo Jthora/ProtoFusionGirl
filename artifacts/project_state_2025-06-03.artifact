@@ -1,0 +1,34 @@
+---
+artifact: project_state_2025-06-03
+created: 2025-06-03
+purpose: Summarize current project state, open questions, and next priorities for both AI and human contributors.
+type: state
+format: markdown
+tags: [state, summary, next-steps, ai, onboarding, artifact, workflow]
+related: [copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, copilot_next_steps_2025-06-03.artifact, protoFusionGirl.primer]
+---
+
+# Project State & Next Steps (2025-06-03)
+
+## Current State
+- Artifact-driven, automation-first project structure is in place.
+- All major scripts for artifact indexing, search, versioning, onboarding, and code sync are implemented and tested.
+- Persistent memory and onboarding artifacts exist for both AI and human contributors.
+- All artifacts are cross-referenced and indexed.
+
+## Open Questions
+- How should artifact versioning be handled for canonical vs. historical artifacts?
+- What is the best way to visualize artifact/code relationships for large projects?
+- How can onboarding be further streamlined for new AI agents?
+- Are there any unused or deprecated artifacts that should be archived or deleted?
+
+## Next Priorities
+- Implement bi-directional code/artifact mapping and visualization.
+- Enhance onboarding with a guided script and self-test for new agents.
+- Add script documentation and usage examples to all automation scripts.
+- Regularly review and clean up unused or outdated artifacts.
+- Expand `copilot_memory.artifact` with new lessons and heuristics as the project evolves.
+
+---
+
+(End of artifact)

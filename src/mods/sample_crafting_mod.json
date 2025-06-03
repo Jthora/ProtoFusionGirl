@@ -1,0 +1,11 @@
+{
+  "id": "sample_crafting_mod",
+  "recipes": [
+    {
+      "id": "super_torch",
+      "inputs": [ { "item": "torch", "quantity": 2 }, { "item": "coal", "quantity": 1 } ],
+      "output": { "item": "super_torch", "quantity": 1 },
+      "modId": "sample_crafting_mod"
+    }
+  ]
+}

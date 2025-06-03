@@ -1,0 +1,46 @@
+---
+artifact: self_prompt_pipeline_instructions_2025-06-03
+created: 2025-06-03
+purpose: Instructions and best practices for using the Copilot Self-Prompt Pipeline for autonomous, iterative development cycles.
+type: instructions
+tags: [self-prompt, automation, ai, copilot, pipeline, queue, iterative, onboarding]
+related: [selfPromptPipeline.js, copilot_todo_automation_upgrades_2025-06-03.artifact]
+format: markdown
+---
+
+# Copilot Self-Prompt Pipeline Instructions
+
+## Overview
+The Self-Prompt Pipeline enables Copilot to autonomously manage, queue, and complete iterative development prompts, supporting multi-step, self-driven workflows and onboarding.
+
+## Usage
+- **Initialize the queue:**
+  ```sh
+  node scripts/selfPromptPipeline.js --init
+  ```
+- **Add a prompt to the queue:**
+  ```sh
+  node scripts/selfPromptPipeline.js --add "Describe the next feature to implement."
+  ```
+- **View the queue (JSON):**
+  ```sh
+  node scripts/selfPromptPipeline.js --json
+  ```
+- **Complete the next prompt:**
+  ```sh
+  node scripts/selfPromptPipeline.js --complete "Feature implemented."
+  ```
+- **Queue file:** The persistent queue is stored at `artifacts/self_prompt_queue.json`.
+
+## JSON Interface
+- All commands support `--json` for machine-readable output.
+- The queue and history are always available in JSON for Copilot/AI agent workflows.
+
+## Best Practices
+- Use the pipeline to break down large goals into iterative, trackable prompts.
+- Integrate with onboarding, task, and artifact automation for continuous improvement.
+- Use the queue as a persistent memory and planning tool for Copilot.
+
+---
+
+(End of instructions)

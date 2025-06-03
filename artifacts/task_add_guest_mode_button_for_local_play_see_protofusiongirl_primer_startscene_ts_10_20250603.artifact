@@ -1,0 +1,26 @@
+---
+artifact: task_add_guest_mode_button_for_local_play_see_protofusiongirl_primer_startscene_ts_10_20250603
+created: 2025-06-03
+purpose: Add Guest Mode button for local play (see .primer)
+type: task
+tags: [task, open, copilot]
+status: open
+priority: medium
+assignee: copilot
+related: ['protoFusionGirl/src/scenes/StartScene.ts']
+history:
+  - { date: 2025-06-03, action: created, by: copilot, notes: auto-created from code TODO }
+format: markdown
+---
+
+# Task: Add Guest Mode button for local play (see .primer)
+
+## Details
+- Found in /Users/jono/Documents/GitHub/ProtoFusionGirl/protoFusionGirl/src/scenes/StartScene.ts:10
+- Type: TODO
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- Auto-created from code TODO on 2025-06-03.

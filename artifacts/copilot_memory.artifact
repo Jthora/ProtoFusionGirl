@@ -1,0 +1,31 @@
+---
+artifact: copilot_memory
+created: 2025-06-03
+purpose: Persistent, high-value memory and heuristics for the Copilot/AI agent. Stores lessons, context, and reusable strategies for automation, onboarding, and project optimization.
+type: memory
+tags: [memory, ai, context, heuristics, onboarding, automation]
+format: markdown
+related: [copilot_next_steps_2025-06-03.artifact, copilot_todos_2025-06-03.artifact, protoFusionGirl.primer, artifact_index.artifact]
+---
+
+# Copilot Memory Artifact
+
+## Persistent Context
+- Always keep artifact headers and cross-references up to date for discoverability.
+- Use the artifact index and directory snapshot scripts after any major change.
+- Reference artifacts in code for traceability and onboarding.
+
+## Heuristics & Best Practices
+- Prefer automation and scripts for repetitive or error-prone tasks.
+- Use feedback/retrospective artifacts to drive continuous improvement.
+- Keep onboarding steps in the primer actionable and current.
+- Regularly check for unused or outdated artifacts and clean up as needed.
+
+## Lessons Learned
+- Artifact-driven development enables rapid AI/agent onboarding and context recall.
+- Cross-linking artifacts and code accelerates both human and AI productivity.
+- Versioning and snapshotting artifacts makes project history auditable and recoverable.
+
+## Next Steps
+- Expand this memory artifact as new heuristics, lessons, or context emerge.
+- Reference this artifact in all future automation and onboarding scripts.

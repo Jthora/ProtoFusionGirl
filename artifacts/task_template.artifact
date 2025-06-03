@@ -1,0 +1,41 @@
+---
+artifact: <task_id>
+created: <YYYY-MM-DD>
+purpose: <short description of the task>
+type: task
+tags: [task, <priority>, <status>, <assignee>, ...]
+status: done
+priority: <low|medium|high|urgent>
+assignee: <copilot|human|unassigned|name>
+related: [<artifact/script/task filenames>]
+history:
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: <YYYY-MM-DD>, action: <created/updated/completed/blocked/etc>, by: <copilot|human|name>, notes: <details> }
+format: markdown
+---
+
+# Task: <short description>
+
+## Details
+- ...
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- ...
+
+---
+
+# AI Task Management Automation
+- Use `node scripts/aiTaskManager.js new <desc> [--priority=...] [--assignee=...] [--related=...]` to create a new task.
+- Use `node scripts/aiTaskManager.js list [--status=...] [--assignee=...] [--priority=...]` to list/filter tasks.
+- Use `node scripts/aiTaskManager.js update <task_filename> [--status=...] [--assignee=...] [--priority=...] [--comment=...]` to update a task.
+- Use `node scripts/aiTaskManager.js index` to regenerate the task index.
+- (Planned) Use `node scripts/aiTaskManager.js sync` to sync tasks with code/artifact references.
+- All commands are fully automatable and machine-readable for Copilot/AI agent workflows.

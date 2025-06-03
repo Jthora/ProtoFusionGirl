@@ -1,0 +1,10 @@
+{
+  "name": "ProtoFusionGirl",
+  "version": "1.0.0",
+  "description": "Game project with AI artifact system and directory context automation",
+  "scripts": {
+    "artifact:index": "node scripts/generateArtifactIndex.js",
+    "artifact:dir": "node scripts/snapshotDirectory.js"
+  },
+  "devDependencies": {}
+}
