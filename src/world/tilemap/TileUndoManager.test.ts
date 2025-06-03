@@ -15,8 +15,8 @@ class MockEditorHistory {
 describe('TileUndoManager', () => {
   let history: MockEditorHistory;
   let manager: TileUndoManager;
-  const actionA = { type: 'edit', tile: 'A' };
-  const actionB = { type: 'edit', tile: 'B' };
+  const actionA = { type: 'edit', tile: 'A', data: {} };
+  const actionB = { type: 'edit', tile: 'B', data: {} };
 
   beforeEach(() => {
     history = new MockEditorHistory();

@@ -9,17 +9,26 @@ describe('GameScene', () => {
   beforeEach(() => {
     scene = new GameScene();
     // Mock minimal scene systems
-    scene.physics = { add: { sprite: jest.fn(() => ({ setCollideWorldBounds: jest.fn(), setBounce: jest.fn(), setGravityY: jest.fn(), setVelocityX: jest.fn(), setVelocityY: jest.fn(), body: {} })) } } as any;
-    scene.add = { text: jest.fn(), sprite: jest.fn() } as any;
-    scene.input = { keyboard: { createCursorKeys: jest.fn(() => ({ left: {}, right: {}, up: {}, down: {} })) } } as any;
-    scene.anims = { create: jest.fn() } as any;
-    scene.cameras = { main: { startFollow: jest.fn() } } as any;
-    scene.cache = { tilemap: { exists: jest.fn(() => true) } } as any;
-    scene.make = { tilemap: jest.fn(() => ({ addTilesetImage: jest.fn(() => ({})), createLayer: jest.fn(() => ({ setCollisionByProperty: jest.fn() })), setCollisionByProperty: jest.fn() })) } as any;
-    // Add mocks for modular UI components if needed
-    scene.children = { sendToBack: jest.fn() } as any;
-    scene.scale = { width: 800, height: 600 } as any;
-    scene.sys = { game: { device: { input: { touch: false } } } } as any;
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).physics = { add: { sprite: jest.fn(() => ({ setCollideWorldBounds: jest.fn(), setBounce: jest.fn(), setGravityY: jest.fn(), setVelocityX: jest.fn(), setVelocityY: jest.fn(), body: {} })) } };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).add = { text: jest.fn(), sprite: jest.fn() };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).input = { keyboard: { createCursorKeys: jest.fn(() => ({ left: {}, right: {}, up: {}, down: {} })) } };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).anims = { create: jest.fn() };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).cameras = { main: { startFollow: jest.fn() } };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).cache = { tilemap: { exists: jest.fn(() => true) } };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).make = { tilemap: jest.fn(() => ({ addTilesetImage: jest.fn(() => ({})), createLayer: jest.fn(() => ({ setCollisionByProperty: jest.fn() })), setCollisionByProperty: jest.fn() })) };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).children = { sendToBack: jest.fn() };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).scale = { width: 800, height: 600 };
+    // @ts-expect-error: Patch for test compatibility
+    (scene as any).sys = { game: { device: { input: { touch: false } } } };
   });
 
   it('should create a player sprite with physics', () => {

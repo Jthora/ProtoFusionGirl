@@ -1,0 +1,56 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Environment/config
+.env
+.env.*
+
+# OS/Editor/IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+
+# Test/coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.log
+*.tgz
+*.tsbuildinfo
+
+# Artifacts (keep tracked artifacts, ignore temp/generated if any)
+artifacts/*.tmp
+artifacts/*.bak
+artifacts/*~
+
+# Ignore Hardhat cache and artifacts (if not needed)
+cache/
+artifacts/cache/
+artifacts/build-info/
+
+# Keep main artifacts, but ignore temp files in artifacts/
+!artifacts/*.artifact
+!artifacts/*.md
+
+# Ignore VS Code launch configs
+.vscode/launch.json
+
+# Ignore local test output
+*.local.js
+
+# Ignore backup files
+*~
+
+# Ignore lockfiles only if you do NOT want to track them (usually you DO want to track package-lock.json)
+# package-lock.json
+# yarn.lock
