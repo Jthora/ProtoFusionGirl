@@ -19,12 +19,15 @@
 │   │   └── sorter.js
 │   └── lcov.info
 ├── directory-structure.txt
+├── docs
+│   └── modding.md
 ├── hardhat.config.cjs
 ├── ignition
 │   └── modules
 │       └── Lock.js
 ├── index.html
-├── jest.config.ts
+├── jest.config.mjs
+├── jest.config.ts.bak
 ├── package-lock.json
 ├── package.json
 ├── public
@@ -39,8 +42,14 @@
 │   │   ├── mod_loader.ts
 │   │   └── sample_mod.json
 │   ├── scenes
+│   │   ├── GameScene.test.ts
 │   │   ├── GameScene.ts
+│   │   ├── PauseMenuScene.ts
+│   │   ├── SettingsScene.ts
 │   │   └── StartScene.ts
+│   ├── services
+│   │   ├── ModRegistryService.ts
+│   │   └── SettingsService.ts
 │   ├── style.css
 │   ├── typescript.svg
 │   ├── vite-env.d.ts
@@ -49,4 +58,4 @@
 │   └── Lock.js
 └── tsconfig.json
 
-12 directories, 38 files
+14 directories, 45 files

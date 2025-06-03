@@ -13,6 +13,14 @@
 
 // Remove TypeScript interfaces for CommonJS Jest compatibility
 
+export type ModMeta = {
+  name: string;
+  version: string;
+  entry: string;
+  assets?: { key: string; cid: string }[];
+  description?: string;
+};
+
 import { z } from 'zod';
 
 // Zod schema for mod validation
@@ -34,7 +42,7 @@ export const ModSchema = z.object({
  * @param {any} modData - The mod metadata to validate.
  * @returns {boolean} True if the metadata is valid, false otherwise.
  */
-export function validateMod(modData: unknown): boolean {
+export function validateMod(modData: unknown): modData is ModMetadata {
   const result = ModSchema.safeParse(modData);
   return result.success;
 }
@@ -81,5 +89,28 @@ export function loadSampleMod() {
   // In production, dynamically load and execute the mod script
 }
 
+// Placeholder for future asset injection
+/**
+ * Injects assets from a mod into the Phaser game cache.
+ * TODO: Implement actual asset loading from IPFS and add to game cache.
+ * @param mod The validated mod metadata object.
+ * @param scene The Phaser.Scene instance to inject assets into.
+ */
+export function injectModAssets(mod: ModMetadata, scene: Phaser.Scene) {
+  if (!mod.assets) return;
+  mod.assets.forEach((asset) => {
+    // TODO: Download from IPFS and add to scene.textures or scene.cache
+    // For now, just log
+    console.log(`[ModLoader] Would inject asset:`, asset);
+  });
+}
+
 // Optionally, call loadSampleMod() for testing
 // loadSampleMod();
+
+// Export all for easier imports
+export default {
+  validateMod,
+  injectModAssets,
+  ModSchema,
+};

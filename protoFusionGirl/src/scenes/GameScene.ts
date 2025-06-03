@@ -1,17 +1,20 @@
 // GameScene.ts - protoFusionGirl core gameplay scene
 // Implements player movement and prepares for tilemap, touch controls, and modding (see primer)
 import Phaser from 'phaser';
+import { PauseMenuScene } from './PauseMenuScene';
+import { SettingsService } from '../services/SettingsService';
+import { SettingsScene } from './SettingsScene';
+import { HealthBar, TouchControls } from '../ui/components';
 
 export class GameScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private backgroundFar!: Phaser.GameObjects.TileSprite;
   private backgroundNear!: Phaser.GameObjects.TileSprite;
-  private healthBarBg!: Phaser.GameObjects.Rectangle;
-  private healthBar!: Phaser.GameObjects.Rectangle;
   private playerHealth: number = 100;
   private maxHealth: number = 100;
-  private touchControls!: { left: boolean; right: boolean; jump: boolean };
+  private touchControls?: { left: boolean; right: boolean; jump: boolean };
+  private healthBarComponent!: HealthBar;
 
   constructor() {
     super({ key: 'GameScene' });
@@ -33,6 +36,19 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
+    // --- Settings integration ---
+    const settings = SettingsService.getInstance();
+    if (settings.get('showDebug')) {
+      // Example: enable debug overlays, etc.
+      console.log('[Settings] Debug mode enabled');
+    }
+    settings.onChange((newSettings) => {
+      // React to settings changes globally
+      if (typeof newSettings.showDebug === 'boolean') {
+        // Toggle debug overlays, etc.
+      }
+    });
+
     // Parallax backgrounds
     this.backgroundFar = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'background-far').setOrigin(0, 0).setScrollFactor(0);
     this.backgroundNear = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'background-near').setOrigin(0, 0).setScrollFactor(0);
@@ -58,48 +74,61 @@ export class GameScene extends Phaser.Scene {
     groundLayer.setCollisionByProperty({ collides: true });
 
     // Collide player with ground
-    this.physics.add.collider(this.player, groundLayer);
+    this.physics.add.collider(this.player, groundLayer, (player, tile) => {
+      // Optional: Add custom logic for landing, sound, etc.
+    });
 
-    // Health bar UI above player
-    this.healthBarBg = this.add.rectangle(0, 0, 52, 10, 0x222222).setOrigin(0.5, 1);
-    this.healthBar = this.add.rectangle(0, 0, 50, 8, 0xff3366).setOrigin(0.5, 1);
-    this.healthBar.setDepth(10);
-    this.healthBarBg.setDepth(9);
+    // Debug: Show collision tiles in development
+    const showDebug = true;
+    if (showDebug) {
+      const debugGraphics = this.add.graphics().setAlpha(0.5);
+      groundLayer.renderDebug(debugGraphics, {
+        tileColor: null, // No color for non-colliding tiles
+        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Orange for colliding tiles
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Dark for face edges
+      });
+    }
 
-    // --- TOUCH CONTROLS FOR MOBILE ---
+    // Health bar UI above player (modular)
+    this.healthBarComponent = new HealthBar({
+      scene: this,
+      x: 0,
+      y: 0,
+      max: this.maxHealth,
+      value: this.playerHealth
+    });
+    this.healthBarComponent.create();
+
+    // --- TOUCH CONTROLS FOR MOBILE (modular) ---
     if (this.sys.game.device.input.touch) {
-      // Add left/right/jump zones
       const width = this.scale.width;
       const height = this.scale.height;
-      // Visual feedback rectangles (optional)
-      this.add.rectangle(width * 0.165, height * 0.5, width * 0.33, height, 0x00aaff, 0.08).setOrigin(0.5);
-      this.add.rectangle(width * 0.835, height * 0.5, width * 0.33, height, 0x00ff88, 0.08).setOrigin(0.5);
-      this.add.rectangle(width * 0.5, height * 0.25, width * 0.34, height * 0.5, 0xffaa00, 0.08).setOrigin(0.5);
-      // Touch zones
-      const leftZone = this.add.zone(0, height * 0.5, width * 0.33, height)
-        .setOrigin(0, 0.5)
-        .setInteractive();
-      const rightZone = this.add.zone(width * 0.67, height * 0.5, width * 0.33, height)
-        .setOrigin(0, 0.5)
-        .setInteractive();
-      const jumpZone = this.add.zone(width * 0.33, 0, width * 0.34, height * 0.5)
-        .setOrigin(0, 0)
-        .setInteractive();
-
-      // Touch state
-      this.input.addPointer(2);
       this.touchControls = { left: false, right: false, jump: false };
-
-      leftZone.on('pointerdown', () => (this.touchControls.left = true));
-      leftZone.on('pointerup', () => (this.touchControls.left = false));
-      leftZone.on('pointerout', () => (this.touchControls.left = false));
-      rightZone.on('pointerdown', () => (this.touchControls.right = true));
-      rightZone.on('pointerup', () => (this.touchControls.right = false));
-      rightZone.on('pointerout', () => (this.touchControls.right = false));
-      jumpZone.on('pointerdown', () => (this.touchControls.jump = true));
-      jumpZone.on('pointerup', () => (this.touchControls.jump = false));
-      jumpZone.on('pointerout', () => (this.touchControls.jump = false));
+      new TouchControls({
+        scene: this,
+        width,
+        height,
+        onLeft: (down) => (this.touchControls!.left = down),
+        onRight: (down) => (this.touchControls!.right = down),
+        onJump: (down) => (this.touchControls!.jump = down),
+      }).create();
+      this.input.addPointer(2);
     }
+
+    // Register PauseMenuScene and SettingsScene if not already
+    if (!this.scene.get('PauseMenuScene')) {
+      this.scene.add('PauseMenuScene', PauseMenuScene, false);
+    }
+    if (!this.scene.get('SettingsScene')) {
+      this.scene.add('SettingsScene', SettingsScene, false);
+    }
+    // Listen for ESC key to pause
+    this.input.keyboard?.on('keydown-ESC', () => {
+      if (!this.scene.isPaused('GameScene')) {
+        this.scene.launch('PauseMenuScene');
+        this.scene.pause();
+      }
+    });
 
     // Ensure backgrounds are behind everything
     this.children.sendToBack(this.backgroundFar);
@@ -129,7 +158,7 @@ export class GameScene extends Phaser.Scene {
       this.player.setVelocityY(-350);
     }
 
-    // --- TOUCH CONTROLS LOGIC ---
+    // --- TOUCH CONTROLS LOGIC (modular) ---
     if (this.touchControls) {
       if (this.touchControls.left) {
         this.player.setVelocityX(-200);
@@ -152,14 +181,9 @@ export class GameScene extends Phaser.Scene {
       this.backgroundNear.tilePositionX = this.cameras.main.scrollX * 0.5;
     }
 
-    // Update health bar position above player
-    if (this.player) {
-      this.healthBarBg.x = this.player.x;
-      this.healthBarBg.y = this.player.y - 32;
-      this.healthBar.x = this.player.x;
-      this.healthBar.y = this.player.y - 34;
-      // Update health bar width based on health
-      this.healthBar.width = 50 * (this.playerHealth / this.maxHealth);
+    // Update health bar position above player (modular)
+    if (this.player && this.healthBarComponent) {
+      this.healthBarComponent.update(this.player.x, this.player.y - 34, this.playerHealth);
     }
 
     // TODO: Add tilemap collision logic
