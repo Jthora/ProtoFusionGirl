@@ -5,6 +5,10 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+// Use import.meta.url to get directory in ES module scope
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS = [
   'ai_onboarding_2025-06-03.artifact',
@@ -25,6 +29,8 @@ const SCRIPTS = [
 
 const outputJson = process.argv.includes('--json');
 const autoTask = process.argv.includes('--auto-task');
+
+const ONBOARDING_STATUS_PATH = path.join(__dirname, '../artifacts/ai_onboarding_status.artifact');
 
 function prompt(question) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -115,6 +121,63 @@ async function main() {
       const cp = await import('child_process');
       cp.execSync(`node scripts/selfPromptPipeline.js --add "${promptText}"`, { stdio: 'ignore' });
     } catch (e) { /* ignore errors */ }
+  }
+
+  // --- Enhancement: Write onboarding status artifact ---
+  let nextActions = [];
+  // Try to load next actions from copilot_next_steps_2025-06-03.artifact if it exists
+  const nextStepsPath = path.join(__dirname, '../artifacts/copilot_next_steps_2025-06-03.artifact');
+  if (fs.existsSync(nextStepsPath)) {
+    try {
+      const content = fs.readFileSync(nextStepsPath, 'utf8');
+      // Naive parse: look for lines starting with '-' or numbered list
+      nextActions = content.split('\n').filter(l => l.match(/^\s*[-0-9]/));
+    } catch (e) { /* ignore */ }
+  }
+  // Compose status artifact content
+  const statusContent = [
+    '---',
+    'artifact: ai_onboarding_status',
+    `created: ${new Date().toISOString()}`,
+    'purpose: Onboarding status summary for Copilot/AI agent',
+    'type: status',
+    'format: markdown',
+    '---',
+    '',
+    '# AI Onboarding Status',
+    '',
+    `**Pass:** ${result.pass}`,
+    '',
+    '## Artifacts Checked:',
+    ...result.artifacts.map(a => `- ${a.name}: ${a.exists ? 'OK' : 'MISSING'}`),
+    '',
+    '## Scripts Checked:',
+    ...result.scripts.map(s => `- ${s.name}: ${s.exists ? 'OK' : 'MISSING'}`),
+    '',
+    '## Self-Test:',
+    ...result.selfTest.map(q => `- ${q.question} (${q.check ? 'PASS' : 'FAIL'})`),
+    '',
+    '## Missing Context:',
+    ...(result.missing.length ? result.missing.map(m => `- ${m.type}: ${m.name}`) : ['None']),
+    '',
+    '## Next Actions:',
+    ...(nextActions.length ? nextActions : ['- See Project Dashboard or copilot_next_steps_2025-06-03.artifact']),
+    '',
+    '## Troubleshooting:',
+    result.pass ? '- None' : '- See logs, feedback_*.artifact, or autoRepairArtifacts.js for repair.',
+    ''
+  ].join('\n');
+  // Extra logging for debugging artifact creation
+  console.log('[DEBUG] About to write onboarding status artifact.');
+  console.log('[DEBUG] Artifact path:', ONBOARDING_STATUS_PATH);
+  try {
+    fs.writeFileSync(ONBOARDING_STATUS_PATH, statusContent, 'utf8');
+    console.log('[DEBUG] Artifact write successful.');
+  } catch (err) {
+    console.error('[ERROR] Failed to write onboarding status artifact:', err);
+  }
+  if (!outputJson) {
+    console.log(`\nOnboarding status written to: ${ONBOARDING_STATUS_PATH}\n`);
   }
 }
 

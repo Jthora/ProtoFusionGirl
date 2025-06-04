@@ -7,6 +7,8 @@ import fs from 'fs';
 import path from 'path';
 import { execSync, execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -108,35 +110,95 @@ function printHelp() {
   }
 }
 
-const args = process.argv.slice(2);
-console.log('[DEBUG] Parsed args:', args);
-const cmd = args[0];
-console.log('[DEBUG] Parsed cmd:', cmd);
-if (!cmd || args.includes('help') || args.includes('--help')) {
-  console.log('[DEBUG] Showing help');
-  printHelp();
+// Robust argument parsing with yargs
+const argv = yargs(hideBin(process.argv))
+  .command('new <desc>', 'Create a new task', (yargs) => {
+    yargs.positional('desc', {
+      describe: 'Task description',
+      type: 'string',
+    })
+    .option('priority', {
+      alias: 'p',
+      describe: 'Task priority',
+      default: 'medium',
+      type: 'string',
+    })
+    .option('assignee', {
+      alias: 'a',
+      describe: 'Task assignee',
+      default: 'copilot',
+      type: 'string',
+    })
+    .option('related', {
+      alias: 'r',
+      describe: 'Related files/artifacts',
+      type: 'string',
+    });
+  })
+  .command('list', 'List tasks', (yargs) => {
+    yargs.option('status', { describe: 'Status filter', type: 'string' })
+      .option('assignee', { describe: 'Assignee filter', type: 'string' })
+      .option('priority', { describe: 'Priority filter', type: 'string' })
+      .option('json', { describe: 'Output as JSON', type: 'boolean' });
+  })
+  .command('update <task_filename>', 'Update a task', (yargs) => {
+    yargs.positional('task_filename', { describe: 'Task artifact filename', type: 'string' })
+      .option('status', { describe: 'New status', type: 'string' })
+      .option('assignee', { describe: 'New assignee', type: 'string' })
+      .option('priority', { describe: 'New priority', type: 'string' })
+      .option('comment', { describe: 'Comment', type: 'string' });
+  })
+  .command('index', 'Regenerate the task index')
+  .command('sync', 'Sync code TODOs with tasks')
+  .option('self-test', { describe: 'Run a self-test and print parsed arguments', type: 'boolean' })
+  .help()
+  .argv;
+
+if (argv['self-test']) {
+  console.log('[SELF-TEST] argv:', argv);
   process.exit(0);
 }
 
-// If core command, run as before
-if (coreCommands[cmd]) {
-  console.log('[DEBUG] Running core command:', cmd, 'with args:', args.slice(1));
-  coreCommands[cmd](args.slice(1));
+const cmd = argv._[0];
+console.log('[DEBUG] yargs cmd:', cmd, 'argv:', argv);
+
+// Core commands using yargs
+if (cmd === 'new') {
+  const desc = argv.desc;
+  const args = [desc];
+  if (argv.priority) args.push(`--priority=${argv.priority}`);
+  if (argv.assignee) args.push(`--assignee=${argv.assignee}`);
+  if (argv.related) args.push(`--related=${argv.related}`);
+  coreCommands.new(args);
+  process.exit(0);
+}
+if (cmd === 'list') {
+  const args = [];
+  if (argv.status) args.push(`--status=${argv.status}`);
+  if (argv.assignee) args.push(`--assignee=${argv.assignee}`);
+  if (argv.priority) args.push(`--priority=${argv.priority}`);
+  if (argv.json) args.push('--json');
+  coreCommands.list(args);
+  process.exit(0);
+}
+if (cmd === 'update') {
+  const args = [argv.task_filename];
+  if (argv.status) args.push(`--status=${argv.status}`);
+  if (argv.assignee) args.push(`--assignee=${argv.assignee}`);
+  if (argv.priority) args.push(`--priority=${argv.priority}`);
+  if (argv.comment) args.push(`--comment=${argv.comment}`);
+  coreCommands.update(args);
+  process.exit(0);
+}
+if (cmd === 'index') {
+  coreCommands.index([]);
+  process.exit(0);
+}
+if (cmd === 'sync') {
+  coreCommands.sync([]);
   process.exit(0);
 }
 
-// If plugin/module command, run the corresponding script with args
-const discovered = discoverScripts();
-const plugin = discovered.find(s => s.name === cmd);
-if (plugin) {
-  console.log('[DEBUG] Running plugin/module command:', plugin.name, 'with args:', args.slice(1));
-  // Pass through all args after the command
-  const pluginArgs = args.slice(1).map(a => `'${a.replace(/'/g, "'\\''")}'`).join(' ');
-  // Use execSync to run the script as a child process
-  execSync(`node scripts/${plugin.file} ${pluginArgs}`, { stdio: 'inherit' });
-  process.exit(0);
-}
-
-console.error(`[DEBUG] Unknown command or script: ${cmd}`);
+// Fallback to help if unknown command
 printHelp();
 process.exit(1);

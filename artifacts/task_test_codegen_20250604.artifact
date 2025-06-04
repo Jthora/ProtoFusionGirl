@@ -1,0 +1,10 @@
+---
+id: task_test_codegen_20250604
+status: open
+priority: high
+assignee: copilot
+purpose: Test Copilot/OpenAI codegen workflow via dev loop
+context:
+  description: This is a test task to verify the AI Autonomous Dev Loop end-to-end, including codegen, artifact, and PR automation.
+relatedFile: scripts/aiAutonomousDevLoop.js
+---

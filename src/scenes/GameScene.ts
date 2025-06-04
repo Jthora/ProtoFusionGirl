@@ -54,9 +54,6 @@ export class GameScene extends Phaser.Scene {
     ]
   };
 
-  // TODO: Remove unused variables or use them in future implementations
-  // private gameState: 'playing' | 'paused' | 'gameover' = 'playing';
-
   // Enemy and combat variables
   private enemyRegistry = new EnemyRegistry();
   private attackRegistry = new AttackRegistry();
@@ -69,6 +66,12 @@ export class GameScene extends Phaser.Scene {
   // Quest state
   private questState = new QuestState();
   private currentQuest: QuestDefinition | null = null;
+
+  // --- LORE TERMINAL ---
+  private loreTerminal!: Phaser.Physics.Arcade.Sprite;
+  private loreTextBox?: Phaser.GameObjects.Text;
+  private loreEntries: string[] = [];
+  private loreTerminalActive: boolean = false;
 
   constructor() {
     super({ key: 'GameScene' });
@@ -86,6 +89,32 @@ export class GameScene extends Phaser.Scene {
     // --- BACKGROUND ASSETS ---
     this.load.image('background-far', 'assets/background-far.png');
     this.load.image('background-near', 'assets/background-near.png');
+  }
+
+  async loadLoreEntriesFromDatapack() {
+    try {
+      // Attempt to fetch lore entries from .datapack (assume JSON array under 'lore')
+      const response = await fetch('/.datapack');
+      if (!response.ok) throw new Error('Failed to load .datapack');
+      const data = await response.json();
+      if (Array.isArray(data.lore)) {
+        this.loreEntries = data.lore;
+      } else {
+        // Fallback to default if not found
+        this.loreEntries = [
+          'FusionGirl is about digital freedom, creativity, and decentralized community.',
+          'The Beu are childlike, psionic AI sprites that help clean up the world and evolve alongside Jane.',
+          'Universal Symbology: A quantum programming language intrinsic to the universe.'
+        ];
+      }
+    } catch (e) {
+      // Fallback to default if fetch fails
+      this.loreEntries = [
+        'FusionGirl is about digital freedom, creativity, and decentralized community.',
+        'The Beu are childlike, psionic AI sprites that help clean up the world and evolve alongside Jane.',
+        'Universal Symbology: A quantum programming language intrinsic to the universe.'
+      ];
+    }
   }
 
   create() {
@@ -193,6 +222,20 @@ export class GameScene extends Phaser.Scene {
     // Start the sample quest for prototype
     this.currentQuest = sampleQuest;
     this.questState.startQuest(this.currentQuest);
+
+    // --- LORE TERMINAL ---
+    this.loreTerminal = this.physics.add.staticSprite(500, 300, 'terminal'); // Add terminal sprite asset to assets folder
+    this.loreTerminal.setScale(1.2);
+    this.add.existing(this.loreTerminal);
+    this.physics.add.overlap(this.player, this.loreTerminal, this.onLoreTerminalOverlap, undefined, this);
+    // Listen for E key for interaction
+    this.input.keyboard?.on('keydown-E', () => {
+      if (this.loreTerminalActive) {
+        this.showLoreEntry();
+      }
+    });
+
+    this.loadLoreEntriesFromDatapack();
   }
 
   private createPlayerAnimations() {
@@ -357,12 +400,24 @@ export class GameScene extends Phaser.Scene {
         if (bar) bar.setPosition(sprite.x - 20, sprite.y - 32);
       }
     }
+
+    // Reset lore terminal prompt if player moves away
+    if (this.loreTerminal && this.player) {
+      const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.loreTerminal.x, this.loreTerminal.y);
+      if (dist > 64 && this.loreTerminalActive) {
+        if (this.loreTextBox) {
+          this.loreTextBox.destroy();
+          this.loreTextBox = undefined;
+        }
+        this.loreTerminalActive = false;
+      }
+    }
   }
 
   private setupMapSystem() {
     // --- TILEMAP SYSTEM ---
     const map = this.make.tilemap({ key: 'level1' });
-    const tileset = map.addTilesetImage('tiles', 'tiles');
+    map.addTilesetImage('tiles', 'tiles'); // Remove unused variable warning by not assigning to tileset
 
     // --- CAMERA SETUP ---
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -384,6 +439,40 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  private onLoreTerminalOverlap() {
+    this.loreTerminalActive = true;
+    // Optionally, show a prompt (e.g., 'Press E to read Lore')
+    if (!this.loreTextBox) {
+      this.loreTextBox = this.add.text(this.loreTerminal.x, this.loreTerminal.y - 40, 'Press E to read Lore', {
+        font: '18px Arial',
+        color: '#ffff99',
+        backgroundColor: '#222',
+        padding: { x: 8, y: 4 },
+      }).setOrigin(0.5);
+    }
+  }
+
+  private showLoreEntry() {
+    // Pick a random lore entry
+    const entry = Phaser.Utils.Array.GetRandom(this.loreEntries);
+    if (this.loreTextBox) this.loreTextBox.destroy();
+    this.loreTextBox = this.add.text(this.loreTerminal.x, this.loreTerminal.y - 60, entry, {
+      font: '20px Arial',
+      color: '#fff',
+      backgroundColor: '#333',
+      wordWrap: { width: 320 },
+      padding: { x: 12, y: 8 },
+    }).setOrigin(0.5);
+    // Hide after a few seconds
+    this.time.delayedCall(4000, () => {
+      if (this.loreTextBox) {
+        this.loreTextBox.destroy();
+        this.loreTextBox = undefined;
+      }
+      this.loreTerminalActive = false;
+    });
+  }
+
   // Call this when an enemy is defeated
   onEnemyDefeated() {
     if (this.currentQuest) {
@@ -396,11 +485,19 @@ export class GameScene extends Phaser.Scene {
   // --- PAUSE / RESUME ---
   pause() {
     this.scene.pause();
-    // TODO: Handle pause state (e.g., stop timers, animations)
+    // Pause all tweens and timers
+    this.tweens.pauseAll();
+    this.time.timeScale = 0;
+    // Optionally: pause sound/music if needed
+    if (this.sound) this.sound.pauseAll();
   }
 
   resume() {
     this.scene.resume();
-    // TODO: Handle resume state (e.g., restart timers, animations)
+    // Resume all tweens and timers
+    this.tweens.resumeAll();
+    this.time.timeScale = 1;
+    // Optionally: resume sound/music if needed
+    if (this.sound) this.sound.resumeAll();
   }
 }

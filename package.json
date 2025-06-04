@@ -31,7 +31,9 @@
   },
   "dependencies": {
     "@thirdweb-dev/sdk": "^4.0.99",
+    "axios": "^1.9.0",
     "ipfs-http-client": "^60.0.1",
-    "phaser": "^3.90.0"
+    "phaser": "^3.90.0",
+    "yargs": "^18.0.0"
   }
 }

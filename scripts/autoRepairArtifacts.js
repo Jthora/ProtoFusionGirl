@@ -3,7 +3,11 @@
 // Onboarding: Detects and fixes missing headers, broken links, outdated fields, or inconsistent tags in artifacts/tasks. Outputs a summary (optionally as JSON).
 
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const args = process.argv.slice(2);

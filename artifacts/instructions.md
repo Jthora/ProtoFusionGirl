@@ -85,6 +85,7 @@ related: [other_artifact, script_name]
 - **Self-Prompting:** `selfPromptPipeline.js` (persistent, JSON-based self-prompt queue)
 - **Project Dashboard:** `project_dashboard.js` (summarizes state, outputs next actions)
 - **Hygiene:** Pre-commit hooks run all hygiene and indexing scripts automatically
+- **AI Autonomous Dev Loop:** Run `node scripts/aiAutonomousDevLoop.js` to let Copilot/AI automatically select, implement, test, and close tasks in a loop with minimal human input. See ONBOARDING.md for details.
 
 ---
 
