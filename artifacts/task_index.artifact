@@ -1,6 +1,6 @@
 ---
 artifact: task_index
-created: 2025-06-03
+created: 2025-06-04
 purpose: Manifest and metadata index for all task.artifact files in the project.
 type: index
 tags: [task, index, manifest, ai, copilot]
@@ -15,89 +15,169 @@ format: markdown
 
 ## Tasks
 
+- [open] (high) Add (Assignee: copilot) [task_add_20250603.artifact]
+    Related: 
 - [open] (medium) Add a scrolling background with parallax effect (see .primer) (Assignee: copilot) [task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Add a scrolling background with parallax effect (see .primer) (Assignee: copilot) [task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [done] (medium) Add a scrolling background with parallax effect (see protoFusionGirl.primer) (Assignee: copilot) [task_add_a_scrolling_background_with_parallax_effect_see_protofusiongirl_primer_gamescene_ts_5_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
-- [open] (medium) Add a Web3 wallet connect button to the start screen (see .primer) (Assignee: copilot) [task_add_a_web3_wallet_connect_button_to_the_start_screen_see_primer_startscene_ts_9_20250603.artifact]
+- [done] (medium) Add a Web3 wallet connect button to the start screen (see .primer) (Assignee: copilot) [task_add_a_web3_wallet_connect_button_to_the_start_screen_see_primer_startscene_ts_9_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
-- [open] (medium) Add a Web3 wallet connect button to the start screen (see .primer) (Assignee: copilot) [task_add_a_web3_wallet_connect_button_to_the_start_screen_see_protofusiongirl_primer_startscene_ts_9_20250603.artifact]
+- [done] (medium) Add a Web3 wallet connect button to the start screen (see .primer) (Assignee: copilot) [task_add_a_web3_wallet_connect_button_to_the_start_screen_see_protofusiongirl_primer_startscene_ts_9_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
-- [open] (medium) Add Guest Mode button for local play (see .primer) (Assignee: copilot) [task_add_guest_mode_button_for_local_play_see_primer_startscene_ts_10_20250603.artifact]
+- [done] (medium) Add Guest Mode button for local play (see .primer) (Assignee: copilot) [task_add_guest_mode_button_for_local_play_see_primer_startscene_ts_10_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
-- [open] (medium) Add Guest Mode button for local play (see .primer) (Assignee: copilot) [task_add_guest_mode_button_for_local_play_see_protofusiongirl_primer_startscene_ts_10_20250603.artifact]
+- [done] (medium) Add Guest Mode button for local play (see .primer) (Assignee: copilot) [task_add_guest_mode_button_for_local_play_see_protofusiongirl_primer_startscene_ts_10_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
 - [open] (medium) Add mod loader error handling and debug overlay (see .primer) (Assignee: copilot) [task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
+- [open] (medium) Add mod loader error handling and debug overlay (see .primer) (Assignee: copilot) [task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250604.artifact]
+    Related: src/mods/mod_loader.ts
 - [done] (medium) Add mod loader error handling and debug overlay (see protoFusionGirl.primer) (Assignee: copilot) [task_add_mod_loader_error_handling_and_debug_overlay_see_protofusiongirl_primer_mod_loader_ts_182_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
 - [open] (medium) Add tests for tilemap loading and health bar UI (see .primer) (Assignee: copilot) [task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_36_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.test.ts
+- [open] (medium) Add tests for tilemap loading and health bar UI (see .primer) (Assignee: copilot) [task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250603.artifact]
+    Related: src/scenes/GameScene.test.ts
+- [open] (medium) Add tests for tilemap loading and health bar UI (see .primer) (Assignee: copilot) [task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250604.artifact]
+    Related: src/scenes/GameScene.test.ts
 - [open] (medium) Add tests for tilemap loading and health bar UI (see .primer) (Assignee: copilot) [task_add_tests_for_tilemap_loading_and_health_bar_ui_see_protofusiongirl_primer_gamescene_test_ts_36_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.test.ts
 - [open] (medium) Add tiles.json (Tiled map export) and tiles.png (tileset image) to src/assets/ (Assignee: copilot) [task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Add tiles.json (Tiled map export) and tiles.png (tileset image) to src/assets/ (Assignee: copilot) [task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [open] (medium) Add touch controls for mobile (see .primer) (Assignee: copilot) [task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Add touch controls for mobile (see .primer) (Assignee: copilot) [task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [done] (medium) Add touch controls for mobile (see protoFusionGirl.primer) (Assignee: copilot) [task_add_touch_controls_for_mobile_see_protofusiongirl_primer_gamescene_ts_3_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Create (Assignee: copilot) [task_create_20250603.artifact]
+    Related: 
 - [open] (medium) Create a sample mod JSON file and load it (see .primer) (Assignee: copilot) [task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
+- [open] (medium) Create a sample mod JSON file and load it (see .primer) (Assignee: copilot) [task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250604.artifact]
+    Related: src/mods/mod_loader.ts
 - [done] (medium) Create a sample mod JSON file and load it (see protoFusionGirl.primer) (Assignee: copilot) [task_create_a_sample_mod_json_file_and_load_it_see_protofusiongirl_primer_mod_loader_ts_180_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
 - [open] (medium) Custom brush logic (e.g., from mod or user input) (Assignee: copilot) [task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250603.artifact]
     Related: protoFusionGirl/src/world/tilemap/TileBrush.ts
+- [open] (medium) Custom brush logic (e.g., from mod or user input) (Assignee: copilot) [task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250604.artifact]
+    Related: src/world/tilemap/TileBrush.ts
 - [open] (medium) Custom erase logic (Assignee: copilot) [task_custom_erase_logic_tilebrush_ts_71_20250603.artifact]
     Related: protoFusionGirl/src/world/tilemap/TileBrush.ts
+- [open] (medium) Custom erase logic (Assignee: copilot) [task_custom_erase_logic_tilebrush_ts_71_20250604.artifact]
+    Related: src/world/tilemap/TileBrush.ts
+- [done] (high) Design (Assignee: copilot) [task_design_20250603.artifact]
+    Related: 
 - [open] (medium) Download from IPFS and add to scene.textures or scene.cache (Assignee: copilot) [task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
+- [open] (medium) Download from IPFS and add to scene.textures or scene.cache (Assignee: copilot) [task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250604.artifact]
+    Related: src/mods/mod_loader.ts
 - [open] (medium) Draw selection rectangle/overlay in the scene (Assignee: copilot) [task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250603.artifact]
     Related: protoFusionGirl/src/world/tilemap/TileSelectionOverlay.ts
+- [open] (medium) Draw selection rectangle/overlay in the scene (Assignee: copilot) [task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250604.artifact]
+    Related: src/world/tilemap/TileSelectionOverlay.ts
+- [done] (medium) Expand (Assignee: copilot) [task_expand_20250603.artifact]
+    Related: 
+- [open] (medium) Grant rewards (Assignee: copilot) [task_grant_rewards_questprototype_ts_66_20250603.artifact]
+    Related: src/world/quest/QuestPrototype.ts
+- [open] (medium) Grant rewards (Assignee: copilot) [task_grant_rewards_questprototype_ts_66_20250604.artifact]
+    Related: src/world/quest/QuestPrototype.ts
+- [open] (medium) Handle pause state (e.g., stop timers, animations) (Assignee: copilot) [task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250603.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Handle pause state (e.g., stop timers, animations) (Assignee: copilot) [task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250604.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Handle resume state (e.g., restart timers, animations) (Assignee: copilot) [task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250603.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Handle resume state (e.g., restart timers, animations) (Assignee: copilot) [task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250604.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Implement (Assignee: copilot) [task_implement_20250603.artifact]
+    Related: 
 - [open] (medium) Implement a health bar UI above the player sprite (see .primer) (Assignee: copilot) [task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Implement a health bar UI above the player sprite (see .primer) (Assignee: copilot) [task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [done] (medium) Implement a health bar UI above the player sprite (see protoFusionGirl.primer) (Assignee: copilot) [task_implement_a_health_bar_ui_above_the_player_sprite_see_protofusiongirl_primer_gamescene_ts_6_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
 - [open] (medium) Implement a JSON-based tilemap (see .primer) (Assignee: copilot) [task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Implement a JSON-based tilemap (see .primer) (Assignee: copilot) [task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [open] (medium) Implement a JSON-based tilemap (see .primer) (Assignee: copilot) [task_implement_a_json_based_tilemap_see_protofusiongirl_primer_gamescene_ts_4_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
 - [open] (medium) Implement AI input logic (Assignee: copilot) [task_implement_ai_input_logic_aiinput_ts_4_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/AIInput.ts
+- [open] (medium) Implement AI input logic (Assignee: copilot) [task_implement_ai_input_logic_aiinput_ts_4_20250604.artifact]
+    Related: src/core/controls/AIInput.ts
 - [open] (medium) Implement AI jump (Assignee: copilot) [task_implement_ai_jump_aiinput_ts_13_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/AIInput.ts
+- [open] (medium) Implement AI jump (Assignee: copilot) [task_implement_ai_jump_aiinput_ts_13_20250604.artifact]
+    Related: src/core/controls/AIInput.ts
 - [open] (medium) Implement AI left/right (Assignee: copilot) [task_implement_ai_left_right_aiinput_ts_8_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/AIInput.ts
+- [open] (medium) Implement AI left/right (Assignee: copilot) [task_implement_ai_left_right_aiinput_ts_8_20250604.artifact]
+    Related: src/core/controls/AIInput.ts
 - [open] (medium) Implement equipment logic (weapons, armor) (Assignee: copilot) [task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250603.artifact]
     Related: protoFusionGirl/src/world/inventory/InventoryService.ts
+- [open] (medium) Implement equipment logic (weapons, armor) (Assignee: copilot) [task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250604.artifact]
+    Related: src/world/inventory/InventoryService.ts
 - [open] (medium) Implement gamepad jump (Assignee: copilot) [task_implement_gamepad_jump_gamepadinput_ts_13_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/GamepadInput.ts
+- [open] (medium) Implement gamepad jump (Assignee: copilot) [task_implement_gamepad_jump_gamepadinput_ts_13_20250604.artifact]
+    Related: src/core/controls/GamepadInput.ts
 - [open] (medium) Implement gamepad left/right (Assignee: copilot) [task_implement_gamepad_left_right_gamepadinput_ts_8_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/GamepadInput.ts
+- [open] (medium) Implement gamepad left/right (Assignee: copilot) [task_implement_gamepad_left_right_gamepadinput_ts_8_20250604.artifact]
+    Related: src/core/controls/GamepadInput.ts
 - [open] (medium) Implement gamepad polling (Assignee: copilot) [task_implement_gamepad_polling_gamepadinput_ts_4_20250603.artifact]
     Related: protoFusionGirl/src/core/controls/GamepadInput.ts
+- [open] (medium) Implement gamepad polling (Assignee: copilot) [task_implement_gamepad_polling_gamepadinput_ts_4_20250604.artifact]
+    Related: src/core/controls/GamepadInput.ts
 - [open] (medium) Implement item use logic (heal, place, etc.) (Assignee: copilot) [task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250603.artifact]
     Related: protoFusionGirl/src/world/inventory/InventoryService.ts
+- [open] (medium) Implement item use logic (heal, place, etc.) (Assignee: copilot) [task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250604.artifact]
+    Related: src/world/inventory/InventoryService.ts
 - [] () Manifest and metadata index for all task.artifact files in the project. (Assignee: ) [task_index.artifact]
     Related: artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact
 - [done] (high) Onboarding (Assignee: copilot) [task_onboarding_20250603.artifact]
     Related: guidedOnboarding.js
-- [open] (medium) Optionally unload mod assets here (Assignee: copilot) [task_optionally_unload_mod_assets_here_startscene_ts_153_20250603.artifact]
+- [done] (medium) Optionally unload mod assets here (Assignee: copilot) [task_optionally_unload_mod_assets_here_startscene_ts_153_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
-- [open] (medium) Reference artifacts and primer for onboarding and UI conventions (Assignee: copilot) [task_reference_artifacts_and_primer_for_onboarding_and_ui_conventions_startscene_ts_11_20250603.artifact]
+- [done] (medium) Reference artifacts and primer for onboarding and UI conventions (Assignee: copilot) [task_reference_artifacts_and_primer_for_onboarding_and_ui_conventions_startscene_ts_11_20250603.artifact]
     Related: protoFusionGirl/src/scenes/StartScene.ts
 - [open] (medium) Reference artifacts/tilemap_system_design.artifact for tilemap logic (Assignee: copilot) [task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.ts
+- [open] (medium) Reference artifacts/tilemap_system_design.artifact for tilemap logic (Assignee: copilot) [task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250604.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Remove unused variables or use them in future implementations (Assignee: copilot) [task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250603.artifact]
+    Related: src/scenes/GameScene.ts
+- [open] (medium) Remove unused variables or use them in future implementations (Assignee: copilot) [task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250604.artifact]
+    Related: src/scenes/GameScene.ts
 - [open] (medium) Replace with actual ABI array (Assignee: copilot) [task_replace_with_actual_abi_array_modregistryservice_ts_11_20250603.artifact]
     Related: protoFusionGirl/src/services/ModRegistryService.ts
+- [open] (medium) Replace with actual ABI array (Assignee: copilot) [task_replace_with_actual_abi_array_modregistryservice_ts_11_20250604.artifact]
+    Related: src/services/ModRegistryService.ts
 - [open] (medium) Replace with actual deployed contract address and ABI (Assignee: copilot) [task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250603.artifact]
     Related: protoFusionGirl/src/services/ModRegistryService.ts
+- [open] (medium) Replace with actual deployed contract address and ABI (Assignee: copilot) [task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250604.artifact]
+    Related: src/services/ModRegistryService.ts
 - [done] (<low|medium|high|urgent>) <short description of the task> (Assignee: <copilot|human|unassigned|name>) [task_template.artifact]
     Related: <artifact/script/task filenames>
 - [open] (medium) Validate mod JSON schema strictly (see .primer) (Assignee: copilot) [task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
+- [open] (medium) Validate mod JSON schema strictly (see .primer) (Assignee: copilot) [task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250604.artifact]
+    Related: src/mods/mod_loader.ts
 - [open] (medium) Validate mod JSON schema strictly (see .primer) (Assignee: copilot) [task_validate_mod_json_schema_strictly_see_protofusiongirl_primer_mod_loader_ts_181_20250603.artifact]
     Related: protoFusionGirl/src/mods/mod_loader.ts
 - [open] (medium) Write Jest test for player movement (see .primer) (Assignee: copilot) [task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_35_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.test.ts
+- [open] (medium) Write Jest test for player movement (see .primer) (Assignee: copilot) [task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250603.artifact]
+    Related: src/scenes/GameScene.test.ts
+- [open] (medium) Write Jest test for player movement (see .primer) (Assignee: copilot) [task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250604.artifact]
+    Related: src/scenes/GameScene.test.ts
 - [done] (medium) Write Jest test for player movement (see protoFusionGirl.primer) (Assignee: copilot) [task_write_jest_test_for_player_movement_see_protofusiongirl_primer_gamescene_test_ts_35_20250603.artifact]
     Related: protoFusionGirl/src/scenes/GameScene.test.ts

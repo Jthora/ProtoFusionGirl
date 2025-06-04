@@ -2,8 +2,8 @@
 // Usage: node scripts/selfPromptPipeline.js [--json] [--init] [--queue=<file>]
 // Onboarding: Enables Copilot to autonomously self-prompt in a cycle, with a JSON interface and a pipeline request queue for iterative development.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const QUEUE_FILE = path.join(__dirname, '../artifacts/self_prompt_queue.json');
 const args = process.argv.slice(2);
@@ -83,4 +83,4 @@ if (outputJson) {
 }
 
 // Export functions for Copilot/AI agent use
-module.exports = { addPrompt, getNextPrompt, completePrompt, queueFile };
+export { addPrompt, getNextPrompt, completePrompt, queueFile };

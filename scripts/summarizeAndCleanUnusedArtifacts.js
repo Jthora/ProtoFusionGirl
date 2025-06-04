@@ -2,12 +2,12 @@
 // Usage: node scripts/summarizeAndCleanUnusedArtifacts.js [--delete]
 // Onboarding: Summarizes unused or deprecated artifacts and optionally prompts for archival or deletion.
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
-const CODE_DIR = path.join(__dirname, '../protoFusionGirl/src');
+const CODE_DIR = path.join(__dirname, '../src');
 const ARTIFACT_REF_REGEX = /artifacts\/(\w[\w\-\d_]*\.artifact)/g;
 const EXCLUDE_DIRS = new Set(['coverage', 'docs', 'test', 'tests', 'node_modules', 'public', 'contracts', 'ignition']);
 

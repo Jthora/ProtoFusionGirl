@@ -1,0 +1,110 @@
+---
+artifact: progression_system_2025-06-03
+created: 2025-06-03
+purpose: Design vision, requirements, and initial plan for a core progression/quest system in ProtoFusionGirl.
+type: design
+tags: [progression, quest, gameplay, system, design, artifact]
+format: markdown
+related: [combat_mechanics.artifact, tilemap_system_design.artifact, phase1_brainstorm.artifact]
+---
+
+# ProtoFusionGirl Progression/Quest System: Vision & Initial Plan
+
+## Vision
+Establish a core gameplay loop that motivates players to advance through the game world, unlock new abilities, and experience narrative or emergent challenges. The progression system should:
+- Provide clear goals (quests, missions, or milestones)
+- Reward player skill, exploration, and creativity
+- Integrate with combat, tilemap, and future systems (inventory, upgrades, etc.)
+- Be extensible for both linear story and open-ended play
+
+## Requirements
+- **Quest/Objective Structure:** Support for main quests, side quests, and dynamic objectives
+- **Progress Tracking:** Persistent state for completed/in-progress quests
+- **Rewards:** XP, items, abilities, or story unlocks
+- **Integration:** Hooks for combat, tilemap, and future systems
+- **UI/UX:** Basic quest log and feedback to player
+
+## Possible Approaches
+- Data-driven quest definitions (JSON or artifact-based)
+- Modular quest logic (scripts/plugins)
+- Event-driven updates (e.g., on enemy defeat, area discovery)
+- Extensible reward and condition system
+
+## Next Steps
+1. Brainstorm quest types and core progression loops (combat, exploration, story, etc.)
+2. Draft quest data structure and state management plan
+3. Prototype a simple quest (e.g., "Defeat 3 enemies" or "Reach the next area")
+4. Integrate with existing combat/tilemap systems
+5. Iterate based on playtesting and feedback
+
+---
+
+# Quest Types & Core Progression Loops Brainstorm (2025-06-03)
+
+## Quest Types
+- **Main Story Quests:** Advance the primary narrative, unlock new areas, and introduce major mechanics or characters.
+- **Side Quests:** Optional objectives for lore, rewards, or world-building (e.g., help an NPC, find a lost item).
+- **Exploration Quests:** Encourage discovery of new locations, secrets, or hidden lore (e.g., "Find the ancient ruins").
+- **Combat Challenges:** Defeat specific enemies, survive waves, or overcome boss encounters.
+- **Collection Quests:** Gather items, resources, or collectibles scattered throughout the world.
+- **Puzzle/Skill Quests:** Solve environmental puzzles or complete skill-based challenges.
+- **Dynamic/Procedural Quests:** Generated based on player actions, world state, or random events.
+- **Progression Milestones:** Reach a certain level, unlock an ability, or complete a set of objectives.
+
+## Core Progression Loops
+- **Combat Loop:** Engage in battles, defeat enemies, earn XP/items, unlock new abilities or areas.
+- **Exploration Loop:** Discover new regions, secrets, and lore; unlock fast travel or shortcuts.
+- **Upgrade Loop:** Complete quests/challenges to earn resources for upgrading abilities, equipment, or base.
+- **Narrative Loop:** Progress through story beats, make choices, and influence world state or character relationships.
+- **Collection Loop:** Find and collect items, artifacts, or lore pieces to unlock achievements or story content.
+
+## Notes & Next Steps
+- Mix and match quest types for variety and replayability.
+- Use progression loops to reinforce core gameplay pillars (combat, exploration, narrative).
+- Next: Draft quest data structure and state management plan.
+
+---
+
+# Quest Data Structure & State Management Plan (2025-06-03)
+
+## Quest Data Structure (Example, JSON-like)
+```json
+{
+  "id": "quest_defeat_3_enemies",
+  "type": "combat",
+  "title": "Defeat 3 Enemies",
+  "description": "Eliminate 3 enemies in the forest zone.",
+  "objectives": [
+    { "type": "kill", "target": "enemy", "count": 3 }
+  ],
+  "rewards": [
+    { "type": "xp", "amount": 100 },
+    { "type": "item", "id": "health_potion", "amount": 1 }
+  ],
+  "prerequisites": [ ],
+  "nextQuests": [ "quest_reach_next_area" ]
+}
+```
+- **id**: Unique quest identifier
+- **type**: Quest category (combat, exploration, story, etc.)
+- **title/description**: Player-facing text
+- **objectives**: List of conditions to complete
+- **rewards**: List of rewards (XP, items, unlocks)
+- **prerequisites**: Quests or conditions required to unlock
+- **nextQuests**: Quests unlocked upon completion
+
+## State Management Plan
+- **Quest Log State**: Track all quests (active, completed, failed)
+- **Objective Progress**: Store per-objective progress (e.g., enemies defeated)
+- **Persistence**: Save/load quest state with player profile
+- **Event Hooks**: Update quest progress on relevant game events (enemy defeated, area entered, item collected, etc.)
+- **UI Integration**: Expose quest log and progress to UI layer
+
+## Next Steps
+1. Prototype a simple quest using this structure
+2. Implement basic quest state tracking and event hooks
+3. Integrate with combat/tilemap systems for real progress
+
+---
+
+This artifact is the starting point for all future work on progression and quest systems in ProtoFusionGirl. Feedback and contributions are encouraged!

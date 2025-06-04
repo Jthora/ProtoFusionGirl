@@ -2,8 +2,8 @@
 // Usage: node scripts/notifyOpenTasks.js [--json]
 // Onboarding: Outputs summaries of open/high-priority/blocked/overdue tasks for Copilot/AI agent workflows. Optionally outputs JSON for integration with VSCode notifications.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const args = process.argv.slice(2);

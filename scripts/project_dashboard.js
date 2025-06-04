@@ -2,13 +2,40 @@
 // Usage: node scripts/project_dashboard.js [--json] [--next-action]
 // Onboarding: Central command/dashboard for ProtoFusionGirl. Summarizes project state, lists key artifacts/scripts, and provides actionable next steps.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const PRIMER = path.join(__dirname, '../.primer');
 const ARTIFACT_INDEX = path.join(ARTIFACTS_DIR, 'artifact_index.artifact');
-const PROJECT_STATE = path.join(ARTIFACTS_DIR, 'project_state_2025-06-03.artifact');
+
+// --- Fix: Working Directory Check ---
+if (!fs.existsSync(ARTIFACTS_DIR)) {
+  console.error('Error: Please run this script from the project root directory.');
+  process.exit(1);
+}
+
+// --- Fix: Dynamic Artifact File Discovery ---
+function findLatestArtifact(prefix) {
+  if (!fs.existsSync(ARTIFACTS_DIR)) return null;
+  const files = fs.readdirSync(ARTIFACTS_DIR)
+    .filter(f => f.startsWith(prefix) && f.endsWith('.artifact'))
+    .sort()
+    .reverse();
+  return files.length ? path.join(ARTIFACTS_DIR, files[0]) : null;
+}
+const PROJECT_STATE = findLatestArtifact('project_state_');
+
+console.log('[DEBUG] project_dashboard.js starting. Args:', process.argv);
+console.log('[DEBUG] __dirname:', __dirname);
+console.log('[DEBUG] ARTIFACTS_DIR:', ARTIFACTS_DIR);
+console.log('[DEBUG] PRIMER:', PRIMER);
+console.log('[DEBUG] ARTIFACT_INDEX:', ARTIFACT_INDEX);
+console.log('[DEBUG] PROJECT_STATE:', PROJECT_STATE);
 
 function readSection(file, header) {
   if (!fs.existsSync(file)) return '';
@@ -34,23 +61,28 @@ function listKeyScripts() {
 }
 
 function main() {
-  console.log('=== ProtoFusionGirl Project Dashboard ===\n');
+  console.log('[DEBUG] Entered main()');
   // Primer summary
   if (fs.existsSync(PRIMER)) {
+    console.log('[DEBUG] PRIMER exists');
     console.log('--- Primer Summary ---');
     const primer = fs.readFileSync(PRIMER, 'utf8');
     console.log(primer.split('\n').slice(0, 10).join('\n'));
     console.log('...\n');
   }
   // Project state
-  if (fs.existsSync(PROJECT_STATE)) {
+  if (PROJECT_STATE && fs.existsSync(PROJECT_STATE)) {
+    console.log('[DEBUG] PROJECT_STATE exists');
     console.log('--- Project State ---');
     const state = readSection(PROJECT_STATE, '# Project State & Next Steps');
     console.log(state || '(No summary found)');
     console.log();
+  } else {
+    console.error('Error: No project_state_*.artifact found in artifacts/. Please generate one.');
   }
   // Artifact index
   if (fs.existsSync(ARTIFACT_INDEX)) {
+    console.log('[DEBUG] ARTIFACT_INDEX exists');
     console.log('--- Artifact Index (first 10) ---');
     const idx = fs.readFileSync(ARTIFACT_INDEX, 'utf8');
     const lines = idx.split('\n').filter(l => l.trim().startsWith('- '));
@@ -74,7 +106,8 @@ function main() {
 const outputJson = process.argv.includes('--json');
 const nextAction = process.argv.includes('--next-action');
 
-if (require.main === module) {
+if (import.meta.url === process.argv[1]) {
+  console.log('[DEBUG] Running as main module');
   // Output a machine-readable JSON summary for Copilot/AI agent use
   const dashboard = {};
   // Primer summary
@@ -83,8 +116,10 @@ if (require.main === module) {
     dashboard.primer = primer.split('\n').slice(0, 10).join('\n');
   }
   // Project state
-  if (fs.existsSync(PROJECT_STATE)) {
+  if (PROJECT_STATE && fs.existsSync(PROJECT_STATE)) {
     dashboard.projectState = readSection(PROJECT_STATE, '# Project State & Next Steps');
+  } else {
+    dashboard.projectState = null;
   }
   // Artifact index (first 10)
   if (fs.existsSync(ARTIFACT_INDEX)) {
@@ -116,8 +151,10 @@ if (require.main === module) {
     { action: 'review', artifact: 'copilot_advanced_todos_2025-06-03.artifact', reason: 'advanced TODOs' }
   ];
   if (outputJson) {
+    console.log('[DEBUG] Outputting JSON');
     console.log(JSON.stringify(dashboard, null, 2));
   } else if (nextAction) {
+    console.log('[DEBUG] Outputting nextAction');
     // Output the most important next action for Copilot
     const actions = dashboard.nextActions || [];
     if (actions.length) {
@@ -126,6 +163,7 @@ if (require.main === module) {
       console.log('No next actions found.');
     }
   } else {
+    console.log('[DEBUG] Outputting human-readable dashboard');
     // Human-readable output
     main();
   }
@@ -135,15 +173,17 @@ if (require.main === module) {
     const firstAction = dashboard.nextActions[0];
     // Only enqueue if not already in the queue (basic check)
     try {
-      const { queue } = require('./selfPromptPipeline.js');
+      // Use dynamic import for child_process
+      const cp = await import('child_process');
+      const { queue } = await import('./selfPromptPipeline.js');
       const alreadyQueued = queue && queue.queue && queue.queue.some(p => p.prompt && p.prompt.includes(firstAction.script || firstAction.artifact));
       if (!alreadyQueued) {
-        // Add a self-prompt for the first actionable next step
-        require('child_process').execSync(`node scripts/selfPromptPipeline.js --add "${JSON.stringify(firstAction)}"`, { stdio: 'ignore' });
+        cp.execSync(`node scripts/selfPromptPipeline.js --add "${JSON.stringify(firstAction)}"`, { stdio: 'ignore' });
       }
     } catch (e) {
       // Fallback: just try to enqueue
-      require('child_process').execSync(`node scripts/selfPromptPipeline.js --add "${JSON.stringify(firstAction)}"`, { stdio: 'ignore' });
+      const cp = await import('child_process');
+      cp.execSync(`node scripts/selfPromptPipeline.js --add "${JSON.stringify(firstAction)}"`, { stdio: 'ignore' });
     }
   }
 }

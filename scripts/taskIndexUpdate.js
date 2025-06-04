@@ -2,8 +2,12 @@
 // Usage: node scripts/taskIndexUpdate.js
 // Onboarding: Regenerates the task_index.artifact from all task.artifact files for discoverability and tracking.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const INDEX_FILE = path.join(ARTIFACTS_DIR, 'task_index.artifact');

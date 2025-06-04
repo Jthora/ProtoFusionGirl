@@ -1,0 +1,41 @@
+# Artifact: scripts_full_esmodule_migration_plan_2025-06-03.artifact
+
+type: migration_plan
+status: open
+priority: high
+assignee: copilot
+created: 2025-06-03
+tags: [automation, onboarding, nodejs, esm, migration, scripts]
+related: ONBOARDING.md, package.json, scripts/
+
+## Title
+Full Migration of Automation Scripts to ES Modules (ESM)
+
+## Purpose
+Resolve onboarding and automation blockers caused by Node.js module incompatibility. Modernize all project scripts to use ES module syntax, ensuring seamless onboarding, automation, and future maintainability.
+
+## Context
+- Current scripts use CommonJS (`require`, `module.exports`) but the project is set to `"type": "module"` in `package.json`.
+- This causes runtime errors for scripts invoked by VS Code tasks and onboarding automation.
+- See ONBOARDING.md for onboarding workflow and automation requirements.
+
+## Migration Plan
+1. **Inventory Scripts**: List all files in `scripts/` and subfolders. Identify which use CommonJS and which use ESM.
+2. **Convert to ESM**: For each CommonJS script:
+   - Replace `require` with `import`.
+   - Replace `module.exports` with `export`.
+   - Update dynamic imports as needed.
+   - Replace `require.main === module` with `import.meta.url === process.argv[1]`.
+3. **Update References**: Update all script references in VS Code tasks, documentation, and other scripts to use ESM syntax and correct paths.
+4. **Test Scripts**: Run each script directly and via VS Code tasks to ensure correct operation.
+5. **Update Documentation**: Update onboarding and developer docs to clarify ESM usage and migration.
+6. **Clean Up**: Remove any `.cjs` or legacy files. Optionally add a lint rule to prevent new CommonJS code.
+
+## Next Steps
+- Assign migration tasks to Copilot or contributors.
+- Track progress and blockers in this artifact.
+
+## Notes
+- This migration is required for full AI onboarding and automation.
+- See ONBOARDING.md for the impact on onboarding workflows.
+- Created automatically by Copilot on 2025-06-03.

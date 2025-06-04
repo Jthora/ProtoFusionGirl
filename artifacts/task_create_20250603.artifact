@@ -1,0 +1,25 @@
+---
+artifact: task_create_20250603
+created: 2025-06-03
+purpose: Create
+type: task
+tags: [task, medium, open, copilot]
+status: open
+priority: medium
+assignee: copilot
+related: []
+history:
+  - { date: 2025-06-03, action: created, by: copilot, notes: initial creation }
+format: markdown
+---
+
+# Task: Create
+
+## Details
+- ...
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- Created by Copilot on 2025-06-03.

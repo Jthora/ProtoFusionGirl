@@ -46,7 +46,7 @@ format: markdown
     Usage: node scripts/listScripts.js [--json]
     Onboarding: Lists all available scripts with descriptions, usage, and onboarding relevance for discoverability and onboarding.
 - listTasks.js: listTasks.js
-    Usage: node scripts/listTasks.js [--status=open|in-progress|done|blocked] [--assignee=copilot|human|name] [--priority=high|medium|low|urgent] [--json]
+    Usage: Run the VS Code task: **AI Task Manager: List Tasks** (instead of node scripts/listTasks.js ...)
     Onboarding: Lists all task.artifact files with status, priority, assignee, and summary for AI/human workflow.
 - newArtifact.js: newArtifact.js
     Usage: node scripts/newArtifact.js --type=<type> --purpose="<purpose>" --tags=tag1,tag2 --format=<format> --related=artifact1,script2
@@ -55,13 +55,13 @@ format: markdown
     Usage: node scripts/newFeedbackOrRetrospective.js <type:feedback|retrospective> <related-artifact-filename>
     Onboarding: Creates a new feedback or retrospective artifact and links it to related artifacts for project learning and improvement.
 - newTask.js: newTask.js
-    Usage: node scripts/newTask.js <short-description> [--priority=medium] [--assignee=copilot] [--related=artifact1,script2]
+    Usage: Run the VS Code task: **AI Task Manager: New Task** (instead of node scripts/newTask.js ...)
     Onboarding: Creates a new task artifact with standardized metadata for AI/human workflow.
 - notifyOpenTasks.js: notifyOpenTasks.js
     Usage: node scripts/notifyOpenTasks.js [--json]
     Onboarding: Outputs summaries of open/high-priority/blocked/overdue tasks for Copilot/AI agent workflows. Optionally outputs JSON for integration with VSCode notifications.
 - project_dashboard.js: project_dashboard.js
-    Usage: node scripts/project_dashboard.js [--json] [--next-action]
+    Usage: Run the VS Code task: **Project Dashboard (JSON)** (instead of node scripts/project_dashboard.js ...)
     Onboarding: Central command/dashboard for ProtoFusionGirl. Summarizes project state, lists key artifacts/scripts, and provides actionable next steps.
 - promptFeedbackLinkage.js: promptFeedbackLinkage.js
     Usage: node scripts/promptFeedbackLinkage.js <feedbackArtifact> <relatedArtifactOrCode>

@@ -2,8 +2,8 @@
 // Usage: node scripts/promptFeedbackLinkage.js <feedbackArtifact> <relatedArtifactOrCode>
 // Onboarding: Prompts for feedback/retrospective linkage and updates both artifacts with cross-links.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

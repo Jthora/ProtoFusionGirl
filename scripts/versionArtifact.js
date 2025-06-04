@@ -2,8 +2,8 @@
 // Usage: node scripts/versionArtifact.js <artifact-filename>
 // Onboarding: Copies the artifact to a versioned filename and optionally updates a version field in the header for version control.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

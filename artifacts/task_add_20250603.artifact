@@ -1,0 +1,25 @@
+---
+artifact: task_add_20250603
+created: 2025-06-03
+purpose: Add
+type: task
+tags: [task, high, open, copilot]
+status: open
+priority: high
+assignee: copilot
+related: []
+history:
+  - { date: 2025-06-03, action: created, by: copilot, notes: initial creation }
+format: markdown
+---
+
+# Task: Add
+
+## Details
+- ...
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- Created by Copilot on 2025-06-03.

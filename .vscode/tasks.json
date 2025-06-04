@@ -4,48 +4,54 @@
     {
       "label": "AI Task Manager: New Task",
       "type": "shell",
-      "command": "node scripts/aiTaskManager.js new",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/aiTaskManager.js new",
       "args": ["<desc>", "--priority=medium", "--assignee=copilot"],
       "problemMatcher": [],
-      "detail": "Create a new task artifact via Copilot's task manager."
+      "detail": "Create a new task artifact via Copilot's task manager.",
+      "options": { "cwd": "${workspaceFolder}" }
     },
     {
       "label": "AI Task Manager: List Tasks",
       "type": "shell",
-      "command": "node scripts/aiTaskManager.js list",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/aiTaskManager.js list",
       "args": ["--json"],
       "problemMatcher": [],
-      "detail": "List all tasks as JSON for Copilot/AI agent workflows."
+      "detail": "List all tasks as JSON for Copilot/AI agent workflows.",
+      "options": { "cwd": "${workspaceFolder}" }
     },
     {
       "label": "AI Task Manager: Sync Tasks with Code",
       "type": "shell",
-      "command": "node scripts/aiTaskManager.js sync",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/aiTaskManager.js sync",
       "problemMatcher": [],
-      "detail": "Auto-sync code TODOs with task artifacts."
+      "detail": "Auto-sync code TODOs with task artifacts.",
+      "options": { "cwd": "${workspaceFolder}" }
     },
     {
       "label": "AI Task Manager: Update Task Index",
       "type": "shell",
-      "command": "node scripts/aiTaskManager.js index",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/aiTaskManager.js index",
       "problemMatcher": [],
-      "detail": "Regenerate the task index artifact."
+      "detail": "Regenerate the task index artifact.",
+      "options": { "cwd": "${workspaceFolder}" }
     },
     {
       "label": "Project Dashboard (JSON)",
       "type": "shell",
-      "command": "node scripts/project_dashboard.js",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/project_dashboard.js",
       "args": ["--json"],
       "problemMatcher": [],
-      "detail": "Show the project dashboard as machine-readable JSON."
+      "detail": "Show the project dashboard as machine-readable JSON. Includes debugging output.",
+      "options": { "cwd": "${workspaceFolder}" }
     },
     {
       "label": "List Scripts (JSON)",
       "type": "shell",
-      "command": "node scripts/listScripts.js",
+      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/listScripts.js",
       "args": ["--json"],
       "problemMatcher": [],
-      "detail": "List all scripts as JSON for Copilot/AI agent workflows."
+      "detail": "List all scripts as JSON for Copilot/AI agent workflows. Uses absolute path.",
+      "options": { "cwd": "${workspaceFolder}" }
     }
   ]
 }

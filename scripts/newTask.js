@@ -2,8 +2,12 @@
 // Usage: node scripts/newTask.js <short-description> [--priority=medium] [--assignee=copilot] [--related=artifact1,script2]
 // Onboarding: Creates a new task artifact with standardized metadata for AI/human workflow.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const today = new Date().toISOString().slice(0, 10);

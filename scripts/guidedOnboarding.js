@@ -2,9 +2,9 @@
 // Usage: node scripts/guidedOnboarding.js [--json] [--auto-task]
 // Onboarding: Automated onboarding and self-test for Copilot/AI agent workflows. Detects missing context, outdated artifacts, or onboarding gaps and auto-creates tasks if --auto-task is set.
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
 
 const ARTIFACTS = [
   'ai_onboarding_2025-06-03.artifact',
@@ -87,7 +87,9 @@ async function main() {
   if (autoTask && result.missing.length) {
     for (const miss of result.missing) {
       const desc = `Onboarding gap: missing ${miss.type} ${miss.name}`;
-      require('child_process').execSync(`node scripts/aiTaskManager.js new "${desc}" --priority=high --assignee=copilot --related=guidedOnboarding.js`, { stdio: 'inherit' });
+      // Use dynamic import for child_process
+      const cp = await import('child_process');
+      cp.execSync(`node scripts/aiTaskManager.js new "${desc}" --priority=high --assignee=copilot --related=guidedOnboarding.js`, { stdio: 'inherit' });
     }
   }
   if (outputJson) {
@@ -110,11 +112,12 @@ async function main() {
     const firstMissing = result.missing[0];
     const promptText = `Onboarding gap detected: missing ${firstMissing.type} ${firstMissing.name}`;
     try {
-      require('child_process').execSync(`node scripts/selfPromptPipeline.js --add "${promptText}"`, { stdio: 'ignore' });
+      const cp = await import('child_process');
+      cp.execSync(`node scripts/selfPromptPipeline.js --add "${promptText}"`, { stdio: 'ignore' });
     } catch (e) { /* ignore errors */ }
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === process.argv[1]) {
   main();
 }

@@ -2,8 +2,12 @@
 // Usage: node scripts/updateTask.js <task_filename> [--status=...] [--assignee=...] [--priority=...] [--comment="..."]
 // Onboarding: Updates status, assignee, priority, or adds a comment/history entry to a task artifact.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

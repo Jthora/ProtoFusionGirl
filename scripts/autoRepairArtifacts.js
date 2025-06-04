@@ -2,8 +2,8 @@
 // Usage: node scripts/autoRepairArtifacts.js [--json]
 // Onboarding: Detects and fixes missing headers, broken links, outdated fields, or inconsistent tags in artifacts/tasks. Outputs a summary (optionally as JSON).
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const args = process.argv.slice(2);

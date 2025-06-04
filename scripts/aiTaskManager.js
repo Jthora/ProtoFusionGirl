@@ -3,14 +3,30 @@
 // Onboarding: Central AI/Copilot task management interface for creating, listing, updating, and syncing tasks with full automation.
 // Commands: new, list, update, sync, index
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { execSync, execFileSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const SCRIPTS_DIR = __dirname;
+
+console.log('[DEBUG] aiTaskManager.js starting. Args:', process.argv);
+console.log('[DEBUG] __dirname:', __dirname);
+console.log('[DEBUG] SCRIPTS_DIR:', SCRIPTS_DIR);
 
 // Core commands (backward compatible)
 const coreCommands = {
-  new: (args) => execSync(`node scripts/newTask.js ${args.join(' ')}`, { stdio: 'inherit' }),
+  new: (args) => {
+    // Use execFileSync to avoid shell parsing issues
+    const cmd = 'node';
+    const script = path.join('scripts', 'newTask.js');
+    // Always treat the first arg as the description, keep the rest as flags
+    const [desc, ...rest] = args;
+    const argArray = [script, desc, ...rest];
+    execFileSync(cmd, argArray, { stdio: 'inherit' });
+  },
   list: (args) => execSync(`node scripts/listTasks.js ${args.join(' ')}`, { stdio: 'inherit' }),
   update: (args) => execSync(`node scripts/updateTask.js ${args.join(' ')}`, { stdio: 'inherit' }),
   index: (args) => execSync('node scripts/taskIndexUpdate.js', { stdio: 'inherit' }),
@@ -93,14 +109,18 @@ function printHelp() {
 }
 
 const args = process.argv.slice(2);
+console.log('[DEBUG] Parsed args:', args);
 const cmd = args[0];
+console.log('[DEBUG] Parsed cmd:', cmd);
 if (!cmd || args.includes('help') || args.includes('--help')) {
+  console.log('[DEBUG] Showing help');
   printHelp();
   process.exit(0);
 }
 
 // If core command, run as before
 if (coreCommands[cmd]) {
+  console.log('[DEBUG] Running core command:', cmd, 'with args:', args.slice(1));
   coreCommands[cmd](args.slice(1));
   process.exit(0);
 }
@@ -109,13 +129,14 @@ if (coreCommands[cmd]) {
 const discovered = discoverScripts();
 const plugin = discovered.find(s => s.name === cmd);
 if (plugin) {
+  console.log('[DEBUG] Running plugin/module command:', plugin.name, 'with args:', args.slice(1));
   // Pass through all args after the command
-  const pluginArgs = args.slice(1).map(a => `'${a.replace(/'/g, "'\''")}'`).join(' ');
+  const pluginArgs = args.slice(1).map(a => `'${a.replace(/'/g, "'\\''")}'`).join(' ');
   // Use execSync to run the script as a child process
   execSync(`node scripts/${plugin.file} ${pluginArgs}`, { stdio: 'inherit' });
   process.exit(0);
 }
 
-console.error(`Unknown command or script: ${cmd}`);
+console.error(`[DEBUG] Unknown command or script: ${cmd}`);
 printHelp();
 process.exit(1);

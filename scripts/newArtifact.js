@@ -2,8 +2,8 @@
 // Usage: node scripts/newArtifact.js --type=<type> --purpose="<purpose>" --tags=tag1,tag2 --format=<format> --related=artifact1,script2
 // Onboarding: Scriptable generator for new artifact templates with all required fields for Copilot/AI agent workflows.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const today = new Date().toISOString().slice(0, 10);

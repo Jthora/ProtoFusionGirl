@@ -1,0 +1,43 @@
+---
+artifact: task_design_20250603
+created: 2025-06-03
+purpose: Design
+type: task
+tags: [task, high, done, copilot]
+status: done
+priority: high
+assignee: copilot
+related: []
+history:
+  - { date: 2025-06-04, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: auto-closed, by: copilot, notes: code reference removed }
+  - { date: 2025-06-03, action: created, by: copilot, notes: initial creation }
+format: markdown
+---
+
+# Task: Design
+
+## Details
+- ...
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- 2025-06-04: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- 2025-06-03: Auto-closed, code reference removed.
+- Created by Copilot on 2025-06-03.

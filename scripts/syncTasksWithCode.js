@@ -2,10 +2,14 @@
 // Usage: node scripts/syncTasksWithCode.js
 // Onboarding: Scans code for TODO/FIXME/@task comments, auto-creates/updates task.artifact files, and marks tasks as done if code reference is removed.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const CODE_DIR = path.join(__dirname, '../protoFusionGirl/src');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const CODE_DIR = path.join(__dirname, '../src');
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const TASK_PREFIX = 'task_';
 const TODO_REGEX = /(?:\/\/|#|<!--)\s*(TODO|FIXME|@task)[:\s-]+(.+)/gi;

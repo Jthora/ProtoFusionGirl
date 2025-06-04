@@ -3,8 +3,8 @@
 // Usage: node scripts/updatePrimer.js
 // Onboarding: Updates the .primer with new onboarding, context, or project state information.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const PRIMER_PATH = path.join(__dirname, '../.primer');
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');

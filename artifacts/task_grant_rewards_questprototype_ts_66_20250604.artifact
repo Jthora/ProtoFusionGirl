@@ -1,0 +1,26 @@
+---
+artifact: task_grant_rewards_questprototype_ts_66_20250604
+created: 2025-06-04
+purpose: Grant rewards
+type: task
+tags: [task, open, copilot]
+status: open
+priority: medium
+assignee: copilot
+related: ['src/world/quest/QuestPrototype.ts']
+history:
+  - { date: 2025-06-04, action: created, by: copilot, notes: auto-created from code TODO }
+format: markdown
+---
+
+# Task: Grant rewards
+
+## Details
+- Found in /Users/jono/Documents/GitHub/ProtoFusionGirl/src/world/quest/QuestPrototype.ts:66
+- Type: TODO
+
+## Subtasks
+- [ ] ...
+
+## Comments/History
+- Auto-created from code TODO on 2025-06-04.

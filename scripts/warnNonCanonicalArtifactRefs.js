@@ -2,11 +2,11 @@
 // Usage: node scripts/warnNonCanonicalArtifactRefs.js
 // Onboarding: Warns if code references a non-canonical (not latest) artifact version.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
-const CODE_DIR = path.join(__dirname, '../protoFusionGirl/src');
+const CODE_DIR = path.join(__dirname, '../src');
 const ARTIFACT_REF_REGEX = /artifacts\/(\w[\w\-\d_]*\.artifact)/g;
 const EXCLUDE_DIRS = new Set(['coverage', 'docs', 'test', 'tests', 'node_modules', 'public', 'contracts', 'ignition']);
 

@@ -4,8 +4,8 @@
 // Usage: node scripts/listArtifactRelations.js
 // Onboarding: Outputs a relationship map/list of artifact dependencies and cross-links for context expansion.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

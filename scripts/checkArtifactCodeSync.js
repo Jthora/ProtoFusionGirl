@@ -2,11 +2,11 @@
 // Usage: node scripts/checkArtifactCodeSync.js
 // Onboarding: Scans code for artifact references, checks if referenced artifacts exist and are current, and reports unused or outdated artifacts.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const CODE_DIRS = [
-  path.join(__dirname, '../protoFusionGirl/src'),
+  path.join(__dirname, '../src'),
 ];
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const ARTIFACT_REF_REGEX = /artifacts\/(\w[\w\-\d_]*\.artifact)/g;

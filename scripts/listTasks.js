@@ -2,8 +2,12 @@
 // Usage: node scripts/listTasks.js [--status=open|in-progress|done|blocked] [--assignee=copilot|human|name] [--priority=high|medium|low|urgent] [--json]
 // Onboarding: Lists all task.artifact files with status, priority, assignee, and summary for AI/human workflow.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const args = process.argv.slice(2);

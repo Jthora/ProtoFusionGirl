@@ -4,9 +4,9 @@
 
 // Lists all versions of an artifact, or diffs two versions if both are provided.
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

@@ -3,9 +3,9 @@
 // Onboarding: Creates a new feedback or retrospective artifact and links it to related artifacts for project learning and improvement.
 // Prompts for summary, blockers, insights, next steps, and creates a new artifact.
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

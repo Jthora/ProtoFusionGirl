@@ -2,10 +2,10 @@
 // Usage: node scripts/autoUpdateArtifactRefs.js <oldArtifactName> <newArtifactName>
 // Onboarding: Updates all code references from old artifact name to new artifact name, and warns if the old artifact is still referenced or missing.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const CODE_DIR = path.join(__dirname, '../protoFusionGirl/src');
+const CODE_DIR = path.join(__dirname, '../src');
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const ARTIFACT_REF_REGEX = /artifacts\/(\w[\w\-\d_]*\.artifact)/g;
 const EXCLUDE_DIRS = new Set(['coverage', 'docs', 'test', 'tests', 'node_modules', 'public', 'contracts', 'ignition']);

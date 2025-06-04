@@ -2,8 +2,8 @@
 // Usage: node scripts/visualizeArtifactGraph.js > artifact_graph.dot
 // Onboarding: Outputs a Graphviz DOT file visualizing artifact dependency/importance graph (foundational vs. advanced artifacts, onboarding order).
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 

@@ -3,8 +3,8 @@
 // Usage: node scripts/searchArtifacts.js <tag|type|keyword>
 // Onboarding: Searches artifacts by tag, type, or keyword for rapid context recall and onboarding support.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
 const INDEX_FILE = path.join(ARTIFACTS_DIR, 'artifact_index.artifact');

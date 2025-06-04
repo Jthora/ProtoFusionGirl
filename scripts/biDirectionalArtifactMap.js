@@ -2,11 +2,11 @@
 // Usage: node scripts/biDirectionalArtifactMap.js
 // Onboarding: Lists, for each artifact, all code files that reference it, and for each code file, all artifacts it references. Optionally, updates artifact headers with "referenced_by" fields.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const ARTIFACTS_DIR = path.join(__dirname, '../artifacts');
-const CODE_DIR = path.join(__dirname, '../protoFusionGirl/src');
+const CODE_DIR = path.join(__dirname, '../src');
 const ARTIFACT_REF_REGEX = /artifacts\/(\w[\w\-\d_]*\.artifact)/g;
 const EXCLUDE_DIRS = new Set(['coverage', 'docs', 'test', 'tests', 'node_modules', 'public', 'contracts', 'ignition']);
 
