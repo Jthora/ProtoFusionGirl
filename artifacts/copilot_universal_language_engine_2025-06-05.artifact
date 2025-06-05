@@ -1,0 +1,41 @@
+---
+artifact: copilot_universal_language_engine_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for a Universal Language and puzzle scripting engine for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# Universal Language & Puzzle Scripting Engine
+
+## Purpose
+Enable in-world programming of reality, puzzle solutions, and advanced editing using the Universal Language mechanic. Integrate puzzle logic and scripting with world state and save/load systems.
+
+## Key Features
+- Scripting engine for Universal Language expressions.
+- Puzzle and event hooks for narrative/gameplay.
+- Integration with tile/datakey/seed and save/load systems.
+
+## Data Model
+- Scripted puzzle/logic state per branch/anchor.
+- Universal Language expression logs and results.
+
+## Language Syntax & Error Handling
+- Define core syntax and extensibility for the Universal Language.
+- Provide error handling, debugging, and feedback for script authors.
+
+## Security & Sandboxing
+- Sandbox all in-world scripting to prevent exploits or crashes.
+- Validate and limit resource usage for user scripts.
+
+## Prototype Plan
+1. Define scripting language and puzzle schema.
+2. Implement scripting engine and puzzle hooks.
+3. Integrate with save/load and tile/datakey systems.
+4. Add narrative/gameplay triggers.
+5. Test with sample puzzles and world edits.
+
+## Expanded Testing Plan
+- Test puzzle complexity, failure modes, and script errors.
+- Test extensibility for new puzzle types and narrative triggers.

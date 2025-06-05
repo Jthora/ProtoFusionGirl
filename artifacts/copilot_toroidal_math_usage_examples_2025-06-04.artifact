@@ -1,19 +1,65 @@
-# copilot_toroidal_math_usage_examples_2025-06-04.artifact
+---
+artifact: copilot_toroidal_math_usage_examples_2025-06-04
+created: 2025-06-05
+purpose: Provide concrete code examples and test cases for using toroidal math utilities in ProtoFusionGirl.
+type: example
+format: markdown + code
+related:
+  - tilemap_system_design.artifact
+  - copilot_toroidal_best_practices_2025-06-04.artifact
+---
 
-## Usage Examples for Toroidal Math Utilities
+# Toroidal Math Usage Examples
 
-```typescript
-// Wrap X coordinate for seamless world logic
-const wrappedX = TilemapManager.wrapX(x);
-
-// Get minimum toroidal distance between two X coordinates
-const dist = TilemapManager.toroidalDistanceX(x1, x2);
-
-// Wrap chunk X coordinate
-const wrappedChunkX = TilemapManager.wrapChunkX(chunkX, chunkSize);
-
-// AI/pathfinding: always use toroidalDistanceX for X axis
-if (TilemapManager.toroidalDistanceX(enemy.x, player.x) < aggroRange) { ... }
-
-// Rendering: handle sprites that cross the seam by drawing at both edges if needed
+## Example: Wrapping X Coordinate
+```ts
+const wrappedX = wrapX(x, worldWidth); // Ensures x stays within [0, worldWidth)
 ```
+
+## Example: Toroidal Distance
+```ts
+const dist = toroidalDistanceX(x1, x2, worldWidth); // Shortest distance, wrapping at edges
+```
+
+## Example: Player Movement
+```ts
+player.x = wrapX(player.x + dx, worldWidth); // Move and wrap
+```
+
+## Example: AI Pathfinding
+```ts
+function getShortestPath(startX, endX, worldWidth) {
+  // Use toroidalDistanceX to find shortest path
+  // Return path that crosses seam if shorter
+}
+```
+
+## Example: Minimap Rendering
+```ts
+const minimapX = wrapX(sprite.x, minimapWidth); // Always show correct position
+```
+
+## Example: Chunk Loading
+```ts
+const chunkX = wrapChunkX(Math.floor(player.x / chunkSize), numChunks);
+```
+
+## Test Cases
+- Crossing the world seam (e.g., x = -1, x = worldWidth)
+- Negative coordinates and large positive jumps
+- Pathfinding across the seam
+- Rendering objects at both edges
+- Chunk loading/unloading at boundaries
+
+## Integration Notes
+- Audit all world/chunk/AI/minimap logic for direct X math
+- Refactor to use wrapping utilities everywhere
+- Add/expand unit tests for all edge cases
+
+## Files/Functions to Update
+- TilemapManager
+- ChunkManager
+- All world/chunk X/Y logic
+- AI/pathfinding
+- Minimap
+- Rendering

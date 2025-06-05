@@ -1,0 +1,42 @@
+---
+artifact: copilot_procedural_content_registry_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for a procedural content registry and modding API for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# Procedural Content Registry & Modding API
+
+## Purpose
+Manage all procedural generation rules, modded content, and dynamic assets in a versioned, queryable registry. Ensure save/load integrity and replayability across updates and mods.
+
+## Key Features
+- Registry of seeds, datakeys, mod hashes, and procedural rules.
+- Versioning and migration helpers for procedural content and mods.
+- APIs for mods to register new content, events, or rules.
+- Integration with save/load and world state systems.
+
+## Data Model
+- Versioned content registry (seeds, datakeys, rules, assets).
+- Mod metadata and compatibility info.
+
+## Prototype Plan
+1. Define registry schema and versioning strategy.
+2. Implement mod/content registration and lookup APIs.
+3. Add migration helpers for mod/content updates.
+4. Integrate with save/load and tile/datakey systems.
+5. Test with sample mods and procedural rule changes.
+
+## Conflict & Deprecation Handling
+- Define strategies for handling conflicting or deprecated content (e.g., mod removal, rule changes).
+- Registry should support marking content as deprecated and provide migration paths.
+
+## Registry Schema & API Surface
+- Sketch out schema for content entries (seed, datakey, rule, asset, version, status).
+- API: registerContent, lookupContent, deprecateContent, migrateContent, validateMod.
+
+## Security & Validation
+- Validate mod submissions for integrity, compatibility, and security.
+- Provide sandboxing or review for untrusted mods.

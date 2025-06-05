@@ -13,6 +13,22 @@ export class WorldEditService {
     this.tilemapManager = tilemapManager;
     this.history = (tilemapManager as any).history || new EditorHistory();
     this.events = (tilemapManager as any).events || new EventBus();
+    // --- Event-driven autosave integration ---
+    this.events.on('tileEdit', async () => {
+      // Trigger autosave (prototype: save to autosave.world)
+      if (this.tilemapManager.saveWorld) {
+        await this.tilemapManager.saveWorld('autosave.world');
+        // UI feedback: show a toast or log (if scene is available)
+        if ((this.tilemapManager as any).scene && (this.tilemapManager as any).scene.add) {
+          const toast = (this.tilemapManager as any).scene.add.text(10, 10, 'Autosaved!', { color: '#00ffcc', fontSize: '12px' })
+            .setDepth(2001).setScrollFactor(0).setAlpha(0.8).setInteractive();
+          toast.on('pointerdown', () => { toast.destroy(); });
+        } else {
+          // Fallback: log to console
+          console.log('Autosaved!');
+        }
+      }
+    });
   }
 
   // Set a tile at world coordinates (x, y) to tileId, with undo support and event emission
@@ -34,6 +50,8 @@ export class WorldEditService {
     chunk.dirty = true;
     this.history?.push({ type: 'setTile', data: { x, y, prevTile, newTile: tileId } });
     this.events?.emit({ type: 'tileEdit', data: { x, y, prevTile, newTile: tileId } });
+    // --- Delta recording ---
+    this.tilemapManager.recordTileDelta(x, y, prevTile, tileId);
   }
 
   // Get the tileId at world coordinates (x, y)
@@ -53,8 +71,17 @@ export class WorldEditService {
     const action = this.history?.undo();
     if (!action) return;
     if (action.type === 'setTile') {
-      const { x, y, prevTile } = action.data;
+      const { x, y, prevTile, newTile } = action.data;
       this.setTile(x, y, prevTile);
+      // Remove the last delta for this tile if it matches newTile
+      const branchId = this.tilemapManager.getCurrentBranch();
+      const deltas = this.tilemapManager.getBranchDeltas(branchId);
+      for (let i = deltas.length - 1; i >= 0; i--) {
+        if (deltas[i].x === x && deltas[i].y === y && deltas[i].newTile === newTile) {
+          deltas.splice(i, 1);
+          break;
+        }
+      }
     }
     // ...handle other action types as needed
   }
@@ -66,6 +93,7 @@ export class WorldEditService {
     if (action.type === 'setTile') {
       const { x, y, newTile } = action.data;
       this.setTile(x, y, newTile);
+      // Delta is already recorded in setTile
     }
     // ...handle other action types as needed
   }
@@ -73,7 +101,10 @@ export class WorldEditService {
   // Brush tool: paint with undo/redo and event support
   brushPaint(positions: Array<{x: number, y: number}>, tileId: string) {
     const prevTiles = positions.map(pos => ({ ...pos, prevTile: this.getTile(pos.x, pos.y) }));
-    positions.forEach(pos => this.setTile(pos.x, pos.y, tileId));
+    positions.forEach(pos => {
+      this.setTile(pos.x, pos.y, tileId);
+      // Delta is already recorded in setTile
+    });
     this.history?.push({ type: 'brushPaint', data: { positions: prevTiles, newTile: tileId } });
     this.events?.emit({ type: 'tileEdit', data: { positions: prevTiles, newTile: tileId } });
   }
@@ -86,6 +117,7 @@ export class WorldEditService {
         const px = x + dx, py = y + dy;
         prevTiles.push({ x: px, y: py, prevTile: this.getTile(px, py) });
         this.setTile(px, py, tileId);
+        // Delta is already recorded in setTile
       }
     }
     this.history?.push({ type: 'fillArea', data: { area: { x, y, w, h }, prevTiles, newTile: tileId } });

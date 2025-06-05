@@ -1,0 +1,74 @@
+---
+artifact: master_multiverse_systems_2025-06-05
+created: 2025-06-05
+purpose: Master plan and artifact index for all core technical systems required to realize ProtoFusionGirl's multiverse, timeline, and reality-warping vision.
+type: master-design
+format: markdown
+related:
+  - save_system_design_2025-06-05.artifact
+  - copilot_multiverse_event_engine_2025-06-05.artifact
+  - copilot_procedural_content_registry_2025-06-05.artifact
+  - copilot_multiverse_sync_sharing_2025-06-05.artifact
+  - copilot_world_state_tooling_2025-06-05.artifact
+  - copilot_cosmic_env_simulation_2025-06-05.artifact
+  - copilot_universal_language_engine_2025-06-05.artifact
+  - copilot_analytics_replay_story_2025-06-05.artifact
+---
+
+# ProtoFusionGirl: Master Multiverse Systems Plan
+
+This master artifact outlines the essential technical systems and their sub-artifacts required to fully realize the game's vision of a persistent, branching, reality-warping multiverse. Each section references a sub-artifact with detailed design and implementation plans.
+
+## 1. Save/Load, Timeline, and Branching System
+- **Artifact:** `save_system_design_2025-06-05.artifact`
+- **Purpose:** Core seed/delta/timeline-aware persistence, branch/anchor management, and multiverse navigation.
+
+## 2. Multiverse Event & Narrative State Engine
+- **Artifact:** `copilot_multiverse_event_engine_2025-06-05.artifact`
+- **Purpose:** Branch-aware quest, event, and narrative state tracking; propagation and resolution of story/world changes across timelines.
+
+## 3. Procedural Content Registry & Modding API
+- **Artifact:** `copilot_procedural_content_registry_2025-06-05.artifact`
+- **Purpose:** Versioned registry of seeds, datakeys, procedural rules, and modded content; migration and modding support.
+
+## 4. Multiverse Synchronization & Sharing Layer
+- **Artifact:** `copilot_multiverse_sync_sharing_2025-06-05.artifact`
+- **Purpose:** Anchor sharing, collaborative editing, branch diff/merge, and real-time sync for multiplayer/community events.
+
+## 5. World State Diffing, Visualization, and Debugging Tools
+- **Artifact:** `copilot_world_state_tooling_2025-06-05.artifact`
+- **Purpose:** Visual multiverse explorer, world state diff/merge UI, save data repair and migration tools.
+
+## 6. Cosmic/Environmental Simulation Layer
+- **Artifact:** `copilot_cosmic_env_simulation_2025-06-05.artifact`
+- **Purpose:** Persistent simulation of ley lines, vortices, cosmic events, and environmental hazards; hooks for narrative and gameplay.
+
+## 7. Universal Language & Puzzle Scripting Engine
+- **Artifact:** `copilot_universal_language_engine_2025-06-05.artifact`
+- **Purpose:** Scripting engine for Universal Language expressions, puzzle logic, and in-world programming of reality.
+
+## 8. Analytics, Replay, and Emergent Storytelling Support
+- **Artifact:** `copilot_analytics_replay_story_2025-06-05.artifact`
+- **Purpose:** Timeline/branch analytics, replay system, export/import of emergent stories, and hooks for live events.
+
+---
+
+## System Dependencies & Priorities
+- The following is a suggested build order and dependency map:
+  1. Save/Load, Timeline, and Branching System (foundation for all others)
+  2. Procedural Content Registry & Modding API (needed for content integrity)
+  3. Multiverse Event & Narrative State Engine (relies on save/load and content registry)
+  4. Cosmic/Environmental Simulation Layer (relies on event engine and save/load)
+  5. Universal Language & Puzzle Scripting Engine (relies on save/load, content registry)
+  6. Multiverse Synchronization & Sharing Layer (relies on save/load, event engine)
+  7. World State Diffing, Visualization, and Debugging Tools (relies on all above)
+  8. Analytics, Replay, and Emergent Storytelling Support (relies on all above)
+
+## Notes
+- Ownership/workflow for artifact updates should be assigned as the team grows.
+- A visual diagram of system relationships is recommended for onboarding and planning.
+
+## Next Steps
+- For each sub-artifact, create a detailed design and prototype plan, referencing this master artifact.
+- Ensure all systems are branch/timeline/anchor aware and deeply integrated with the core save/load architecture.
+- Use this artifact as the canonical index for all multiverse systems work.

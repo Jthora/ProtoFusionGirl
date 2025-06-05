@@ -64,3 +64,35 @@ Welcome to ProtoFusionGirl! This project uses a next-generation, agent-optimized
 The `Copilot Onboarding` task is already set up in `.vscode/tasks.json` to run the onboarding script and output the result to `artifacts/copilot_onboarding_status.json`. No further configuration is needed.
 
 This task can be run from the Command Palette or the VS Code Tasks panel.
+
+---
+
+# About the Game Project & Directory Structure
+
+ProtoFusionGirl is an AI-driven, agent-optimized video game project. The codebase is organized for both rapid development and deep automation. Below is a high-level overview of the main directories and their roles:
+
+- **src/**: Main game source code. Contains all TypeScript/JavaScript files for game logic, UI, scenes, core systems, and assets.
+  - `core/`: State machines, event bus, and core engine logic.
+  - `scenes/`: Game scenes (e.g., GameScene, StartScene, PauseMenuScene).
+  - `ui/`: UI components and layouts.
+  - `assets/`: Game assets (JSON, tilesets, recipes, etc.).
+  - `lang/`: Localization and language files.
+  - `mods/`: Modding support and extension points.
+  - `services/`: Service classes for game features.
+  - `world/`: World state and related logic.
+  - `main.ts`: Game entry point.
+  - `style.css`: Main stylesheet.
+- **artifacts/**: All persistent context, design docs, onboarding status, and automation outputs. Artifacts are the backbone of the agent-driven workflow.
+- **data/**: Game data, persona definitions, and context files (JSON).
+- **docs/**: Game design documents, technical docs, and onboarding guides.
+- **scripts/**: Automation, onboarding, validation, and context sync scripts.
+- **tasks/**: All open, completed, and feedback tasks for the project. Each `.task` file is machine-readable.
+- **persona_core/**: Persona core definitions, heuristics, and agent context files.
+- **contracts/**: Smart contracts (e.g., for web3 integration).
+- **public/**: Static assets for web deployment.
+
+For more details, see each folder's `README.md` (where available) or consult `.manifest` for a live index of all files and scripts.
+
+---
+
+> **Note:** Some features and directories are still in-progress or incomplete. For the latest status and open tasks, see the `tasks/` folder and `.dashboard`. Placeholder code and TODOs are tracked and will be addressed in future updates. Some TODOs and code may have been abandoned, so don't assume everything is being used: always verify.

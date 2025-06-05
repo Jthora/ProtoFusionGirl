@@ -1,0 +1,78 @@
+---
+artifact: copilot_multiverse_priority_todo_2025-06-05
+created: 2025-06-05
+purpose: Ordered, prioritized TODO list for ProtoFusionGirl multiverse systems, derived from artifact review and integration points.
+type: todo-list
+format: markdown
+related:
+  - master_multiverse_systems_2025-06-05.artifact
+  - copilot_multiverse_event_engine_2025-06-05.artifact
+  - copilot_procedural_content_registry_2025-06-05.artifact
+  - copilot_multiverse_sync_sharing_2025-06-05.artifact
+  - copilot_world_state_tooling_2025-06-05.artifact
+  - copilot_cosmic_env_simulation_2025-06-05.artifact
+  - copilot_universal_language_engine_2025-06-05.artifact
+  - copilot_analytics_replay_story_2025-06-05.artifact
+---
+
+# ProtoFusionGirl: Multiverse Systems Priority TODO List (2025-06-05)
+
+## 1. Core Save/Load, Timeline, and Branching System
+- [x] Implement in-memory multiverse state, branch/anchor/delta management, and APIs.
+- [x] Integrate with tile editing and world state changes.
+- [x] Finalize migration helpers and legacy data support.
+- [ ] Document all APIs and edge cases for downstream systems.
+
+## 2. UI Integration & Visualization
+- [x] Update anchor/warp UI (`WarpAnchorPanel.ts`) to use new branch/anchor APIs.
+- [x] Update timeline UI (`TimelinePanel.ts`) for real-time branch/anchor/delta visualization.
+- [x] Implement multiverse explorer and diff/merge UI (per `copilot_world_state_tooling`).
+- [x] Add repair/migration wizards for save data.
+
+## 3. Event Engine & Narrative State
+- [x] Integrate event/quest state tracking with new persistence model.
+- [x] Implement event/quest propagation and merge logic across branches.
+- [x] Add hooks for narrative triggers and world changes.
+- [x] Test edge cases: conflicting events, quest fail/success in different branches.
+
+## 4. Procedural Content Registry & Modding
+- [x] Integrate registry lookups for seeds, datakeys, and procedural rules in save/load and editing flows.
+- [x] Implement versioning, migration, and mod validation APIs.
+- [x] Add mod/content registration and deprecation support.
+
+## 5. Multiverse Sync, Sharing, and Collaboration
+- [x] Implement anchor/branch export/import, diff/merge, and conflict resolution.
+- [x] Add real-time sync hooks for multiplayer and community events.
+- [x] Define and enforce permissions and access control for sharing/editing.
+
+## 6. Cosmic/Environmental Simulation
+- [x] Integrate simulation state (ley lines, vortices, cosmic events) with branch/timeline persistence.
+- [x] Add event hooks for narrative/gameplay triggers.
+- [x] Test simulation rollback, replay, and branch merges.
+
+## 7. Universal Language & Puzzle Scripting
+- [x] Integrate scripting engine with save/load and branch/anchor systems.
+- [x] Implement sandboxing, error handling, and debugging for scripts.
+- [x] Add narrative/gameplay triggers and extensibility for new puzzle types.
+
+## 8. Analytics, Replay, and Emergent Storytelling
+- [x] Implement analytics/replay tracking per branch/timeline.
+- [x] Add export/import of stories and world states.
+- [x] Integrate analytics hooks for live events and community challenges.
+- [x] Provide opt-in/opt-out and privacy controls for analytics.
+
+## 9. Automated Testing & Validation
+- [x] Expand automated tests for all new flows: delta recording, branch/anchor management, UI, migration, event propagation, simulation, and analytics.
+- [x] Test edge cases and performance for large/complex multiverse states.
+
+## 10. Documentation & Onboarding
+- [x] Update all relevant documentation and onboarding guides to reflect new systems and workflows.
+- [x] Ensure `.manifest`, `.primer`, and onboarding scripts are current.
+
+---
+
+Legend:
+[x] = Complete
+[ ] = Pending
+
+This list is prioritized by system dependencies and artifact guidance. Each step should be validated against the relevant artifact for edge cases, integration points, and testing requirements.

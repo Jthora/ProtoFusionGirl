@@ -1,6 +1,6 @@
 ---
 artifact: artifact_index
-created: 2025-06-03
+created: 2025-06-05
 purpose: Manifest and metadata index for all artifacts in the folder.
 type: index
 tags: [index, manifest, automation]
@@ -16,7 +16,7 @@ format: json
     "type": "onboarding",
     "tags": "[onboarding, ai, checklist, artifact, workflow, discoverability]",
     "format": "markdown",
-    "related": "[copilot_advanced_todos_2025-06-03.artifact, copilot_memory.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+    "related": "[copilot_advanced_todos_2025-06-03.artifact, copilot_memory.artifact, .primer, artifact_index.artifact]"
   },
   {
     "filename": "combat_mechanics.artifact",
@@ -29,14 +29,14 @@ format: json
     "related": "["
   },
   {
-    "filename": "copilot_advanced_todos_2025-06-03.artifact",
-    "artifact": "copilot_advanced_todos_2025-06-03",
-    "created": "2025-06-03",
-    "purpose": "Advanced TODOs and recommendations for closing cracks, edge cases, and optimizing AI/human onboarding and artifact-driven workflows.",
-    "type": "todo",
+    "filename": "copilot_anchor_ui_ux_2025-06-04.artifact",
+    "artifact": "copilot_anchor_ui_ux_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Anchor management UI/UX improvements for ProtoFusionGirl reality warping system.",
+    "type": "design",
     "format": "markdown",
-    "tags": "[todo, advanced, ai, onboarding, artifact, workflow, context, edge-case]",
-    "related": "[copilot_next_steps_2025-06-03.artifact, copilot_memory.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+    "tags": "[reality-warping, anchor-management, ui-ux, code-artifact]",
+    "related": "[copilot_reality_warping_code_plan_2025-06-04.artifact]"
   },
   {
     "filename": "copilot_build_instructions_2025-06-03.artifact",
@@ -46,7 +46,7 @@ format: json
     "type": "instructions",
     "format": "markdown",
     "tags": "[instructions, build, ai, copilot, automation, artifact, onboarding, dashboard]",
-    "related": "[protoFusionGirl.primer, artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, project_dashboard.js]"
+    "related": "[.primer, artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, project_dashboard.js]"
   },
   {
     "filename": "copilot_memory.artifact",
@@ -59,35 +59,130 @@ format: json
     "related": "[copilot_next_steps_2025-06-03.artifact, copilot_todos_2025-06-03.artifact, protoFusionGirl.primer, artifact_index.artifact]"
   },
   {
-    "filename": "copilot_next_steps_2025-06-03.artifact",
-    "artifact": "copilot_next_steps_2025-06-03",
-    "created": "2025-06-03",
-    "purpose": "Next-step TODOs for verifying, expanding, and optimizing Copilot/AI agent functional capacity, memory, and automation in the project.",
-    "type": "todo",
-    "tags": "[todo, automation, artifact, ai, workflow, memory, next-steps]",
+    "filename": "copilot_persona_core_architecture_2025-06-04.artifact",
+    "artifact": "copilot_persona_core_architecture_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Dramatically expanded design, architecture, and automation plan for the Persona Core system in ProtoFusionGirl",
     "format": "markdown",
-    "related": "["
+    "tags": "[persona, ai, copilot, architecture, automation, onboarding, decision, self-prompt, dashboard]",
+    "related": "[data/persona_core.json, copilot_persona_core_design_2025-06-04.artifact, ONBOARDING.md, scripts/]"
   },
   {
-    "filename": "copilot_next_steps_2025-06-03_20250603T194710.artifact",
-    "artifact": "copilot_next_steps_2025-06-03",
-    "created": "2025-06-03",
-    "purpose": "Next-step TODOs for verifying, expanding, and optimizing Copilot/AI agent functional capacity, memory, and automation in the project.",
-    "type": "todo",
-    "tags": "[todo, automation, artifact, ai, workflow, memory, next-steps]",
+    "filename": "copilot_persona_core_design_2025-06-04.artifact",
+    "artifact": "copilot_persona_core_design_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Design and best practices for implementing a dynamic, AI/human-aligned Persona Core for ProtoFusionGirl",
     "format": "markdown",
-    "related": "[",
-    "version": "20250603T194710"
+    "tags": "[persona, ai, copilot, decision, onboarding, automation, context, self-prompt]",
+    "related": "[ONBOARDING.md, data/self_prompt_queue.json, tasks/task_index.json]"
   },
   {
-    "filename": "copilot_todos_2025-06-03.artifact",
-    "artifact": "copilot_todos_2025-06-03",
-    "created": "2025-06-03",
-    "purpose": "Actionable, context-rich TODOs for Copilot/AI agent to optimize project structure, automation, and artifact-driven development. Enhanced with project-specific context and actionable details.",
-    "type": "todo",
-    "tags": "[todo, automation, artifact, ai, workflow, context]",
+    "filename": "copilot_priming.artifact",
+    "title": "Copilot Priming Artifact",
+    "created": "2025-06-05",
+    "purpose": "Machine-readable, always-updated context for Copilot/AI agents."
+  },
+  {
+    "filename": "copilot_reality_warping_code_plan_2025-06-04.artifact",
+    "artifact": "copilot_reality_warping_code_plan_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Code plan for grid-to-seed reality warping as a core physics/world mechanic in ProtoFusionGirl.",
+    "type": "design",
     "format": "markdown",
-    "related": "["
+    "tags": "[reality-warping, worldgen, tilemap, physics, artifact, code-plan]",
+    "related": "[copilot_reality_warping_design_2025-06-04.artifact, copilot_warp_anchor_systems_2025-06-04.artifact, copilot_timestreams_and_warp_zones_2025-06-04.artifact]"
+  },
+  {
+    "filename": "copilot_reality_warping_feature_brainstorm_2025-06-04.artifact"
+  },
+  {
+    "filename": "copilot_script_tools_2025-06-04.artifact",
+    "# Artifact": "copilot_content_consistency_checker_2025-06-04.artifact",
+    "- Optional": "filter by type, output format"
+  },
+  {
+    "filename": "copilot_web3_integration_blockers_2025-06-04.artifact",
+    "artifact_id": "copilot_web3_integration_blockers_2025-06-04",
+    "artifact_type": "blockers",
+    "last_updated": "2025-06-04",
+    "related_artifacts": "",
+    "blockers": "",
+    "- id": "b4",
+    "description": "Documentation for web3 flows is incomplete.",
+    "severity": "medium",
+    "owner": "unassigned",
+    "status": "open",
+    "open_questions": "",
+    "next_actions": ""
+  },
+  {
+    "filename": "copilot_web3_integration_checklist_2025-06-04.artifact",
+    "artifact_id": "copilot_web3_integration_checklist_2025-06-04",
+    "artifact_type": "checklist",
+    "last_updated": "2025-06-04",
+    "related_artifacts": "",
+    "items": "",
+    "- id": "w3-12",
+    "description": "Create troubleshooting/FAQ docs for web3 onboarding",
+    "status": "pending",
+    "assignee": "unassigned",
+    "related_artifact": "copilot_web3_integration_roadmap_2025-06-04"
+  },
+  {
+    "filename": "copilot_web3_integration_faq_2025-06-04.artifact",
+    "artifact_id": "copilot_web3_integration_faq_2025-06-04",
+    "artifact_type": "faq",
+    "last_updated": "2025-06-04",
+    "related_artifacts": "",
+    "faqs": "",
+    "- question": "How do I deploy the ModRegistry contract?",
+    "answer": "Use Hardhat scripts to deploy to Polygon Mumbai. See the roadmap and checklist artifacts for details.",
+    "tags": "[deployment, contract]",
+    "related_artifact": "copilot_web3_integration_roadmap_2025-06-04"
+  },
+  {
+    "filename": "copilot_web3_integration_roadmap_2025-06-04.artifact",
+    "artifact_id": "copilot_web3_integration_roadmap_2025-06-04",
+    "artifact_type": "roadmap",
+    "last_updated": "2025-06-04",
+    "related_artifacts": "",
+    "phases": "",
+    "- phase": "Documentation & Artifacts",
+    "tasks": "",
+    "- id": "w3-12",
+    "description": "Update onboarding and modding guides",
+    "status": "pending"
+  },
+  {
+    "filename": "copilot_web3_integration_status_2025-06-04.artifact",
+    "artifact_id": "copilot_web3_integration_status_2025-06-04",
+    "artifact_type": "status",
+    "last_updated": "2025-06-04",
+    "related_artifacts": "",
+    "current_state": "",
+    "blockers": "",
+    "next_steps": ""
+  },
+  {
+    "filename": "deep_ai_self_autonomy_design_2025-06-03.artifact",
+    "format": "(auto-repaired)",
+    "tags": "(auto-repaired)",
+    "created": "(auto-repaired)",
+    "artifact": "(auto-repaired)",
+    "type": "design",
+    "purpose": "Deep Design for Full AI Self-Autonomy in ProtoFusionGirl",
+    "date": "2025-06-03",
+    "related": "aiAutonomousDevLoop.js, self_prompt_pipeline_instructions.artifact, ONBOARDING.md"
+  },
+  {
+    "filename": "directory_migration_plan_2025-06-04.artifact",
+    "artifact": "directory_migration_plan_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Step-by-step migration plan to transition ProtoFusionGirl to the proposed directory structure.",
+    "type": "migration-plan",
+    "format": "markdown",
+    "tags": "[directory, migration, plan, structure, onboarding]",
+    "related": "[proposed_directory_structure_2025-06-04.artifact, directory_structure_2025-06-04.artifact, ONBOARDING.md]"
   },
   {
     "filename": "directory_structure_2025-06-03.artifact",
@@ -96,8 +191,26 @@ format: json
     "purpose": "Snapshot of the full project directory structure for context and change tracking.",
     "type": "directory",
     "tags": "[directory, structure, snapshot, context]",
+    "format": "markdown"
+  },
+  {
+    "filename": "directory_structure_2025-06-04.artifact",
+    "artifact": "directory_structure_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Snapshot of the full project directory structure for context and change tracking.",
+    "type": "directory",
+    "tags": "[directory, structure, snapshot, context]",
+    "format": "markdown"
+  },
+  {
+    "filename": "event_bus_spec_2025-06-04.artifact",
+    "artifact": "event_bus_spec_2025-06-04",
+    "name": "Event Bus & Event System Specification",
+    "created": "2025-06-04",
+    "purpose": "Details requirements, API, and usage patterns for the event system in ProtoFusionGirl.",
+    "type": "spec",
     "format": "markdown",
-    "related": "["
+    "tags": "[event, bus, system, api, design, core]"
   },
   {
     "filename": "feedback_2025-06-03.artifact",
@@ -110,6 +223,34 @@ format: json
     "related": "["
   },
   {
+    "filename": "leyline_system_integration_2025-06-04.artifact",
+    "- **WorldStateManager": "** Reads and updates ley line state, with schema validation and versioning.",
+    "- **EventBus": "** Listens for and emits events (e.g., `LEYLINE_ACTIVATED`) to enable cross-system reactions and mod hooks.",
+    "- Tests confirm": ""
+  },
+  {
+    "filename": "modregistry_deploy_instructions_mumbai_2025-06-04.artifact",
+    "title": "ModRegistry Polygon Mumbai Deployment Instructions",
+    "id": "w3-6-deploy-instructions",
+    "status": "complete",
+    "created": "2025-06-04",
+    "related_artifact": "copilot_web3_integration_checklist_2025-06-04"
+  },
+  {
+    "filename": "persona_core_changelog_2025-06-04.artifact",
+    "artifact": "persona_core_changelog_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Human-readable changelog for all Persona Core module updates and reviews",
+    "format": "markdown"
+  },
+  {
+    "filename": "persona_core_dashboard_2025-06-04.artifact",
+    "artifact": "persona_core_dashboard_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Persona Core Dashboard - summary of current values, focus, heuristics, and integration for all contributors",
+    "format": "markdown"
+  },
+  {
     "filename": "phase1_brainstorm.artifact",
     "artifact": "phase1_brainstorm",
     "created": "2025-06-03",
@@ -118,6 +259,16 @@ format: json
     "tags": "[ideas, vision, planning]",
     "format": "markdown",
     "related": "["
+  },
+  {
+    "filename": "progression_system_2025-06-03.artifact",
+    "artifact": "progression_system_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Design vision, requirements, and initial plan for a core progression/quest system in ProtoFusionGirl.",
+    "type": "design",
+    "tags": "[progression, quest, gameplay, system, design, artifact]",
+    "format": "markdown",
+    "related": "[combat_mechanics.artifact, tilemap_system_design.artifact, phase1_brainstorm.artifact]"
   },
   {
     "filename": "project_state_2025-06-03.artifact",
@@ -130,6 +281,16 @@ format: json
     "related": "[copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, copilot_next_steps_2025-06-03.artifact, protoFusionGirl.primer]"
   },
   {
+    "filename": "proposed_directory_structure_2025-06-04.artifact",
+    "artifact": "proposed_directory_structure_2025-06-04",
+    "created": "2025-06-04",
+    "purpose": "Proposed improved directory structure for future scalability, onboarding, and modularity.",
+    "type": "directory",
+    "format": "markdown",
+    "tags": "[directory, structure, proposal, future, onboarding]",
+    "related": "[directory_structure_2025-06-04.artifact, ONBOARDING.md, phase1_brainstorm.artifact]"
+  },
+  {
     "filename": "retrospective_tilemap_2025-06-03.artifact",
     "artifact": "retrospective_tilemap_2025-06-03",
     "created": "2025-06-03",
@@ -138,6 +299,326 @@ format: json
     "tags": "[retrospective, tilemap, milestone, summary]",
     "format": "markdown",
     "related": "["
+  },
+  {
+    "filename": "scripts_full_esmodule_migration_plan_2025-06-03.artifact",
+    "artifact": "scripts_full_esmodule_migration_plan_2025-06-03",
+    "created": "2025-06-04",
+    "purpose": "(auto-repaired, add purpose)",
+    "type": "unknown",
+    "tags": "[auto-repaired]",
+    "format": "markdown"
+  },
+  {
+    "filename": "scripts_index.artifact",
+    "artifact": "scripts_index",
+    "created": "2025-06-03",
+    "purpose": "Auto-generated index of all scripts, their usage, options, and onboarding relevance for Copilot/AI agent workflows.",
+    "type": "index",
+    "tags": "[script, index, automation, ai, copilot]",
+    "related": "[artifact_index.artifact, aiTaskManager.js, listScripts.js]",
+    "format": "markdown"
+  },
+  {
+    "filename": "self_prompt_pipeline_instructions.artifact",
+    "artifact": "self_prompt_pipeline_instructions_2025-06-03",
+    "created": "2025-06-03",
+    "purpose": "Instructions and best practices for using the Copilot Self-Prompt Pipeline for autonomous, iterative development cycles.",
+    "type": "instructions",
+    "tags": "[self-prompt, automation, ai, copilot, pipeline, queue, iterative, onboarding]",
+    "related": "[selfPromptPipeline.js, copilot_todo_automation_upgrades_2025-06-03.artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "super_integration_plan_2025-06-04.artifact",
+    "- **Phase 1": "Foundation**",
+    "- **Phase 2": "Core System Implementation**",
+    "- **Phase 3": "Cross-System Features**",
+    "- **Phase 4": "Modding & Automation**",
+    "- **Phase 5": "Continuous Improvement**"
+  },
+  {
+    "filename": "tech_level_angel.artifact",
+    "artifact": "tech_level_angel",
+    "name": "Angel Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type VI (Multiversal) - Angel Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, multiversal, type6]"
+  },
+  {
+    "filename": "tech_level_archo.artifact",
+    "artifact": "tech_level_archo",
+    "name": "Archo Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type IV+ (Interdimensional) - Archo Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, interdimensional, type4]"
+  },
+  {
+    "filename": "tech_level_ascendant.artifact",
+    "artifact": "tech_level_ascendant",
+    "name": "Ascendant Tech",
+    "created": "2025-06-04",
+    "purpose": "Canonical master artifact for Type III (Ascendant) tech level in FusionGirl.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding]"
+  },
+  {
+    "filename": "tech_level_cyber.artifact",
+    "artifact": "tech_level_cyber",
+    "name": "Cyber Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type I (Early) - Cyber Tech (Electrospheric/Information Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, electrospheric, type1]"
+  },
+  {
+    "filename": "tech_level_data_model.artifact",
+    "artifact": "tech_level_data_model",
+    "created": "2025-06-04",
+    "purpose": "Canonical data structure for tech levels in code and artifacts.",
+    "type": "schema",
+    "tags": "[tech, data, schema, artifact, automation]",
+    "format": "typescript"
+  },
+  {
+    "filename": "tech_level_feedback_and_retrospective.artifact",
+    "artifact": "tech_level_feedback_and_retrospective",
+    "created": "2025-06-04",
+    "purpose": "Capture feedback, blockers, and lessons learned during tech level development.",
+    "type": "retrospective",
+    "tags": "[tech, feedback, retrospective, artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_fusion.artifact",
+    "artifact": "tech_level_fusion",
+    "name": "Fusion Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type II (Early) - Fusion Tech (Astrospheric/Astral Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, astrospheric, type2]"
+  },
+  {
+    "filename": "tech_level_gameplay_mapping.artifact",
+    "artifact": "tech_level_gameplay_mapping",
+    "created": "2025-06-04",
+    "purpose": "Map tech levels to gameplay unlocks, features, and systems.",
+    "type": "mapping",
+    "tags": "[tech, gameplay, mapping, artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_holo.artifact",
+    "artifact": "tech_level_holo",
+    "name": "Holo Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type I (Late) - Holo Tech (Magnetospheric/Holographic Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, magnetospheric, type1]"
+  },
+  {
+    "filename": "tech_level_hyper.artifact",
+    "artifact": "tech_level_hyper",
+    "name": "Hyper Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type III (Mid) - Hyper Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, type3]"
+  },
+  {
+    "filename": "tech_level_index.artifact",
+    "artifact": "tech_level_index",
+    "name": "Tech Level Index",
+    "created": "2025-06-04",
+    "purpose": "Canonical index of all tech level artifacts in FusionGirl, ordered and classified per design documentation.",
+    "type": "index",
+    "format": "markdown",
+    "tags": "[index, tech, progression, worldbuilding]"
+  },
+  {
+    "filename": "tech_level_industrial.artifact",
+    "artifact": "tech_level_industrial",
+    "name": "Industrial Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type 0 (Late) - Industrial Tech (Atmospheric/Atomic Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, atmospheric, type0]"
+  },
+  {
+    "filename": "tech_level_integration_tasks.artifact",
+    "artifact": "tech_level_integration_tasks",
+    "created": "2025-06-04",
+    "purpose": "List actionable tasks for integrating tech levels into code, UI, and automation.",
+    "type": "tasks",
+    "tags": "[tech, integration, tasks, artifact]",
+    "format": "yaml"
+  },
+  {
+    "filename": "tech_level_magic.artifact",
+    "artifact": "tech_level_magic",
+    "name": "Magic Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type V (Universal) - Magic Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, universal, type5]"
+  },
+  {
+    "filename": "tech_level_medieval.artifact",
+    "artifact": "tech_level_medieval",
+    "name": "Medieval Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type 0 (Mid) - Medieval Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, type0]"
+  },
+  {
+    "filename": "tech_level_neolithic.artifact",
+    "artifact": "tech_level_neolithic",
+    "name": "Neolithic Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type 0 (Early) - Neolithic Tech (Lithospheric Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, lithospheric, type0]"
+  },
+  {
+    "filename": "tech_level_omni.artifact",
+    "artifact": "tech_level_omni",
+    "name": "Omni Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type VII (Omniversal) - Omni Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, omniversal, type7]"
+  },
+  {
+    "filename": "tech_level_primitive.artifact",
+    "artifact": "tech_level_primitive",
+    "name": "Primitive Tech",
+    "created": "2025-06-04",
+    "purpose": "Canonical master artifact for Type 0 (Primitive) tech level in FusionGirl.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding]"
+  },
+  {
+    "filename": "tech_level_progression_rules.artifact",
+    "artifact": "tech_level_progression_rules",
+    "created": "2025-06-04",
+    "purpose": "Document rules and triggers for advancing/regressing tech levels.",
+    "type": "rules",
+    "tags": "[tech, progression, rules, artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_spacefaring.artifact",
+    "artifact": "tech_level_spacefaring",
+    "name": "Spacefaring Tech",
+    "created": "2025-06-04",
+    "purpose": "Canonical master artifact for Type I (late) tech level in FusionGirl.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding]"
+  },
+  {
+    "filename": "tech_level_spacer.artifact",
+    "artifact": "tech_level_spacer",
+    "name": "Spacer Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type I (Mid) - Spacer Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, type1]"
+  },
+  {
+    "filename": "tech_level_star.artifact",
+    "artifact": "tech_level_star",
+    "name": "Star Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type II (Mid) - Star Tech in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, type2]"
+  },
+  {
+    "filename": "tech_level_stellar.artifact",
+    "artifact": "tech_level_stellar",
+    "name": "Stellar Tech",
+    "created": "2025-06-04",
+    "purpose": "Canonical master artifact for Type II (Stellar) tech level in FusionGirl.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding]"
+  },
+  {
+    "filename": "tech_level_super.artifact",
+    "artifact": "tech_level_super",
+    "name": "Super Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type III (Early) - Super Tech (Supergalactic/Intergalactic Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, supergalactic, type3]"
+  },
+  {
+    "filename": "tech_level_template.artifact",
+    "artifact": "tech_level_template",
+    "name": "Tech Level Template",
+    "created": "2025-06-04",
+    "purpose": "Canonical template for defining a tech level in FusionGirl. Use as a base for all tech level artifacts.",
+    "type": "tech_level",
+    "tags": "[template, tech, progression, worldbuilding]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_test_plan.artifact",
+    "artifact": "tech_level_test_plan",
+    "created": "2025-06-04",
+    "purpose": "Define test cases and validation criteria for tech level features.",
+    "type": "testplan",
+    "tags": "[tech, test, artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_ui_ux_plan.artifact",
+    "artifact": "tech_level_ui_ux_plan",
+    "created": "2025-06-04",
+    "purpose": "Plan UI/UX for displaying and interacting with tech levels.",
+    "type": "uiux",
+    "tags": "[tech, ui, ux, artifact]",
+    "format": "markdown"
+  },
+  {
+    "filename": "tech_level_ultra.artifact",
+    "artifact": "tech_level_ultra",
+    "name": "Ultra Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type III (Late) - Ultra Tech (Cosmospheric/Cosmic Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, cosmospheric, type3]"
+  },
+  {
+    "filename": "tech_level_warp.artifact",
+    "artifact": "tech_level_warp",
+    "name": "Warp Tech",
+    "created": "2025-06-04",
+    "purpose": "Master artifact for Type II (Late) - Warp Tech (Subgalactic/Interstellar Age) in FusionGirl, per canonical tech level documentation.",
+    "type": "tech_level",
+    "format": "markdown",
+    "tags": "[master, tech, progression, worldbuilding, subgalactic, type2]"
   },
   {
     "filename": "test_artifact_2025-06-03.artifact",
@@ -168,6 +649,66 @@ format: json
     "tags": "[tilemap, chunk, pseudocode]",
     "format": "markdown + pseudocode",
     "related": "["
+  },
+  {
+    "filename": "world_state_api_modding_2025-06-04.artifact",
+    "artifact": "world_state_api_modding_2025-06-04",
+    "name": "World State API & Modding Interface",
+    "created": "2025-06-04",
+    "purpose": "Documents the public API for AI agents, mods, and external tools to interact with world state and events.",
+    "type": "api",
+    "format": "markdown",
+    "tags": "[api, modding, world, state, event, interface]"
+  },
+  {
+    "filename": "world_state_data_model_2025-06-04.artifact",
+    "artifact": "world_state_data_model_2025-06-04",
+    "name": "World State Data Model",
+    "created": "2025-06-04",
+    "purpose": "Defines TypeScript interfaces/types for all major world state domains in ProtoFusionGirl.",
+    "type": "data-model",
+    "format": "markdown",
+    "tags": "[data, model, types, world, state, core]"
+  },
+  {
+    "filename": "world_state_integration_plan_2025-06-04.artifact",
+    "artifact": "world_state_integration_plan_2025-06-04",
+    "name": "World State Integration & Migration Plan",
+    "created": "2025-06-04",
+    "purpose": "Step-by-step plan for integrating the unified world state/event system with existing code and minimizing disruption.",
+    "type": "plan",
+    "format": "markdown",
+    "tags": "[integration, migration, world, state, event, plan]"
+  },
+  {
+    "filename": "world_state_onboarding_guide_2025-06-04.artifact",
+    "artifact": "world_state_onboarding_guide_2025-06-04",
+    "name": "World State Onboarding & Developer Guide",
+    "created": "2025-06-04",
+    "purpose": "Quickstart and reference for new contributors (human or AI) to understand and extend the world state/event system.",
+    "type": "guide",
+    "format": "markdown",
+    "tags": "[onboarding, guide, world, state, event, developer]"
+  },
+  {
+    "filename": "world_state_system_design_2025-06-04.artifact",
+    "artifact": "world_state_system_design_2025-06-04",
+    "name": "Unified World State & Event System Design",
+    "created": "2025-06-04",
+    "purpose": "Blueprint for the architecture, responsibilities, and integration points of the WorldStateManager and event bus in ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "tags": "[system, world, event, architecture, design, core]"
+  },
+  {
+    "filename": "world_state_testing_strategy_2025-06-04.artifact",
+    "artifact": "world_state_testing_strategy_2025-06-04",
+    "name": "World State Testing & Validation Strategy",
+    "created": "2025-06-04",
+    "purpose": "Outlines the approach for unit, integration, and regression testing of the unified world state/event system.",
+    "type": "test-strategy",
+    "format": "markdown",
+    "tags": "[testing, validation, world, state, event, core]"
   }
 ]
 

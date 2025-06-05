@@ -1,0 +1,42 @@
+---
+artifact: copilot_analytics_replay_story_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for analytics, replay, and emergent storytelling support for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# Analytics, Replay, and Emergent Storytelling Support
+
+## Purpose
+Track player actions, branch evolution, and emergent stories for analytics, replay, and community sharing. Enable export/import of stories and world states.
+
+## Key Features
+- Timeline/branch analytics and replay system.
+- Export/import of emergent stories or world states.
+- Hooks for live events and community challenges.
+- Integration with save/load and branch/anchor systems.
+
+## Data Model
+- Analytics logs per branch/timeline.
+- Replay and story export/import formats.
+
+## Prototype Plan
+1. Define analytics/replay schema and export formats.
+2. Implement analytics and replay tracking.
+3. Add export/import and live event hooks.
+4. Integrate with save/load and UI.
+5. Test with sample stories and analytics data.
+
+## Privacy & Data Retention
+- Provide opt-in/opt-out for analytics and replay tracking.
+- Define data retention policies and user privacy guarantees.
+
+## Replay System Requirements
+- Specify granularity (e.g., per-action, per-branch) and determinism for replay.
+- Support for partial replays and branch-specific playback.
+
+## Analytics Use Cases
+- Examples: player heatmaps, branch popularity, quest completion rates, emergent story exports.
+- Support for live event analytics and community challenges.

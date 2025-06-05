@@ -1,0 +1,42 @@
+---
+artifact: copilot_cosmic_env_simulation_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for a cosmic/environmental simulation layer for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# Cosmic/Environmental Simulation Layer
+
+## Purpose
+Simulate ley lines, vortices, cosmic events, and environmental hazards that persist and interact with timeline/branch changes. Provide hooks for narrative and gameplay integration.
+
+## Key Features
+- Persistent simulation of ley lines, time vortices, and environmental states.
+- Event hooks for narrative and gameplay triggers.
+- Integration with save/load, event engine, and world state systems.
+
+## Data Model
+- Per-branch environmental state and cosmic event logs.
+- Ley line and vortex metadata.
+
+## Prototype Plan
+1. Define simulation schema for ley lines, vortices, and events.
+2. Implement persistent simulation logic.
+3. Add event hooks for narrative/gameplay.
+4. Integrate with save/load and event engine.
+5. Test with sample cosmic events and timeline changes.
+
+## Simulation Complexity & Performance
+- Discuss tradeoffs for simulation fidelity vs. performance (e.g., tick rate, region-of-interest).
+- Support for pausing, fast-forwarding, or backgrounding simulation.
+
+## Integration Points
+- Define hooks for event engine, procedural registry, and narrative triggers.
+- Ensure simulation state is branch/timeline aware and persists across merges/splits.
+
+## Expanded Testing Plan
+- Test cosmic events during timeline splits/merges.
+- Test simulation rollback and replay.
+- Test integration with event/narrative engine.

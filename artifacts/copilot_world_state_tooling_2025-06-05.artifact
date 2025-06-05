@@ -1,0 +1,42 @@
+---
+artifact: copilot_world_state_tooling_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for world state diffing, visualization, and debugging tools for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# World State Diffing, Visualization, and Debugging Tools
+
+## Purpose
+Allow developers and advanced players to inspect, compare, and repair world states, branches, and deltas. Support migration, debugging, and community-driven content.
+
+## Key Features
+- Visual multiverse tree/graph explorer.
+- World state diff/merge UI.
+- Save data repair and migration wizards.
+- Integration with save/load and branch/anchor systems.
+
+## Data Model
+- Branch/anchor/delta metadata for visualization.
+- Diff/merge logs and repair history.
+
+## Prototype Plan
+1. Design UI/UX for multiverse explorer and diff/merge tools.
+2. Implement world state diffing and visualization logic.
+3. Add repair/migration helpers.
+4. Integrate with save/load and anchor/branch UI.
+5. Test with sample save data and branch merges.
+
+## Performance & Scalability
+- Design for large save files and many branches/anchors (e.g., lazy loading, chunked diffs).
+- Optimize visualization for complex multiverse graphs.
+
+## UI/UX Design
+- Include wireframes or sketches for the multiverse explorer and diff/merge UI.
+- Support for both developer and advanced player workflows.
+
+## Automated vs. Manual Repair
+- Provide both automated repair tools (e.g., fix common issues) and manual editing for advanced users.
+- Track repair/migration history for auditability.

@@ -35,6 +35,19 @@ import { MissionManager } from '../world/missions/MissionManager';
 import { sampleMissions } from '../world/missions/sampleMissions';
 import { MissionTracker } from '../ui/components/MissionTracker';
 import { AnchorTradeOfferModal } from '../ui/components';
+import { TimelinePanel } from '../ui/components/TimelinePanel';
+import { WorldEditOverlay } from '../world/tilemap/WorldEditOverlay';
+import { TileSelectionOverlay } from '../world/tilemap/TileSelectionOverlay';
+import { TilePalette } from '../world/tilemap/TilePalette';
+import { TileInspector } from '../world/tilemap/TileInspector';
+import { TileHistoryVisualizer } from '../world/tilemap/TileHistoryVisualizer';
+import { TileBrush } from '../world/tilemap/TileBrush';
+import { TileClipboard } from '../world/tilemap/TileClipboard';
+import { EditorHistory } from '../world/tilemap/EditorHistory';
+import { WorldEditSession } from '../world/tilemap/WorldEditSession';
+import { WorldEditInput } from '../world/tilemap/WorldEditInput';
+import { MissionHandlers } from './MissionHandlers';
+import { AnchorManager } from './AnchorManager';
 
 export class GameScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
@@ -54,6 +67,7 @@ export class GameScene extends Phaser.Scene {
   private warpZoneManager = new WarpZoneManager();
   private timeMapVisualizer = new TimeMapVisualizer();
   private missionManager: MissionManager = new MissionManager();
+  private anchorManager!: AnchorManager;
 
   // --- Player State Machine ---
   private playerState: 'idle' | 'running' | 'jumping' | 'falling' = 'idle';
@@ -121,18 +135,34 @@ export class GameScene extends Phaser.Scene {
   private realityWarpSystem!: import('../world/RealityWarpSystem').RealityWarpSystem;
 
   // --- Anchor Management UI ---
-  private anchors: { seed: string, label: string, center: { x: number, y: number }, owner?: string, shared?: boolean }[] = [];
-  private anchorPanel?: Phaser.GameObjects.DOMElement;
-  private anchorSync?: AnchorSyncService;
+  // All anchor-related state and methods are now managed by anchorManager.
+  // Remove the following from GameScene:
+  // - anchors
+  // - anchorPanel
+  // - anchorSync
+  // - anchorTradeState
+  // - lastAnchorTradeEvent
+  // - anchorTradeOfferQueue
+  // - anchorTradeOfferModal
+  // - pendingAnchorTrade
+  // - All anchor-related methods (saveAnchorsToStorage, updateMinimapAnchors, showAnchorPanel, broadcastAnchorAdd/Edit/Delete, offerAnchorTrade, acceptAnchorTrade, acceptAnchorTradeOffer, rejectAnchorTradeOffer, setupAnchorSync, importAnchor, exportAnchor)
+  //
+  // Update all usages to use anchorManager instead, e.g.:
+  // - this.anchorManager.anchors
+  // - this.anchorManager.saveAnchorsToStorage()
+  // - this.anchorManager.showAnchorPanel()
+  // - etc.
+
   private playerId: string = AnchorSyncService.generatePlayerId();
 
-  // --- Anchor Trading State ---
-  private anchorTradeState: 'idle' | 'offering' | 'awaiting_response' | 'received_offer' | 'reviewing_offers' = 'idle';
-  private lastAnchorTradeEvent?: AnchorSyncEvent;
-  private anchorTradeOfferQueue: AnchorSyncEvent[] = [];
+  // --- Timeline Panel ---
+  private timelinePanel?: TimelinePanel;
 
-  // --- Anchor Trade Modal Instance ---
-  private anchorTradeOfferModal?: any;
+  // --- World Editing UI Integration (dev/modder only) ---
+  private worldEditOverlay?: WorldEditOverlay;
+  private worldEditSession?: WorldEditSession;
+  private worldEditInput?: WorldEditInput;
+  private worldEditEnabled: boolean = false;
 
   private setAnchorTradeState(state: 'idle' | 'offering' | 'awaiting_response' | 'received_offer' | 'reviewing_offers', event?: AnchorSyncEvent) {
     this.anchorTradeState = state;
@@ -630,17 +660,18 @@ export class GameScene extends Phaser.Scene {
       const center = { x: Math.round(this.player.x), y: Math.round(this.player.y) };
       const options = { shape: 'rectangle', includeEnvironment: false };
       const seed = this.tilemapManager.serializeGridToSeed(center, gridSize, options);
-      const label = prompt('Name this anchor?', `Anchor ${this.anchors.length + 1}`) || `Anchor ${this.anchors.length + 1}`;
+      const label = prompt('Name this anchor?', `Anchor ${this.anchorManager.anchors.length + 1}`) || `Anchor ${this.anchorManager.anchors.length + 1}`;
       const anchor = { seed, label, center, owner: this.playerId, shared: true };
-      this.anchors.push(anchor);
-      this.saveAnchorsToStorage();
+      this.anchorManager.anchors.push(anchor);
+      this.anchorManager.saveAnchorsToStorage();
       this.add.text(center.x, center.y - 80, `Anchor Created: ${label}`, { color: '#00ffff', fontSize: '16px', backgroundColor: '#222244', padding: { x: 8, y: 4 } })
         .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
-      this.updateMinimapAnchors();
+      this.anchorManager.updateMinimapAnchors(this.minimap);
       this.broadcastAnchorAdd(anchor);
     });
     this.input.keyboard?.on('keydown-TAB', (e: KeyboardEvent) => {
       e.preventDefault();
+      // TODO: Move showAnchorPanel logic to AnchorManager and call here
       this.showAnchorPanel();
     });
 
@@ -692,6 +723,76 @@ export class GameScene extends Phaser.Scene {
         });
       }
     };
+
+    // --- Timeline Panel ---
+    this.timelinePanel = new TimelinePanel(this, this.tilemapManager, 320, 240);
+    this.timelinePanel.setVisible(false); // Start hidden
+    // Optionally, add a key to toggle timeline panel
+    this.input.keyboard?.on('keydown-T', () => {
+      if (this.timelinePanel) {
+        this.timelinePanel.setVisible(!this.timelinePanel.visible);
+      }
+    });
+
+    // --- World Editing UI Integration (dev/modder only) ---
+    if (this.isDevOrModder()) {
+      // Set up world editing session and overlays with correct dependencies
+      const selection = new (require('../world/tilemap/WorldSelection').WorldSelection)();
+      const brush = new TileBrush(this.tilemapManager);
+      const clipboard = new TileClipboard();
+      clipboard.setTilemapManager(this.tilemapManager);
+      const history = new EditorHistory();
+      const palette = new TilePalette(this.tilemapManager.tileRegistry);
+      const inspector = new TileInspector(this.tilemapManager.tileRegistry);
+      const selectionOverlay = new TileSelectionOverlay(selection);
+      const historyVisualizer = new TileHistoryVisualizer(history);
+      this.worldEditSession = new WorldEditSession(brush, clipboard, history, selection);
+      this.worldEditOverlay = new WorldEditOverlay(selectionOverlay, palette, inspector, historyVisualizer);
+      this.worldEditInput = new WorldEditInput(this.worldEditSession);
+      // Add a hotkey (e.g., F2) to toggle editing UI
+      this.input.keyboard?.on('keydown-F2', () => {
+        this.worldEditEnabled = !this.worldEditEnabled;
+        if (this.worldEditEnabled) {
+          this.worldEditOverlay?.render(this);
+        } else {
+          // Optionally hide overlays (implement hide logic in overlay if needed)
+        }
+      });
+      // Connect WorldEditInput to pointer and keyboard events when editing is enabled
+      this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        if (this.worldEditEnabled && this.worldEditInput) {
+          this.worldEditInput.handlePointerDown(pointer.worldX, pointer.worldY);
+        }
+      });
+      this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+        if (this.worldEditEnabled && this.worldEditInput) {
+          this.worldEditInput.handlePointerMove(pointer.worldX, pointer.worldY);
+        }
+      });
+      this.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+        if (this.worldEditEnabled && this.worldEditInput) {
+          this.worldEditInput.handlePointerUp(pointer.worldX, pointer.worldY);
+        }
+      });
+      this.input.keyboard?.on('keydown', (event: KeyboardEvent) => {
+        if (this.worldEditEnabled && this.worldEditInput) {
+          this.worldEditInput.handleKeyDown(event.key, event);
+        }
+      });
+      // Optional: show a toast or indicator when editing mode is toggled
+      this.input.keyboard?.on('keydown-F2', () => {
+        if (this.worldEditEnabled) {
+          this.add.text(10, 10, 'World Editing Mode: ON', { color: '#00ffcc', fontSize: '14px', backgroundColor: '#222' }).setDepth(2000).setScrollFactor(0);
+        } else {
+          this.add.text(10, 10, 'World Editing Mode: OFF', { color: '#ff4444', fontSize: '14px', backgroundColor: '#222' }).setDepth(2000).setScrollFactor(0);
+        }
+      });
+    }
+  }
+
+  private isDevOrModder(): boolean {
+    // TODO: Replace with real permission check
+    return true;
   }
 
   /**
@@ -955,196 +1056,32 @@ export class GameScene extends Phaser.Scene {
 
   // Called when an enemy is defeated by the player
   private onEnemyDefeated() {
-    // Check if any active mission has a 'defeat' objective
-    const missions = this.missionManager.getAllMissions();
-    for (const mission of missions) {
-      if (mission.status !== 'active') continue;
-      for (const obj of mission.objectives) {
-        if (obj.type === 'defeat' && obj.status === 'incomplete') {
-          // For demo: mark as complete on any enemy defeat
-          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
-          // Optionally, trigger mission event
-          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
-        }
-      }
-    }
-    // Existing quest/respawn logic
-    const allDefeated = this.enemies.every(enemy => !enemy.isAlive);
-    if (allDefeated) {
-      this.respawnEnemies();
-    }
-  }
-
-  private respawnEnemies() {
-    for (const enemy of this.enemies) {
-      if (!enemy.isAlive) {
-        enemy.isAlive = true;
-        enemy.health = enemy.definition.maxHealth; // Restore health
-        const sprite = this.enemySprites.get(enemy);
-        if (sprite) {
-          sprite.setPosition(enemy.x, enemy.y);
-          sprite.setVisible(true);
-        }
-        const healthBar = this.enemyHealthBars.get(enemy);
-        if (healthBar) {
-          healthBar.setVisible(true);
-          healthBar.updateHealth(enemy.health, enemy.definition.maxHealth);
-        }
-      }
-    }
-  }
-
-  private saveAnchorsToStorage() {
-    localStorage.setItem('realityAnchors', JSON.stringify(this.anchors));
-  }
-
-  private updateMinimapAnchors() {
-    if (this.minimap) {
-      this.minimap.drawWarpAnchors(
-        this.anchors.map(a => ({ x: a.center.x, y: a.center.y, datakey: a.label }))
-      );
-    }
-  }
-
-  private exportAnchor(idx: number) {
-    const anchor = this.anchors[idx];
-    if (!anchor) return;
-    const shareData = {
-      seed: anchor.seed,
-      label: anchor.label,
-      center: anchor.center,
-      owner: anchor.owner || 'local',
-      shared: true
-    };
-    const code = btoa(unescape(encodeURIComponent(JSON.stringify(shareData))));
-    navigator.clipboard.writeText(code);
-    alert('Anchor share code copied to clipboard!');
-  }
-
-  private importAnchor() {
-    const code = prompt('Paste anchor share code:');
-    if (!code) return;
-    try {
-      const json = decodeURIComponent(escape(atob(code)));
-      const data = JSON.parse(json);
-      if (!data.seed || !data.center) throw new Error('Invalid anchor');
-      this.anchors.push({
-        seed: data.seed,
-        label: data.label + ' (shared)',
-        center: data.center,
-        owner: data.owner || 'shared',
-        shared: true
-      });
-      this.saveAnchorsToStorage();
-      this.updateMinimapAnchors();
-      alert('Anchor imported!');
-    } catch {
-      alert('Invalid anchor code!');
-    }
-  }
-
-  // Example: Use timestream/warp zone managers in anchor warping
-  private handleAnchorWarp(anchor: { seed: string, label: string, center: { x: number, y: number } }) {
-    // Branch timeline on warp
-    const currentTimestream = this.timestreamManager.createTimestream(anchor.label, {
-      id: `tl_${Date.now()}`,
-      label: anchor.label,
-      events: [],
-      parentTimestream: 'root',
-      branchFromEventId: undefined
-    });
-    // Optionally, trigger a warp zone event
-    // this.warpZoneManager.triggerZone(anchor.seed, { anchor });
-    // Update UI (stub)
-    this.timeMapVisualizer.render({ nodes: [], edges: [] });
+    MissionHandlers.onEnemyDefeated(this.missionManager, this.enemies, this.respawnEnemies.bind(this));
   }
 
   // Called when the player reaches a location (e.g., for 'location' objectives)
   private onPlayerReachLocation(locationId: string) {
-    const missions = this.missionManager.getAllMissions();
-    for (const mission of missions) {
-      if (mission.status !== 'active') continue;
-      for (const obj of mission.objectives) {
-        if (obj.type === 'location' && obj.status === 'incomplete' && obj.target === locationId) {
-          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
-          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
-        }
-      }
-    }
+    MissionHandlers.onPlayerReachLocation(this.missionManager, locationId);
   }
 
   // Called when the player collects an item (for 'collect' objectives)
   private onPlayerCollectItem(itemId: string, amount: number = 1) {
-    const missions = this.missionManager.getAllMissions();
-    for (const mission of missions) {
-      if (mission.status !== 'active') continue;
-      for (const obj of mission.objectives) {
-        if (obj.type === 'collect' && obj.status === 'incomplete' && obj.target === itemId) {
-          // Increment progress or mark complete
-          const newProgress = (obj.progress || 0) + amount;
-          if (newProgress >= 1) { // For demo, 1 is enough; adjust as needed
-            this.missionManager.updateObjective(mission.id, obj.id, 'complete', newProgress);
-            this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
-          } else {
-            this.missionManager.updateObjective(mission.id, obj.id, 'incomplete', newProgress);
-          }
-        }
-      }
-    }
+    MissionHandlers.onPlayerCollectItem(this.missionManager, itemId, amount);
   }
 
   // Called when the player interacts with an object (for 'interact' objectives)
   private onPlayerInteract(targetId: string) {
-    const missions = this.missionManager.getAllMissions();
-    for (const mission of missions) {
-      if (mission.status !== 'active') continue;
-      for (const obj of mission.objectives) {
-        if (obj.type === 'interact' && obj.status === 'incomplete' && obj.target === targetId) {
-          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
-          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
-        }
-      }
-    }
+    MissionHandlers.onPlayerInteract(this.missionManager, targetId);
   }
 
   // Grant rewards for a completed mission
   private grantMissionRewards(missionId: string) {
-    const mission = this.missionManager.getMission(missionId);
-    if (!mission || !mission.rewards) return;
-    for (const reward of mission.rewards) {
-      switch (reward.type) {
-        case 'xp':
-          // Example: add XP to player stats
-          if (typeof reward.value === 'number') {
-            this.getPlayerStats().addXP?.(reward.value);
-          }
-          break;
-        case 'item':
-          // Example: add item to inventory
-          if (typeof reward.value === 'string') {
-            this.tilemapManager.inventoryPanel?.addItem?.(reward.value, 1);
-          }
-          break;
-        case 'currency':
-          // Example: add currency to player
-          if (typeof reward.value === 'number') {
-            this.getPlayerStats().addCurrency?.(reward.value);
-          }
-          break;
-        case 'unlock':
-          // Example: unlock feature or tech
-          // Implement unlock logic as needed
-          break;
-        case 'faction':
-          // Example: increase faction reputation
-          // Implement faction logic as needed
-          break;
-        case 'custom':
-          // Custom reward handler (modding/extensibility)
-          // Implement as needed
-          break;
-      }
-    }
+    MissionHandlers.grantMissionRewards(
+      this.missionManager,
+      missionId,
+      this.getPlayerStats.bind(this),
+      this.tilemapManager
+    );
   }
 
   private grantAnchorTradeReward() {

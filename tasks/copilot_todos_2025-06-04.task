@@ -15,6 +15,14 @@ description: |
   - Add/expand automated tests for toroidal math and seam edge cases
   - Expand documentation and onboarding artifacts with toroidal math best practices
   - Profile and optimize chunk loading/unloading and seam rendering
+  - Review all new features for toroidal compliance before merge
+  - Onboard new contributors with best practices and usage examples
 related:
   - artifacts/copilot_toroidal_math_usage_examples_2025-06-04.artifact
   - artifacts/copilot_toroidal_best_practices_2025-06-04.artifact
+  - artifacts/tilemap_system_design.artifact
+completion_criteria:
+  - [ ] All world/chunk/AI/minimap logic uses wrapping utilities
+  - [ ] All edge cases and seams are tested
+  - [ ] Documentation and onboarding updated
+  - [ ] Code review checklist completed

@@ -1,24 +1,37 @@
 ---
 artifact: task_apply_toroidal_utilities_everywhere_2025-06-04
-created: 2025-06-04
+created: 2025-06-05
 purpose: Refactor and upgrade all world, chunk, AI, minimap, and rendering logic to use new toroidal math utilities from TilemapManager for robust edge-aware behavior at the world seam.
 type: todo
-tags: [todo, refactor, torus, world, chunk, ai, minimap, rendering, edge-case]
-related: [copilot_advanced_todos_2025-06-03.artifact, tilemap_system_design.artifact]
 format: markdown
+related:
+  - copilot_toroidal_math_usage_examples_2025-06-04.artifact
+  - copilot_toroidal_best_practices_2025-06-04.artifact
+  - tilemap_system_design.artifact
 ---
 
-# TODO: Apply Toroidal Utilities Everywhere (2025-06-04)
+# TODO: Apply Toroidal Utilities Everywhere (2025-06-05)
 
 ## Requirements
 - Refactor all code that deals with world/chunk X coordinates to use `TilemapManager.wrapX`, `wrapChunkX`, `toroidalDistanceX`, and related utilities.
 - Update AI, minimap, chunk loading/unloading, and rendering logic to use these utilities for seamless edge handling.
 - Add/expand tests to verify correct behavior at and near the world seam.
-- Document any edge cases or new best practices in the relevant artifacts.
+- Ensure all new features and bugfixes are reviewed for toroidal compliance.
+- Update onboarding and documentation to reference best practices and usage examples.
 
-## Next Steps
-- Audit codebase for any direct X or chunkX math and replace with utility calls.
-- Add/expand unit tests for seam logic.
-- Update documentation and onboarding artifacts to reference new best practices.
+## Steps
+1. Audit codebase for any direct X or chunkX math and replace with utility calls.
+2. Refactor and test each system (AI, minimap, rendering, persistence).
+3. Add/expand unit tests for seam logic and edge cases.
+4. Update documentation and onboarding artifacts to reference new best practices.
+5. Review all changes with the toroidal math checklist.
 
----
+## Criteria for Completion
+- [ ] All world/chunk X logic uses toroidal utilities
+- [ ] All edge cases and seams are tested
+- [ ] Documentation and onboarding updated
+- [ ] Code review checklist completed
+
+## Progress/Notes
+- Link to best practices and usage examples artifacts for reference.
+- Coordinate with modding and UI teams for integration points.

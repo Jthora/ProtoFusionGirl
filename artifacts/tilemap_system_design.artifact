@@ -1,15 +1,17 @@
 ---
 artifact: tilemap_system_design
-created: 2025-06-03
-purpose: Pseudocode, diagrams, and notes for the tilemap and chunk management system.
+created: 2025-06-05
+purpose: Design and implementation plan for the tilemap and chunk management system, including toroidal world logic.
 type: design
-tags: [tilemap, chunk, pseudocode]
 format: markdown + pseudocode
-related: [
-  "phase1_brainstorm.artifact",
-  "retrospective_tilemap_2025-06-03.artifact",
-  "copilot_todos_2025-06-03.artifact"
-]
+related:
+  - copilot_toroidal_math_usage_examples_2025-06-04.artifact
+  - copilot_toroidal_best_practices_2025-06-04.artifact
+  - copilot_chunk_replacement_api_proposal_2025-06-04.artifact
+  - copilot_chunk_replacement_edge_cases_2025-06-04.artifact
+  - copilot_chunk_replacement_integration_points_2025-06-04.artifact
+  - copilot_chunk_replacement_modding_2025-06-04.artifact
+  - copilot_chunk_replacement_requirements_2025-06-04.artifact
 ---
 
 # Tilemap System Design
@@ -18,30 +20,53 @@ related: [
 - World is divided into chunks (NxN tiles per chunk).
 - Chunks are loaded/unloaded based on player position.
 - TileRegistry manages tile types and metadata.
+- Integrates toroidal math for seamless world wrapping.
+- Event-driven updates for tile/chunk changes.
+- Designed for extensibility (modding, procedural generation).
 
-## Pseudocode
+## Data Structures
+- Tiles: `{ id, type, metadata }`
+- Chunks: `{ position, tiles[][] }`
+- World: `{ chunkMap, playerPosition, ... }`
+
+## Core Classes (Pseudocode)
 ```
 class TilemapManager {
   loadChunk(x, y): Chunk
   unloadChunk(x, y): void
   getTile(x, y): Tile
   setTile(x, y, tile): void
+  on(event, handler): void // Event-driven updates
+  // Integrate toroidal math utilities here
 }
 
 class ChunkManager {
   activeChunks: Map<(x, y), Chunk>
   update(playerPosition): void
+  serialize(): string
+  deserialize(data: string): void
 }
 ```
 
-## Data Structure
-- Tiles: `{ id, type, metadata }`
-- Chunks: `{ position, tiles[][] }`
+## Serialization & Persistence
+- Use JSON or binary format for chunk/world state.
+- Support for incremental saves and streaming chunk data.
+- Hooks for mod/plugin data injection.
 
-## Open Questions
+## Integration Points
+- Use toroidal math utilities for all X/Y logic (see related artifacts).
+- Reference best practices and usage examples artifacts.
+- Ensure all chunk/tile access is wrapped.
+- Expose hooks for UI, AI, and modding systems.
+
+## Open Questions & Edge Cases
 - How to serialize chunk data for persistence?
-- Should tile updates be event-driven?
+- Should tile updates be event-driven or polled?
+- Handling chunk boundaries, performance, and memory.
+- How to support dynamic world resizing or topology changes?
 
----
-
-(End of artifact)
+## Next Steps
+- [ ] Audit all world/chunk logic for wrapping compliance
+- [ ] Implement event-driven update model
+- [ ] Add/expand tests for seam/edge cases
+- [ ] Document integration points for mods and UI

@@ -1,0 +1,35 @@
+# Task: Track and Implement Missing GameScene Features
+
+**Created:** 2025-06-05
+**Related System:** GameScene (src/scenes/GameScene.ts)
+
+## Description
+This task tracks all TODOs and missing features identified in the GameScene audit. Each item below must be implemented, tested, and integrated according to project conventions and referenced artifacts.
+
+## Checklist
+- [ ] Implement touch controls for mobile (see .primer)
+- [ ] Implement a JSON-based tilemap (see .primer and artifacts/tilemap_system_design.artifact)
+- [ ] Add a scrolling background with parallax effect (see .primer)
+- [ ] Implement a health bar UI above the player sprite (see .primer)
+- [ ] Reference and integrate artifacts/tilemap_system_design.artifact for tilemap logic
+- [ ] Confirm and document the presence and completeness of the update() method and main loop responsibilities
+- [ ] Confirm and document input handling logic (player, AI, events)
+- [ ] Confirm and document world/tilemap/chunk system integration
+- [ ] Implement or confirm world editing tools/UI
+- [ ] Implement or confirm persistence (save/load, state serialization)
+- [ ] Implement or confirm edge case handling (world boundaries, invalid input, error states)
+- [ ] Implement or confirm automated tests or validation scripts for GameScene
+- [ ] Confirm integration with required utilities (toroidal math, event bus, state machines) and conventions from .primer
+- [ ] Update artifacts and documentation to reflect all changes
+
+## Integration Points
+- Reference: artifacts/tilemap_system_design.artifact
+- Reference: .primer, .manifest, .dashboard
+- Update: artifacts/gamescene_core_audit_2025-06-05.artifact after each major change
+
+## Status
+- [ ] Open
+
+## Notes
+- This task was generated as part of the GameScene core audit on 2025-06-05.
+- All sub-items should be tracked in .dashboard and referenced in related artifacts.

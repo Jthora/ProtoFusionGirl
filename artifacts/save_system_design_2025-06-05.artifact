@@ -1,0 +1,104 @@
+---
+artifact: save_system_design_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for an advanced, seed/delta/timeline-aware save/load system for ProtoFusionGirl.
+type: design
+format: markdown
+related: [tilemap_system_design.artifact, copilot_reality_warping_code_plan_2025-06-04.artifact, copilot_timestream_code_plan_2025-06-04.artifact, WorldPersistence.ts, TilemapManager.ts]
+---
+
+# Save/Load System Design & Prototype Plan
+
+## Overview
+ProtoFusionGirl's world is procedurally generated using seeds, supports reality warping (grid-to-seed), and features branching timelines (timestreams). Saving and loading must be efficient, robust to modding, and support multiverse navigation.
+
+## Tile Data Flow Summary
+- World is divided into chunks (NxN tiles).
+- Chunks are generated from a seed (global or per-warp-zone).
+- Tile edits are tracked as deltas from the generated state.
+- Chunks are loaded/unloaded as needed; only dirty chunks are persisted.
+- Reality warping can serialize a region into a new seed, creating a new reality branch.
+- Timestreams/warp zones allow for branching timelines, each with its own seed/delta set.
+
+## Key Requirements
+- **Seed-based world generation**: Save only the seed and deltas for each region/branch.
+- **Delta-first persistence**: Store only changes from the procedural base state.
+- **Timeline/branch awareness**: Each timeline/warp zone can have its own save branch.
+- **Anchor/warp integration**: Support anchor points and multiverse navigation.
+- **Mod/version tracking**: Save mod metadata and validate on load.
+- **Event-driven**: Use hooks for auto-save and delta recording.
+
+## Data Structure (Pseudocode)
+```json
+{
+  "meta": { "player": "Jane", "timestamp": "2025-06-05T22:00:00Z", "mods": ["core", "sample_enemy_mod@1.2.0"], "version": "0.9.1" },
+  "playerState": { "position": {"x": 100, "y": 200, "zone": "warp:alpha"}, "inventory": {"itemA": 3}, "progression": ["quest1"] },
+  "worldState": {
+    "branches": {
+      "main": { "seed": "alpha-12345", "deltas": [ ... ] },
+      "warp:beta": { "seed": "beta-67890", "deltas": [ ... ] }
+    }
+  },
+  "anchors": { "anchor1": {"seed": "alpha-12345", "pos": [20, 10], "label": "Safe Spot"} }
+}
+```
+
+## Prototype Plan
+1. **Extend WorldPersistence**
+   - Add support for saving/loading per-branch (timeline/warp zone) data.
+   - Implement delta serialization for tile edits, object changes, and environmental state.
+2. **Integrate with TilemapManager & TimestreamManager**
+   - Expose APIs to get/set deltas for a given seed/branch.
+   - Allow switching active branch/timeline and saving state accordingly.
+3. **Anchor & Reality Warp Support**
+   - Save anchor points and allow restoring world state from anchors.
+   - On reality warp, serialize region to seed and create a new branch.
+4. **Mod/Version Validation**
+   - Store mod hashes/versions in save files.
+   - On load, validate mods and warn or migrate if needed.
+5. **UI/UX**
+   - Prototype UI for save slots, anchor management, and timeline navigation.
+6. **Testing & Migration**
+   - Test save/load across mod changes, warps, and timeline branches.
+   - Plan for migration helpers and error handling.
+
+## Critique & Further Considerations
+
+### Timestreams & Branch Management
+- **Branch Explosion:** If every warp, anchor, or timeline creates a new branch, the number of branches could grow rapidly. Plan for pruning, merging, or limiting branch creation to avoid save bloat and confusion.
+- **Branch Relationships:** Track parent/child relationships, divergence points, and merges. This is crucial for visualizing the multiverse and for narrative logic.
+
+### Reality Warping & Grid-to-Seed
+- **Seed Determinism:** Ensure that serializing a region of tiles into a seed is deterministic and collision-resistant. Use strong hashing (e.g., SHA-256) and include all relevant metadata (tiles, objects, environment).
+- **Partial Regeneration:** Define clear boundaries for warps (region, chunk, world) and how they affect the save structure. Decide if a new seed overrides only that region or creates a new global state.
+
+### Warp Zones & DataKey Management
+- **Zone-Scoped Seeds:** Each warp zone could have its own seed and delta set. Define rules for overlapping/interacting zones and seed/delta precedence.
+- **DataKey Uniqueness:** Datakeys referencing tile arrangements or world states must be unique, persistent, and efficiently queryable.
+
+### Tile Deltas & CRDTs
+- **Delta Format:** Arrays are simple, but may not scale for high-frequency edits or multiplayer. Consider future CRDT (Conflict-free Replicated Data Type) integration for concurrent edits.
+
+### User Experience
+- **Save/Load UI:** Navigating a multiverse of branches, anchors, and timelines could overwhelm players. Visualize branches as a tree/graph, provide summaries, and allow filtering/searching.
+
+### Narrative & Performance
+- **Narrative Integration:** Weave saving/loading into the story (e.g., anchoring a reality, rewinding a timestream, collapsing unused branches).
+- **Performance:** Loading may require regenerating from seed and applying many deltas. Use background loading, chunk prioritization, and caching.
+
+### Multiplayer
+- **Anchor Sharing & Sync:** Decide how to handle divergent realities between players. Plan for anchor sharing and reality sync in multiplayer.
+
+### Testing & Debugging
+- **Tooling:** Build tools for visualizing, diffing, and repairing save data for both developers and advanced players.
+
+---
+
+## Enhanced Next Steps
+- Prototype the core seed/delta/branch model with a small number of branches and warps.
+- Design the save/load UI with multiverse navigation in mind.
+- Plan for future enhancements (CRDTs, multiplayer, analytics) but keep the initial implementation simple and testable.
+
+---
+
+(End of artifact)

@@ -1,32 +1,43 @@
-# copilot_toroidal_best_practices_2025-06-04.artifact
+---
+artifact: copilot_toroidal_best_practices_2025-06-04
+created: 2025-06-05
+purpose: Document best practices, guidelines, and common pitfalls for applying toroidal math in ProtoFusionGirl.
+type: best-practices
+format: markdown
+related:
+  - tilemap_system_design.artifact
+  - copilot_toroidal_math_usage_examples_2025-06-04.artifact
+---
 
-## Toroidal World Logic: Best Practices & Checklist
+# Toroidal Math Best Practices
 
-### Math Utilities
-- [x] Use wrapX and toroidalDistanceX for all X coordinate math
-- [x] Use wrapChunkX and toroidalChunkDistanceX for chunk logic
-- [x] Use BigInt variants for extreme world sizes
+## Principles
+- Always use wrapping utilities for X/Y logic in world, chunk, and minimap code.
+- Prefer wrapping over clamping for seamless world experience.
+- Test all edge cases, especially at world seams and chunk boundaries.
+- Consistency: All systems (AI, UI, physics, persistence) must use the same wrapping logic.
 
-### Systems to Refactor/Test
-- [x] Chunk loading/unloading (done)
-- [x] Player/camera movement and centering (done)
-- [x] Enemy/AI position and distance (partial)
-- [ ] AI/pathfinding (use toroidal math for all X logic)
-- [ ] Minimap/world map UI (toroidal rendering)
-- [ ] Projectiles/physics (toroidal movement, collision, targeting)
-- [ ] Persistence/save-load (wrap all X coordinates)
-- [ ] Edge-aware rendering (sprites/effects at seam)
-- [ ] Vertical boundaries/wrapping (decide: hard, soft, or toroidal Y)
+## Guidelines
+- Audit all code that manipulates world/chunk coordinates (search for direct arithmetic).
+- Refactor to use `wrapX`, `wrapChunkX`, `toroidalDistanceX`, etc.
+- Document any exceptions or special cases (e.g., UI overlays, debug tools).
+- Add/expand tests for seam/edge cases and negative/overflow values.
+- Review all new features for toroidal compliance during code review.
 
-### Testing & Validation
-- [ ] Add unit tests for all toroidal math utilities (including edge cases)
-- [ ] Add integration tests for seam-crossing (player, enemy, chunk, camera, etc.)
+## Common Pitfalls
+- Off-by-one errors at seams or chunk edges.
+- Forgetting to wrap after arithmetic operations or when looping.
+- Inconsistent use of wrapping in different systems (AI vs. rendering).
+- Failing to update tests/documentation after refactor.
 
-### Documentation & Onboarding
-- [x] Document all toroidal utilities in code
-- [ ] Expand onboarding docs with toroidal math usage, examples, and gotchas
-- [ ] Maintain artifact checklists for future contributors
+## Checklist
+- [ ] All world/chunk X logic uses wrapping utilities
+- [ ] All AI/pathfinding logic uses toroidal math
+- [ ] Minimap and rendering logic are seam-aware
+- [ ] Tests cover seam/edge cases and negative/overflow values
+- [ ] Documentation and onboarding updated
 
-### Performance
-- [ ] Profile chunk loading/unloading and seam rendering for large worlds
-- [ ] Optimize as needed
+## Onboarding Notes
+- Reference this artifact and usage examples when implementing or reviewing world logic.
+- New contributors should review this checklist before submitting changes to world/chunk logic.
+- Link to related artifacts for deeper context and code examples.

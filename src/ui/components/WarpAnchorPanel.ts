@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { TilemapManager } from '../../world/tilemap/TilemapManager';
 import { WarpZone, extractWarpZone } from '../../world/tilemap/WarpZoneUtils';
-import { saveWarpZoneToStorage, restoreWarpZoneFromDatakey } from '../../world/tilemap/WorldGenWarp';
+import { saveWarpZoneToStorage } from '../../world/tilemap/WorldGenWarp';
 import { UniversalLanguagePuzzleModal } from './UniversalLanguagePuzzleModal';
 
 /**
@@ -40,23 +40,27 @@ export class WarpAnchorPanel extends Phaser.GameObjects.Container {
     this.setScrollFactor(0);
     this.setDepth(1001);
     this.setPosition(10, 80); // Below minimap
-    this.loadAnchorsFromStorage();
-    this.drawPanel();
+    this.loadAnchorsFromPersistence().then(() => this.drawPanel());
   }
 
-  private loadAnchorsFromStorage() {
-    const anchorsJson = localStorage.getItem('warpAnchors');
-    if (anchorsJson) {
-      try {
-        this.anchors = JSON.parse(anchorsJson);
-      } catch {
-        this.anchors = [];
-      }
+  // --- Replace local anchor storage with WorldPersistence integration ---
+  private async loadAnchorsFromPersistence() {
+    // Use TilemapManager's getAllAnchors (which calls WorldPersistence.listAnchors)
+    this.anchors = await this.tilemapManager.getAllAnchors();
+  }
+
+  private async saveAnchorToPersistence(anchor: { datakey: string, zone: WarpZone, name: string, created: number }) {
+    // Use WorldPersistence.setAnchor
+    if (this.tilemapManager && this.tilemapManager.persistence) {
+      this.tilemapManager.persistence.setAnchor(anchor.datakey, anchor);
     }
   }
 
-  private saveAnchorsToStorage() {
-    localStorage.setItem('warpAnchors', JSON.stringify(this.anchors));
+  private async deleteAnchorFromPersistence(datakey: string) {
+    // Use the new public deleteAnchor method
+    if (this.tilemapManager && this.tilemapManager.persistence) {
+      this.tilemapManager.persistence.deleteAnchor(datakey);
+    }
   }
 
   private drawPanel() {
@@ -125,8 +129,18 @@ export class WarpAnchorPanel extends Phaser.GameObjects.Container {
     const originY = Math.floor(this.player.y) - Math.floor(zoneHeight / 2);
     const zone = extractWarpZone(this.tilemapManager, originX, originY, zoneWidth, zoneHeight);
     const datakey = await saveWarpZoneToStorage(zone, this.storage);
-    this.anchors.push({ datakey, zone, name, created: Date.now() });
-    this.saveAnchorsToStorage();
+    const anchor = { datakey, zone, name, created: Date.now() };
+    await this.saveAnchorToPersistence(anchor);
+    await this.loadAnchorsFromPersistence();
+    // --- Save branch (seed + deltas) for this anchor ---
+    const branchId = datakey;
+    const seed = this.tilemapManager.serializeGridToSeed({ x: originX, y: originY }, { width: zoneWidth, height: zoneHeight });
+    const deltas = this.tilemapManager.getBranchDeltas(this.tilemapManager.getCurrentBranch());
+    await this.tilemapManager.saveBranch(branchId, { seed, deltas }, `branch_${branchId}.json`);
+    // --- Autosave anchors ---
+    await this.tilemapManager.saveAnchors(this.anchors, 'anchors.json');
+    // --- UI feedback ---
+    this.scene.add.text(10, this.height + 10, 'Anchor & branch saved!', { color: '#00ffcc', fontSize: '12px' }).setDepth(2001).setScrollFactor(0).setAlpha(0.9).setInteractive().on('pointerdown', function() { this.destroy(); });
     this.drawPanel();
   }
 
@@ -136,11 +150,24 @@ export class WarpAnchorPanel extends Phaser.GameObjects.Container {
       alert('Universal Language puzzle failed. Anchor not restored.');
       return;
     }
-    // Visual effect: screen flash and distortion
     this.playWarpVisualEffect();
-    // Sound effect: play warp sound
     this.playWarpSound();
-    await restoreWarpZoneFromDatakey(this.tilemapManager, datakey, this.storage);
+    // --- Load branch (seed + deltas) for this anchor ---
+    const branchId = datakey;
+    const branchData = await this.tilemapManager.loadBranch(`branch_${branchId}.json`);
+    if (branchData && branchData.seed && branchData.deltas) {
+      this.tilemapManager.applyDeltasToWorld(branchData.deltas);
+      // Switch current branch in TilemapManager
+      this.tilemapManager.switchBranch(branchId);
+      // --- Notify TimelinePanel (and any listeners) of branch switch ---
+      this.scene.events.emit('branchSwitch', branchId);
+      // --- UI feedback ---
+      const toast = this.scene.add.text(10, this.height + 30, 'Anchor/branch restored!', { color: '#00ffcc', fontSize: '12px' })
+        .setDepth(2001).setScrollFactor(0).setAlpha(0.9).setInteractive();
+      toast.on('pointerdown', () => { toast.destroy(); });
+    } else {
+      alert('Failed to load anchor branch data.');
+    }
   }
 
   private playWarpVisualEffect() {
@@ -193,10 +220,11 @@ export class WarpAnchorPanel extends Phaser.GameObjects.Container {
     }
   }
 
-  private deleteAnchor(index: number) {
+  private async deleteAnchor(index: number) {
     if (confirm('Delete this warp anchor?')) {
-      this.anchors.splice(index, 1);
-      this.saveAnchorsToStorage();
+      const datakey = this.anchors[index].datakey;
+      await this.deleteAnchorFromPersistence(datakey);
+      await this.loadAnchorsFromPersistence();
       this.drawPanel();
     }
   }

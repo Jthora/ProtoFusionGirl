@@ -52,4 +52,5 @@ function main() {
   console.log(`Updated ${INDEX_FILE} with ${index.length} artifacts.`);
 }
 
-if (require.main === module) main();
+// Replace CommonJS require.main check with ES module equivalent
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();

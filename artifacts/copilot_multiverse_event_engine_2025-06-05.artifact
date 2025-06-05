@@ -1,0 +1,42 @@
+---
+artifact: copilot_multiverse_event_engine_2025-06-05
+created: 2025-06-05
+purpose: Design and prototype plan for a branch-aware event and narrative state engine for ProtoFusionGirl.
+type: design
+format: markdown
+related: [master_multiverse_systems_2025-06-05.artifact]
+---
+
+# Multiverse Event & Narrative State Engine
+
+## Purpose
+Track and propagate quests, events, and narrative states across all branches/timelines. Enable story/world changes to ripple through the multiverse, supporting branch merges, collapses, and narrative logic.
+
+## Key Features
+- Branch-aware quest and event tracking (per timeline/branch).
+- Propagation and resolution of world/narrative changes across branches.
+- Support for anchor/collapse/merge events and their narrative consequences.
+- Timeline-aware triggers for story beats, puzzles, and world changes.
+- Integration with save/load and anchor systems.
+
+## Data Model
+- Per-branch event and quest state.
+- Parent/child branch relationships and divergence points.
+- Event propagation rules (e.g., what ripples, what is local).
+
+## Event Propagation & Edge Cases
+- Define rules for how events/quests propagate across branches (e.g., local vs. global events).
+- Handle conflicting events: specify resolution order or require user/developer intervention.
+- Support for event/quest localization and complex dependencies (e.g., fail states, prerequisites).
+
+## Prototype Plan
+1. Define event/quest state schema (branch-aware).
+2. Implement event propagation and merge logic.
+3. Integrate with save/load and anchor/branch UI.
+4. Add hooks for narrative triggers and world changes.
+5. Test with sample quests, events, and branch merges.
+
+## Expanded Testing Plan
+- Test propagation and merge of conflicting events/quests.
+- Test narrative edge cases (e.g., quest fail in one branch, success in another).
+- Test localization and branching quest logic.

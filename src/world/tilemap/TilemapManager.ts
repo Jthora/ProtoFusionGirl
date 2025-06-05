@@ -368,4 +368,124 @@ export class TilemapManager {
     // TODO: Update physics bodies if tile collision changes
     // This method can be expanded as the engine evolves
   }
+
+  /**
+   * Save the full advanced game state (meta, playerState, worldState, anchors) using WorldPersistence.
+   */
+  async saveFullGameState(path: string, meta: any, playerState: any, worldState: any, anchors: any) {
+    return this.persistence.saveFullGameState(path, meta, playerState, worldState, anchors);
+  }
+
+  /**
+   * Load the full advanced game state (meta, playerState, worldState, anchors) using WorldPersistence.
+   */
+  async loadFullGameState(path: string) {
+    return this.persistence.loadFullGameState(path);
+  }
+
+  /**
+   * Save a branch (timeline/warp zone) with its seed and deltas.
+   */
+  async saveBranch(branchId: string, branchData: { seed: string, deltas: any[] }, file: string) {
+    return this.persistence.saveBranch(branchId, branchData, file);
+  }
+
+  /**
+   * Load a branch (timeline/warp zone) with its seed and deltas.
+   */
+  async loadBranch(file: string) {
+    return this.persistence.loadBranch(file);
+  }
+
+  /**
+   * Save anchors (for anchor/warp integration)
+   */
+  async saveAnchors(anchors: Record<string, any>, file: string) {
+    return this.persistence.saveAnchors(anchors, file);
+  }
+
+  /**
+   * Load anchors
+   */
+  async loadAnchors(file: string) {
+    return this.persistence.loadAnchors(file);
+  }
+
+  // --- Delta/Branch Logic Prototype ---
+  private branchDeltas: Record<string, Array<{x: number, y: number, prevTile: string, newTile: string, timestamp: number}>> = {};
+  private currentBranch: string = 'main';
+
+  /**
+   * Record a tile edit as a delta for the current branch.
+   */
+  recordTileDelta(x: number, y: number, prevTile: string, newTile: string) {
+    const branchId = this.getCurrentBranch();
+    // Use WorldPersistence to record delta in the correct branch
+    if (this.persistence && this.persistence.recordDelta) {
+      this.persistence.recordDelta(branchId, { x, y, prevTile, newTile, timestamp: Date.now() });
+    } else {
+      // Fallback: legacy in-memory branchDeltas
+      if (!this.branchDeltas[branchId]) this.branchDeltas[branchId] = [];
+      this.branchDeltas[branchId].push({ x, y, prevTile, newTile, timestamp: Date.now() });
+    }
+  }
+
+  // --- Branch/anchor listing integration with WorldPersistence ---
+  getAllBranches() {
+    if (this.persistence && this.persistence.listBranches) {
+      // Map to BranchInfo format for TimelinePanel
+      return this.persistence.listBranches().map((b: any, idx: number) => ({
+        id: b.id,
+        parentId: b.parent || (b.id === 'main' ? undefined : 'main'),
+        label: b.id === 'main' ? 'Main Timeline' : `Branch ${b.id}`,
+        created: Date.now() - idx * 10000 // TODO: Use real creation time if available
+      }));
+    }
+    return [{ id: 'main', label: 'Main Timeline', created: Date.now() }];
+  }
+
+  deleteBranch(branchId: string) {
+    if (this.persistence && this.persistence.pruneBranch) {
+      this.persistence.pruneBranch(branchId);
+    }
+  }
+
+  mergeBranch(childId: string, parentId: string) {
+    if (this.persistence && this.persistence.mergeBranches) {
+      this.persistence.mergeBranches(parentId, childId);
+    }
+  }
+
+  // --- Anchor listing integration with WorldPersistence ---
+  getAllAnchors(branchId?: string) {
+    if (this.persistence && this.persistence.listAnchors) {
+      return this.persistence.listAnchors(branchId);
+    }
+    return [];
+  }
+
+  // --- Stubs for branch/delta/anchor UI integration ---
+  getCurrentBranch(): string {
+    // TODO: Track current branch in TilemapManager; for now, return 'main' or a default
+    return 'main';
+  }
+
+  getBranchDeltas(branchId: string): any[] {
+    if (this.persistence && this.persistence.getBranch) {
+      const branch = this.persistence.getBranch(branchId);
+      return branch?.deltas || [];
+    }
+    return [];
+  }
+
+  async applyDeltasToWorld(deltas: any[]) {
+    // TODO: Implement delta application logic (replay tile edits, warps, etc.)
+    // For now, this is a stub
+    // Example: for (const delta of deltas) { ...apply delta... }
+  }
+
+  switchBranch(branchId: string) {
+    // TODO: Implement branch switching logic (update current branch, reload world state, etc.)
+    // For now, this is a stub
+  }
 }
