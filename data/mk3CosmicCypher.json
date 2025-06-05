@@ -1,0 +1,80 @@
+{
+    "UniversalSymbologyBasics": {
+        "BaseSymbols": [
+            { "Name": "Point", "Meaning": "Core, existence, origin, singularity" },
+            { "Name": "Angle", "Meaning": "Alpha, sharp connections, directive energy" },
+            { "Name": "Line", "Meaning": "Order, structure, progression, connection" },
+            { "Name": "Wave", "Meaning": "Chaos, vibrational energy, oscillation" },
+            { "Name": "Curve", "Meaning": "Omega, flow, transformation, adaptability" },
+            { "Name": "Shape", "Meaning": "Void, containment, completion, emptiness" }
+        ]
+    },
+    "FundamentalSymbolFeatures": {
+        "Masculine": {
+            "SymbolTypes": {
+                "Points": {
+                    "Symbols": ["Round Points", "Square Points", "Triangular Points"],
+                    "Meaning": "Points represent the minimal form of existance or presence within a space, serving as the origin or focus of a symbol"
+                },
+                "Lines": {
+                    "Symbols": ["Curved Lines", "Flat Lines", "Angled Lines"],
+                    "Meaning": "Indicate direction, connection, or separation, guiding the flow or movement within and between symbols"
+                },
+                "Angles": {
+                    "Symbols": ["Angled Lines", "Angled Points", "Angled Shapes", "Angled Waves"],
+                    "Meaning": "Add sharpness and rigidity, suggesting distinction, structure, or tension in symbolic forms"
+                }
+            },
+            "Definitions": "Paints: Direct, assertive presence; they mark a beginning, center, or focal point, which is often seen as a foundational, active quality. Lines: Linear movement or connection, which tenas to represent arection, goal oriented enercy, and structure— a tractionaly associated with mascue quanties. Angles: Sharoness and distinction, often implying strength, boundaries, and order, characteristics commonly linked to masculine symbolism"
+        },
+        "Feminine": {
+            "SymbolTypes": {
+                "Shapes": {
+                    "Symbols": ["Round Shapes", "Square Shapes", "Triangular Shapes"],
+                    "Meaning": "Define enclosed areas or boundaries, giving structure and identify to symbols through specific geometric forms"
+                },
+                "Waves": {
+                    "Symbols": ["Curved Waves", "Flat Waves", "Angled Waves"],
+                    "Meaning": "Convey rhythm, frequency, or oscilation, symbolizing syclical patterns and dynamic movement"
+                },
+                "Curves": {
+                    "Symbols": ["Curved Lines", "Curved Points", "Curved Shapes", "Curved Waves"],
+                    "Meaning": "Bring fluidity and harmony, representing continuity, softeness, or adaptability within a symbol's design"
+                }
+            },
+            "Definitions": "Shapes: Enclosed receptive spaces that contain and define, symbolizing nurturing and form, qualities tied to Feminine energy. Waves: Rhythmic, flowing movement that represents cyclical patterns, fluidity, and adaptability, aligning with traditional feminine qualities. Curves: Soft, continuous forms that convey harmony, inclusiveness and adaptability, which are also strongly associated with feminine symbolism."
+        }
+    },
+    "Base6Dualities": {
+        "Dualities": [
+            { "Axis": "Self ↔ Group", "Symbols": [["Point", "Dot", "Center", "Particle", "Instance", "Core"], ["Shape", "Circle", "Area", "Field", "Object", "Void"]], "Meaning": "Individuality vs. Collectivity" },
+            { "Axis": "Value ↔ Range", "Symbols": [["Line"], ["Wave"]], "Meaning": "Stability vs. Variability" },
+            { "Axis": "Alpha ↔ Omega", "Symbols": [["Angle", "Arch"], ["Curve", "Arc"]], "Meaning": "Beginning vs. end" }
+        ],
+        "SymbolicDynamics": {
+            "Self(point) ↔ Group(shape)": {
+                "Self": "Represents individual focus or autonomy. Subjective.",
+                "Group": "Symbolizes collective energy or cohesion. Objective."
+            },
+            "Value(line) ↔ Range(wave)": {
+                "Value": "Denotes constancy or fixed traits. Absolute.",
+                "Range": "Represents variability, adaptability, or oscillation. Unknown."
+            },
+            "Alpha(angle) ↔ Omega(curve)": {
+                "Alpha": "Symbolizes initiation. The beginning.",
+                "Omega": "Represents conclusion. The end."
+            }
+        }
+    },
+    "Base3Trinities": [
+        { "Modality": "Cardinal", "Symbol": "Angle", "Meaning": "Sharp, initiating energy" },
+        { "Modality": "Fixed", "Symbol": "Line", "Meaning": "Flat, structured energy" },
+        { "Modality": "Mutable", "Symbol": "Curve", "Meaning": "Round, adaptive energy" }
+    ],
+    "Base4CosmicForces": [
+        { "Element": "Point", "Meaning": "Singularity, origin, focus" },
+        { "Element": "Line", "Meaning": "Connection, structure, order" },
+        { "Element": "Wave", "Meaning": "Oscillation, vibrational energy" },
+        { "Element": "Shape", "Meaning": "Containment, void, completion" }
+    ]
+}

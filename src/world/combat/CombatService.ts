@@ -4,9 +4,17 @@ import { PlayerStats } from '../player/PlayerStats';
 import { AttackDefinition } from './AttackDefinition';
 
 export class CombatService {
-  static playerAttackEnemy(player: PlayerStats, enemy: EnemyInstance, attack: AttackDefinition) {
-    // Simple damage formula: (player attack + attack.damage) - enemy.defense
-    const baseDamage = (player.attack || 1) + attack.damage;
+  // Enhancement: Ability effects in combat
+  static playerAttackEnemy(player: PlayerStats, enemy: EnemyInstance, attack: AttackDefinition, abilityId?: string) {
+    const stats = player.getStats();
+    let baseDamage = (stats.attack || 1) + attack.damage;
+    // If an ability is used, apply its effect to the enemy
+    if (abilityId) {
+      const ability = player.getAbilities().find(a => a.id === abilityId);
+      if (ability && ability.effect) {
+        ability.effect(enemy);
+      }
+    }
     const defense = enemy.definition.defense;
     const damage = Math.max(1, baseDamage - defense);
     enemy.takeDamage(damage);
@@ -14,11 +22,15 @@ export class CombatService {
   }
 
   static enemyAttackPlayer(enemy: EnemyInstance, player: PlayerStats) {
-    // Simple damage formula: enemy.attack - player.defense
+    const stats = player.getStats();
     const baseDamage = enemy.definition.attack;
-    const defense = player.defense || 0;
+    const defense = stats.defense || 0;
     const damage = Math.max(1, baseDamage - defense);
-    player.health = Math.max(0, (player.health || 0) - damage);
+    // Apply status effects (e.g., shield, debuff)
+    player.setBaseStats({
+      ...stats,
+      health: Math.max(0, (stats.health || 0) - damage)
+    });
     return damage;
   }
 }

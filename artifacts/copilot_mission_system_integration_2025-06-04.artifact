@@ -1,0 +1,29 @@
+# Mission System Integration Points
+
+## Key Integration Areas
+- GameScene: Mission tracker UI, mission event hooks
+- Save/Load System: Persist mission state
+- Timestream/Warp System: Mission triggers, time-based objectives
+- Threat/Rift System: Dynamic mission generation
+- Base Management: Mission rewards, unlocks
+- UI Layer: Mission log, notifications, progress
+
+## Initial Integration Plan
+- Expose mission manager to GameScene
+- Register mission events with world systems
+- Provide API for querying and updating mission state
+
+## Event/Callback API (Example)
+- `onMissionStart(missionId: string)`
+- `onMissionComplete(missionId: string)`
+- `onMissionFail(missionId: string)`
+- `onObjectiveUpdate(missionId: string, objectiveId: string, status: string)`
+- `onMissionTrigger(missionId: string, triggerType: string, params: object)`
+
+## File/Folder Structure
+- Mission data: `data/missions/`
+- Mission manager: `src/missions/MissionManager.ts`
+- Mission UI: `src/ui/components/MissionTracker.tsx`
+
+---
+# End of Artifact

@@ -1,0 +1,32 @@
+# Mission System UI
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Specifies the UI/UX for mission tracking, completion, and feedback in ProtoFusionGirl.
+
+## Scope
+- Mission log and progress display
+- Completion feedback
+- Accessibility features
+
+## Context
+Ensures players can easily track and complete missions.
+
+## Related Artifacts
+- mission_system_design_2025-06-04.artifact
+- persona_core_design_2025-06-04.artifact
+
+---
+
+## UI Elements
+- Mission list and details
+- Progress indicators
+- Notifications and rewards
+
+## Accessibility
+- Readability and navigation
+- Customization options
+
+## See also
+artifacts/instructions.md

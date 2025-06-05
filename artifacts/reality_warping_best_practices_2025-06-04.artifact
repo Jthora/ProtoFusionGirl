@@ -1,0 +1,28 @@
+# Reality Warping Best Practices
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Guidelines for safe and creative use of reality warping in ProtoFusionGirl.
+
+## Scope
+- Safety and sandboxing
+- Creative constraints
+- Community guidelines
+
+## Context
+Ensures reality warping enhances gameplay without breaking core systems.
+
+## Related Artifacts
+- reality_warping_design_2025-06-04.artifact
+- reality_warping_code_plan_2025-06-04.artifact
+
+---
+
+## Best Practices
+- Always validate changes
+- Provide undo/rollback
+- Encourage creativity within limits
+
+## See also
+artifacts/instructions.md

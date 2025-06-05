@@ -1,0 +1,30 @@
+title: Anchor Management UI/UX and Accessibility
+description: Polish anchor management panel with puzzle integration, overlays, tutorials, and feedback. Add accessibility settings for all anchor effects (visual/audio, colorblind, photosensitivity). Support controller/gamepad navigation.
+status: complete
+priority: high
+created: 2025-06-04
+tags: [ui, ux, accessibility, warp-anchor, tutorial]
+related:
+  - artifacts/copilot_anchor_ui_ux_2025-06-04.artifact
+  - artifacts/copilot_accessibility_modding_2025-06-04.artifact
+dependencies: []
+
+# Anchor UI/UX and Accessibility Task
+
+## Description
+Implement anchor editing (rename, delete) and minimap integration for the anchor management UI in ProtoFusionGirl. Ensure all anchor changes are reflected in both the UI and minimap overlay. Prioritize accessibility and intuitive design.
+
+## Acceptance Criteria
+- Anchor panel supports renaming and deleting anchors.
+- Minimap overlay updates in real time with anchor changes.
+- UI is accessible and easy to use.
+
+## Status
+- [x] Anchor editing (rename, delete) implemented
+- [x] Minimap anchor integration complete
+- [x] UI/UX improvements staged for further rollout
+
+## Next Steps
+- Add anchor persistence
+- Integrate multiplayer anchor sharing
+- Expand accessibility features

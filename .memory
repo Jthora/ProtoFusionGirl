@@ -1,0 +1,16 @@
+---
+title: ProtoFusionGirl Agent Memory
+created: 2025-06-05
+purpose: Persistent, agent-editable memory for long-term context, lessons learned, and heuristics.
+references:
+  - .dashboard
+  - .manifest
+  - .schema
+  - .changelog
+---
+
+# Agent Memory
+
+- 2025-06-05: Agents should always cross-reference .primer and .persona before automation.
+- 2025-06-05: Feedback artifacts are the preferred escalation path for missing context.
+- 2025-06-05: Last onboarding script run was successful.

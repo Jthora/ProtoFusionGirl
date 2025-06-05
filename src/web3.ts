@@ -1,7 +1,9 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ModRegistryService } from "./services/ModRegistryService";
 
 // Singleton SDK instance for Polygon Mumbai
 export const sdk = new ThirdwebSDK("polygon-mumbai");
+export const modRegistryService = new ModRegistryService(sdk);
 
 export async function connectWallet(): Promise<string | null> {
   try {

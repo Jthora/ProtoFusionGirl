@@ -1,0 +1,50 @@
+# LeyLineSystem Integration Artifact
+
+**Artifact Version:** 2025-06-04
+**Subsystem:** LeyLineSystem
+**Related Artifacts:**
+- world_state_system_design_2025-06-04.artifact
+- world_state_data_model_2025-06-04.artifact
+- event_bus_spec_2025-06-04.artifact
+
+---
+
+## Purpose
+The LeyLineSystem is an event-driven subsystem for managing ley lines in ProtoFusionGirl. It demonstrates how new systems can integrate with the Unified World State & Event System for persistent, extensible, and mod-friendly gameplay logic.
+
+## Integration Points
+- **WorldStateManager:** Reads and updates ley line state, with schema validation and versioning.
+- **EventBus:** Listens for and emits events (e.g., `LEYLINE_ACTIVATED`) to enable cross-system reactions and mod hooks.
+
+## Example Usage
+```typescript
+import { WorldStateManager } from '../WorldStateManager';
+import { EventBus } from '../EventBus';
+import { LeyLineSystem } from './LeyLineSystem';
+
+const eventBus = new EventBus();
+const worldState = new WorldStateManager(initialState, eventBus);
+const leyLineSystem = new LeyLineSystem(worldState, eventBus);
+
+// Activate a ley line by ID
+leyLineSystem.activateLeyLine('ley1', 'user123');
+```
+
+## Modding & Extensibility
+- Modders can subscribe to `LEYLINE_ACTIVATED` events via EventBus for custom effects.
+- LeyLineSystem can be extended to support new ley line types, energy mechanics, or event chains.
+- All state changes are validated and versioned for persistence and migration.
+
+## Test Summary
+- See `src/world/leyline/LeyLineSystem.test.ts` for integration tests.
+- Tests confirm:
+  - Ley line activation updates world state and emits events.
+  - Double-activation is prevented.
+  - Event-driven extensibility is validated.
+
+## Cross-links
+- See world state and event system artifacts for schema, API, and onboarding details.
+- Follows artifact-driven onboarding and modding best practices.
+
+---
+**Status:** Integration and tests passing as of 2025-06-04. Ready for further subsystem integration and modding documentation.

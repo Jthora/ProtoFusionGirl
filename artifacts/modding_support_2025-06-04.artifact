@@ -1,0 +1,31 @@
+# Modding Support
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Documents APIs, data formats, and extension points for modding ProtoFusionGirl.
+
+## Scope
+- Modding APIs
+- Data schemas
+- Extension workflows
+
+## Context
+Enables community-driven content and system extension.
+
+## Related Artifacts
+- mission_system_modding_2025-06-04.artifact
+- persona_core_architecture_2025-06-04.artifact
+
+---
+
+## APIs
+- Mission authoring
+- Persona/ability extension
+- Reality warping hooks
+
+## Data Formats
+- JSON/YAML for content
+
+## See also
+artifacts/instructions.md

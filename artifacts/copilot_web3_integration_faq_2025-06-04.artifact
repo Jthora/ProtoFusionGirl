@@ -1,0 +1,29 @@
+---
+artifact_id: copilot_web3_integration_faq_2025-06-04
+artifact_type: faq
+last_updated: 2025-06-04
+related_artifacts:
+  - copilot_web3_integration_status_2025-06-04
+  - copilot_web3_integration_roadmap_2025-06-04
+faqs:
+  - question: How do I connect my wallet?
+    answer: Use the "Connect Wallet" button in the UI. The app uses ThirdwebSDK to connect to MetaMask or any injected wallet.
+    tags: [wallet, onboarding]
+    related_artifact: copilot_web3_integration_status_2025-06-04
+  - question: How are mods registered on-chain?
+    answer: Mods will be registered via the ModRegistry smart contract (coming soon). The frontend will interact with the contract using the deployed address and ABI.
+    tags: [modding, contract]
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - question: Where are mod assets stored?
+    answer: Mod assets (sprites, scripts, etc.) are uploaded to IPFS. The mod JSON references these assets by CID.
+    tags: [ipfs, assets]
+    related_artifact: copilot_web3_integration_status_2025-06-04
+  - question: What if my wallet connection fails?
+    answer: Ensure MetaMask (or another wallet) is installed and unlocked. Check the browser console for errors.
+    tags: [wallet, troubleshooting]
+    related_artifact: copilot_web3_integration_faq_2025-06-04
+  - question: How do I deploy the ModRegistry contract?
+    answer: Use Hardhat scripts to deploy to Polygon Mumbai. See the roadmap and checklist artifacts for details.
+    tags: [deployment, contract]
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+---

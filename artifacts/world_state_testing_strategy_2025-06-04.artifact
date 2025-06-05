@@ -1,0 +1,42 @@
+---
+artifact: world_state_testing_strategy_2025-06-04
+name: World State Testing & Validation Strategy
+created: 2025-06-04
+purpose: Outlines the approach for unit, integration, and regression testing of the unified world state/event system.
+type: test-strategy
+format: markdown
+tags: [testing, validation, world, state, event, core]
+---
+
+# World State Testing & Validation Strategy
+
+## Test Case Matrix
+- State updates (all domains)
+- Event emission/handling (sync & async)
+- Persistence (save/load, partial updates)
+- Error handling (invalid updates, event failures)
+- Mod/AI API usage
+
+## Mock Data & Test Harness
+- Use mock world state for isolated tests
+- Simulate event flows and state changes
+- Provide test harness for mods/AI agents
+
+## Continuous Integration
+- Run all tests on PRs/commits
+- Require coverage for core state/event logic
+- Regression tests for all integrated systems
+
+## Coverage Goals
+- 90%+ for core world state/event code
+- 100% for API validation and security checks
+
+## Versioning & Regression
+- Track test coverage for all state/event schema versions
+- Add regression tests for all migrations and breaking changes
+- Document test results and failures in this artifact
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `world_state_data_model_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`
+
+---

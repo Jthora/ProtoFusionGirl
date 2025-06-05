@@ -1,0 +1,19 @@
+# copilot_toroidal_math_usage_examples_2025-06-04.artifact
+
+## Usage Examples for Toroidal Math Utilities
+
+```typescript
+// Wrap X coordinate for seamless world logic
+const wrappedX = TilemapManager.wrapX(x);
+
+// Get minimum toroidal distance between two X coordinates
+const dist = TilemapManager.toroidalDistanceX(x1, x2);
+
+// Wrap chunk X coordinate
+const wrappedChunkX = TilemapManager.wrapChunkX(chunkX, chunkSize);
+
+// AI/pathfinding: always use toroidalDistanceX for X axis
+if (TilemapManager.toroidalDistanceX(enemy.x, player.x) < aggroRange) { ... }
+
+// Rendering: handle sprites that cross the seam by drawing at both edges if needed
+```

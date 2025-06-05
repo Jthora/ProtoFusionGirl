@@ -1,0 +1,28 @@
+# Reality Warping Code Plan
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Technical plan for implementing reality warping features in ProtoFusionGirl.
+
+## Scope
+- Architecture and APIs
+- Data flow and validation
+- Integration with core systems
+
+## Context
+Supports safe, extensible world/rule changes.
+
+## Related Artifacts
+- reality_warping_design_2025-06-04.artifact
+- reality_warping_best_practices_2025-06-04.artifact
+
+---
+
+## Implementation Plan
+- API endpoints for warping
+- Data validation and rollback
+- Integration hooks
+
+## See also
+artifacts/instructions.md

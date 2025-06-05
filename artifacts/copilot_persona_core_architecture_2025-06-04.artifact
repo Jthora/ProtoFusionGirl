@@ -1,0 +1,83 @@
+---
+artifact: copilot_persona_core_architecture_2025-06-04
+created: 2025-06-04
+purpose: Dramatically expanded design, architecture, and automation plan for the Persona Core system in ProtoFusionGirl
+format: markdown
+tags: [persona, ai, copilot, architecture, automation, onboarding, decision, self-prompt, dashboard]
+related: [data/persona_core.json, copilot_persona_core_design_2025-06-04.artifact, ONBOARDING.md, scripts/]
+---
+
+# Persona Core: Expanded Architecture & Automation
+
+## 1. Overview
+The Persona Core is a dynamic, versioned, and extensible operational context for both AI and human contributors. It acts as the central lens for decision-making, onboarding, self-prompting, and workflow automation. It is deeply integrated with all project automation, onboarding, and dashboard systems.
+
+## 2. Architecture
+### 2.1. Data Model
+- **persona_core.json**: Canonical, machine-readable source (JSON/YAML)
+  - `coreValues`, `operationalFocus`, `decisionHeuristics`, `overrides`, `metaPrompts`, `integrationHooks`, `version`, `history`, `contributors`, `changeLog`
+- **Versioning**: Every change is logged with timestamp, author, and rationale.
+- **Extensibility**: Supports custom fields for future needs (e.g., persona traits, risk tolerance, collaboration style).
+
+### 2.2. Script Automation
+#### a. Persona Core Loader
+- Loads and validates persona_core.json for all scripts and Copilot sessions.
+- Exposes a simple API for querying current focus, heuristics, and meta-prompts.
+
+#### b. Persona Core Updater
+- CLI/VS Code task to update operational focus, heuristics, or overrides.
+- Prompts for rationale and logs all changes to `changeLog`.
+- Supports both manual and AI-initiated updates (with human review option).
+
+#### c. Persona Core Dashboard Generator
+- Generates a human-readable dashboard (Markdown/HTML) summarizing current persona, focus, and recent changes.
+- Optionally exposes a web dashboard or VS Code webview.
+
+#### d. Persona Core Integration Hooks
+- Scripts for onboarding, task selection, and self-prompting all query the Persona Core for guidance.
+- Hooks for:
+  - Onboarding: Set initial focus and style
+  - Task selection: Filter/sort tasks by heuristics
+  - Self-prompting: Generate/refine prompts based on operational focus
+  - Dashboard: Display persona state and history
+
+#### e. Persona Core Validator
+- Validates schema, required fields, and logical consistency (e.g., currentPriority must match a real task).
+- Can be run as a pre-commit hook or VS Code task.
+
+#### f. Persona Core Sync
+- Optionally syncs persona_core.json with remote storage or other team members for distributed AI/human collaboration.
+
+## 3. Automation Flow
+1. **Onboarding**: Loader sets Copilot/AI context from Persona Core.
+2. **Task Selection**: Scripts use heuristics and focus to suggest next actions.
+3. **Self-Prompting**: Prompts are generated/refined using metaPrompts and operationalFocus.
+4. **Dashboard**: Human/AI can review and update persona state, see change history, and propose new heuristics.
+5. **Validation**: All changes are schema-checked and logged.
+6. **Sync**: Persona Core can be shared across distributed agents/teammates.
+
+## 4. Extensibility & Future-Proofing
+- **Persona Traits**: Add fields for risk tolerance, creativity, collaboration style, etc.
+- **Persona Modules**: Support multiple persona profiles for different project phases or subteams.
+- **AI Feedback Loop**: Allow Copilot to propose persona updates based on observed workflow bottlenecks or successes.
+- **Human Review**: All AI-initiated changes can be flagged for human approval.
+- **Persona Core API**: Expose a REST/GraphQL API for external tools or dashboards.
+
+## 5. Example Automation Scripts
+- `scripts/loadPersonaCore.js`: Loads and exposes persona context for all scripts.
+- `scripts/updatePersonaCore.js`: CLI/VS Code task for updating persona fields.
+- `scripts/validatePersonaCore.js`: Validates schema and logical consistency.
+- `scripts/generatePersonaDashboard.js`: Creates a Markdown/HTML dashboard from persona_core.json.
+- `scripts/syncPersonaCore.js`: Syncs persona_core.json with remote storage or other agents.
+
+## 6. Best Practices
+- Keep persona_core.json up to date and versioned.
+- Use the dashboard for regular review and team alignment.
+- Encourage both AI and human contributors to propose updates as project needs evolve.
+- Integrate persona core checks into onboarding, task management, and self-prompting flows.
+
+## 7. See Also
+- `copilot_persona_core_design_2025-06-04.artifact` (design)
+- `data/persona_core.json` (current persona core)
+- `ONBOARDING.md` (integration points)
+- `scripts/` (automation)

@@ -2,17 +2,17 @@
 import { TilemapManager } from './TilemapManager';
 import { EditorHistory } from './EditorHistory';
 import type { EditAction } from './EditorHistory';
-import { WorldEvents } from './WorldEvents';
+import { EventBus } from '../../core/EventBus';
 
 export class WorldEditService {
   private tilemapManager: TilemapManager;
   private history: EditorHistory;
-  private events: WorldEvents;
+  private events: EventBus;
 
   constructor(tilemapManager: TilemapManager) {
     this.tilemapManager = tilemapManager;
     this.history = (tilemapManager as any).history || new EditorHistory();
-    this.events = (tilemapManager as any).events || new WorldEvents();
+    this.events = (tilemapManager as any).events || new EventBus();
   }
 
   // Set a tile at world coordinates (x, y) to tileId, with undo support and event emission

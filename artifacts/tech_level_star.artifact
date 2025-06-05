@@ -1,0 +1,41 @@
+---
+artifact: tech_level_star
+name: Star Tech
+created: 2025-06-04
+purpose: Master artifact for Type II (Mid) - Star Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, type2]
+---
+
+# Tech Level: Star Tech
+
+## Classification
+- Type: Type II (Stellar)
+- Era: Mid
+- Sphere: --
+- Age: --
+
+## Description
+Societies control and manipulate entire star systems. Mega-engineering projects (e.g., moving planets, building artificial suns) are possible. Interstellar empires and advanced post-biological life flourish.
+
+## Gameplay Unlocks
+- Star system engineering
+- Planetary-scale terraforming
+- Interstellar empires
+
+## Advancement Triggers
+- Mastery of stellar physics
+- Creation of artificial stars
+
+## Regression Triggers
+- Star system collapse, cosmic threats
+
+## Risks & Consequences
+- Loss of control, existential risks
+
+## Related Artifacts
+- timeline_star.artifact
+- zone_star_forge.artifact
+
+---

@@ -1,0 +1,43 @@
+---
+artifact: tech_level_stellar
+name: Stellar Tech
+created: 2025-06-04
+purpose: Canonical master artifact for Type II (Stellar) tech level in FusionGirl.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding]
+---
+
+# Tech Level: Stellar
+
+## Classification
+- Type: Type II (early)
+- Era: Stellar Engineering
+
+## Description
+Civilizations harness the full energy output of their star (e.g., Dyson spheres). Interstellar travel is routine. Terraforming and stellar-scale engineering are possible. Societies may be post-scarcity, but face new existential risks.
+
+## Gameplay Unlocks
+- Dyson spheres and stellar megastructures
+- Interstellar ships
+- Terraforming tools
+- Advanced AI and post-biological life
+
+## Advancement Triggers
+- Mastery of stellar engineering
+- First contact with alien civilizations
+
+## Regression Triggers
+- Stellar catastrophe
+- AI or nanotech disaster
+
+## Risks & Consequences
+- Star lifting accidents
+- Cosmic-scale threats
+- Loss of identity or purpose
+
+## Related Artifacts
+- timeline_stellar.artifact
+- faction_stellar_engineers.artifact
+
+---

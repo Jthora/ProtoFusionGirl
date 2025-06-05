@@ -1,0 +1,43 @@
+---
+artifact: copilot_anchor_ui_ux_2025-06-04
+created: 2025-06-04
+purpose: Anchor management UI/UX improvements for ProtoFusionGirl reality warping system.
+type: design
+format: markdown
+tags: [reality-warping, anchor-management, ui-ux, code-artifact]
+related: [copilot_reality_warping_code_plan_2025-06-04.artifact]
+---
+
+# Anchor Management UI/UX Improvements
+
+## Summary
+This artifact documents the implementation and rationale for anchor editing (rename, delete) and minimap integration in the ProtoFusionGirl reality warping system.
+
+## Features Implemented
+- Anchor panel now supports renaming and deleting anchors via intuitive UI buttons.
+- All anchor changes (add, edit, delete) are immediately reflected on the minimap overlay.
+- Anchor creation, editing, and deletion update both the UI and minimap for consistent feedback.
+- UI/UX design prioritizes accessibility and clarity, with staged rollout for advanced features.
+
+## Rationale
+- Improves usability and player agency in managing reality anchors.
+- Lays groundwork for multiplayer anchor sharing, timeline navigation, and advanced visualization.
+- Addresses UI/UX burden by making anchor management more intuitive and accessible.
+
+## Next Steps
+- Add anchor persistence (save/load across sessions).
+- Integrate anchor sharing and multiplayer sync.
+- Continue staged rollout of advanced anchor/timeline features.
+
+# Anchor Management UI/UX Plan (2025-06-04)
+
+## Goals
+- Intuitive, beautiful, and lore-appropriate UI for anchor management
+- Minimap/world overlays for anchor locations, effects, and status
+- Tutorials, tooltips, and discovery-driven onboarding
+- Support for controller/gamepad navigation and accessibility
+
+## Features
+- Anchor creation, selection, sharing, and deletion
+- Visual feedback for anchor/timeline state
+- Customizable UI themes and overlays

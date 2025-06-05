@@ -2,17 +2,37 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "AI Autonomous Dev Loop",
+      "label": "Guided Onboarding (JSON)",
       "type": "shell",
-      "command": "/Users/jono/.nvm/versions/node/v22.12.0/bin/node",
+      "command": "node",
       "args": [
-        "scripts/aiAutonomousDevLoop.js"
+        "scripts/guidedOnboarding.js"
       ],
       "group": "build",
       "isBackground": false,
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "detail": "MASTER ONBOARDING: This is the ONLY task for onboarding, validation, and context sync. All other onboarding/validation scripts are deprecated."
+    },
+    {
+      "label": "Copilot Onboarding",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/copilotOnboarding.cjs"
+      ],
+      "group": "build",
+      "isBackground": false,
+      "detail": "Onboard GitHub Copilot or any AI agent. Runs onboarding, parses results, and writes status to artifacts/copilot_onboarding_status.json."
+    },
+    {
+      "label": "AI Agent Workspace Setup",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/setupWorkspace.cjs"
+      ],
+      "group": "build",
+      "isBackground": false,
+      "detail": "Sets up all required dotfiles and directories for onboarding. Run this first after cloning."
     }
   ]
 }

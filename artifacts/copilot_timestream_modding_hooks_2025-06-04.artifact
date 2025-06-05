@@ -1,0 +1,33 @@
+// copilot_timestream_modding_hooks_2025-06-04.artifact
+// Artifact: Timestream & Warp Zone Modding Hooks
+// Date: 2025-06-04
+// Author: GitHub Copilot
+
+## Purpose
+Documents the modding hooks and extension points for timestream, timeline, and warp zone systems. Ensures that mods can add, modify, or override core logic for time branching, warping, and anchor management.
+
+## Modding Hooks
+- Register new warp zone types and triggers
+- Add custom timeline/timestream branching logic
+- Inject narrative or system events into timelines
+- Override serialization/deserialization for custom data
+- Listen for timestream/timeline/warp events (event bus)
+- Extend TimeMap visualization (UI plugins)
+
+## Example API
+- `TimestreamManager.registerBranchingHook(fn: (timeline, event) => Timeline)`
+- `WarpZoneManager.registerZoneType(type: string, handler: (zone, context) => void)`
+- `TimeMapVisualizer.registerPlugin(plugin: TimeMapPlugin)`
+
+## Integration
+- All hooks should be documented in code and artifacts
+- Mods should be able to query and modify the current timestream/timeline state
+- Multiplayer-safe: hooks must not break sync or determinism
+
+## Best Practices
+- Use clear, stable APIs for all modding hooks
+- Document all extension points in both code and artifacts
+- Provide sample mods and test cases for each hook type
+
+---
+// See copilot_timestream_code_plan_2025-06-04.artifact for overall system plan.

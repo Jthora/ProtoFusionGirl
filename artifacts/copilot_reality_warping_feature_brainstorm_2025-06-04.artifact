@@ -1,0 +1,64 @@
+# copilot_reality_warping_feature_brainstorm_2025-06-04.artifact
+
+## Reality Warping Feature: Brainstorm & Design
+
+### Core Concepts
+- **Warp Zone:** A rectangular region (3x visible screen) of tiles, including all tile codes, states, and metadata.
+- **Warp Anchor:** A snapshot of the current warp zone, saved as a datablob (all tile data + metadata).
+- **Datakey/Seed:** The datablob is hashed or encoded to create a unique seed for procedural world generation.
+- **Reality Return:** Returning to a warp anchor restores the exact tile state and world context of that zone.
+
+### Key Questions
+- How to efficiently serialize/deserialize tile grid data (including metadata) for a warp zone?
+- How to handle toroidal wrapping when a warp zone crosses the world seam?
+- How to store, index, and retrieve multiple warp anchors per player?
+- How to visualize warp zones and anchors in the UI (minimap overlay, markers, etc.)?
+- How to allow sharing or remixing of warp anchors (datakey exchange)?
+- How to provide advanced, configurable, and accessible visual/sound effects for warping?
+- How to test and sequence effects for polish and accessibility?
+
+### Technical Steps
+1. Define a data structure for warp zone tile data (2D array of tile objects: code, state, metadata).
+2. Implement serialization (to datablob) and deserialization (from datablob) for warp zones.
+3. Create a hash or encoding function to generate a unique datakey/seed from the datablob.
+4. Integrate with worldgen: allow world generation to use a datakey/seed to reconstruct a warp zone.
+5. Add UI for creating, selecting, and visualizing warp anchors.
+6. Handle edge cases: seam crossing, overlapping anchors, persistence, and multiplayer.
+7. Add advanced, configurable, and accessible visual/sound effects for warping.
+8. Add hooks/events for effect testability.
+
+---
+
+# copilot_reality_warping_todo_2025-06-04.artifact
+
+## TODOs for Reality Warping Implementation
+- [x] Design and document the warp zone data structure (tile grid, metadata, etc.)
+- [x] Implement efficient serialization/deserialization for warp zones
+- [x] Implement datakey/seed generation (hashing, encoding)
+- [x] Integrate with procedural worldgen to support warp zone restoration
+- [x] Add UI/UX for warp anchor creation, selection, and minimap overlay
+- [x] Handle toroidal edge cases (seam crossing, wrap-around)
+- [x] Add persistence for player warp anchors (save/load)
+- [x] Add sharing/import/export of warp anchors (datakey exchange)
+- [x] Add advanced visual/sound effects for reality warping transitions
+- [ ] Add automated tests for warp zone serialization, seam edge cases, and restoration
+- [ ] Add accessibility and configurability for effects (user settings, effect parameters)
+- [ ] Add hooks/events for effect testability
+
+---
+
+# copilot_reality_warping_best_practices_2025-06-04.artifact
+
+## Best Practices for Reality Warping & Warp Zones
+- Use minimal, lossless serialization for tile data (avoid unnecessary bloat)
+- Always include tile metadata and state in the datablob
+- Use a strong, fast hash for datakey/seed generation (e.g., SHA-256, MurmurHash)
+- When serializing across the seam, use toroidal math to ensure correct wrap-around
+- Store warp anchors with timestamps and player context for easy retrieval
+- Visualize warp zones and anchors clearly in the UI (minimap, overlays, tooltips)
+- Allow for modding/extension: custom tile types, metadata, and warp effects
+- Test with large and edge-case warp zones (crossing seam, max size, etc.)
+- Make visual/sound effects configurable and accessible (user settings, effect parameters)
+- Provide fallbacks or warnings for missing sound assets
+- Sequence effects and restoration for polish (e.g., delay restore until after effect)
+- Add hooks/events for effect testability

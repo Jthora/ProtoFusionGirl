@@ -1,0 +1,72 @@
+---
+artifact: directory_migration_plan_2025-06-04
+created: 2025-06-04
+purpose: Step-by-step migration plan to transition ProtoFusionGirl to the proposed directory structure.
+type: migration-plan
+format: markdown
+tags: [directory, migration, plan, structure, onboarding]
+related: [proposed_directory_structure_2025-06-04.artifact, directory_structure_2025-06-04.artifact, ONBOARDING.md]
+---
+
+# Directory Migration Plan for ProtoFusionGirl
+
+## 1. Review and Approval
+- Share the `proposed_directory_structure_2025-06-04.artifact` with the team for feedback.
+- Confirm buy-in from core contributors and stakeholders.
+
+## 2. Preparation
+- Back up the current repository.
+- Freeze new feature merges until migration is complete.
+- Update `.gitignore` and CI configs to anticipate new paths.
+
+## 3. Migration Steps
+
+### 3.1 Assets
+- Move all static assets from `src/assets/` and `public/` to the new top-level `assets/` directory.
+- Organize into `images/`, `tilemaps/`, `audio/`, etc.
+- Update all code and scripts to reference new asset paths.
+
+### 3.2 Artifacts
+- Create subfolders in `artifacts/` for `tasks/`, `onboarding/`, `design/`, `retrospectives/`, and `scripts/`.
+- Move existing artifacts into appropriate subfolders.
+- Update artifact references in code and documentation.
+
+### 3.3 Documentation
+- Expand `docs/` with `architecture/`, `modding/`, and `onboarding/` subfolders.
+- Move or create relevant documentation files.
+
+### 3.4 Scripts
+- Organize `scripts/` into `onboarding/`, `artifact/`, and `ci/` subfolders.
+- Update VS Code tasks and onboarding docs to reference new script locations.
+
+### 3.5 Source Code
+- In `src/`, create `core/`, `gameplay/`, `mods/`, `scenes/`, `services/`, `ui/`, `world/`, and `web3/` as needed.
+- Move files into new subfolders according to their domain.
+- Refactor imports and update all references.
+
+### 3.6 Tests
+- Move all tests to a top-level `test/` directory or colocate with modules using `__tests__/`.
+- Update test runner configs as needed.
+
+### 3.7 CI/CD and Editor Configs
+- Add or update `.github/` and `.vscode/` as needed for workflows and settings.
+
+## 4. Update Onboarding and Automation
+- Revise `ONBOARDING.md` and onboarding scripts to match the new structure.
+- Update artifact automation scripts to use new paths.
+
+## 5. Validation
+- Run all onboarding, build, and test scripts to ensure nothing is broken.
+- Fix any path or import errors.
+
+## 6. Incremental Migration (Optional)
+- If a full migration is too disruptive, move one domain/folder at a time and update references incrementally.
+
+## 7. Communicate Completion
+- Announce migration completion to the team.
+- Unfreeze feature merges.
+
+---
+
+# Summary
+This plan provides a clear, step-by-step approach to migrate ProtoFusionGirl to a scalable, modular, and future-proof directory structure. All onboarding and automation will be updated to match the new layout.

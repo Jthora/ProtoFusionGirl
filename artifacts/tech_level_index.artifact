@@ -1,0 +1,47 @@
+---
+artifact: tech_level_index
+name: Tech Level Index
+created: 2025-06-04
+purpose: Canonical index of all tech level artifacts in FusionGirl, ordered and classified per design documentation.
+type: index
+format: markdown
+tags: [index, tech, progression, worldbuilding]
+---
+
+# Tech Level Index
+
+This artifact lists all canonical tech levels, their types, eras, and associated artifact files, following the FusionGirl design documentation.
+
+## Type 0 Local
+- **Neolithic Tech** (Early, Lithospheric – Iron Age): `tech_level_neolithic.artifact`
+- **Medieval Tech** (Mid): `tech_level_medieval.artifact`
+- **Industrial Tech** (Late, Atmospheric – Atomic Age): `tech_level_industrial.artifact`
+
+## Type I Planetary
+- **Cyber Tech** (Early, Electrospheric – Information Age): `tech_level_cyber.artifact`
+- **Spacer Tech** (Mid): `tech_level_spacer.artifact`
+- **Holo Tech** (Late, Magnetospheric – Holographic Age): `tech_level_holo.artifact`
+
+## Type II Stellar
+- **Fusion Tech** (Early, Astrospheric – Astral Age): `tech_level_fusion.artifact`
+- **Star Tech** (Mid): `tech_level_star.artifact`
+- **Warp Tech** (Late, Subgalactic – Interstellar Age): `tech_level_warp.artifact`
+
+## Type III Galactic
+- **Super Tech** (Early, Supergalactic – Intergalactic Age): `tech_level_super.artifact`
+- **Hyper Tech** (Mid): `tech_level_hyper.artifact`
+- **Ultra Tech** (Late, Cosmospheric – Cosmic Age): `tech_level_ultra.artifact`
+
+## Type IV+ Interdimensional
+- **Archo Tech**: `tech_level_archo.artifact`
+
+## Type V Universal
+- **Magic Tech**: `tech_level_magic.artifact`
+
+## Type VI Multiversal
+- **Angel Tech**: `tech_level_angel.artifact`
+
+## Type VII Omniversal
+- **Omni Tech**: `tech_level_omni.artifact`
+
+---

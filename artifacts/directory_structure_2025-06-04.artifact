@@ -1,0 +1,327 @@
+---
+artifact: directory_structure_2025-06-04
+created: 2025-06-04
+purpose: Snapshot of the full project directory structure for context and change tracking.
+type: directory
+tags: [directory, structure, snapshot, context]
+format: markdown
+---
+
+/ (root)
+├── FusionGirl_Icon_x1024.png
+├── ONBOARDING.md
+├── animated_morphing_resized_final_optimized.gif
+├── artifact_graph.dot
+├── artifacts/
+│   ├── ai_onboarding_2025-06-03.artifact
+│   ├── artifact_index.artifact
+│   ├── codegen_task_add_20250603_1749023401003.txt
+│   ├── codegen_task_add_20250603_1749023424590.txt
+│   ├── combat_mechanics.artifact
+│   ├── copilot_advanced_todos_2025-06-03.artifact
+│   ├── copilot_build_instructions_2025-06-03.artifact
+│   ├── copilot_memory.artifact
+│   ├── copilot_next_steps_2025-06-03.artifact
+│   ├── copilot_next_steps_2025-06-03_20250603T194710.artifact
+│   ├── copilot_todo_automation_upgrades_2025-06-03.artifact
+│   ├── copilot_todos_2025-06-03.artifact
+│   ├── deep_ai_self_autonomy_design_2025-06-03.artifact
+│   ├── directory_structure_2025-06-03.artifact
+│   ├── feedback_2025-06-03.artifact
+│   ├── instructions.md
+│   ├── lint_format_test_automation.md
+│   ├── phase1_brainstorm.artifact
+│   ├── precommit_automation.md
+│   ├── progression_system_2025-06-03.artifact
+│   ├── project_state_2025-06-03.artifact
+│   ├── retrospective_tilemap_2025-06-03.artifact
+│   ├── scripts_full_esmodule_migration_plan_2025-06-03.artifact
+│   ├── scripts_index.artifact
+│   ├── self_prompt_pipeline_instructions.artifact
+│   ├── self_prompt_queue.json
+│   ├── task_add_20250603.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250603.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250604.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_protofusiongirl_primer_gamescene_ts_5_20250603.artifact
+│   ├── task_add_a_web3_wallet_connect_button_to_the_start_screen_see_primer_startscene_ts_9_20250603.artifact
+│   ├── task_add_a_web3_wallet_connect_button_to_the_start_screen_see_protofusiongirl_primer_startscene_ts_9_20250603.artifact
+│   ├── task_add_documentation_linting_and_format_checks_to_the_automation_pipeline_20250604.artifact
+│   ├── task_add_guest_mode_button_for_local_play_see_primer_startscene_ts_10_20250603.artifact
+│   ├── task_add_guest_mode_button_for_local_play_see_protofusiongirl_primer_startscene_ts_10_20250603.artifact
+│   ├── task_add_lore_terminal_that_displays_random_lore_from_datapack_20250604.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250603.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250604.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_protofusiongirl_primer_mod_loader_ts_182_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_36_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250604.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_protofusiongirl_primer_gamescene_test_ts_36_20250603.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250603.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250604.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_85_20250604.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_93_20250604.artifact
+│   ├── task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250603.artifact
+│   ├── task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250604.artifact
+│   ├── task_add_touch_controls_for_mobile_see_protofusiongirl_primer_gamescene_ts_3_20250603.artifact
+│   ├── task_automate_the_onboarding_process_with_a_script_that_runs_all_onboarding_and_synchronization_tasks_20250604.artifact
+│   ├── task_create_20250603.artifact
+│   ├── task_create_a_feedback_artifact_template_and_process_for_onboarding_blockers_and_improvements_20250604.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250603.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250604.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_protofusiongirl_primer_mod_loader_ts_180_20250603.artifact
+│   ├── task_create_a_visual_project_dashboard_artifact_for_real_time_project_task_status_20250604.artifact
+│   ├── task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250603.artifact
+│   ├── task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250604.artifact
+│   ├── task_custom_erase_logic_tilebrush_ts_71_20250603.artifact
+│   ├── task_custom_erase_logic_tilebrush_ts_71_20250604.artifact
+│   ├── task_design_20250603.artifact
+│   ├── task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250603.artifact
+│   ├── task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250604.artifact
+│   ├── task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250603.artifact
+│   ├── task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250604.artifact
+│   ├── task_expand_20250603.artifact
+│   ├── task_grant_rewards_questprototype_ts_66_20250603.artifact
+│   ├── task_grant_rewards_questprototype_ts_66_20250604.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250603.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250604.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_468_20250604.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250603.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250604.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_473_20250604.artifact
+│   ├── task_implement_20250603.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250603.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250604.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_protofusiongirl_primer_gamescene_ts_6_20250603.artifact
+│   ├── task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250603.artifact
+│   ├── task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250604.artifact
+│   ├── task_implement_a_json_based_tilemap_see_protofusiongirl_primer_gamescene_ts_4_20250603.artifact
+│   ├── task_implement_a_self_healing_artifact_check_and_repair_script_to_ensure_artifact_code_consistency_20250604.artifact
+│   ├── task_implement_ai_input_logic_aiinput_ts_4_20250603.artifact
+│   ├── task_implement_ai_input_logic_aiinput_ts_4_20250604.artifact
+│   ├── task_implement_ai_jump_aiinput_ts_13_20250603.artifact
+│   ├── task_implement_ai_jump_aiinput_ts_13_20250604.artifact
+│   ├── task_implement_ai_left_right_aiinput_ts_8_20250603.artifact
+│   ├── task_implement_ai_left_right_aiinput_ts_8_20250604.artifact
+│   ├── task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250603.artifact
+│   ├── task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250604.artifact
+│   ├── task_implement_gamepad_jump_gamepadinput_ts_13_20250603.artifact
+│   ├── task_implement_gamepad_jump_gamepadinput_ts_13_20250604.artifact
+│   ├── task_implement_gamepad_left_right_gamepadinput_ts_8_20250603.artifact
+│   ├── task_implement_gamepad_left_right_gamepadinput_ts_8_20250604.artifact
+│   ├── task_implement_gamepad_polling_gamepadinput_ts_4_20250603.artifact
+│   ├── task_implement_gamepad_polling_gamepadinput_ts_4_20250604.artifact
+│   ├── task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250603.artifact
+│   ├── task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250604.artifact
+│   ├── task_index.artifact
+│   ├── task_onboarding_20250603.artifact
+│   ├── task_onboarding_document_and_resolve_vs_code_task_runner_node_path_issues_and_ensure_onboarding_scripts_run_reliably_via_both_terminal_and_vs_code_tasks_20250604.artifact
+│   ├── task_optionally_unload_mod_assets_here_startscene_ts_153_20250603.artifact
+│   ├── task_reference_artifacts_and_primer_for_onboarding_and_ui_conventions_startscene_ts_11_20250603.artifact
+│   ├── task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250603.artifact
+│   ├── task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250604.artifact
+│   ├── task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250603.artifact
+│   ├── task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250604.artifact
+│   ├── task_replace_with_actual_abi_array_modregistryservice_ts_11_20250603.artifact
+│   ├── task_replace_with_actual_abi_array_modregistryservice_ts_11_20250604.artifact
+│   ├── task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250603.artifact
+│   ├── task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250604.artifact
+│   ├── task_replace_with_dynamic_loading_from_datapack_gamescene_ts_77_20250604.artifact
+│   ├── task_template.artifact
+│   ├── task_test_codegen_20250604.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250603.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250604.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_protofusiongirl_primer_mod_loader_ts_181_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_35_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250604.artifact
+│   ├── task_write_jest_test_for_player_movement_see_protofusiongirl_primer_gamescene_test_ts_35_20250603.artifact
+│   ├── test_artifact_2025-06-03.artifact
+│   ├── test_results_2025-06-03.artifact
+│   └── tilemap_system_design.artifact
+├── contracts/
+│   ├── Lock.sol
+│   └── ModRegistry.sol
+├── directory-structure.txt
+├── docs/
+│   └── modding.md
+├── fusiongirl_profileicon_a_0001_by_jonothora_da4eprs-375w-2x-1.jpg
+├── hardhat.config.cjs
+├── ignition/
+│   └── modules/
+│       └── Lock.js
+├── index.html
+├── jane__born_of_sovi_by_jonothora_d1tjn7u-375w-2x-1.jpg
+├── jest.config.mjs
+├── jest.config.ts.bak
+├── jest.setup.js
+├── package-artifact.json
+├── package-lock.json
+├── package.json
+├── pfg_facebookbanner_0001_by_jonothora_da4eqkp-414w-2x-1.jpg
+├── public/
+│   └── vite.svg
+├── scripts/
+│   ├── aiAutonomousDevLoop.js
+│   ├── aiTaskManager.js
+│   ├── artifact-index-update.sh
+│   ├── autoRepairArtifacts.js
+│   ├── autoUpdateArtifactRefs.js
+│   ├── biDirectionalArtifactMap.js
+│   ├── checkArtifactCodeSync.js
+│   ├── generateArtifactIndex.js
+│   ├── guidedOnboarding.js
+│   ├── listArtifactRelations.js
+│   ├── listOrDiffArtifactVersions.js
+│   ├── listScripts.js
+│   ├── listTasks.js
+│   ├── newArtifact.js
+│   ├── newFeedbackOrRetrospective.js
+│   ├── newTask.js
+│   ├── notifyOpenTasks.js
+│   ├── project_dashboard.js
+│   ├── promptFeedbackLinkage.js
+│   ├── searchArtifacts.js
+│   ├── selfPromptPipeline.js
+│   ├── selfPromptToolkit.cjs
+│   ├── selfPromptToolkit.js
+│   ├── snapshotDirectory.js
+│   ├── summarizeAndCleanUnusedArtifacts.js
+│   ├── syncTasksWithCode.js
+│   ├── taskIndexUpdate.js
+│   ├── updatePrimer.js
+│   ├── updateTask.js
+│   ├── versionArtifact.js
+│   ├── visualizeArtifactGraph.js
+│   └── warnNonCanonicalArtifactRefs.js
+├── src/
+│   ├── assets/
+│   │   ├── recipes.json
+│   │   ├── tiles.json
+│   │   └── tileset.json
+│   ├── core/
+│   │   └── controls/
+│   │       ├── AIInput.ts
+│   │       ├── GamepadInput.ts
+│   │       ├── InputManager.ts
+│   │       ├── KeyboardInput.ts
+│   │       └── TouchInput.ts
+│   ├── counter.ts
+│   ├── lang/
+│   ├── main.ts
+│   ├── mods/
+│   │   ├── index.ts
+│   │   ├── mod_loader.test.ts
+│   │   ├── mod_loader.ts
+│   │   ├── sample_crafting_mod.json
+│   │   ├── sample_enemy_mod.json
+│   │   ├── sample_equipment_mod.json
+│   │   ├── sample_item_mod.json
+│   │   └── sample_mod.json
+│   ├── scenes/
+│   │   ├── GameScene.test.ts
+│   │   ├── GameScene.ts
+│   │   ├── PauseMenuScene.ts
+│   │   ├── SettingsScene.ts
+│   │   ├── StartScene.ts
+│   │   └── index.ts
+│   ├── services/
+│   │   ├── ModRegistryService.ts
+│   │   ├── SettingsService.ts
+│   │   └── index.ts
+│   ├── style.css
+│   ├── tests/
+│   │   ├── GameScene.test.ts
+│   │   └── mod_loader.test.ts
+│   ├── typescript.svg
+│   ├── ui/
+│   │   ├── components/
+│   │   │   ├── CraftingPanel.ts
+│   │   │   ├── DamageNumber.ts
+│   │   │   ├── Dropdown.ts
+│   │   │   ├── EnemyHealthBar.ts
+│   │   │   ├── EquipmentPanel.ts
+│   │   │   ├── FeedbackModal.ts
+│   │   │   ├── GuestModeButton.ts
+│   │   │   ├── HealthBar.ts
+│   │   │   ├── InventoryPanel.ts
+│   │   │   ├── Label.ts
+│   │   │   ├── MenuButton.ts
+│   │   │   ├── ModCountButton.ts
+│   │   │   ├── ModToggleButton.ts
+│   │   │   ├── SettingsButton.ts
+│   │   │   ├── Slider.ts
+│   │   │   ├── TitleText.ts
+│   │   │   ├── ToggleButton.ts
+│   │   │   ├── TouchControls.ts
+│   │   │   ├── WalletButton.ts
+│   │   │   └── index.ts
+│   │   └── layouts/
+│   ├── vite-env.d.ts
+│   ├── web3.ts
+│   └── world/
+│       ├── combat/
+│       │   ├── AttackDefinition.ts
+│       │   ├── AttackRegistry.ts
+│       │   └── CombatService.ts
+│       ├── crafting/
+│       │   ├── CraftingRegistry.ts
+│       │   └── CraftingService.ts
+│       ├── enemies/
+│       │   ├── EnemyDefinition.ts
+│       │   ├── EnemyInstance.ts
+│       │   └── EnemyRegistry.ts
+│       ├── equipment/
+│       │   ├── Equipment.ts
+│       │   ├── EquipmentInstance.ts
+│       │   ├── EquipmentRegistry.ts
+│       │   ├── EquipmentService.ts
+│       │   └── EquipmentSlot.ts
+│       ├── index.ts
+│       ├── inventory/
+│       │   ├── Inventory.ts
+│       │   └── InventoryService.ts
+│       ├── items/
+│       │   ├── ItemInstance.ts
+│       │   └── ItemRegistry.ts
+│       ├── player/
+│       │   └── PlayerStats.ts
+│       ├── quest/
+│       │   └── QuestPrototype.ts
+│       └── tilemap/
+│           ├── ChunkLoader.ts
+│           ├── ChunkManager.ts
+│           ├── EditorHistory.ts
+│           ├── TerrainGenerator.ts
+│           ├── TileBrush.ts
+│           ├── TileClipboard.ts
+│           ├── TileHistoryVisualizer.ts
+│           ├── TileInspector.ts
+│           ├── TilePalette.ts
+│           ├── TileRegistry.edge.test.ts
+│           ├── TileRegistry.integration.test.ts
+│           ├── TileRegistry.test.ts
+│           ├── TileRegistry.ts
+│           ├── TileSelectionOverlay.ts
+│           ├── TileSpriteFactory.ts
+│           ├── TileUndoManager.test.ts
+│           ├── TileUndoManager.ts
+│           ├── TilemapManager.ts
+│           ├── WorldEditAutosave.ts
+│           ├── WorldEditInput.ts
+│           ├── WorldEditOverlay.ts
+│           ├── WorldEditPermissions.ts
+│           ├── WorldEditService.ts
+│           ├── WorldEditSession.ts
+│           ├── WorldEvents.ts
+│           ├── WorldGen.ts
+│           ├── WorldGenV2.ts
+│           ├── WorldPersistence.ts
+│           ├── WorldPhysics.ts
+│           └── WorldSelection.ts
+├── test/
+│   └── Lock.js
+└── tsconfig.json
+
+---
+
+(End of artifact)

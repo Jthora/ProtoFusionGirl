@@ -4,6 +4,12 @@ created: 2025-06-03
 purpose: Deep context, inspiration, and technical reference for Copilot/AI agent workflows.
 type: datapack
 format: markdown
+references:
+  - .primer
+  - .priming
+  - .manifest
+  - .schema
+  - data/
 ---
 
 # ProtoFusionGirl Datapack

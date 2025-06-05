@@ -42,6 +42,14 @@ export const DEFAULT_ITEMS: ItemDefinition[] = [
     type: 'consumable',
     stackSize: 99,
     description: 'Provides light.'
+  },
+  {
+    id: 'traded_anchor_token',
+    name: 'Traded Anchor Token',
+    icon: '🔗',
+    type: 'misc',
+    stackSize: 99,
+    description: 'A token received for completing an anchor trade.'
   }
 ];
 

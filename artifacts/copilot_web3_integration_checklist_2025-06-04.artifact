@@ -1,0 +1,50 @@
+---
+artifact_id: copilot_web3_integration_checklist_2025-06-04
+artifact_type: checklist
+last_updated: 2025-06-04
+related_artifacts:
+  - copilot_web3_integration_status_2025-06-04
+  - copilot_web3_integration_roadmap_2025-06-04
+  - copilot_web3_integration_blockers_2025-06-04
+items:
+  - id: w3-4
+    description: Design ModRegistry contract (spec, ABI)
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-5
+    description: Implement and test ModRegistry contract
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-6
+    description: Deploy ModRegistry to Polygon Mumbai
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-7
+    description: Integrate ModRegistryService with deployed contract
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-8
+    description: Add end-to-end tests for wallet connect, mod upload, on-chain registration
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-10
+    description: Document contract API and user flows
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-11
+    description: Update modding and onboarding guides
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+  - id: w3-12
+    description: Create troubleshooting/FAQ docs for web3 onboarding
+    status: pending
+    assignee: unassigned
+    related_artifact: copilot_web3_integration_roadmap_2025-06-04
+---

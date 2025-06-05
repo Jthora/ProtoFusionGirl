@@ -48,6 +48,25 @@ Welcome! This artifact is your starting point for understanding and contributing
 - `copilot_memory.artifact` — Persistent AI memory
 - This artifact — Onboarding flow and checklist
 
+# AI Onboarding Status (2025-06-04)
+
+## Task System Integration
+- All actionable tasks are now organized in the `tasks/` folder as `.task` files.
+- Tasks are indexed, cross-referenced with artifacts and documentation, and included in onboarding status outputs.
+- See `tasks/README.md` and `tasks/README.task` for format and conventions.
+
+## Current Task Index
+- Universal Magic Puzzle Integration for Warp Anchors (todo, priority 1)
+- Anchor Sharing and Quantum Bookmarks (todo, priority 2)
+- Timestream Branching and Narrative Consequences (todo, priority 3)
+- Anchor Management UI/UX and Accessibility (todo, priority 4)
+- Modding Hooks for Warp Zones and Puzzles (todo, priority 5)
+
+## Next Steps
+- Use the onboarding and dashboard scripts to view, update, and manage tasks.
+- Reference related artifacts and docs for each task to ensure full context.
+- Rerun onboarding when new tasks or docs are added.
+
 ---
 
 (End of artifact)

@@ -11,30 +11,41 @@ export class ChunkManager {
     this.tilemapManager = tilemapManager;
   }
 
+  // Utility: Generate chunk key from coordinates
+  static getChunkKey(chunkX: number, chunkY: number, chunkSize: number): string {
+    const wrappedChunkX = TilemapManager.wrapChunkX(chunkX, chunkSize);
+    return `${wrappedChunkX},${chunkY}`;
+  }
+
+  // Event hooks for chunk lifecycle (can be set by TilemapManager or mods)
+  onChunkLoaded?: (chunkX: number, chunkY: number, chunk: any) => void;
+  onChunkUnloaded?: (chunkX: number, chunkY: number, chunk: any) => void;
+  onChunkReplaced?: (chunkX: number, chunkY: number, newChunk: any, oldChunk: any) => void;
+
   // Loads or generates a chunk and adds it to loadedChunks
   loadChunk(chunkX: number, chunkY: number) {
-    const key = `${chunkX},${chunkY}`;
+    const key = ChunkManager.getChunkKey(chunkX, chunkY, this.chunkSize);
     if (this.loadedChunks.has(key)) return this.loadedChunks.get(key);
-    // Try to load from persistence
-    let chunk = this.tilemapManager.persistence?.loadChunk?.(chunkX, chunkY);
+    let chunk = this.tilemapManager.persistence?.loadChunk?.(TilemapManager.wrapChunkX(chunkX, this.chunkSize), chunkY);
     if (!chunk) {
-      // If not found, generate procedurally
-      chunk = this.tilemapManager.worldGen?.generateChunk?.(chunkX, chunkY);
+      chunk = this.tilemapManager.worldGen?.generateChunk?.(TilemapManager.wrapChunkX(chunkX, this.chunkSize), chunkY);
     }
     if (chunk) {
       this.loadedChunks.set(key, chunk);
+      if (this.onChunkLoaded) this.onChunkLoaded(chunkX, chunkY, chunk);
     }
     return chunk;
   }
 
   // Unloads a chunk, saving if necessary
   unloadChunk(chunkX: number, chunkY: number) {
-    const key = `${chunkX},${chunkY}`;
+    const key = ChunkManager.getChunkKey(chunkX, chunkY, this.chunkSize);
     const chunk = this.loadedChunks.get(key);
     if (chunk && chunk.dirty && this.tilemapManager.persistence?.saveChunk) {
-      this.tilemapManager.persistence.saveChunk(chunkX, chunkY, chunk);
+      this.tilemapManager.persistence.saveChunk(TilemapManager.wrapChunkX(chunkX, this.chunkSize), chunkY, chunk);
     }
     this.loadedChunks.delete(key);
+    if (this.onChunkUnloaded && chunk) this.onChunkUnloaded(chunkX, chunkY, chunk);
   }
 
   // Returns chunk data if loaded
@@ -61,9 +72,23 @@ export class ChunkManager {
   unloadDistantChunks(centerX: number, centerY: number, radius: number) {
     for (const key of this.loadedChunks.keys()) {
       const [x, y] = key.split(',').map(Number);
-      if (Math.abs(x - centerX) > radius || Math.abs(y - centerY) > radius) {
+      // Use toroidalChunkDistanceX for edge-aware chunk unloading
+      const dx = TilemapManager.toroidalChunkDistanceX(x, centerX, this.chunkSize);
+      if (dx > radius || Math.abs(y - centerY) > radius) {
         this.unloadChunk(x, y);
       }
+    }
+  }
+
+  // Replaces the chunk at (chunkX, chunkY) with newChunk in the loadedChunks map.
+  // Triggers downstream updates (tilemap, minimap, etc.)
+  replaceChunk(chunkX: number, chunkY: number, newChunk: any) {
+    const key = ChunkManager.getChunkKey(chunkX, chunkY, this.chunkSize);
+    const oldChunk = this.loadedChunks.get(key);
+    this.loadedChunks.set(key, newChunk);
+    if (this.onChunkReplaced) this.onChunkReplaced(chunkX, chunkY, newChunk, oldChunk);
+    if (this.tilemapManager.onChunkReplaced) {
+      this.tilemapManager.onChunkReplaced(TilemapManager.wrapChunkX(chunkX, this.chunkSize), chunkY, newChunk, oldChunk);
     }
   }
 }

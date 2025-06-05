@@ -1,0 +1,26 @@
+# Migrated from copilot_next_steps_2025-06-03.artifact
+# See original artifact for full context
+
+title: Next-Step TODOs for Copilot/AI Agent
+status: todo
+priority: 2
+tags: [todo, automation, artifact, ai, workflow, memory, next-steps]
+description: |
+  - Verify artifact index automation
+  - Verify directory snapshot utility
+  - Test meta-script discovery
+  - Check artifact/code linkage
+  - Implement artifact search/recall script
+  - Enable artifact cross-referencing
+  - Automate artifact versioning
+  - Enhance feedback/retrospective loop
+  - Script for artifact/code sync check
+  - Onboarding/primer auto-update
+  - Memory expansion artifact
+related:
+  - artifacts/copilot_todos_2025-06-03.artifact
+  - artifacts/artifact_index.artifact
+  - .primer
+  - artifacts/feedback_2025-06-03.artifact
+  - artifacts/directory_structure_2025-06-03.artifact
+  - artifacts/copilot_memory.artifact

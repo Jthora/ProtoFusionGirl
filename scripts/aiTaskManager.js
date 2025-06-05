@@ -9,14 +9,91 @@ import { execSync, execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import * as personaCoreUtils from './personaCoreUtils.js';
+import yaml from 'js-yaml';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const SCRIPTS_DIR = __dirname;
+const TASKS_DIR = path.join(__dirname, '../tasks');
 
-console.log('[DEBUG] aiTaskManager.js starting. Args:', process.argv);
-console.log('[DEBUG] __dirname:', __dirname);
-console.log('[DEBUG] SCRIPTS_DIR:', SCRIPTS_DIR);
+// --- Docs Index Integration ---
+const DOCS_INDEX_PATH = path.join(__dirname, '../docs/docs_index.json');
+function loadDocsIndex() {
+  if (fs.existsSync(DOCS_INDEX_PATH)) {
+    try {
+      return JSON.parse(fs.readFileSync(DOCS_INDEX_PATH, 'utf8'));
+    } catch (e) {
+      console.warn('[WARN] Could not load docs_index.json:', e.message);
+    }
+  }
+  return null;
+}
+
+function searchDocsIndex(query) {
+  const docsIndex = loadDocsIndex();
+  if (!docsIndex || !docsIndex.docs) return [];
+  const q = query.toLowerCase();
+  return docsIndex.docs.filter(d =>
+    d.file.toLowerCase().includes(q) ||
+    (d.summary && d.summary.toLowerCase().includes(q)) ||
+    (d.headings && d.headings.some(h => h.text.toLowerCase().includes(q))) ||
+    (d.keywords && d.keywords.some(k => k.toLowerCase().includes(q)))
+  );
+}
+
+function parseTaskFile(filePath) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  // Try JSON first, then YAML
+  if (content.trim().startsWith('{')) {
+    return JSON.parse(content);
+  } else {
+    try {
+      return yaml.load(content);
+    } catch {
+      return null;
+    }
+  }
+}
+
+function personaCoreTaskSort(a, b) {
+  // Prioritize by Persona Core operationalFocus and decisionHeuristics
+  const personaCore = personaCoreUtils.loadPersonaCore();
+  if (personaCore && personaCore.operationalFocus && a.title && b.title) {
+    const focus = personaCore.operationalFocus.currentPriority;
+    if (a.title === focus) return -1;
+    if (b.title === focus) return 1;
+  }
+  // Fallback: prioritize by status, then priority field if present
+  if (a.status !== b.status) {
+    if (a.status === 'todo' || a.status === 'open') return -1;
+    if (b.status === 'todo' || b.status === 'open') return 1;
+  }
+  if (a.priority !== undefined && b.priority !== undefined) {
+    return a.priority - b.priority;
+  }
+  return 0;
+}
+
+function listTasksWithPersonaCore(filters = {}) {
+  if (!fs.existsSync(TASKS_DIR)) {
+    console.error('Tasks directory not found:', TASKS_DIR);
+    process.exit(1);
+  }
+  const taskFiles = fs.readdirSync(TASKS_DIR).filter(f => f.endsWith('.task'));
+  let tasks = taskFiles.map(f => {
+    const filePath = path.join(TASKS_DIR, f);
+    const data = parseTaskFile(filePath);
+    return data ? { ...data, file: f } : null;
+  }).filter(Boolean);
+  // Apply filters
+  if (filters.status) tasks = tasks.filter(t => t.status === filters.status);
+  if (filters.assignee) tasks = tasks.filter(t => t.assignee === filters.assignee);
+  if (filters.priority) tasks = tasks.filter(t => String(t.priority) === String(filters.priority));
+  // Sort using Persona Core
+  tasks.sort(personaCoreTaskSort);
+  return tasks;
+}
 
 // Core commands (backward compatible)
 const coreCommands = {
@@ -46,6 +123,26 @@ const coreCommands = {
         }
       } catch (e) { /* ignore errors */ }
     }
+  },
+  docs: (args) => {
+    if (!args.length) {
+      console.log('Usage: docs <search-term>');
+      return;
+    }
+    const results = searchDocsIndex(args.join(' '));
+    if (!results.length) {
+      console.log('No docs found for:', args.join(' '));
+      return;
+    }
+    results.slice(0, 10).forEach(d => {
+      console.log(`- ${d.file}: ${d.summary}`);
+      if (d.headings && d.headings.length) {
+        console.log('  Headings:', d.headings.map(h => h.text).join(' | '));
+      }
+      if (d.keywords && d.keywords.length) {
+        console.log('  Keywords:', d.keywords.join(', '));
+      }
+    });
   }
 };
 
@@ -76,6 +173,7 @@ function printHelp() {
         update: 'Update a task: update <task_filename> [--status=...] [--assignee=...] [--priority=...] [--comment=...]',
         index: 'Regenerate the task index: index',
         sync: 'Sync code TODOs with tasks: sync',
+        docs: 'Search documentation: docs <search-term>',
         help: 'Show this help message: help'
       },
       ...discovered.map(s => ({ [s.name]: `Run any script as a plugin: ${s.name} [...args]${s.usage ? ' | Usage: ' + s.usage : ''}` }))
@@ -173,32 +271,51 @@ if (cmd === 'new') {
   process.exit(0);
 }
 if (cmd === 'list') {
-  const args = [];
-  if (argv.status) args.push(`--status=${argv.status}`);
-  if (argv.assignee) args.push(`--assignee=${argv.assignee}`);
-  if (argv.priority) args.push(`--priority=${argv.priority}`);
-  if (argv.json) args.push('--json');
-  coreCommands.list(args);
+  const filters = {};
+  if (argv.status) filters.status = argv.status;
+  if (argv.assignee) filters.assignee = argv.assignee;
+  if (argv.priority) filters.priority = argv.priority;
+  const tasks = listTasksWithPersonaCore(filters);
+  if (argv.json) {
+    console.log(JSON.stringify(tasks, null, 2));
+  } else {
+    console.log('Tasks (Persona Core prioritized):');
+    tasks.forEach(t => {
+      console.log(`- [${t.status}] (priority: ${t.priority}) ${t.title || t.description} [${t.file}]`);
+      if (t.related) console.log(`    Related: ${t.related}`);
+    });
+    if (tasks.length === 0) console.log('No tasks found.');
+  }
   process.exit(0);
 }
 if (cmd === 'update') {
-  const args = [argv.task_filename];
-  if (argv.status) args.push(`--status=${argv.status}`);
-  if (argv.assignee) args.push(`--assignee=${argv.assignee}`);
-  if (argv.priority) args.push(`--priority=${argv.priority}`);
-  if (argv.comment) args.push(`--comment=${argv.comment}`);
-  coreCommands.update(args);
+  const cmdNode = 'node';
+  const script = path.join('scripts', 'updateTask.js');
+  const argArray = [script, argv.task_filename];
+  if (argv.status) argArray.push(`--status=${argv.status}`);
+  if (argv.assignee) argArray.push(`--assignee=${argv.assignee}`);
+  if (argv.priority) argArray.push(`--priority=${argv.priority}`);
+  if (argv.comment) argArray.push(`--comment=${argv.comment}`);
+  execFileSync(cmdNode, argArray, { stdio: 'inherit' });
   process.exit(0);
 }
 if (cmd === 'index') {
-  coreCommands.index([]);
+  execSync('node scripts/updateTaskIndex.js', { stdio: 'inherit' });
   process.exit(0);
 }
 if (cmd === 'sync') {
-  coreCommands.sync([]);
+  execSync('node scripts/syncTasksWithCode.js', { stdio: 'inherit' });
+  // Self-prompt pipeline trigger (as before)
+  const selfPromptPipeline = path.join(__dirname, 'selfPromptPipeline.js');
+  if (fs.existsSync(selfPromptPipeline)) {
+    try {
+      const tasks = listTasksWithPersonaCore({ status: 'todo' });
+      const openTask = tasks.find(t => t.status === 'todo' || t.status === 'open');
+      if (openTask) {
+        const promptText = `Task detected: ${openTask.title || openTask.description || openTask.file}`;
+        execSync(`node scripts/selfPromptPipeline.js --add "${promptText}"`, { stdio: 'ignore' });
+      }
+    } catch (e) { /* ignore errors */ }
+  }
   process.exit(0);
 }
-
-// Fallback to help if unknown command
-printHelp();
-process.exit(1);

@@ -1,0 +1,41 @@
+---
+artifact: tech_level_magic
+name: Magic Tech
+created: 2025-06-04
+purpose: Master artifact for Type V (Universal) - Magic Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, universal, type5]
+---
+
+# Tech Level: Magic Tech
+
+## Classification
+- Type: Type V (Universal)
+- Era: --
+- Sphere: --
+- Age: --
+
+## Description
+Civilizations operate at the scale of universal laws, blending technology and magic. Reality is programmable, and beings can create or destroy universes at will. Magic is indistinguishable from technology.
+
+## Gameplay Unlocks
+- Universal law rewriting
+- Magic-based technology
+- Universe creation/destruction
+
+## Advancement Triggers
+- Mastery of universal magic
+- Creation of new universal laws
+
+## Regression Triggers
+- Universal paradox, magical collapse
+
+## Risks & Consequences
+- Unintended universal consequences, magical backlash
+
+## Related Artifacts
+- timeline_magic.artifact
+- zone_universal_forum.artifact
+
+---

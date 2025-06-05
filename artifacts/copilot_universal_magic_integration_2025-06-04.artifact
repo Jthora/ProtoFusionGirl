@@ -1,0 +1,13 @@
+# Universal Magic Integration Plan (2025-06-04)
+
+## Goals
+- Make all reality warping, anchor, and timeline manipulation actions part of the Universal Magic system
+- Require Universal Language puzzles or crafting for advanced anchor use
+- Provide lore-driven tutorials and discovery for Universal Magic
+- Allow for secrets and emergent play (hidden anchor types, advanced rituals)
+
+## Implementation
+- Add Universal Language puzzle/crafting UI to anchor creation/restoration
+- Link anchor use to Timestream Framework (timeline scrubbing, branching)
+- Add narrative and gameplay consequences for misuse/overuse
+- Expose APIs for mods to add new Universal Magic effects and anchor types

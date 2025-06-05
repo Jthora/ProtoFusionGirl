@@ -1,0 +1,47 @@
+# Combat Mechanics
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Defines the rules, flow, and logic for combat encounters in ProtoFusionGirl.
+
+## Scope
+- Turn structure and timing
+- Player and AI actions
+- Outcome resolution
+- Feedback and progression
+- Status effects and environmental factors
+- Modding and extensibility
+
+## Context
+Integrates with persona core for stats/abilities. Used by missions and world events.
+
+## Related Artifacts
+- persona_core_architecture_2025-06-04.artifact
+- mission_system_integration_2025-06-04.artifact
+
+---
+
+## Core Rules
+- Initiative and turn order
+- Action types (attack, defend, special, use item)
+- Stat-based outcomes
+- Environmental modifiers (terrain, weather)
+- Status effects (poison, stun, buffs)
+
+## AI Behavior
+- Enemy tactics
+- Adaptive difficulty
+- Edge cases (AI stalling, invalid actions)
+
+## Feedback
+- Visual and audio cues
+- Progression rewards
+- Combat logs and analytics
+
+## Modding
+- Hooks for custom actions and effects
+- Data-driven combat definitions
+
+## See also
+artifacts/instructions.md

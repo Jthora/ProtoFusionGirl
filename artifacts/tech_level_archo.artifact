@@ -1,0 +1,41 @@
+---
+artifact: tech_level_archo
+name: Archo Tech
+created: 2025-06-04
+purpose: Master artifact for Type IV+ (Interdimensional) - Archo Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, interdimensional, type4]
+---
+
+# Tech Level: Archo Tech
+
+## Classification
+- Type: Type IV+ (Interdimensional)
+- Era: --
+- Sphere: --
+- Age: --
+
+## Description
+Civilizations transcend the physical universe, operating across dimensions. Reality is fluid, and beings can manipulate the fabric of existence, time, and probability. Interdimensional travel and communication are routine.
+
+## Gameplay Unlocks
+- Interdimensional travel
+- Probability and timeline manipulation
+- Reality editing
+
+## Advancement Triggers
+- Mastery of dimensional physics
+- Creation of stable interdimensional portals
+
+## Regression Triggers
+- Dimensional collapse, paradoxes
+
+## Risks & Consequences
+- Loss of identity, existential threats from higher dimensions
+
+## Related Artifacts
+- timeline_archo.artifact
+- zone_dimensional_nexus.artifact
+
+---

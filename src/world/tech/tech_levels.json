@@ -1,0 +1,30 @@
+[
+  {
+    "id": "neolithic",
+    "name": "Neolithic Tech",
+    "type": "Type 0",
+    "era": "Early",
+    "sphere": "Lithospheric",
+    "age": "Iron Age",
+    "description": "Societies use stone, bone, and early metal tools. Agriculture and animal domestication begin. Tribal and clan structures dominate. Myth and magic are central to worldview.",
+    "gameplayUnlocks": ["Basic crafting", "Primitive weapons", "Simple shelters"],
+    "advancementTriggers": ["Discovery of bronze/iron", "Formation of city-states"],
+    "regressionTriggers": ["Famine", "Plague", "War"],
+    "risks": ["High mortality", "Superstition", "Limited technology"],
+    "relatedArtifacts": ["timeline_neolithic.artifact", "zone_lithospheric.artifact"]
+  },
+  {
+    "id": "cyber",
+    "name": "Cyber Tech",
+    "type": "Type I",
+    "era": "Early",
+    "sphere": "Electrospheric",
+    "age": "Information Age",
+    "description": "Digital computers, global communication, and automation. Societies are networked, with rapid information flow. AI, cybernetics, and virtual realities emerge.",
+    "gameplayUnlocks": ["Computers", "Internet", "Hacking", "Drones", "Robotics", "VR/AR"],
+    "advancementTriggers": ["AI singularity", "Fusion power"],
+    "regressionTriggers": ["Cyberwar", "Infrastructure collapse"],
+    "risks": ["Surveillance", "Loss of privacy", "AI threats"],
+    "relatedArtifacts": ["timeline_cyber.artifact", "zone_datacenter.artifact"]
+  }
+]

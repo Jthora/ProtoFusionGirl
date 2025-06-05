@@ -1,0 +1,41 @@
+---
+artifact: tech_level_medieval
+name: Medieval Tech
+created: 2025-06-04
+purpose: Master artifact for Type 0 (Mid) - Medieval Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, type0]
+---
+
+# Tech Level: Medieval Tech
+
+## Classification
+- Type: Type 0 (Local)
+- Era: Mid
+- Sphere: --
+- Age: --
+
+## Description
+Feudal societies, advanced metallurgy, and organized religions. Castles, knights, and early universities. Magic and superstition still influential, but science begins to emerge.
+
+## Gameplay Unlocks
+- Castles, fortifications
+- Advanced melee/ranged weapons
+- Guilds and feudal systems
+
+## Advancement Triggers
+- Printing press, gunpowder
+- Centralized kingdoms
+
+## Regression Triggers
+- Plague, peasant revolts
+
+## Risks & Consequences
+- Social stratification, religious wars
+
+## Related Artifacts
+- timeline_medieval.artifact
+- zone_medieval_castle.artifact
+
+---

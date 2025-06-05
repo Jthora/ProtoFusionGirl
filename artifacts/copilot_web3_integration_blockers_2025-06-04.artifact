@@ -1,0 +1,37 @@
+---
+artifact_id: copilot_web3_integration_blockers_2025-06-04
+artifact_type: blockers
+last_updated: 2025-06-04
+related_artifacts:
+  - copilot_web3_integration_status_2025-06-04
+  - copilot_web3_integration_roadmap_2025-06-04
+blockers:
+  - id: b1
+    description: ModRegistry contract not implemented or deployed.
+    severity: critical
+    owner: unassigned
+    status: open
+  - id: b2
+    description: No ABI or contract address available for frontend integration.
+    severity: high
+    owner: unassigned
+    status: open
+  - id: b3
+    description: No end-to-end tests for mod registration or validation.
+    severity: high
+    owner: unassigned
+    status: open
+  - id: b4
+    description: Documentation for web3 flows is incomplete.
+    severity: medium
+    owner: unassigned
+    status: open
+open_questions:
+  - What are the required methods and events for ModRegistry?
+  - How will mod validation and approval work on-chain?
+  - What is the user experience for mod upload and registration?
+next_actions:
+  - Design and implement ModRegistry contract.
+  - Define contract ABI and deployment process.
+  - Document user and developer flows for web3 modding.
+---

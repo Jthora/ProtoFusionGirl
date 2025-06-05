@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2025-06-04T12:00:00Z",
+    "module": "core_values.json",
+    "oldValue": "[\n  \"AI-first automation\",\n  \"Artifact-driven development\",\n  \"Rapid onboarding\",\n  \"Human-AI collaboration\"\n]",
+    "newValue": "[\n  \"AI-first automation\",\n  \"Artifact-driven development\",\n  \"Rapid onboarding\",\n  \"Human-AI collaboration\"\n]",
+    "author": "system",
+    "rationale": "Initial modular Persona Core migration."
+  }
+]

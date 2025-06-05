@@ -41,12 +41,23 @@ function getOpenTasks() {
   const taskRegex = /^- \[open\] \(([^)]+)\) (.+?) \(Assignee: ([^)]+)\) \[(task_[^\]]+)\.artifact\]/gm;
   let match;
   while ((match = taskRegex.exec(content))) {
+    // Try to get relatedFile from the artifact file for downstream automation
+    let relatedFile = '';
+    const artifactPath = path.join(ARTIFACTS_DIR, `${match[4]}.artifact`);
+    if (fs.existsSync(artifactPath)) {
+      const artifactContent = fs.readFileSync(artifactPath, 'utf8');
+      const relFileMatch = /relatedFile:\s*['"]?([^\n'"]*)['"]?/i.exec(artifactContent);
+      if (relFileMatch && relFileMatch[1]) {
+        relatedFile = relFileMatch[1].trim();
+      }
+    }
     openTasks.push({
       id: match[4],
       status: 'open',
       priority: match[1],
       assignee: match[3],
       purpose: match[2],
+      relatedFile
     });
   }
   // Sort by priority (urgent > high > medium > low)
@@ -223,7 +234,31 @@ function createFeedbackArtifact(task, errorMsg) {
   fs.writeFileSync(feedbackFile, content, 'utf8');
 }
 
+// Onboarding: auto-create a task if onboarding blockers or missing artifacts are detected
+function checkOnboardingArtifacts() {
+  const requiredArtifacts = [
+    'artifact_index.artifact',
+    'copilot_memory.artifact',
+    'self_prompt_queue.json',
+    'task_index.artifact'
+  ];
+  let blockers = [];
+  for (const file of requiredArtifacts) {
+    if (!fs.existsSync(path.join(ARTIFACTS_DIR, file))) {
+      blockers.push(file);
+    }
+  }
+  if (blockers.length > 0) {
+    const onboardingTaskId = `task_onboarding_blockers_${Date.now()}`;
+    const artifactPath = path.join(ARTIFACTS_DIR, `${onboardingTaskId}.artifact`);
+    const content = `---\nid: ${onboardingTaskId}\nstatus: open\npriority: urgent\nassignee: copilot\npurpose: Onboarding blockers detected: ${blockers.join(', ')}\nrelatedFile: ''\n---\n`;
+    fs.writeFileSync(artifactPath, content, 'utf8');
+    console.log(`Onboarding blocker task created: ${onboardingTaskId}`);
+  }
+}
+
 async function main() {
+  checkOnboardingArtifacts();
   let openTasks = getOpenTasks().filter(t => t.assignee === 'copilot');
   if (openTasks.length === 0) {
     console.log('No open tasks assigned to copilot. Development loop complete.');

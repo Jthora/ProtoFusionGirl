@@ -1,0 +1,14 @@
+# Timestream Framework: Narrative & Consequence Tracking
+
+## Narrative Integration
+- Log all anchor uses and resulting consequences (NPC reactions, world events, quest changes).
+- Track branch-specific narrative state (quests, factions, puzzles).
+- Provide APIs for querying and replaying consequences per branch.
+- UI/UX: Visualize consequences and branch history for the player.
+
+## Technical Notes
+- Use event logs and consequence trees per branch.
+- Allow mods to register custom consequence handlers.
+
+---
+Created by Copilot, 2025-06-04.

@@ -1,0 +1,18 @@
+# Warp Anchor Systems Overview (2025-06-04)
+
+## Core Concepts
+- Warp anchors/zones are Universal Magic manifestations, not just tech
+- Anchor creation/restoration is skill-gated by Universal Language puzzles
+- Anchors are tradable, discoverable, and multiplayer-enabled (quantum bookmarks)
+- Anchor use interacts with the Timestream Framework, causing timeline branches and narrative consequences
+
+## Technical
+- Robust serialization, hashing, and validation for anchor data
+- Configurable visual/audio effects for anchor actions
+- Automated tests for edge cases, multiplayer, and anchor sharing
+- Accessibility options for all anchor effects
+
+## UI/UX
+- Intuitive anchor management panel with puzzle integration
+- Minimap/world overlays for anchor locations and status
+- Tutorials, tooltips, and feedback for anchor actions

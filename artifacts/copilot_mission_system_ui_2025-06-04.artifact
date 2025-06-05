@@ -1,0 +1,20 @@
+# Mission System UI/UX Plan
+
+## Core UI Elements
+- Mission Tracker Panel: List active missions, objectives, status
+- Mission Details View: Show description, objectives, rewards
+- Notifications: Mission start, complete, fail
+- Integration with minimap/TimeMap (optional)
+
+## UX Goals
+- Clear feedback for mission progress
+- Easy to track multiple missions
+- Minimal UI clutter
+
+## Implementation Notes
+- Start with a simple sidebar or overlay
+- Use existing UI component patterns
+- Expand to support filtering, sorting, and notifications
+
+---
+# End of Artifact

@@ -1,0 +1,10 @@
+title: Modding Hooks for Warp Zones and Puzzles
+description: Expose APIs for custom warp zone types, effects, and Universal Language puzzles. Support community-created anchor sharing, UI themes, and lore extensions.
+status: todo
+priority: 5
+created: 2025-06-04
+tags: [modding, api, warp-anchor, universal-language, extension]
+related:
+  - artifacts/copilot_accessibility_modding_2025-06-04.artifact
+  - artifacts/copilot_warp_anchor_systems_2025-06-04.artifact
+dependencies: []

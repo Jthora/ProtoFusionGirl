@@ -1,0 +1,14 @@
+# Migrated from copilot_reality_warping_todo_2025-06-04.artifact
+# See original artifact for full context
+
+title: TODOs for Reality Warping Implementation
+status: todo
+priority: 2
+tags: [reality-warping, warp-zone, anchor, effects, ui, accessibility, test]
+description: |
+  - Add automated tests for warp zone serialization, seam edge cases, and restoration
+  - Add accessibility and configurability for effects (user settings, effect parameters)
+  - Add hooks/events for effect testability
+related:
+  - artifacts/copilot_reality_warping_design_2025-06-04.artifact
+  - artifacts/copilot_warp_anchor_systems_2025-06-04.artifact

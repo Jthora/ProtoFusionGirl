@@ -1,0 +1,50 @@
+---
+title: Organize and Populate src/core/
+date: 2025-06-04
+type: task
+priority: high
+status: open
+tags: [core, architecture, refactor, onboarding]
+---
+
+# Task: Organize and Populate `src/core/`
+
+## Next Steps & TODOs
+
+1. **Audit Existing Codebase**
+   - Identify all foundational systems, managers, utilities, and base classes/interfaces that belong in `src/core/`.
+   - List files in `src/services/`, `src/`, and other folders that are core (not feature-specific).
+
+2. **Move/Refactor Core Modules**
+   - Move or refactor the following (if present) into `src/core/`:
+     - Event bus or event system
+     - Game state manager
+     - Config/environment manager
+     - Base entity/system/service classes or interfaces
+     - Utility modules (e.g., math, random, type guards)
+     - Dependency injection, logging, or error handling
+
+3. **Document Core Architecture**
+   - Create or update a `README.md` in `src/core/` describing its purpose, what belongs there, and what does not.
+   - Add comments in moved files referencing this architectural decision.
+
+4. **Update Imports**
+   - Refactor imports across the codebase to use the new `src/core/` paths.
+
+5. **Testing & Validation**
+   - Run all tests and ensure nothing is broken after refactor.
+   - Update onboarding docs if the structure changes significantly.
+
+## Actionable Tasks
+
+- [x] Audit and list all core logic candidates for `src/core/`.
+- [x] Move/refactor core modules and utilities into `src/core/`. (EventBus moved)
+- [ ] Create or update `src/core/README.md`.
+- [ ] Refactor imports to use new core paths.
+- [ ] Run and fix tests as needed.
+- [ ] Update onboarding and architecture docs if needed.
+
+---
+**Reference:** See ONBOARDING.md and project artifacts for best practices and architectural intent.
+
+<!-- Note: EventBus (generic) now lives in src/core/EventBus.ts. See core/README.md for details. -->

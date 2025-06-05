@@ -1,0 +1,32 @@
+# Persona Core Design
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Details the user experience, progression, and customization of the player persona in ProtoFusionGirl.
+
+## Scope
+- Player onboarding and customization
+- Progression systems
+- UX/UI considerations
+
+## Context
+Builds on persona_core_architecture. Informs UI, missions, and feedback systems.
+
+## Related Artifacts
+- persona_core_architecture_2025-06-04.artifact
+- mission_system_ui_2025-06-04.artifact
+
+---
+
+## Design Principles
+- Intuitive onboarding
+- Clear feedback for progression
+- Customization options
+
+## Accessibility
+- Support for diverse playstyles
+- UI/UX best practices
+
+## See also
+artifacts/instructions.md

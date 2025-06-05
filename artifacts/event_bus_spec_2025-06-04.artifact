@@ -1,0 +1,62 @@
+---
+artifact: event_bus_spec_2025-06-04
+name: Event Bus & Event System Specification
+created: 2025-06-04
+purpose: Details requirements, API, and usage patterns for the event system in ProtoFusionGirl.
+type: spec
+format: markdown
+tags: [event, bus, system, api, design, core]
+---
+
+# Event Bus & Event System Specification
+
+## Event Types
+- Sync (immediate, blocking)
+- Async (queued, non-blocking)
+- System (internal, e.g., rift opened)
+- User (player/AI/agent actions)
+- Custom/Mod (registered by mods/extensions)
+
+## API
+```ts
+interface EventBus {
+  subscribe(eventType: string, handler: (event: WorldEvent) => void): void;
+  unsubscribe(eventType: string, handler: (event: WorldEvent) => void): void;
+  publish(event: WorldEvent): void;
+  publishAsync(event: WorldEvent): Promise<void>;
+  replay(eventType: string, since?: number): WorldEvent[];
+}
+```
+
+## Usage Patterns
+- Subsystems register listeners for relevant event types
+- Events are published on state changes (e.g., rift opens, mission completes)
+- Event replay for debugging or AI/agent context
+- Event schemas must be documented and validated
+
+## Example Event Flow
+1. `RIFT_OPENED` event published
+2. Mission system updates objectives
+3. UI system displays notification
+4. Economy system adjusts resource spawns
+
+## Performance & Ordering
+- Async events for heavy/optional processing
+- Sync events for critical game logic
+- Event queue with ordering guarantees for replay
+- Profiling and monitoring for bottlenecks
+
+## Security & Validation
+- Validate event payloads against schema
+- Restrict sensitive event types to trusted sources (core, AI, mods)
+- Log all event publications for audit/debugging
+
+## Versioning & Extensibility
+- Event types and payloads should include a `version` field
+- Document all new event types in this artifact
+- Support for event migration and deprecation
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `world_state_data_model_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`
+
+---

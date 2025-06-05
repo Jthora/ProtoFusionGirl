@@ -37,6 +37,17 @@ console.log('[DEBUG] PRIMER:', PRIMER);
 console.log('[DEBUG] ARTIFACT_INDEX:', ARTIFACT_INDEX);
 console.log('[DEBUG] PROJECT_STATE:', PROJECT_STATE);
 
+// --- Enhancement: Load docs index for dashboard context ---
+const DOCS_INDEX_PATH = path.join(__dirname, '../docs/docs_index.json');
+let docsIndex = null;
+if (fs.existsSync(DOCS_INDEX_PATH)) {
+  try {
+    docsIndex = JSON.parse(fs.readFileSync(DOCS_INDEX_PATH, 'utf8'));
+  } catch (e) {
+    console.warn('[WARN] Could not load docs_index.json:', e.message);
+  }
+}
+
 function readSection(file, header) {
   if (!fs.existsSync(file)) return '';
   const content = fs.readFileSync(file, 'utf8');
@@ -90,6 +101,20 @@ function main() {
     if (lines.length > 10) console.log('...');
     console.log();
   }
+  // Documentation index summary
+  if (docsIndex && docsIndex.globalSummary) {
+    console.log('--- Documentation Index Summary ---');
+    console.log(`Indexed Files: ${docsIndex.globalSummary.indexedFiles}`);
+    console.log(`Total Sections: ${docsIndex.globalSummary.totalSections}`);
+    console.log(`Top Keywords: ${docsIndex.globalSummary.uniqueKeywords.slice(0, 10).join(', ')}`);
+    if (docsIndex.docs) {
+      console.log('Top Docs:');
+      docsIndex.docs.slice(0, 5).forEach(d => {
+        console.log(`- ${d.file}: ${d.summary}`);
+      });
+    }
+    console.log();
+  }
   // Key scripts
   listKeyScripts();
   // Next steps
@@ -139,6 +164,15 @@ if (import.meta.url === process.argv[1]) {
       onboarding: (content.match(/\/\/\s*Onboarding:\s*([^\n]*)/) || [])[1] || ''
     };
   });
+  // Add docs index summary to dashboard JSON
+  if (docsIndex && docsIndex.globalSummary) {
+    dashboard.docsIndex = {
+      indexedFiles: docsIndex.globalSummary.indexedFiles,
+      totalSections: docsIndex.globalSummary.totalSections,
+      uniqueKeywords: docsIndex.globalSummary.uniqueKeywords.slice(0, 20),
+      topDocs: docsIndex.docs ? docsIndex.docs.slice(0, 5).map(d => ({ file: d.file, summary: d.summary })) : []
+    };
+  }
   // Next actions for Copilot/AI agent
   dashboard.nextActions = [
     { action: 'run', script: 'guidedOnboarding.js', reason: 'onboarding' },

@@ -1,0 +1,44 @@
+---
+artifact: tech_level_spacefaring
+name: Spacefaring Tech
+created: 2025-06-04
+purpose: Canonical master artifact for Type I (late) tech level in FusionGirl.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding]
+---
+
+# Tech Level: Spacefaring
+
+## Classification
+- Type: Type I (late)
+- Era: Early Space Age
+
+## Description
+Societies achieve orbital launches, satellites, and interplanetary probes. Energy production is planetary-scale. Communication is global and near-instant. Space stations and moon bases are possible, but interstellar travel is not.
+
+## Gameplay Unlocks
+- Rockets and spacecraft
+- Satellite networks
+- Advanced computing and AI
+- Planetary-scale engineering
+
+## Advancement Triggers
+- Fusion power
+- First interstellar probe
+- AI singularity
+
+## Regression Triggers
+- Space disasters
+- Loss of energy infrastructure
+
+## Risks & Consequences
+- Kessler syndrome (orbital debris)
+- AI rebellion
+- Resource wars
+
+## Related Artifacts
+- timeline_space_age.artifact
+- zone_orbital_station.artifact
+
+---

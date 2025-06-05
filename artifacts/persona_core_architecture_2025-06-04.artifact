@@ -1,0 +1,46 @@
+# Persona Core Architecture
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Defines the foundational player model, identity, stats, abilities, and extensibility for ProtoFusionGirl. Serves as the central reference for all player-related systems.
+
+## Scope
+- Player identity and state
+- Stats, abilities, and progression
+- Integration points for combat, missions, and modding
+- Edge cases (status effects, environmental modifiers)
+- Data privacy and security considerations
+
+## Context
+All gameplay systems reference the persona core for player state and capabilities.
+
+## Related Artifacts
+- persona_core_design_2025-06-04.artifact
+- combat_mechanics_2025-06-04.artifact
+- mission_system_integration_2025-06-04.artifact
+
+---
+
+## Data Schema
+- Player ID
+- Stats (health, energy, skills, etc.)
+- Abilities (active/passive)
+- Progression (level, experience, unlocks)
+- Status effects (buffs, debuffs)
+- Inventory and equipment
+
+## Extensibility
+- Modular design for new abilities/stats
+- API for system integration
+- Hooks for modding and automation
+
+## Edge Cases
+- Handling invalid or corrupted player data
+- Fallbacks for missing abilities or stats
+
+## Security
+- Data validation and access control
+
+## See also
+artifacts/instructions.md

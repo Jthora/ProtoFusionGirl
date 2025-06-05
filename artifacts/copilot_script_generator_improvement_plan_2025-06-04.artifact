@@ -1,0 +1,75 @@
+# Artifact: copilot_script_generator_improvement_plan_2025-06-04.artifact
+
+## Title
+Improvement Plan for Copilot Script Generator and Content Automation Tools
+
+## Purpose
+Define a clear, actionable roadmap to evolve the current MVP script generator and related tools into robust, user-friendly, and fully artifact-aligned automation systems for ProtoFusionGirl content creation.
+
+## Background
+The current script generator provides basic functionality for creating mission, event, and threat stubs, but lacks many advanced features outlined in the original artifact and critique. This plan addresses the gap between MVP and the full vision.
+
+## Problems Identified
+- Only TypeScript output is supported (no YAML/JSON)
+- Templates are minimal and not instructive
+- No auto-registration in index/registry files
+- No links to documentation or next steps in output
+- Limited error handling (e.g., invalid names, directory errors)
+- No extensibility for new content types or custom templates
+- No test cases or validation for generated files
+
+## Goals
+- Support multiple output formats (TypeScript, YAML, JSON)
+- Provide rich, commented templates for each content type
+- Implement auto-registration in index/registry files
+- Output next steps and documentation links after generation
+- Improve error handling and user feedback
+- Enable extensibility for new content types and templates
+- Add validation and test cases for generated files
+
+## Action Steps
+1. **Add Output Format Support**
+   - Integrate `js-yaml` for YAML output
+   - Add JSON output option
+   - Allow user to select format via CLI or config
+
+2. **Enhance Templates**
+   - Expand templates to include example objectives, triggers, parameters, and comments
+   - Reference best practices and documentation in template comments
+
+3. **Auto-Registration**
+   - Update relevant `index.ts` or registry files to include new content automatically
+   - Warn if registration fails or is ambiguous
+
+4. **Improve Output and Feedback**
+   - Print next steps, links to docs, and success/warning messages after generation
+   - Suggest where to find or edit the new file
+
+5. **Robust Error Handling**
+   - Validate names for invalid characters
+   - Handle directory creation/write errors gracefully
+   - Provide clear error messages and recovery suggestions
+
+6. **Extensibility**
+   - Allow users to add new content types and custom templates via config or plugin system
+   - Document how to extend the tool
+
+7. **Validation and Testing**
+   - Add a validation step to check generated files for syntax and required fields
+   - Provide example test cases for each content type
+
+## Acceptance Criteria
+- Users can generate content in TypeScript, YAML, or JSON
+- Templates are rich, instructive, and reference documentation
+- New content is auto-registered and discoverable
+- Output includes next steps and links to docs
+- Errors are handled gracefully and informatively
+- Tool can be extended for new types/templates
+- Generated files pass validation and example test cases
+
+## References
+- Original artifact: `copilot_script_tools_2025-06-04.artifact`
+- Critique and review notes (June 4, 2025)
+- ONBOARDING.md for project conventions and best practices
+
+---

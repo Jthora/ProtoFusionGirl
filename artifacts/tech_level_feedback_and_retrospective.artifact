@@ -1,0 +1,19 @@
+---
+artifact: tech_level_feedback_and_retrospective
+created: 2025-06-04
+purpose: Capture feedback, blockers, and lessons learned during tech level development.
+type: retrospective
+tags: [tech, feedback, retrospective, artifact]
+format: markdown
+---
+
+# Tech Level Feedback & Retrospective
+
+## Feedback
+- [ ] (Add feedback here as development progresses)
+
+## Blockers
+- [ ] (Document any blockers or issues encountered)
+
+## Lessons Learned
+- [ ] (Summarize key takeaways and improvements for future work)

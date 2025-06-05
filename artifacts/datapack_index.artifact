@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "file": "README.md",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/README.md"
+    },
+    {
+      "file": "mk3CosmicCypher.json",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/mk3CosmicCypher.json"
+    },
+    {
+      "file": "persona_core.json",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/persona_core.json"
+    },
+    {
+      "file": "self_prompt_queue.json",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/self_prompt_queue.json"
+    }
+  ],
+  "datapack": [],
+  "updated": "2025-06-05T21:55:42.139Z"
+}

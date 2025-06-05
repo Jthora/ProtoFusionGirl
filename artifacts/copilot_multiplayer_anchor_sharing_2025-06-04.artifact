@@ -1,0 +1,12 @@
+# Multiplayer & Anchor Sharing Design (2025-06-04)
+
+## Features
+- Anchor sharing as "quantum bookmarks" or "timeline seeds"
+- Collaborative and competitive anchor use in multiplayer (combine, contest, remix)
+- Anchor trading, discovery, and sabotage mechanics
+- Multiplayer Holo Deck: players can visit, merge, or remix realities
+
+## Technical
+- Secure, portable anchor serialization for sharing
+- Multiplayer sync for anchor state and timeline branches
+- Hooks for PvP and co-op anchor interactions

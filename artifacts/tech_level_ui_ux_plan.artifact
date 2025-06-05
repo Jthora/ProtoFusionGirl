@@ -1,0 +1,17 @@
+---
+artifact: tech_level_ui_ux_plan
+created: 2025-06-04
+purpose: Plan UI/UX for displaying and interacting with tech levels.
+type: uiux
+tags: [tech, ui, ux, artifact]
+format: markdown
+---
+
+# Tech Level UI/UX Plan
+
+- Display current tech level and progression bar in main HUD.
+- Show unlocks and upcoming features for next tech level.
+- Notify player on advancement/regression (pop-up, sound, animation).
+- Provide lore/tooltips for each tech level.
+- Integrate with mission and crafting UI.
+- Accessibility: Colorblind-friendly, readable fonts, clear icons.

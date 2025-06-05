@@ -1,0 +1,15 @@
+---
+title: ProtoFusionGirl Feedback Log
+created: 2025-06-05
+purpose: Centralized log of feedback artifacts, issues, and resolutions.
+references:
+  - .dashboard
+  - .manifest
+  - .schema
+  - tasks/
+---
+
+# Feedback Log
+
+- 2025-06-05: Onboarding artifact was outdated; feedback artifact created and onboarding rerun.
+- 2025-06-05: Added .memory and .dashboard for persistent agent context and project status.

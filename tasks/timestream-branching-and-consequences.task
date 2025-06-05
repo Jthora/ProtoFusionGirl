@@ -1,0 +1,10 @@
+title: Timestream Branching and Narrative Consequences
+description: Integrate warp anchor use with the Timestream Framework. Using a warp anchor creates a timeline branch, tracked in the Timestream. Overuse/misuse causes instability, visual effects, NPC/faction reactions, or cosmic threat warnings. Visualize timeline branches and anchor history in the UI.
+status: todo
+priority: 3
+created: 2025-06-04
+tags: [timestream, branching, narrative, warp-anchor, ui]
+related:
+  - artifacts/copilot_timestreams_and_warp_zones_2025-06-04.artifact
+  - artifacts/copilot_warp_anchor_systems_2025-06-04.artifact
+dependencies: []

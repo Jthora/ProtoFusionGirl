@@ -1,0 +1,21 @@
+# Chunk Replacement System: Requirements and Design
+
+## Purpose
+Define the requirements and design for a robust chunk replacement system to support reality warping and warp zones.
+
+## Requirements
+- Replace existing world chunks with newly generated ones after a warp (partial or full).
+- Ensure seamless integration with ChunkManager and TilemapManager.
+- Update all in-memory and rendered data (tilemaps, physics, entities, minimap).
+- Support both local (partial) and global (full) world regeneration.
+- Minimize performance impact and avoid visual glitches.
+- Provide hooks for mods and future puzzle/magic systems.
+
+## Design
+- Expose a method in ChunkManager: `replaceChunk(chunkX, chunkY, newChunk)`.
+- After chunk regeneration, call this method to update the loaded chunks map.
+- Trigger downstream updates (tilemap, minimap, physics, etc.) after replacement.
+- Document edge cases (e.g., player inside replaced chunk, entity migration).
+
+---
+Created by Copilot, 2025-06-04.

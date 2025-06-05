@@ -1,0 +1,41 @@
+---
+artifact: tech_level_neolithic
+name: Neolithic Tech
+created: 2025-06-04
+purpose: Master artifact for Type 0 (Early) - Neolithic Tech (Lithospheric Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, lithospheric, type0]
+---
+
+# Tech Level: Neolithic Tech
+
+## Classification
+- Type: Type 0 (Local)
+- Era: Early
+- Sphere: Lithospheric
+- Age: Iron Age
+
+## Description
+Societies use stone, bone, and early metal tools. Agriculture and animal domestication begin. Tribal and clan structures dominate. Myth and magic are central to worldview.
+
+## Gameplay Unlocks
+- Basic crafting and farming
+- Primitive weapons and tools
+- Simple shelters and villages
+
+## Advancement Triggers
+- Discovery of bronze/iron
+- Formation of city-states
+
+## Regression Triggers
+- Famine, plague, or war
+
+## Risks & Consequences
+- High mortality, superstition, limited technology
+
+## Related Artifacts
+- timeline_neolithic.artifact
+- zone_lithospheric.artifact
+
+---

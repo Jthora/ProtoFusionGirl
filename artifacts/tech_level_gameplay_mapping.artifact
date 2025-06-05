@@ -1,0 +1,25 @@
+---
+artifact: tech_level_gameplay_mapping
+created: 2025-06-04
+purpose: Map tech levels to gameplay unlocks, features, and systems.
+type: mapping
+tags: [tech, gameplay, mapping, artifact]
+format: markdown
+---
+
+# Tech Level Gameplay Mapping
+
+| Tech Level   | Unlocks (Examples)                                  | Systems Impacted         |
+|--------------|-----------------------------------------------------|--------------------------|
+| Neolithic    | Basic crafting, primitive weapons, farming          | Crafting, Survival       |
+| Medieval     | Advanced weapons, fortifications, trade             | Combat, Economy          |
+| Industrial   | Factories, automation, advanced transport           | Production, Logistics    |
+| Cyber        | Computers, hacking, drones, VR/AR                   | Hacking, Robotics, VR    |
+| Spacer       | Space travel, orbital habitats                      | Exploration, Colonies    |
+| Holo         | Holographic tech, advanced AI, virtual societies    | Simulation, AI           |
+| Fusion       | Fusion power, starships, advanced energy            | Energy, Space Travel     |
+| Star         | Stellar engineering, megastructures                 | Construction, Power      |
+| Warp         | FTL travel, subgalactic navigation                  | Exploration, Travel      |
+| ...          | ...                                                 | ...                      |
+
+# See individual tech level artifacts for full details.

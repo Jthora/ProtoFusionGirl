@@ -1,0 +1,31 @@
+# Migrated from copilot_todos_2025-06-03.artifact
+# See original artifact for full context
+
+title: Actionable, Context-Rich TODOs for Copilot/AI Agent
+status: todo
+priority: 2
+tags: [todo, automation, artifact, ai, workflow, context]
+description: |
+  - Keep all design artifacts up to date
+  - Reference artifacts in code
+  - Maintain a high-level primer
+  - Use the artifact index as a dashboard
+  - Run artifact index and directory snapshot scripts
+  - Review and update automation scripts
+  - Meta-script for script discovery
+  - Refactor all world, chunk, AI, minimap, and rendering logic to use new toroidal math utilities
+  - Log blockers, insights, and improvements
+  - Retrospective artifacts
+  - Use directory snapshots for organization
+  - Check placement for new systems
+  - Mutual reinforcement of artifacts and code
+  - Prompt for missing context
+  - Prioritize core features
+  - Incremental automation and documentation
+related:
+  - artifacts/tilemap_system_design.artifact
+  - artifacts/artifact_index.artifact
+  - artifacts/phase1_brainstorm.artifact
+  - protoFusionGirl.primer
+  - artifacts/copilot_next_steps_2025-06-03.artifact
+  - artifacts/feedback_2025-06-03.artifact

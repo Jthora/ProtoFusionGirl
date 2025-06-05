@@ -1,0 +1,159 @@
+# Artifact: copilot_script_generator_2025-06-04.artifact
+
+## Title
+Script Generator for Missions, World Events, and Threats
+
+## Purpose
+Automate the creation of boilerplate code and artifact files for new missions, world events, and dynamic threats. Streamlines the process for designers and developers to add new content.
+
+## Description
+- Prompts user for type (mission, event, threat), name, and key parameters (via CLI or config file).
+- Generates TypeScript/JSON/YAML stubs in the appropriate directories (e.g., `src/world/missions/`, `artifacts/`).
+- Ensures naming conventions (kebab-case for files, PascalCase for classes/IDs) and links to relevant documentation.
+- Optionally auto-registers new content in index/registry files (e.g., updates `index.ts` or registry JSON).
+- Provides example templates for each content type, with comments for required fields.
+- Validates that generated files do not overwrite existing content unless explicitly allowed.
+- Outputs a summary of actions and next steps for the user.
+
+## Inputs
+- Content type (mission, event, threat)
+- Name/ID
+- Description/objectives/triggers (for missions)
+- Parameters (for events/threats)
+- Optional: output format (YAML/JSON/TS), overwrite flag
+
+## Outputs
+- New code and artifact files in correct locations
+- Console/log output of actions taken
+- Warnings if files already exist or if required fields are missing
+
+## Acceptance Criteria
+- Script can generate at least one of each type (mission, event, threat)
+- Files are valid, follow naming conventions, and appear in the correct directories
+- New content is discoverable by the game engine (auto-registered if possible)
+- No accidental overwrites without user confirmation
+- Output includes next steps and links to relevant docs
+
+---
+
+# Artifact: copilot_content_consistency_checker_2025-06-04.artifact
+
+## Title
+Content Consistency Checker for Missions and Artifacts
+
+## Purpose
+Ensure that all missions, events, and threats defined in artifacts are implemented in code, and vice versa. Detects missing handlers, outdated objectives, or mismatches.
+
+## Description
+- Scans artifact files and code directories for mission/event/threat definitions.
+- Compares lists and flags missing or outdated items.
+- Outputs a report (plain text and JSON) and can auto-create `.task` files for discrepancies.
+- Can be run as a CLI tool or as part of CI.
+- Supports filtering by content type or directory.
+- Provides actionable suggestions for resolving inconsistencies.
+
+## Inputs
+- Artifact files (YAML/JSON)
+- Code files (TypeScript)
+- Optional: filter by type, output format
+
+## Outputs
+- Consistency report (console, file, and/or artifact)
+- Optional auto-generated `.task` files for missing/invalid content
+- Suggestions for next actions
+
+## Acceptance Criteria
+- Detects at least one missing or outdated item
+- Generates actionable output for developers
+- Can be integrated into CI or run manually
+
+---
+
+# Artifact: copilot_docs_search_enhancer_2025-06-04.artifact
+
+## Title
+Enhanced Documentation Search Script
+
+## Purpose
+Provide advanced search/filtering of documentation by keyword, heading, or tag, with developer-friendly output.
+
+## Description
+- Extends the existing docs index/search scripts
+- Supports filtering by file, section, or tag
+- Outputs results in a clear, navigable format (console, markdown, or JSON)
+- Allows batch queries and export of results
+- Handles errors gracefully (e.g., missing docs index)
+
+## Inputs
+- Search query (keyword, heading, tag)
+- Optional: output format, file filter
+
+## Outputs
+- Search results (console, markdown, or JSON file)
+- Warnings if no results found
+
+## Acceptance Criteria
+- Can find and display results for a variety of queries
+- Output is clear, actionable, and exportable
+- Handles missing or malformed docs gracefully
+
+---
+
+# Artifact: copilot_mods_and_missions_lister_2025-06-04.artifact
+
+## Title
+Mods and Missions Lister Script
+
+## Purpose
+Enumerate all available mods, missions, and world events, outputting summaries for each to aid discovery and debugging.
+
+## Description
+- Scans relevant directories for mods, missions, and events
+- Outputs a summary list with key metadata (name, type, description, file path)
+- Supports output as console table, markdown, or JSON
+- Flags missing metadata or malformed files
+
+## Inputs
+- None (auto-discovers content)
+- Optional: output format
+
+## Outputs
+- List of available content (console, markdown, or JSON)
+- Warnings for missing/invalid entries
+
+## Acceptance Criteria
+- Lists all available mods/missions/events
+- Output is accurate, up to date, and exportable
+- Flags and reports malformed or incomplete entries
+
+---
+
+# Artifact: copilot_improvement_task_suggester_2025-06-04.artifact
+
+## Title
+Improvement Task Suggester Script
+
+## Purpose
+Analyze code and docs for missing features or weak spots, and auto-create `.task` files for improvement.
+
+## Description
+- Scans for unimplemented mission types, missing event logic, or weak documentation
+- Suggests and creates actionable `.task` files in `/tasks/`
+- Prioritizes tasks by severity/impact (e.g., critical, recommended, optional)
+- Provides links to relevant code/docs for each suggestion
+- Supports dry-run mode for previewing tasks before creation
+
+## Inputs
+- Source code
+- Documentation
+- Optional: severity filter, dry-run flag
+
+## Outputs
+- New `.task` files for each improvement opportunity
+- Console/log summary of suggested tasks
+
+## Acceptance Criteria
+- Detects at least one improvement opportunity
+- Creates valid `.task` files in the correct location
+- Tasks are prioritized and actionable
+- Dry-run mode works as expected

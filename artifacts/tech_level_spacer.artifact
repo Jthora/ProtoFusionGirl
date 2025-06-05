@@ -1,0 +1,41 @@
+---
+artifact: tech_level_spacer
+name: Spacer Tech
+created: 2025-06-04
+purpose: Master artifact for Type I (Mid) - Spacer Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, type1]
+---
+
+# Tech Level: Spacer Tech
+
+## Classification
+- Type: Type I (Planetary)
+- Era: Mid
+- Sphere: --
+- Age: --
+
+## Description
+Societies achieve routine access to space, with orbital habitats, asteroid mining, and lunar/planetary colonies. Space industry and off-world governance emerge. Interplanetary communication and travel are common.
+
+## Gameplay Unlocks
+- Space stations, shuttles, and mining rigs
+- Colonization of moons/planets
+- Interplanetary trade and diplomacy
+
+## Advancement Triggers
+- Self-sustaining off-world colonies
+- Breakthroughs in propulsion or life support
+
+## Regression Triggers
+- Space disasters, loss of supply chains
+
+## Risks & Consequences
+- Space debris, isolation, resource wars
+
+## Related Artifacts
+- timeline_spacer.artifact
+- zone_orbital_habitat.artifact
+
+---

@@ -1,0 +1,24 @@
+---
+artifact_id: copilot_web3_integration_status_2025-06-04
+artifact_type: status
+last_updated: 2025-06-04
+related_artifacts:
+  - copilot_web3_integration_roadmap_2025-06-04
+  - copilot_web3_integration_blockers_2025-06-04
+  - copilot_web3_integration_checklist_2025-06-04
+  - copilot_web3_integration_faq_2025-06-04
+current_state:
+  - Wallet connection via ThirdwebSDK is implemented.
+  - Hardhat and Ethers are set up for contract deployment and testing.
+  - ModRegistry contract is referenced but not yet implemented or deployed.
+  - IPFS integration is present for mod asset storage.
+blockers:
+  - ModRegistry contract and ABI are missing.
+  - No end-to-end tests for web3 flows.
+  - Documentation for web3 architecture and user flows is incomplete.
+next_steps:
+  - Implement and deploy ModRegistry smart contract.
+  - Document contract API, deployment, and usage.
+  - Add end-to-end tests for wallet connect, mod upload, and on-chain registration.
+  - Expand web3 documentation and artifacts.
+---

@@ -1,0 +1,18 @@
+# Universal Language Puzzles & Rituals (2025-06-04)
+
+## Purpose
+- Gate anchor creation/restoration and advanced magic actions behind skill-based puzzles
+- Teach and reinforce Universal Language concepts (symbols, logic, harmony, etc.)
+- Provide narrative and gameplay consequences for puzzle success/failure
+
+## Puzzle Types
+- Symbol alignment and decoding
+- Logic and pattern recognition
+- Sequence crafting (rituals)
+- Sound/melody puzzles
+- Emotional intelligence and harmony puzzles
+
+## Integration
+- Puzzle UI/modal appears on anchor actions
+- Modding hooks for new puzzle types and difficulty
+- Tied to Timestream and world state (puzzle difficulty or type may change based on timeline)

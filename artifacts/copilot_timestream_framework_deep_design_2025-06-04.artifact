@@ -1,0 +1,21 @@
+# Timestream Framework: Deep Technical Design
+
+## Purpose
+Enable robust, scalable, and extensible timeline branching, anchor event logging, and narrative consequence management for reality warping (warp zones/anchors).
+
+## Key Technical Questions
+- How to efficiently store, prune, and traverse a potentially massive timeline DAG/tree?
+- How to serialize and restore world state deterministically for each branch?
+- How to handle multiplayer conflicts and branch merges?
+- How to track and replay narrative consequences and side effects?
+- How to modularize for modding, UI, and future expansion?
+
+## Design Directions
+- Use a DAG structure for branches, with unique branch/event IDs (hashes).
+- Store only diffs or changed chunks per branch for efficiency.
+- Anchor events log metadata, world state hash, and consequences.
+- Provide hooks for mods and narrative systems.
+- UI/UX: Timeline explorer, branch selector, anchor history.
+
+---
+Created by Copilot, 2025-06-04.

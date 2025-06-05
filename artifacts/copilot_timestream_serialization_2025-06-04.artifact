@@ -1,0 +1,15 @@
+# Timestream Framework: Serialization & State Management
+
+## Serialization Challenges
+- Deterministic serialization of world state (chunks, entities, player, environment).
+- Efficient diffing: store only what changed per branch/event.
+- Hashing: Use strong hashes for branch/event IDs and world state validation.
+- Backward compatibility for future updates.
+
+## State Management
+- Restore world state for any branch (full or partial).
+- Support for partial warps: only restore affected chunks/entities.
+- Tools for diffing, merging, and replaying state changes.
+
+---
+Created by Copilot, 2025-06-04.

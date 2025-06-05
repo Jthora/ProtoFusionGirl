@@ -1,0 +1,32 @@
+# Multiplayer & Anchor Sharing
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Designs multiplayer architecture and anchor sharing for ProtoFusionGirl.
+
+## Scope
+- Multiplayer session management
+- Anchor sharing and synchronization
+- Security and scalability
+
+## Context
+Enables collaborative and competitive play.
+
+## Related Artifacts
+- persona_core_architecture_2025-06-04.artifact
+- mission_system_integration_2025-06-04.artifact
+
+---
+
+## Architecture
+- Session creation/joining
+- Anchor data format
+- Real-time sync
+
+## Security
+- Authentication
+- Data validation
+
+## See also
+artifacts/instructions.md

@@ -1,0 +1,41 @@
+---
+artifact: tech_level_hyper
+name: Hyper Tech
+created: 2025-06-04
+purpose: Master artifact for Type III (Mid) - Hyper Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, type3]
+---
+
+# Tech Level: Hyper Tech
+
+## Classification
+- Type: Type III (Galactic)
+- Era: Mid
+- Sphere: --
+- Age: --
+
+## Description
+Civilizations operate at the scale of multiple galaxies, manipulating dark matter, dark energy, and the cosmic web. Reality-warping technologies and universal computation are possible.
+
+## Gameplay Unlocks
+- Multigalactic travel
+- Dark matter/energy manipulation
+- Universal computation
+
+## Advancement Triggers
+- Mastery of cosmic web physics
+- Creation of multigalactic networks
+
+## Regression Triggers
+- Cosmic web collapse, existential threats
+
+## Risks & Consequences
+- Attracting higher-dimensional threats, loss of reality cohesion
+
+## Related Artifacts
+- timeline_hyper.artifact
+- zone_multigalactic_hub.artifact
+
+---

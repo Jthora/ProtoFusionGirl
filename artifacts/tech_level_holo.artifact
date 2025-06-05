@@ -1,0 +1,41 @@
+---
+artifact: tech_level_holo
+name: Holo Tech
+created: 2025-06-04
+purpose: Master artifact for Type I (Late) - Holo Tech (Magnetospheric/Holographic Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, magnetospheric, type1]
+---
+
+# Tech Level: Holo Tech
+
+## Classification
+- Type: Type I (Planetary)
+- Era: Late
+- Sphere: Magnetospheric
+- Age: Holographic Age
+
+## Description
+Societies master holography, advanced energy manipulation, and immersive virtual realities. Matter-energy conversion and advanced nanotechnology are possible. The line between physical and digital blurs.
+
+## Gameplay Unlocks
+- Holographic environments and avatars
+- Nanotech fabrication
+- Advanced energy weapons and shields
+
+## Advancement Triggers
+- Stable matter-energy conversion
+- Full-immersion VR/AR
+
+## Regression Triggers
+- Nanotech plagues, energy crises
+
+## Risks & Consequences
+- Reality confusion, nanotech disasters
+
+## Related Artifacts
+- timeline_holo.artifact
+- zone_holo_city.artifact
+
+---

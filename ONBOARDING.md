@@ -1,93 +1,66 @@
 # ProtoFusionGirl: AI-Driven Game Development
 
-Welcome to the ProtoFusionGirl video game project! This environment is a showcase for next-generation, AI-optimized, artifact-driven workflows. It is designed for AI agents to onboard, synchronize, and operate autonomously, with persistent context and automation as first-class citizens.
-
-## 0. Fast, Comprehensive Onboarding (Recommended)
-
-- **Run the VS Code task: Guided Onboarding (JSON)**
-  - This single task will:
-    - Load all project rules and context automatically (`.primer`, `artifacts/instructions.md`, `.datapack`).
-    - Run all discovery, sync, and indexing tasks in sequence.
-    - Perform a self-test and validation of onboarding completeness.
-    - Generate an onboarding status artifact summarizing results, errors, and next actions.
-    - Output a prioritized list of actionable tasks for immediate development.
-    - Auto-create feedback artifacts if human input is needed.
-  - **This is the fastest and most reliable way to get the AI (or a human) ready to develop.**
+Welcome to ProtoFusionGirl! This project uses a next-generation, agent-optimized, self-documenting environment. All onboarding, automation, and persistent context are managed through structured, machine-readable files and automated scripts.
 
 ---
 
-## 1. Understand the Project Root and Directory Structure
+## 🚀 Quick Start for Humans & AI Agents
 
-- **Identify the Project Root:**
-  - The root directory is where `.primer`, `.datapack`, `ONBOARDING.md`, `scripts/`, and the `artifacts/` folder are located.
-  - All relative paths in scripts and documentation are based on this root.
-- **Map the Directory Structure:**
-  - List all top-level folders and files in the root to understand the workspace layout (e.g., `artifacts/`, `scripts/`, `src/`, `contracts/`, `docs/`, etc.).
-  - Review `artifacts/directory_structure_YYYY-MM-DD.artifact` (if present) for a machine-readable snapshot of the current directory structure.
-  - Use the `List Scripts (JSON)` and `Project Dashboard (JSON)` tasks to discover automation scripts and their locations.
-- **Navigation Best Practices:**
-  - Always resolve paths relative to the project root unless otherwise specified.
-  - When onboarding or automating, verify the current working directory is set to the project root for all scripts and tasks.
-
-## 2. Manual Onboarding Steps (Advanced/Debug)
-
-**All onboarding, automation, and project context actions can also be performed via the pre-configured VS Code tasks below.**
-
-### 2.1 Load Project Rules and Context
-- Open and read `.primer` in the repo root to understand project purpose, conventions, and best practices.
-- Open and read `artifacts/instructions.md` for artifact structure, automation workflows, and collaboration guidelines.
-- Open and read `.datapack` for the game's story, world context, technical stack, and conceptual patterns.
-
-### 2.2 Discover Automation and Capabilities
-- Run the VS Code task: **List Scripts (JSON)**
-  - Parse the output to discover all available scripts and their descriptions.
-- Run the VS Code task: **Project Dashboard (JSON)**
-  - Parse the output for a summary of project state, open tasks, and next actions.
-
-### 2.3 Synchronize and Index Tasks
-- Run the VS Code task: **AI Task Manager: List Tasks**
-  - Parse the output to understand all current tasks, priorities, and project focus.
-- Run the VS Code task: **AI Task Manager: Sync Tasks with Code**
-  - Ensure all code TODOs are reflected as task artifacts.
-- Run the VS Code task: **AI Task Manager: Update Task Index**
-  - Ensure all new artifacts and tasks are indexed for discoverability.
-
-### 2.4 Take Action and Expand Context
-- If a new task or context node is needed, run the VS Code task: **AI Task Manager: New Task** and provide a description.
-- If context is missing, run onboarding or dashboard tasks to auto-create missing artifacts and bootstrap the AI agent.
-- If a script fails, check logs and create a repair or feedback artifact as needed.
-
-### 2.5 Feedback and Retrospective
-- Create feedback or retrospective artifacts to record onboarding blockers, insights, or improvements.
+- **Run the VS Code task `AI Agent Workspace Setup`** (Command Palette > `Tasks: Run Task > AI Agent Workspace Setup`) immediately after cloning the repo. This will generate all required dotfiles and directories for onboarding.
+- **Read `.primer`** for project philosophy, onboarding, and automation conventions.
+- **Consult `.manifest`** for a live, machine-readable index of all key files, artifacts, scripts, and folders.
+- **For agent-specific context and rules, see `.priming`.**
+- **Run VS Code tasks** (see Command Palette > `Tasks: Run Task`) for all onboarding, validation, and context sync:
+  - `Project Sync` (runs all validation and context update scripts)
+  - Or run individual tasks: `Validate Schemas`, `Update Manifest`, `Aggregate Personas`, `Sync Datapack`, `Update Dashboard`
+  - **For Copilot/AI agent onboarding, run `Copilot Onboarding` (see below).**
+- **For project status and open tasks, see `.dashboard`.**
+- **For feedback/issues, see `.feedback` and the `tasks/` folder.**
 
 ---
 
-## Key VS Code Tasks for AI Onboarding & Automation
+## 🤖 Copilot/AI Agent Onboarding
 
-- **Guided Onboarding (JSON):** Fastest, most comprehensive onboarding for AI and humans.
-- **List Scripts (JSON):** Discover all scripts and their descriptions.
-- **Project Dashboard (JSON):** Get a project summary and next actions.
-- **AI Task Manager: List Tasks:** List all open tasks and priorities.
-- **AI Task Manager: Sync Tasks with Code:** Sync code TODOs with task artifacts.
-- **AI Task Manager: New Task:** Create a new task artifact.
-- **AI Task Manager: Update Task Index:** Regenerate the task index artifact.
-- **AI Autonomous Dev Loop:** Run `node scripts/aiAutonomousDevLoop.js` to let Copilot/AI automatically select, implement, test, and close tasks in a loop with minimal human input. This script will:
-  - Read prioritized open tasks from the task index.
-  - Attempt to implement each task autonomously.
-  - Run tests and lints after each implementation.
-  - Mark tasks as done if successful, or escalate for human input if blocked.
-  - Continue looping until all actionable tasks are complete or require human input.
+- **To onboard GitHub Copilot or any AI agent:**
+  - Run the VS Code task: `Copilot Onboarding` (Command Palette > `Tasks: Run Task > Copilot Onboarding`).
+  - Onboarding is complete only after Copilot (or any AI agent) has read and processed the output JSON files generated by all onboarding scripts as well as the essential reference files listed below.
+  - **Copilot/AI agents should read and use the onboarding result from this JSON file.**
+  - No manual review or additional scripts are required unless the JSON file reports errors.
+  - If errors are present, follow the remediation hints in the JSON file or terminal output.
 
-> For more, see `.primer`, `.datapack`, and `artifacts/instructions.md` in the repo root.
+---
 
-## Troubleshooting Common Issues
+## 📚 Essential References
+- `.primer`: Project purpose, conventions, best practices
+- `.manifest`: Live index of all key files, artifacts, and scripts
+- `.priming`: Agent-specific context and rules
+- `.dashboard`: Project status, open tasks, and metrics
+- `.feedback`: Feedback log and escalation
+- `artifacts/`, `tasks/`, `persona_core/`, `data/`, `docs/`, `scripts/`: See each folder's `README.md` for details
 
-- **Node Path Issues:**
-  - If a VS Code task fails with a `no such file or directory: node ...` error, it means the shell could not find the `node` executable in the expected path.
-  - To resolve this, run scripts using the absolute path to Node (e.g., `/Users/jono/.nvm/versions/node/v22.12.0/bin/node`) as determined by running `which node` in your terminal.
-  - You can update your VS Code tasks or shell commands to use this absolute path if you encounter similar issues.
-- **Script Fails or Errors:**
-  - If a script fails, check the terminal output and logs for error messages.
-  - For Node path issues, see the Node Path Issues section above.
-  - If the error is not related to Node, create a repair or feedback artifact using the provided scripts (see below) to document and address the issue.
-  - Use `autoRepairArtifacts.js` to detect and fix artifact issues, or `newFeedbackOrRetrospective.js` to record blockers and insights.
+---
+
+## 🛠️ Automation & Validation
+- All onboarding, validation, and context sync is automated via scripts in `scripts/` and available as VS Code tasks.
+- Pre-commit hooks (see `.husky/`) enforce schema validation and manifest updates.
+- All context and relationships are always up to date—no need to manually update this file.
+- **Copilot/AI agent onboarding is tracked in `artifacts/copilot_onboarding_status.json`.**
+
+---
+
+## For More Information
+- For deep context, see `.datapack` and `docs/`.
+- For artifact structure and best practices, see `artifacts/instructions.md`.
+- For troubleshooting, see `.dashboard` and `.feedback`.
+
+---
+
+> **Note:** This file is a pointer to the real sources of truth. For all onboarding, automation, and context, use the structured files and scripts listed above.
+
+---
+
+## 🧩 VS Code Task: Copilot Onboarding
+
+The `Copilot Onboarding` task is already set up in `.vscode/tasks.json` to run the onboarding script and output the result to `artifacts/copilot_onboarding_status.json`. No further configuration is needed.
+
+This task can be run from the Command Palette or the VS Code Tasks panel.

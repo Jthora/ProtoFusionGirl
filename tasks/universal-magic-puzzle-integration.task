@@ -1,0 +1,10 @@
+title: Universal Magic Puzzle Integration for Warp Anchors
+description: Require solving a Universal Language puzzle to create or restore a warp anchor. Add puzzle modal/UI and block anchor actions until solved.
+status: todo
+priority: 1
+created: 2025-06-04
+tags: [universal-magic, warp-anchor, ui, puzzle]
+related:
+  - artifacts/copilot_universal_language_puzzles_2025-06-04.artifact
+  - artifacts/copilot_warp_anchor_systems_2025-06-04.artifact
+dependencies: []

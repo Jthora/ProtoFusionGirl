@@ -107,4 +107,265 @@ export class TilemapManager {
   getModMetadata(modId: string): any {
     return this.persistence.getModMetadata(modId);
   }
+
+  /**
+   * Serializes a grid of tiles around a center point into a deterministic seed string.
+   * @param center The center of the grid (world coordinates)
+   * @param size The size of the grid (width, height)
+   * @param options Optional: { shape: 'rectangle' | 'circle' | 'custom', includeEnvironment: boolean }
+   * @returns A deterministic string or hash representing the grid state
+   */
+  serializeGridToSeed(center: { x: number, y: number }, size: { width: number, height: number }, options?: { shape?: string, includeEnvironment?: boolean }): string {
+    // Collect tile data in the grid
+    const tiles: any[] = [];
+    const halfW = Math.floor(size.width / 2);
+    const halfH = Math.floor(size.height / 2);
+    for (let dx = -halfW; dx <= halfW; dx++) {
+      for (let dy = -halfH; dy <= halfH; dy++) {
+        // Optionally support shapes (rectangle/circle/custom)
+        if (options?.shape === 'circle') {
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > Math.max(halfW, halfH)) continue;
+        }
+        const x = TilemapManager.wrapX(center.x + dx);
+        const y = center.y + dy;
+        // Get tile type and metadata (replace with actual tile access logic)
+        const tile = this.getTileAt(x, y);
+        tiles.push({ x, y, type: tile?.type, meta: tile?.meta });
+      }
+    }
+    // Optionally include environment data (entities, weather, etc.)
+    let environmentData = undefined;
+    if (options?.includeEnvironment) {
+      environmentData = this.collectEnvironmentData(center, size);
+    }
+    // Deterministically stringify and hash the data
+    const raw = JSON.stringify({ tiles, environmentData });
+    // Use a simple hash for now (replace with SHA-256 or better in production)
+    let hash = 0, i, chr;
+    for (i = 0; i < raw.length; i++) {
+      chr = raw.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0;
+    }
+    return hash.toString();
+  }
+
+  // Placeholder: get tile at world coordinates (replace with actual logic)
+  getTileAt(_x: number, _y: number): any {
+    // ...fetch tile from chunkManager or world data...
+    return { type: 'empty', meta: {} };
+  }
+
+  // Placeholder: collect environment data (entities, weather, etc.)
+  collectEnvironmentData(_center: { x: number, y: number }, _size: { width: number, height: number }): any {
+    // ...fetch entities, weather, etc. in the area...
+    return {};
+  }
+
+  // --- World Looping Constants ---
+  static readonly EARTH_CIRCUMFERENCE_METERS = 40075017; // Equatorial circumference in meters/tiles
+  static readonly WORLD_WIDTH = TilemapManager.EARTH_CIRCUMFERENCE_METERS; // 1m per tile
+  static readonly WORLD_HEIGHT = 965400; // ~600 miles (up+down) in meters/tiles (300 miles above ground, 300 miles below)
+
+  /**
+   * Returns the wrapped X coordinate for horizontal world looping.
+   * @param x The world X coordinate (in meters/tiles)
+   */
+  static wrapX(x: number): number {
+    const w = TilemapManager.WORLD_WIDTH;
+    return ((x % w) + w) % w;
+  }
+
+  /**
+   * Returns true if two X coordinates are adjacent, accounting for world wrap.
+   */
+  static areAdjacentX(x1: number, x2: number): boolean {
+    const w = TilemapManager.WORLD_WIDTH;
+    return Math.abs(TilemapManager.wrapX(x1) - TilemapManager.wrapX(x2)) === 1 ||
+      (TilemapManager.wrapX(x1) === 0 && TilemapManager.wrapX(x2) === w - 1) ||
+      (TilemapManager.wrapX(x1) === w - 1 && TilemapManager.wrapX(x2) === 0);
+  }
+
+  // --- Toroidal Distance Utility ---
+  /**
+   * Returns the minimum toroidal (wrapped) distance between two X coordinates.
+   * Useful for AI, minimaps, chunk management, and edge-aware logic.
+   */
+  static toroidalDistanceX(x1: number, x2: number): number {
+    const w = TilemapManager.WORLD_WIDTH;
+    const dx = Math.abs(TilemapManager.wrapX(x1) - TilemapManager.wrapX(x2));
+    return Math.min(dx, w - dx);
+  }
+
+  /**
+   * Returns the minimum toroidal (wrapped) distance between two chunk X coordinates.
+   * @param chunkX1 First chunk X
+   * @param chunkX2 Second chunk X
+   * @param chunkSize Size of a chunk in tiles
+   */
+  static toroidalChunkDistanceX(chunkX1: number, chunkX2: number, chunkSize: number): number {
+    const worldWidthChunks = Math.ceil(TilemapManager.WORLD_WIDTH / chunkSize);
+    const dx = Math.abs(((chunkX1 % worldWidthChunks) + worldWidthChunks) % worldWidthChunks - ((chunkX2 % worldWidthChunks) + worldWidthChunks) % worldWidthChunks);
+    return Math.min(dx, worldWidthChunks - dx);
+  }
+
+  // --- Chunk Coordinate Wrapping Utility ---
+  /**
+   * Wraps a chunk X coordinate for horizontal world looping.
+   * @param chunkX The chunk X coordinate
+   * @param chunkSize The size of a chunk in tiles
+   */
+  static wrapChunkX(chunkX: number, chunkSize: number): number {
+    const worldWidthChunks = Math.ceil(TilemapManager.WORLD_WIDTH / chunkSize);
+    return ((chunkX % worldWidthChunks) + worldWidthChunks) % worldWidthChunks;
+  }
+
+  // --- BigInt Support for Extreme Scale (Optional, for future-proofing) ---
+  /**
+   * Returns the wrapped X coordinate for horizontal world looping using BigInt.
+   * @param x The world X coordinate (in meters/tiles, as bigint)
+   */
+  static wrapXBigInt(x: bigint): bigint {
+    const w = BigInt(TilemapManager.WORLD_WIDTH);
+    return ((x % w) + w) % w;
+  }
+
+  /**
+   * Returns the minimum toroidal (wrapped) distance between two X coordinates using BigInt.
+   */
+  static toroidalDistanceXBigInt(x1: bigint, x2: bigint): bigint {
+    const w = BigInt(TilemapManager.WORLD_WIDTH);
+    const dx = (TilemapManager.wrapXBigInt(x1) - TilemapManager.wrapXBigInt(x2));
+    const absDx = dx < 0n ? -dx : dx;
+    return absDx < (w - absDx) ? absDx : (w - absDx);
+  }
+
+  /**
+   * Vectorized/batch version: Wraps an array of X coordinates for horizontal world looping.
+   * @param xs Array of X coordinates (number[])
+   * @returns Array of wrapped X coordinates
+   */
+  static wrapXBatch(xs: number[]): number[] {
+    const w = TilemapManager.WORLD_WIDTH;
+    return xs.map(x => ((x % w) + w) % w);
+  }
+
+  /**
+   * Vectorized/batch version: Computes minimum toroidal distances for arrays of X coordinates.
+   * @param x1s Array of first X coordinates
+   * @param x2s Array of second X coordinates
+   * @returns Array of minimum toroidal distances
+   */
+  static toroidalDistanceXBatch(x1s: number[], x2s: number[]): number[] {
+    const w = TilemapManager.WORLD_WIDTH;
+    return x1s.map((x1, i) => {
+      const x2 = x2s[i];
+      const dx = Math.abs(TilemapManager.wrapX(x1) - TilemapManager.wrapX(x2));
+      return Math.min(dx, w - dx);
+    });
+  }
+
+  /**
+   * 2D toroidal distance utility (for future vertical wrapping).
+   * Returns the minimum toroidal distance between two points (x1, y1) and (x2, y2).
+   * @param x1 X1 coordinate
+   * @param y1 Y1 coordinate
+   * @param x2 X2 coordinate
+   * @param y2 Y2 coordinate
+   * @param wrapY If true, wrap Y as well (default: false)
+   */
+  static toroidalDistance2D(x1: number, y1: number, x2: number, y2: number, wrapY = false): number {
+    const dx = TilemapManager.toroidalDistanceX(x1, x2);
+    let dy = Math.abs(y1 - y2);
+    if (wrapY) {
+      const h = TilemapManager.WORLD_HEIGHT;
+      dy = Math.min(dy, h - dy);
+    }
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  /**
+   * Floating-point safe wrapX (for future floating-point world coordinates).
+   * Uses Math.fround for precision safety.
+   */
+  static wrapXFloat(x: number): number {
+    const w = TilemapManager.WORLD_WIDTH;
+    return Math.fround(((x % w) + w) % w);
+  }
+
+  /**
+   * Floating-point safe toroidal distance (for future floating-point world coordinates).
+   */
+  static toroidalDistanceXFloat(x1: number, x2: number): number {
+    const w = TilemapManager.WORLD_WIDTH;
+    const dx = Math.abs(TilemapManager.wrapXFloat(x1) - TilemapManager.wrapXFloat(x2));
+    return Math.fround(Math.min(dx, w - dx));
+  }
+
+  /**
+   * Custom distance metric for toroidal X (e.g., for AI/pathfinding heuristics).
+   * @param x1 First X coordinate
+   * @param x2 Second X coordinate
+   * @param metricFn Function to apply to the minimum toroidal distance (default: identity)
+   */
+  static toroidalDistanceXCustom(x1: number, x2: number, metricFn: (d: number) => number = d => d): number {
+    const d = TilemapManager.toroidalDistanceX(x1, x2);
+    return metricFn(d);
+  }
+
+  // --- Usage Example (for contributors) ---
+  /**
+   * Example usage:
+   *   // Wrap X coordinate
+   *   const wrappedX = TilemapManager.wrapX(x);
+   *   // Batch wrap
+   *   const wrappedXs = TilemapManager.wrapXBatch([x1, x2, x3]);
+   *   // 2D toroidal distance
+   *   const dist2D = TilemapManager.toroidalDistance2D(x1, y1, x2, y2, true);
+   *   // Custom metric (e.g., squared distance)
+   *   const sqDist = TilemapManager.toroidalDistanceXCustom(x1, x2, d => d * d);
+   */
+
+  // --- Chunk Event Hooks and Modding Support ---
+  private chunkReplacementHooks: Array<(chunkX: number, chunkY: number, newChunk: any, oldChunk: any) => void> = [];
+
+  /**
+   * Register a mod hook for chunk replacement events.
+   */
+  registerChunkReplacementHook(hook: (chunkX: number, chunkY: number, newChunk: any, oldChunk: any) => void) {
+    this.chunkReplacementHooks.push(hook);
+  }
+
+  /**
+   * Called after a chunk is replaced. Handles downstream updates (tilemap, minimap, physics, UI, mod hooks).
+   * @param chunkX The wrapped chunk X coordinate
+   * @param chunkY The chunk Y coordinate
+   * @param newChunk The new chunk data
+   * @param oldChunk The old chunk data (if any)
+   */
+  onChunkReplaced(chunkX: number, chunkY: number, newChunk: any, oldChunk: any) {
+    // Call mod hooks
+    for (const hook of this.chunkReplacementHooks) {
+      hook(chunkX, chunkY, newChunk, oldChunk);
+    }
+    // TODO: Refresh tilemap, minimap, physics, and notify other systems as needed
+    // Example: this.refreshAfterChunkReplacement(chunkX, chunkY);
+  }
+
+  /**
+   * Refreshes tilemap, entities, and minimap for the affected chunk after replacement.
+   * @param chunkX The wrapped chunk X coordinate
+   * @param chunkY The chunk Y coordinate
+   */
+  refreshAfterChunkReplacement(chunkX: number, chunkY: number) {
+    // Update minimap if present
+    if ((this as any).scene && (this as any).scene.minimap) {
+      (this as any).scene.minimap.updateMinimap();
+    }
+    // TODO: Add logic to refresh tilemap layers for the affected chunk
+    // TODO: Refresh or respawn entities if needed
+    // TODO: Update physics bodies if tile collision changes
+    // This method can be expanded as the engine evolves
+  }
 }

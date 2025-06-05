@@ -1,0 +1,22 @@
+---
+artifact: ai_onboarding_feedback_2025-06-05
+created: 2025-06-05
+purpose: Feedback artifact for incomplete onboarding. The onboarding status artifact is outdated (last updated 2025-06-03), but docs index is current. Recommend re-running onboarding script to generate a fresh status artifact.
+type: feedback
+tags: [onboarding, ai, feedback, artifact, workflow]
+format: markdown
+related: [ai_onboarding_2025-06-03.artifact, docs/docs_index.json]
+---
+
+# AI Onboarding Feedback (2025-06-05)
+
+## Issue
+- The onboarding status artifact (`artifacts/ai_onboarding_2025-06-03.artifact`) is outdated (last updated 2025-06-03).
+- The docs index (`docs/docs_index.json`) is current (last updated 2025-06-05).
+
+## Recommendation
+- Re-run the onboarding script (`Guided Onboarding (JSON)` task or `node scripts/guidedOnboarding.js`) to generate a fresh onboarding status artifact.
+
+## Next Steps
+- After onboarding, verify that both artifacts are present and up to date.
+- If issues persist, update this feedback artifact with details.

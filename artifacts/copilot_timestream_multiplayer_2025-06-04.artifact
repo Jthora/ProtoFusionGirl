@@ -1,0 +1,15 @@
+# Timestream Framework: Multiplayer & Conflict Resolution
+
+## Multiplayer Challenges
+- Simultaneous anchor use/branching by multiple players.
+- Syncing timestream state and anchor logs across clients.
+- Conflict resolution: merging, forking, or vetoing branches.
+- Authority: who decides the canonical timestream in multiplayer?
+
+## Technical Directions
+- Use CRDTs or event sourcing for distributed branch/event logs.
+- Provide APIs for branch negotiation, merge, and rollback.
+- Log all anchor/timestream changes for replay and audit.
+
+---
+Created by Copilot, 2025-06-04.

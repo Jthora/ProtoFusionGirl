@@ -1,0 +1,29 @@
+# Mission System Integration
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Describes how the mission system interacts with persona core, combat, and world state.
+
+## Scope
+- Event triggers
+- State synchronization
+- Cross-system communication
+
+## Context
+Ensures missions can drive and respond to changes in player state and world events.
+
+## Related Artifacts
+- mission_system_design_2025-06-04.artifact
+- persona_core_architecture_2025-06-04.artifact
+- combat_mechanics_2025-06-04.artifact
+
+---
+
+## Integration Points
+- Mission triggers (combat, exploration, dialogue)
+- State updates (progress, rewards)
+- API for system hooks
+
+## See also
+artifacts/instructions.md

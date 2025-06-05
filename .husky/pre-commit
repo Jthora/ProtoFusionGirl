@@ -9,3 +9,11 @@ cd protoFusionGirl || exit 1
 npx eslint . || exit 1
 npx prettier --check . || exit 1
 npm test -- --bail --passWithNoTests || exit 1
+
+# Validate all .task files before commit
+/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/validateTaskSchema.js || exit 1
+# Update the task index before commit
+/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/updateTaskIndex.js || exit 1
+/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/validateSchemas.js || exit 1
+# Run master onboarding/validation before every commit
+/Users/jono/.nvm/versions/node/v22.12.0/bin/node scripts/guidedOnboarding.js || exit 1

@@ -1,0 +1,20 @@
+# Migrated from copilot_todos_2025-06-04.artifact
+# See original artifact for full context
+
+title: Core Toroidal Math and Pending Next Steps
+status: todo
+priority: 2
+tags: [toroidal, math, ai, world, chunk, minimap, rendering, persistence, tests, docs]
+description: |
+  - Refactor AI/pathfinding to use toroidal math for all X logic
+  - Implement toroidal minimap/world map UI
+  - Refactor projectile and physics systems for toroidal logic
+  - Audit and update persistence/save-load for wrapped coordinates
+  - Implement edge-aware rendering for sprites/effects at the seam
+  - Decide and implement vertical world boundaries or wrapping
+  - Add/expand automated tests for toroidal math and seam edge cases
+  - Expand documentation and onboarding artifacts with toroidal math best practices
+  - Profile and optimize chunk loading/unloading and seam rendering
+related:
+  - artifacts/copilot_toroidal_math_usage_examples_2025-06-04.artifact
+  - artifacts/copilot_toroidal_best_practices_2025-06-04.artifact

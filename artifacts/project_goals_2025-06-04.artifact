@@ -1,0 +1,35 @@
+# Project Goals
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Defines the high-level vision, success criteria, and guiding principles for ProtoFusionGirl.
+
+## Scope
+- Vision statement
+- Success metrics
+- Guiding principles
+
+## Context
+Informs all design and development decisions.
+
+## Related Artifacts
+- feature_roadmap_2025-06-04.artifact
+
+---
+
+## Vision
+Create an AI-driven, extensible game with artifact-based workflows and persistent context.
+
+## Success Criteria
+- Rapid onboarding
+- Modular, extensible systems
+- Engaged player/modder community
+
+## Principles
+- Automation-first
+- Player-centric design
+- Continuous improvement
+
+## See also
+artifacts/instructions.md

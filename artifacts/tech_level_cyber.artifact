@@ -1,0 +1,40 @@
+---
+artifact: tech_level_cyber
+name: Cyber Tech
+created: 2025-06-04
+purpose: Master artifact for Type I (Early) - Cyber Tech (Electrospheric/Information Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, electrospheric, type1]
+---
+
+# Tech Level: Cyber Tech
+
+## Classification
+- Type: Type I (Planetary)
+- Era: Early
+- Sphere: Electrospheric
+- Age: Information Age
+
+## Description
+Digital computers, global communication, and automation. Societies are networked, with rapid information flow. AI, cybernetics, and virtual realities emerge.
+
+## Gameplay Unlocks
+- Computers, internet, hacking
+- Drones, robotics
+- Virtual/augmented reality
+
+## Advancement Triggers
+- AI singularity, fusion power
+
+## Regression Triggers
+- Cyberwar, infrastructure collapse
+
+## Risks & Consequences
+- Surveillance, loss of privacy, AI threats
+
+## Related Artifacts
+- timeline_cyber.artifact
+- zone_datacenter.artifact
+
+---

@@ -1,0 +1,41 @@
+---
+artifact: tech_level_omni
+name: Omni Tech
+created: 2025-06-04
+purpose: Master artifact for Type VII (Omniversal) - Omni Tech in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, omniversal, type7]
+---
+
+# Tech Level: Omni Tech
+
+## Classification
+- Type: Type VII (Omniversal)
+- Era: --
+- Sphere: --
+- Age: --
+
+## Description
+Civilizations transcend all realities, operating at the level of the omniverse. Beings are omnipotent, omniscient, and omnipresent, with the ability to create, destroy, or rewrite all existence.
+
+## Gameplay Unlocks
+- Omniversal creation/destruction
+- Absolute reality rewriting
+- Omnipotent abilities
+
+## Advancement Triggers
+- Mastery of omniversal structure
+- Creation of new omniverses
+
+## Regression Triggers
+- Omniversal collapse, paradoxes
+
+## Risks & Consequences
+- Loss of all boundaries, existential dissolution
+
+## Related Artifacts
+- timeline_omni.artifact
+- zone_omniversal_anchor.artifact
+
+---

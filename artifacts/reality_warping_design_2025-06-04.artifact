@@ -1,0 +1,31 @@
+# Reality Warping Design
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Defines the scope, rules, and constraints for reality warping (world/rule alteration) in ProtoFusionGirl.
+
+## Scope
+- Player/world rule changes
+- Constraints and safety
+- Extensibility
+- Example use cases and scenarios
+
+## Context
+Allows creative, emergent play while maintaining game integrity.
+
+## Related Artifacts
+- reality_warping_code_plan_2025-06-04.artifact
+- reality_warping_best_practices_2025-06-04.artifact
+
+---
+
+## Core Rules
+- What can/can't be warped
+- Permission and validation
+- Rollback and sandboxing
+- Example: Player alters gravity for a single mission
+- Example: Temporary rule change for a puzzle
+
+## See also
+artifacts/instructions.md

@@ -1,0 +1,44 @@
+---
+artifact: tech_level_primitive
+name: Primitive Tech
+created: 2025-06-04
+purpose: Canonical master artifact for Type 0 (Primitive) tech level in FusionGirl.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding]
+---
+
+# Tech Level: Primitive
+
+## Classification
+- Type: Type 0
+- Era: Stone/Bronze Age
+
+## Description
+Societies at this level rely on basic tools, fire, and simple agriculture. Technology is limited to stone, wood, and early metalwork. Magic and myth often fill gaps in understanding. No advanced communication or transportation exists.
+
+## Gameplay Unlocks
+- Basic crafting
+- Primitive weapons (clubs, spears, bows)
+- Simple agriculture and animal domestication
+- Early shelter construction
+
+## Advancement Triggers
+- Discovery of metallurgy
+- Development of written language
+- First large-scale settlements
+
+## Regression Triggers
+- Societal collapse
+- Loss of key resources (e.g., water, arable land)
+
+## Risks & Consequences
+- Vulnerability to natural disasters
+- High mortality rates
+- Limited ability to respond to threats
+
+## Related Artifacts
+- timeline_neolithic.artifact
+- zone_primitive_village.artifact
+
+---

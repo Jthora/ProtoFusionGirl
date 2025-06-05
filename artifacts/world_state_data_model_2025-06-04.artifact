@@ -1,0 +1,105 @@
+---
+artifact: world_state_data_model_2025-06-04
+name: World State Data Model
+created: 2025-06-04
+purpose: Defines TypeScript interfaces/types for all major world state domains in ProtoFusionGirl.
+type: data-model
+format: markdown
+tags: [data, model, types, world, state, core]
+---
+
+# World State Data Model
+
+## Interfaces
+
+```ts
+// Ley Lines
+export interface LeyLineNode {
+  id: string;
+  position: { x: number; y: number };
+  type: 'node' | 'junction' | 'anchor';
+  active: boolean;
+}
+
+export interface LeyLine {
+  id: string;
+  nodes: LeyLineNode[];
+  energy: number;
+}
+
+// Rifts
+export interface Rift {
+  id: string;
+  position: { x: number; y: number };
+  status: 'open' | 'closed' | 'stabilizing';
+  threatLevel: number;
+}
+
+// Player
+export interface PlayerState {
+  id: string;
+  name: string;
+  position: { x: number; y: number };
+  inventory: Record<string, number>;
+  progression: string[];
+  stats: Record<string, number>;
+}
+
+// Economy
+export interface EconomyState {
+  resources: Record<string, number>;
+  marketPrices: Record<string, number>;
+  scarcity: Record<string, number>;
+}
+
+// Events
+export interface WorldEvent {
+  id: string;
+  type: string;
+  data: any;
+  timestamp: number;
+}
+
+// Meta
+export interface MetaState {
+  online: boolean;
+  aiAgents: string[];
+  mods: string[];
+}
+
+// Root World State
+export interface WorldState {
+  leyLines: LeyLine[];
+  rifts: Rift[];
+  players: PlayerState[];
+  economy: EconomyState;
+  events: WorldEvent[];
+  meta: MetaState;
+}
+```
+
+## Example JSON
+```json
+{
+  "leyLines": [ { "id": "ll1", "nodes": [ ... ], "energy": 100 } ],
+  "rifts": [ { "id": "r1", "position": { "x": 100, "y": 200 }, "status": "open", "threatLevel": 3 } ],
+  "players": [ { "id": "p1", "name": "Jane", "position": { "x": 0, "y": 0 }, "inventory": {}, "progression": [], "stats": {} } ],
+  "economy": { "resources": {}, "marketPrices": {}, "scarcity": {} },
+  "events": [],
+  "meta": { "online": true, "aiAgents": [], "mods": [] }
+}
+```
+
+## Extension Guidelines
+- Add new interfaces for new state domains
+- Use strong typing for extensibility
+- Document all changes in this artifact
+
+## Versioning & Migration
+- All interfaces should include a `version` field where appropriate
+- Document breaking changes and provide migration scripts in the integration plan
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`
+
+---

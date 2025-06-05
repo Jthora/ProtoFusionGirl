@@ -1,0 +1,28 @@
+---
+artifact: tech_level_integration_tasks
+created: 2025-06-04
+purpose: List actionable tasks for integrating tech levels into code, UI, and automation.
+type: tasks
+tags: [tech, integration, tasks, artifact]
+format: yaml
+---
+
+tasks:
+  - id: tech-level-data-model
+    description: Implement TechLevel data model in codebase
+    priority: high
+  - id: tech-level-gameplay-mapping
+    description: Map tech levels to gameplay unlocks and systems
+    priority: high
+  - id: tech-level-progression-logic
+    description: Implement progression/regression logic
+    priority: high
+  - id: tech-level-ui
+    description: Build UI to display and interact with tech levels
+    priority: medium
+  - id: tech-level-artifact-sync
+    description: Automate sync between artifacts and code
+    priority: medium
+  - id: tech-level-testing
+    description: Write tests for tech level progression and unlocks
+    priority: medium

@@ -1,0 +1,79 @@
+---
+artifact: proposed_directory_structure_2025-06-04
+created: 2025-06-04
+purpose: Proposed improved directory structure for future scalability, onboarding, and modularity.
+type: directory
+format: markdown
+tags: [directory, structure, proposal, future, onboarding]
+related: [directory_structure_2025-06-04.artifact, ONBOARDING.md, phase1_brainstorm.artifact]
+---
+
+# Proposed Directory Structure for ProtoFusionGirl
+
+/
+├── assets/                        # All static assets (images, audio, tilemaps, etc.)
+│   ├── images/
+│   ├── tilemaps/
+│   ├── audio/
+│   └── ...
+├── artifacts/                     # All artifact files (tasks, onboarding, design, retrospectives, etc.)
+│   ├── tasks/
+│   ├── onboarding/
+│   ├── design/
+│   ├── retrospectives/
+│   ├── scripts/
+│   └── ...
+├── contracts/                     # Smart contracts (Solidity, etc.)
+├── coverage/                      # Test coverage reports
+├── docs/                          # Human-readable documentation, guides, diagrams
+│   ├── architecture/
+│   ├── modding/
+│   ├── onboarding/
+│   └── ...
+├── public/                        # Static files for web serving (favicon, manifest, etc.)
+├── scripts/                       # Automation, onboarding, and maintenance scripts
+│   ├── onboarding/
+│   ├── artifact/
+│   ├── ci/
+│   └── ...
+├── src/                           # Source code
+│   ├── core/                      # Engine, input, and low-level utilities
+│   ├── gameplay/                  # High-level game systems (player, combat, quests, inventory, etc.)
+│   │   ├── player/
+│   │   ├── combat/
+│   │   ├── inventory/
+│   │   ├── equipment/
+│   │   ├── quests/
+│   │   └── ...
+│   ├── mods/                      # Mod loading, mod APIs, sample mods
+│   ├── scenes/                    # Game scenes (GameScene, StartScene, etc.)
+│   ├── services/                  # App-wide services (settings, mod registry, etc.)
+│   ├── ui/                        # UI components and layouts
+│   ├── world/                     # World generation, tilemap, chunking, persistence
+│   ├── web3/                      # Web3/wallet integration
+│   ├── index.ts                   # Main entry point
+│   └── ...
+├── test/                          # Standalone and integration tests
+├── .github/                       # GitHub workflows, issue templates, etc.
+├── .vscode/                       # VS Code settings, tasks, launch configs
+├── package.json
+├── tsconfig.json
+├── README.md
+└── ONBOARDING.md
+
+---
+
+## Rationale
+- Centralizes static assets for easier management and pipeline integration.
+- Organizes artifacts by type for discoverability and onboarding.
+- Expands docs for architecture, modding, and onboarding.
+- Modularizes gameplay code for scalable feature growth.
+- Prepares for more web3, modding, and automation features.
+- Supports CI/CD and open-source workflows.
+- Keeps the root directory clean and focused.
+
+## Next Steps
+- Review this structure with the team.
+- Plan a migration/transition for folders and files.
+- Update onboarding and automation scripts to match new structure.
+- Incrementally move files and update references.

@@ -1,0 +1,28 @@
+# Mission System Modding
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Documents how new missions can be authored or modded in ProtoFusionGirl.
+
+## Scope
+- Modding APIs and data formats
+- Scripting and validation
+- Community guidelines
+
+## Context
+Supports extensibility and community-driven content.
+
+## Related Artifacts
+- mission_system_design_2025-06-04.artifact
+- mission_system_integration_2025-06-04.artifact
+
+---
+
+## Modding Support
+- JSON/YAML mission definitions
+- Scriptable events and outcomes
+- Validation tools
+
+## See also
+artifacts/instructions.md

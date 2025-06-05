@@ -1,0 +1,16 @@
+---
+title: ProtoFusionGirl Project Changelog
+created: 2025-06-05
+purpose: Tracks major changes to project structure, philosophy, and agent behavior.
+references:
+  - .dashboard
+  - .manifest
+  - .schema
+  - .memory
+---
+
+# Changelog
+
+- 2025-06-05: Introduced modular agent support files (.primer, .persona, .priming, .manifest, etc.)
+- 2025-06-05: Added explicit cross-references and metadata to foundational files.
+- 2025-06-05: Established feedback and memory artifact conventions.

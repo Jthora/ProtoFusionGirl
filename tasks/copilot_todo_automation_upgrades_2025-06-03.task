@@ -1,0 +1,25 @@
+# Migrated from copilot_todo_automation_upgrades_2025-06-03.artifact
+# See original artifact for full context
+
+title: TODOs for Automation, AI/Copilot Integration, and Workflow Upgrades
+status: todo
+priority: 2
+tags: [todo, automation, ai, copilot, workflow, upgrade, task, artifact, script]
+description: |
+  - Implement the sync command in aiTaskManager.js to auto-create/update task.artifact files from code TODOs, link tasks to code/artifacts, and mark tasks as done if code reference is removed
+  - Add a --json flag to all major scripts (list, index, dashboard, task scripts) for JSON output
+  - Add .vscode/tasks.json to expose key scripts as VSCode tasks for one-click access
+  - Add a Git pre-commit hook or npm script to auto-run artifact/task indexing and cleanup scripts before every commit
+  - Add a script (e.g., notifyOpenTasks.js) to output summaries of open/high-priority/blocked/overdue tasks
+  - Add a script (e.g., autoRepairArtifacts.js) to detect/fix missing headers, broken links, outdated fields, or inconsistent tags in artifacts/tasks
+  - Upgrade project_dashboard.js to accept commands (e.g., --next-action, --json) and output actionable next steps for Copilot
+  - Enhance onboarding script to detect missing context, outdated artifacts, or onboarding gaps and auto-create tasks to address them
+  - Provide scripts to generate new artifact/task templates with all required fields (e.g., newArtifact.js)
+  - Add a help command to aiTaskManager.js and other scripts to output usage/options/examples in text and JSON
+  - Add a script that helps enable Copilot to automatically and autonomously self-prompt in a cycle
+  - Apply upgrades that can be universally applied to all 11 upgrades previously mentioned on this list
+related:
+  - artifacts/task_template.artifact
+  - scripts/aiTaskManager.js
+  - scripts/project_dashboard.js
+  - artifacts/copilot_advanced_todos_2025-06-03.artifact

@@ -1,0 +1,96 @@
+---
+title: ProtoFusionGirl Custom File Schema Index
+created: 2025-06-05
+purpose: Defines the structure and required fields for each custom file type.
+references:
+  - .manifest
+  - .primer
+  - .persona
+  - .priming
+  - .init
+  - .startup
+  - .dashboard
+  - .changelog
+  - .feedback
+  - .memory
+  - .datapack
+---
+
+# Schema Index
+
+.primer:
+  - title
+  - created
+  - purpose
+  - references
+  - agent_instructions
+  - minimum_versions
+  - agent_capabilities
+  - ...
+  validation_script: scripts/validateSchemas.js
+  optional_fields: [minimum_versions, agent_capabilities]
+  deprecated_fields: []
+  example: |-
+    ---
+    title: Example Primer
+    created: 2025-06-05
+    ...
+
+.persona:
+  - title
+  - created
+  - role
+  - traits
+  - boundaries
+  - references
+  - usage
+  - examples
+  - version
+  - last_updated
+  - ...
+  validation_script: scripts/validateSchemas.js
+  optional_fields: [usage, examples, version, last_updated]
+  deprecated_fields: []
+  example: |-
+    ---
+    title: Example Persona
+    created: 2025-06-05
+    ...
+
+.priming:
+  - title
+  - created
+  - purpose
+  - agent_instructions
+  - context_window
+  - persona_selection
+  - references
+  - ...
+  validation_script: scripts/validateSchemas.js
+  optional_fields: [context_window, persona_selection]
+  deprecated_fields: []
+  example: |-
+    ---
+    title: Example Priming
+    created: 2025-06-05
+    ...
+
+.manifest:
+  - title
+  - created
+  - last_updated
+  - purpose
+  - validation_status
+  - artifacts
+  - scripts
+  - custom_files
+  - references
+  - ...
+  validation_script: scripts/validateSchemas.js
+  optional_fields: [last_updated, validation_status]
+  deprecated_fields: []
+  example: |-
+    ---
+    title: Example Manifest
+    created: 2025-06-05
+    ...

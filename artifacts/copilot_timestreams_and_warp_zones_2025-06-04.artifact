@@ -1,0 +1,15 @@
+# Timestreams & Warp Zones: Integration Design (2025-06-04)
+
+## Relationship
+- Warp anchors/zones are timeline anchors: using one creates a new branch or restores a previous state
+- Timestream Framework tracks all timeline branches, anchor uses, and narrative consequences
+- Overuse/misuse of anchors can destabilize the timestream, causing cosmic threats or NPC/faction reactions
+
+## Gameplay
+- Anchor use can unlock/lock missions, factions, or world states
+- Timeline branches are visualized and explorable (e.g., minimap, timeline UI)
+- Anchor sharing enables cross-reality collaboration and competition
+
+## Technical
+- Anchor actions trigger Timestream Framework events
+- All anchor/timestream changes are logged and can be replayed or analyzed

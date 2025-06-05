@@ -1,0 +1,27 @@
+---
+title: ProtoFusionGirl Startup Sequence
+created: 2025-06-05
+purpose: Defines the boot sequence and pre-flight checks for project and agent startup.
+references:
+  - .init
+  - .priming
+  - .manifest
+  - .schema
+  - scripts/
+post_startup_validation:
+  - Check .dashboard for project status
+  - Ensure validation_status in .manifest is valid
+  - Review agent_actions and next_steps in .dashboard
+---
+
+# Startup Sequence
+
+steps:
+  - Check .init for environment and folder readiness
+  - Run onboarding and docs index scripts
+  - Load .priming and .persona for agent context
+  - Start main game or agent loop
+
+preflight_checks:
+  - All required artifacts present
+  - No critical feedback tasks open

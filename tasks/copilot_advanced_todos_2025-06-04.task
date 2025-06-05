@@ -1,0 +1,21 @@
+# Migrated from copilot_advanced_todos_2025-06-04.artifact
+# See original artifact for full context
+
+title: Advanced/Best Practice TODOs for Toroidal World Logic and Reality Warping
+status: todo
+priority: 2
+tags: [toroidal, world, math, reality-warping, effects, accessibility, ai, best-practices]
+description: |
+  - Consider vectorized/batch toroidal math utilities for large-scale AI/physics
+  - Generalize toroidal math to 2D (vertical wrapping) if needed
+  - Add floating-point precision handling for future floating-point world coordinates
+  - Support custom distance metrics for advanced AI/pathfinding
+  - Maintain artifact checklists and code comments for future contributors
+  - Make effects configurable (color, duration, intensity)
+  - Add accessibility options (disable/adjust effects)
+  - Add fallback/warning for missing sound assets
+  - Sequence effects and restoration for polish (e.g., delay restore until after effect)
+  - Add hooks/events for effect testability
+related:
+  - artifacts/copilot_toroidal_best_practices_2025-06-04.artifact
+  - artifacts/copilot_reality_warping_best_practices_2025-06-04.artifact

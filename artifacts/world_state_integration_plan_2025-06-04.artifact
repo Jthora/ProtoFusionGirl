@@ -1,0 +1,49 @@
+---
+artifact: world_state_integration_plan_2025-06-04
+name: World State Integration & Migration Plan
+created: 2025-06-04
+purpose: Step-by-step plan for integrating the unified world state/event system with existing code and minimizing disruption.
+type: plan
+format: markdown
+tags: [integration, migration, world, state, event, plan]
+---
+
+# World State Integration & Migration Plan
+
+## Inventory of Current Systems
+- Missions/Quests
+- Tilemap/WorldGen
+- Player/Inventory/Progression
+- Economy/Crafting
+- Reality Warping
+- Modding/AI APIs
+
+## Staged Rollout
+1. Implement EventBus and WorldStateManager (core only)
+2. Integrate with Missions/Quests (event-driven objectives)
+3. Refactor Player/Inventory to use world state
+4. Migrate Economy/Crafting to world state
+5. Add Ley Line/Rift state and event integration
+6. Expose API for AI/Mods
+7. Remove legacy state management
+
+## Refactoring Guidelines
+- Use adapters/wrappers for gradual migration
+- Write integration tests for each phase
+- Maintain backward compatibility until all systems migrated
+- Document all API changes and event types in their respective artifacts
+- Update onboarding and modding docs as you go
+
+## Risk Assessment & Rollback
+- Identify critical paths and dependencies
+- Use feature flags for new system
+- Keep legacy code until new system is validated
+- Document all changes and update onboarding
+
+## Versioning & Migration
+- Track state and event schema versions
+- Provide migration scripts for breaking changes
+- Use feature flags for new system
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `world_state_data_model_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`

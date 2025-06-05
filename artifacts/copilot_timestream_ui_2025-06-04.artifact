@@ -1,0 +1,15 @@
+# Timestream Framework: UI/UX & Visualization
+
+## UI/UX Goals
+- Timeline explorer: visualize branches, anchor events, and consequences.
+- Branch selector: allow players to navigate, compare, and restore branches.
+- Anchor history: show all anchor uses and their effects.
+- Accessibility: support for colorblind, keyboard, and screen reader users.
+
+## Technical Directions
+- Use graph visualization libraries for timeline UI.
+- Provide APIs for UI to query and subscribe to timestream changes.
+- Modularize UI for easy extension and modding.
+
+---
+Created by Copilot, 2025-06-04.

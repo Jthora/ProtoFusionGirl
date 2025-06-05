@@ -1,0 +1,44 @@
+---
+artifact: world_state_api_modding_2025-06-04
+name: World State API & Modding Interface
+created: 2025-06-04
+purpose: Documents the public API for AI agents, mods, and external tools to interact with world state and events.
+type: api
+format: markdown
+tags: [api, modding, world, state, event, interface]
+---
+
+# World State API & Modding Interface
+
+## API Endpoints/Methods
+- `getWorldState()`: Returns current world state (filtered by permissions)
+- `updateWorldState(patch)`: Applies partial update to world state
+- `subscribe(eventType, handler)`: Listen for world events
+- `publish(event)`: Publish a new event
+- `registerStateDomain(domain, schema)`: Add new state domain (for mods/extensions)
+
+## Security/Validation Model
+- Validate all updates/events against schema
+- Permission checks for sensitive domains (e.g., player, economy)
+- Sandboxing for mods/AI agents
+
+## Example Use Cases
+- Mod adds new rift type and listens for `RIFT_OPENED`
+- AI agent queries player state and triggers mission event
+- External tool visualizes ley line network in real time
+
+## Extension Points
+- Register new event types
+- Add new state domains
+- Hook into event bus for custom logic
+
+## Best Practices
+- Use strong typing and schema validation
+- Document all extensions in artifacts
+- Test mods/AI integrations in sandboxed environment
+- Version all API changes and document in this artifact
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `world_state_data_model_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`
+
+---

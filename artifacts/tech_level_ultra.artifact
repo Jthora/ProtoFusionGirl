@@ -1,0 +1,41 @@
+---
+artifact: tech_level_ultra
+name: Ultra Tech
+created: 2025-06-04
+purpose: Master artifact for Type III (Late) - Ultra Tech (Cosmospheric/Cosmic Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, cosmospheric, type3]
+---
+
+# Tech Level: Ultra Tech
+
+## Classification
+- Type: Type III (Galactic)
+- Era: Late
+- Sphere: Cosmospheric
+- Age: Cosmic Age
+
+## Description
+Civilizations manipulate the structure of the universe itself. Creation and destruction of universes, reality rewriting, and omniversal travel are possible. Technology and magic are indistinguishable.
+
+## Gameplay Unlocks
+- Universe creation/destruction
+- Omniversal travel
+- Reality rewriting
+
+## Advancement Triggers
+- Mastery of universal physics
+- Creation of new universes
+
+## Regression Triggers
+- Universal collapse, paradoxes
+
+## Risks & Consequences
+- Attracting omniversal threats, loss of meaning
+
+## Related Artifacts
+- timeline_ultra.artifact
+- zone_cosmic_forge.artifact
+
+---

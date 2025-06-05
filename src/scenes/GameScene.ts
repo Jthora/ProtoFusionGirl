@@ -23,6 +23,18 @@ import { registerModEnemies, registerModAttacks } from '../mods/mod_loader';
 import sampleEnemyMod from '../mods/sample_enemy_mod.json';
 import { PlayerStats } from '../world/player/PlayerStats';
 import { QuestState, sampleQuest, QuestDefinition } from '../world/quest/QuestPrototype';
+import { ChunkLoader } from '../world/tilemap/ChunkLoader';
+import { WorldPhysics } from '../world/tilemap/WorldPhysics';
+import { Minimap } from '../ui/components/Minimap';
+import { AnchorSyncService, SharedAnchor, AnchorSyncEvent } from '../services/AnchorSyncService';
+import { TechLevelManager } from '../world/tech/TechLevelManager';
+import type { TechLevel } from '../world/tech/TechLevel';
+import techLevelsData from '../world/tech/tech_levels.json';
+import { TimestreamManager, WarpZoneManager, TimeMapVisualizer } from '../world/timestream';
+import { MissionManager } from '../world/missions/MissionManager';
+import { sampleMissions } from '../world/missions/sampleMissions';
+import { MissionTracker } from '../ui/components/MissionTracker';
+import { AnchorTradeOfferModal } from '../ui/components';
 
 export class GameScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
@@ -35,6 +47,13 @@ export class GameScene extends Phaser.Scene {
   private jumpForce = 350;
   private inputManager!: InputManager;
   private tilemapManager!: TilemapManager;
+  private chunkLoader!: ChunkLoader;
+  private minimap!: Minimap;
+  private techLevelManager!: TechLevelManager;
+  private timestreamManager = new TimestreamManager();
+  private warpZoneManager = new WarpZoneManager();
+  private timeMapVisualizer = new TimeMapVisualizer();
+  private missionManager: MissionManager = new MissionManager();
 
   // --- Player State Machine ---
   private playerState: 'idle' | 'running' | 'jumping' | 'falling' = 'idle';
@@ -42,8 +61,9 @@ export class GameScene extends Phaser.Scene {
 
   // --- Character/Animation/Game State ---
   private playerConfig = {
-    startX: 400,
-    startY: 300,
+    // Spawn at the world seam (tile 0, ground level)
+    startX: 0, // Seam position
+    startY: 300, // TODO: Set to ground/water level based on tilemap
     texture: 'player',
     frame: 0,
     animations: [
@@ -68,13 +88,290 @@ export class GameScene extends Phaser.Scene {
   private currentQuest: QuestDefinition | null = null;
 
   // --- LORE TERMINAL ---
+  // Declare missing properties for lore terminal UI
   private loreTerminal!: Phaser.Physics.Arcade.Sprite;
   private loreTextBox?: Phaser.GameObjects.Text;
   private loreEntries: string[] = [];
   private loreTerminalActive: boolean = false;
 
+  // Fix type for overlap callback to match Phaser's ArcadePhysicsCallback signature
+  private onLoreTerminalOverlap = (_obj1: Phaser.GameObjects.GameObject, _obj2: Phaser.GameObjects.GameObject) => {
+    // Only show prompt if not already active
+    if (!this.loreTerminalActive) {
+      this.loreTerminalActive = true;
+      if (!this.loreTextBox) {
+        this.loreTextBox = this.add.text(
+          this.loreTerminal.x,
+          this.loreTerminal.y - 40,
+          'Press E to access Lore Terminal',
+          { color: '#ffffff', fontSize: '14px', backgroundColor: '#222244', padding: { x: 8, y: 4 } }
+        ).setOrigin(0.5, 1);
+      }
+    }
+  };
+
+  // --- Infinite Map Variables ---
+  private worldSeed: string = 'default-seed';
+  private chunkRadius: number = 2;
+  private lastChunkX: number = 0;
+  private lastChunkY: number = 0;
+  private groundGroup!: Phaser.Physics.Arcade.StaticGroup;
+
+  // Reality warping system
+  private realityWarpSystem!: import('../world/RealityWarpSystem').RealityWarpSystem;
+
+  // --- Anchor Management UI ---
+  private anchors: { seed: string, label: string, center: { x: number, y: number }, owner?: string, shared?: boolean }[] = [];
+  private anchorPanel?: Phaser.GameObjects.DOMElement;
+  private anchorSync?: AnchorSyncService;
+  private playerId: string = AnchorSyncService.generatePlayerId();
+
+  // --- Anchor Trading State ---
+  private anchorTradeState: 'idle' | 'offering' | 'awaiting_response' | 'received_offer' | 'reviewing_offers' = 'idle';
+  private lastAnchorTradeEvent?: AnchorSyncEvent;
+  private anchorTradeOfferQueue: AnchorSyncEvent[] = [];
+
+  // --- Anchor Trade Modal Instance ---
+  private anchorTradeOfferModal?: any;
+
+  private setAnchorTradeState(state: 'idle' | 'offering' | 'awaiting_response' | 'received_offer' | 'reviewing_offers', event?: AnchorSyncEvent) {
+    this.anchorTradeState = state;
+    this.lastAnchorTradeEvent = event;
+    // Optionally update UI or trigger state-dependent logic here
+    if (state === 'reviewing_offers') {
+      this.showAnchorTradeOfferQueue();
+    }
+  }
+
+  private showAnchorTradeOfferQueue() {
+    if (this.anchorTradeOfferQueue.length === 0) {
+      // No pending offers
+      this.setAnchorTradeState('idle');
+      return;
+    }
+    const offer = this.anchorTradeOfferQueue[0];
+    // Use AnchorTradeOfferModal for UI
+    if (this.anchorTradeOfferModal) this.anchorTradeOfferModal.destroy();
+    this.anchorTradeOfferModal = new AnchorTradeOfferModal({
+      scene: this,
+      offer: { from: (offer as any).from, anchor: (offer as any).anchor },
+      onAccept: () => this.acceptAnchorTradeOffer(offer),
+      onReject: () => this.rejectAnchorTradeOffer(offer)
+    });
+    this.anchorTradeOfferModal.show();
+  }
+
+  private acceptAnchorTradeOffer(offer: any) {
+    this.anchorSync?.sendEvent({
+      type: 'trade_accept',
+      anchor: offer.anchor,
+      from: this.playerId,
+      to: offer.from
+    });
+    this.anchors.push({ ...offer.anchor });
+    this.saveAnchorsToStorage();
+    this.updateMinimapAnchors();
+    this.anchorTradeOfferQueue.shift();
+    this.setAnchorTradeState(this.anchorTradeOfferQueue.length > 0 ? 'reviewing_offers' : 'idle');
+    this.missionManager.triggerEventForAllMissions('anchor_trade_completed', { with: offer.from });
+    this.grantAnchorTradeReward();
+    // Optionally: add to trade history, play sound, etc.
+  }
+
+  private rejectAnchorTradeOffer(offer: any) {
+    this.anchorSync?.sendEvent({
+      type: 'trade_reject',
+      anchor: offer.anchor,
+      from: this.playerId,
+      to: offer.from
+    });
+    this.anchorTradeOfferQueue.shift();
+    this.setAnchorTradeState(this.anchorTradeOfferQueue.length > 0 ? 'reviewing_offers' : 'idle');
+    // Optionally: add to trade history, play sound, etc.
+  }
+
+  private setupAnchorSync() {
+    this.anchorSync = new AnchorSyncService(this.playerId);
+    this.anchorSync.onEvent((event: AnchorSyncEvent) => {
+      if (event.type === 'add') {
+        // Avoid duplicate anchors by seed
+        if (!this.anchors.some(a => a.seed === event.anchor.seed)) {
+          this.anchors.push({ ...event.anchor });
+          this.saveAnchorsToStorage();
+          this.updateMinimapAnchors();
+        }
+      } else if (event.type === 'edit') {
+        const anchor = this.anchors.find(a => a.seed === event.seed);
+        if (anchor) {
+          anchor.label = event.label;
+          this.saveAnchorsToStorage();
+          this.updateMinimapAnchors();
+        }
+      } else if (event.type === 'delete') {
+        const idx = this.anchors.findIndex(a => a.seed === event.seed);
+        if (idx !== -1) {
+          this.anchors.splice(idx, 1);
+          this.saveAnchorsToStorage();
+          this.updateMinimapAnchors();
+        }
+      } else if (event.type === 'trade_offer' && event.to === this.playerId) {
+        this.anchorTradeOfferQueue.push(event);
+        if (this.anchorTradeState === 'idle') {
+          this.setAnchorTradeState('reviewing_offers');
+        }
+        this.missionManager.triggerEventForAllMissions('anchor_trade_offer_received', { from: event.from });
+      } else if (event.type === 'trade_accept' && event.to === this.playerId) {
+        this.setAnchorTradeState('idle', event);
+        this.missionManager.triggerEventForAllMissions('anchor_trade_completed', { with: event.from });
+        alert(`Player ${event.from} accepted your anchor trade for '${event.anchor.label}'.`);
+      } else if (event.type === 'trade_reject' && event.to === this.playerId) {
+        this.setAnchorTradeState('idle', event);
+        alert(`Player ${event.from} rejected your anchor trade for '${event.anchor.label}'.`);
+      }
+    });
+  }
+
+  private broadcastAnchorAdd(anchor: { seed: string, label: string, center: { x: number, y: number } }) {
+    if (this.anchorSync) {
+      this.anchorSync.sendEvent({
+        type: 'add',
+        anchor: { ...anchor, owner: this.playerId, shared: true }
+      });
+    }
+  }
+  private broadcastAnchorEdit(seed: string, label: string) {
+    if (this.anchorSync) {
+      this.anchorSync.sendEvent({ type: 'edit', seed, label });
+    }
+  }
+  private broadcastAnchorDelete(seed: string) {
+    if (this.anchorSync) {
+      this.anchorSync.sendEvent({ type: 'delete', seed });
+    }
+  }
+
+  private pendingAnchorTrade?: { anchor: any, toPlayerId: string };
+
+  private offerAnchorTrade(anchorIdx: number, toPlayerId: string) {
+    if (!this.anchorSync) return;
+    const anchor = this.anchors[anchorIdx];
+    if (!anchor) return;
+    const sharedAnchor = {
+      seed: anchor.seed,
+      label: anchor.label,
+      center: anchor.center,
+      owner: anchor.owner || this.playerId,
+      shared: true as const
+    };
+    this.anchorSync.sendEvent({
+      type: 'trade_offer',
+      anchor: sharedAnchor,
+      from: this.playerId,
+      to: toPlayerId
+    });
+    this.setAnchorTradeState('awaiting_response');
+    // Mission system: progress a mission if player offers a trade
+    this.missionManager.triggerEventForAllMissions('anchor_trade_offered', { to: toPlayerId });
+    alert('Trade offer sent!');
+  }
+
+  private acceptAnchorTrade(trade: { anchor: any, fromPlayerId: string }) {
+    if (!this.anchorSync) return;
+    this.anchorSync.sendEvent({
+      type: 'trade_accept',
+      anchor: trade.anchor,
+      from: this.playerId,
+      to: trade.fromPlayerId
+    });
+    this.anchors.push({ ...trade.anchor });
+    this.saveAnchorsToStorage();
+    this.updateMinimapAnchors();
+    alert('Anchor trade accepted!');
+  }
+
+  private showAnchorPanel() {
+    if (this.anchorPanel) {
+      this.anchorPanel.setVisible(true);
+      return;
+    }
+    // Create a simple HTML UI for anchor management with edit/delete
+    const html = `
+      <div style="background:#222244;color:#fff;padding:12px;border-radius:8px;width:260px;max-height:320px;overflow:auto;">
+        <h4>Reality Anchors</h4>
+        <button id='import-anchor-btn' style='margin-bottom:8px;width:100%;'>Import Shared Anchor</button>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          ${this.anchors.map((a, i) => `
+            <li style='margin-bottom:8px;'>
+              <button data-anchor='${i}' style='width:40%;margin-bottom:2px;'>${a.label} <span style='font-size:10px;color:#aaa;'>[${a.owner || 'local'}]</span></button>
+              <button data-edit='${i}' style='width:10%;margin-left:2px;'>✎</button>
+              <button data-delete='${i}' style='width:10%;margin-left:2px;color:#ff4444;'>🗑</button>
+              <button data-export='${i}' style='width:15%;margin-left:2px;'>Share</button>
+              <button data-trade='${i}' style='width:20%;margin-left:2px;'>Offer Trade</button>
+            </li>`).join('')}
+        </ul>
+        <button id='close-anchor-panel' style='margin-top:8px;width:100%;'>Close</button>
+      </div>
+    `;
+    this.anchorPanel = this.add.dom(this.scale.width - 280, 60).createFromHTML(html).setDepth(2000).setScrollFactor(0);
+    this.anchorPanel.addListener('click');
+    this.anchorPanel.on('click', (event: any) => {
+      if (event.target.id === 'close-anchor-panel') {
+        this.anchorPanel?.setVisible(false);
+      } else if (event.target.id === 'import-anchor-btn') {
+        this.importAnchor();
+      } else if (event.target.dataset && event.target.dataset.anchor) {
+        const idx = parseInt(event.target.dataset.anchor, 10);
+        const anchor = this.anchors[idx];
+        if (anchor) {
+          this.realityWarpSystem.warpToReality(anchor.seed, {
+            initiator: 'anchor',
+            gridCenter: anchor.center,
+            gridSize: { width: 9, height: 9 },
+            gridShape: 'rectangle',
+            seed: anchor.seed,
+            timestamp: Date.now(),
+            // @ts-expect-error: partial is an internal extension
+            partial: true
+          });
+          this.add.text(anchor.center.x, anchor.center.y - 60, `Warped to Anchor: ${anchor.label}`, { color: '#00ffff', fontSize: '16px', backgroundColor: '#222244', padding: { x: 8, y: 4 } })
+            .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
+        }
+      } else if (event.target.dataset && event.target.dataset.edit) {
+        const idx = parseInt(event.target.dataset.edit, 10);
+        const anchor = this.anchors[idx];
+        if (anchor) {
+          const newLabel = prompt('Rename anchor:', anchor.label) || anchor.label;
+          anchor.label = newLabel;
+          this.saveAnchorsToStorage();
+          this.updateMinimapAnchors();
+          this.broadcastAnchorEdit(anchor.seed, newLabel);
+        }
+      } else if (event.target.dataset && event.target.dataset.delete) {
+        const idx = parseInt(event.target.dataset.delete, 10);
+        const anchor = this.anchors[idx];
+        if (anchor && confirm('Delete this anchor?')) {
+          this.anchors.splice(idx, 1);
+          this.saveAnchorsToStorage();
+          this.updateMinimapAnchors();
+          this.broadcastAnchorDelete(anchor.seed);
+        }
+      } else if (event.target.dataset && event.target.dataset.export) {
+        const idx = parseInt(event.target.dataset.export, 10);
+        this.exportAnchor(idx);
+      } else if (event.target.dataset && event.target.dataset.trade) {
+        const idx = parseInt(event.target.dataset.trade, 10);
+        // TODO: Prompt for player ID to trade with (for demo, use prompt)
+        const toPlayerId = prompt('Enter Player ID to trade with:');
+        if (toPlayerId) {
+          this.offerAnchorTrade(idx, toPlayerId);
+        }
+      }
+    });
+  }
+
   constructor() {
     super({ key: 'GameScene' });
+    // Do not initialize techLevelManager here; will be set in create()
   }
 
   preload() {
@@ -117,6 +414,25 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  // Save mission state to localStorage (or replace with your save system)
+  private saveMissionState() {
+    const data = this.missionManager.serializeMissions();
+    localStorage.setItem('missionState', JSON.stringify(data));
+  }
+
+  // Load mission state from localStorage (or replace with your load system)
+  private loadMissionState() {
+    const raw = localStorage.getItem('missionState');
+    if (raw) {
+      try {
+        const data = JSON.parse(raw);
+        this.missionManager.restoreMissions(data);
+      } catch (e) {
+        console.warn('Failed to load mission state:', e);
+      }
+    }
+  }
+
   create() {
     // --- Settings integration ---
     const settings = SettingsService.getInstance();
@@ -149,8 +465,17 @@ export class GameScene extends Phaser.Scene {
     // --- INPUT MANAGER SETUP ---
     this.inputManager = InputManager.getInstance(this);
 
-    // --- MAP SYSTEM SETUP ---
-    this.setupMapSystem();
+    // --- INFINITE MAP SYSTEM SETUP ---
+    // Only initialize TilemapManager once
+    this.worldSeed = 'fusiongirl-' + Date.now(); // Or use a user-provided seed
+    this.tilemapManager = new TilemapManager();
+    this.realityWarpSystem = new (require('../world/RealityWarpSystem').RealityWarpSystem)(this.tilemapManager);
+    this.tilemapManager.worldGen.generateFromSeed(this.worldSeed);
+    this.groundGroup = this.physics.add.staticGroup();
+    this.chunkLoader = new ChunkLoader(this, this.tilemapManager, this.groundGroup, this.chunkRadius);
+    WorldPhysics.setupGravity(this, 900);
+    WorldPhysics.setupPlayerCollision(this.player, this.groundGroup);
+    this.chunkLoader.updateLoadedChunks(this.player.x, this.player.y);
 
     // Health bar UI above player (modular)
     this.healthBarComponent = new HealthBar({
@@ -198,7 +523,7 @@ export class GameScene extends Phaser.Scene {
     this.children.sendToBack(this.backgroundNear);
 
     // --- TILEMAP MANAGER & EQUIPMENT UI ---
-    this.tilemapManager = new TilemapManager();
+    // Remove duplicate TilemapManager initialization
     // Give player some starter equipment for demo
     this.tilemapManager.equipmentService.equipItem('cyber_helmet', 'head');
     // Integrate inventory and equipment panels for equip flow
@@ -227,7 +552,28 @@ export class GameScene extends Phaser.Scene {
     this.loreTerminal = this.physics.add.staticSprite(500, 300, 'terminal'); // Add terminal sprite asset to assets folder
     this.loreTerminal.setScale(1.2);
     this.add.existing(this.loreTerminal);
-    this.physics.add.overlap(this.player, this.loreTerminal, this.onLoreTerminalOverlap, undefined, this);
+    // Fix overlap callback signature for Phaser ArcadePhysics
+    this.physics.add.overlap(
+      this.player,
+      this.loreTerminal,
+      // Use a function with correct ArcadePhysicsCallback signature
+      (_obj1: Phaser.GameObjects.GameObject | Phaser.Tilemaps.Tile, _obj2: Phaser.GameObjects.GameObject | Phaser.Tilemaps.Tile) => {
+        // Only show prompt if not already active
+        if (!this.loreTerminalActive) {
+          this.loreTerminalActive = true;
+          if (!this.loreTextBox) {
+            this.loreTextBox = this.add.text(
+              this.loreTerminal.x,
+              this.loreTerminal.y - 40,
+              'Press E to access Lore Terminal',
+              { color: '#ffffff', fontSize: '14px', backgroundColor: '#222244', padding: { x: 8, y: 4 } }
+            ).setOrigin(0.5, 1);
+          }
+        }
+      },
+      undefined,
+      this
+    );
     // Listen for E key for interaction
     this.input.keyboard?.on('keydown-E', () => {
       if (this.loreTerminalActive) {
@@ -236,6 +582,144 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.loadLoreEntriesFromDatapack();
+
+    // --- Minimap Integration ---
+    this.minimap = new Minimap(
+      this,
+      this.tilemapManager,
+      this.player,
+      () => this.enemies.filter(e => e.isAlive).map(e => {
+        const sprite = this.enemySprites.get(e);
+        return sprite ? { x: sprite.x, y: sprite.y } : { x: e.x, y: e.y };
+      })
+    );
+    this.add.existing(this.minimap);
+
+    // --- REALITY WARPING DEMO KEY ---
+    this.input.keyboard?.on('keydown-R', () => {
+      const gridSize = { width: 9, height: 9 };
+      const center = { x: Math.round(this.player.x), y: Math.round(this.player.y) };
+      const options = { shape: 'rectangle', includeEnvironment: false };
+      const seed = this.tilemapManager.serializeGridToSeed(center, gridSize, options);
+      this.realityWarpSystem.warpToReality(seed, {
+        initiator: 'jane',
+        gridCenter: center,
+        gridSize,
+        gridShape: options.shape as 'rectangle',
+        seed,
+        timestamp: Date.now(),
+        // @ts-expect-error: partial is an internal extension
+        partial: true
+      });
+      // --- UI/UX: Highlight grid area and show psionic effect ---
+      const highlight = this.add.rectangle(center.x, center.y, gridSize.width * 16, gridSize.height * 16, 0xff00ff, 0.15)
+        .setOrigin(0.5, 0.5).setDepth(999).setScrollFactor(1);
+      this.tweens.add({
+        targets: highlight,
+        alpha: 0,
+        duration: 800,
+        onComplete: () => highlight.destroy()
+      });
+      this.add.text(center.x, center.y - 60, `Reality Warped!\nSeed: ${seed}`, { color: '#ff00ff', fontSize: '18px', backgroundColor: '#222244', padding: { x: 8, y: 4 } })
+        .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
+    });
+
+    // --- Anchor Management UI ---
+    this.input.keyboard?.on('keydown-A', () => {
+      const gridSize = { width: 9, height: 9 };
+      const center = { x: Math.round(this.player.x), y: Math.round(this.player.y) };
+      const options = { shape: 'rectangle', includeEnvironment: false };
+      const seed = this.tilemapManager.serializeGridToSeed(center, gridSize, options);
+      const label = prompt('Name this anchor?', `Anchor ${this.anchors.length + 1}`) || `Anchor ${this.anchors.length + 1}`;
+      const anchor = { seed, label, center, owner: this.playerId, shared: true };
+      this.anchors.push(anchor);
+      this.saveAnchorsToStorage();
+      this.add.text(center.x, center.y - 80, `Anchor Created: ${label}`, { color: '#00ffff', fontSize: '16px', backgroundColor: '#222244', padding: { x: 8, y: 4 } })
+        .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
+      this.updateMinimapAnchors();
+      this.broadcastAnchorAdd(anchor);
+    });
+    this.input.keyboard?.on('keydown-TAB', (e: KeyboardEvent) => {
+      e.preventDefault();
+      this.showAnchorPanel();
+    });
+
+    // Initialize TechLevelManager with player's current tech level if available
+    this.techLevelManager = new TechLevelManager(
+      techLevelsData as TechLevel[],
+      this._playerStats ? this._playerStats.getTechLevelId() : 'neolithic'
+    );
+
+    // --- TimeMapVisualizer Overlay Integration ---
+    this.input.keyboard?.on('keydown-Y', () => {
+      this.timeMapOverlayVisible = !this.timeMapOverlayVisible;
+      if (this.timeMapOverlayVisible) {
+        // Generate a sample time map from the current timestream state
+        const map = this.generateCurrentTimeMap();
+        // Assume player is on the root timeline for now
+        const playerNodeId = map.nodes.find(n => n.type === 'timeline')?.id;
+        this.timeMapVisualizer.renderOverlay(this, map, playerNodeId);
+      } else if (this.timeMapVisualizer['overlayGroup']) {
+        this.timeMapVisualizer['overlayGroup'].setVisible(false);
+      }
+    });
+
+    // Load sample missions
+    this.missionManager.loadMissions(sampleMissions);
+    this.loadMissionState(); // Restore mission state after loading missions
+    this.missionManager.onMissionCompleted = (missionId: string) => {
+      this.grantMissionRewards(missionId);
+      this.saveMissionState(); // Save after mission completion
+      // UI feedback: show mission complete notification
+      const mission = this.missionManager.getMission(missionId);
+      if (mission) {
+        this.add.text(
+          this.player.x,
+          this.player.y - 100,
+          `Mission Complete: ${mission.title}`,
+          { color: '#00ff88', fontSize: '20px', backgroundColor: '#222244', padding: { x: 12, y: 6 } }
+        )
+        .setOrigin(0.5, 1)
+        .setDepth(2000)
+        .setScrollFactor(0)
+        .setAlpha(1);
+        // Fade out and destroy after 2 seconds
+        this.tweens.add({
+          targets: this.children.getChildren().slice(-1)[0],
+          alpha: 0,
+          duration: 2000,
+          onComplete: (tween, targets) => targets[0].destroy()
+        });
+      }
+    };
+  }
+
+  /**
+   * Generate a sample time map from the current timestream/timeline state.
+   * This should be replaced with real logic as the game state evolves.
+   */
+  private generateCurrentTimeMap() {
+    // For now, just show the root timeline and any branches
+    const ts = Array.from(this.timestreamManager['timestreams'].values())[0];
+    if (!ts) return { nodes: [], edges: [] };
+    const nodes = [
+      { id: ts.id, type: 'timestream' as const, ref: ts },
+      { id: ts.rootTimeline.id, type: 'timeline' as const, ref: ts.rootTimeline },
+      ...ts.branches.map(b => ({ id: b.id, type: 'timeline' as const, ref: b }))
+    ];
+    const edges = [
+      { from: ts.id, to: ts.rootTimeline.id, type: 'root' },
+      ...ts.branches.map(b => ({ from: ts.rootTimeline.id, to: b.id, type: 'branch' }))
+    ];
+    return { nodes, edges };
+  }
+
+  getCurrentTechLevel() {
+    return this.techLevelManager.getCurrentTechLevel();
+  }
+
+  getCurrentTechUnlocks() {
+    return this.techLevelManager.getUnlocks();
   }
 
   private createPlayerAnimations() {
@@ -412,92 +896,277 @@ export class GameScene extends Phaser.Scene {
         this.loreTerminalActive = false;
       }
     }
-  }
 
-  private setupMapSystem() {
-    // --- TILEMAP SYSTEM ---
-    const map = this.make.tilemap({ key: 'level1' });
-    map.addTilesetImage('tiles', 'tiles'); // Remove unused variable warning by not assigning to tileset
+    // --- Infinite Map Chunk Streaming ---
+    const chunkSize = this.tilemapManager.chunkManager.chunkSize;
+    const playerChunkX = Math.floor(this.player.x / (chunkSize * 16));
+    const playerChunkY = Math.floor(this.player.y / (chunkSize * 16));
+    if (playerChunkX !== this.lastChunkX || playerChunkY !== this.lastChunkY) {
+      this.lastChunkX = playerChunkX;
+      this.lastChunkY = playerChunkY;
+      this.chunkLoader.updateLoadedChunks(this.player.x, this.player.y);
+    }
 
-    // --- CAMERA SETUP ---
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    // --- Seamless World Looping (Horizontal Torus) ---
+    // Wrap player X position at world seam using TilemapManager.wrapX
+    this.player.x = TilemapManager.wrapX(this.player.x);
+    // Camera: center on player, handle wrap
+    if (this.cameras && this.cameras.main) {
+      // If player is near the seam, allow camera to wrap
+      let camX = this.player.x;
+      if (camX < 0) camX += 800; // TODO: Use actual world width
+      else if (camX > 800) camX -= 800;
+      this.cameras.main.setScroll(camX - 400, this.player.y - 300); // Center camera on player
+    }
 
-    // Follow player
-    this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
+    // Update minimap
+    if (this.minimap) {
+      this.minimap.updateMinimap();
+    }
 
-    // --- DEBUGGING VISUALS ---
-    // Fix: Property 'debug' does not exist on type 'GameObjectFactory'.
-    // Comment out or replace this.add.debug.geom(...)
-    // this.add.debug.geom(new Phaser.Geom.Rectangle(0, 0, map.widthInPixels, map.heightInPixels), 0xff0000);
-    this.add.text(16, 16, 'Debug Info', { color: '#ffffff' });
-    // Fix: Parameter 'body' implicitly has an 'any' type.
-    this.physics.world.on('worldbounds', (body: any) => {
-      if (body.gameObject === this.player) {
-        this.scene.restart();
-      }
-    });
-  }
-
-  private onLoreTerminalOverlap() {
-    this.loreTerminalActive = true;
-    // Optionally, show a prompt (e.g., 'Press E to read Lore')
-    if (!this.loreTextBox) {
-      this.loreTextBox = this.add.text(this.loreTerminal.x, this.loreTerminal.y - 40, 'Press E to read Lore', {
-        font: '18px Arial',
-        color: '#ffff99',
-        backgroundColor: '#222',
-        padding: { x: 8, y: 4 },
-      }).setOrigin(0.5);
+    // Anchor trading state machine integration
+    switch (this.anchorTradeState) {
+      case 'reviewing_offers':
+        // Optionally, show a UI or highlight for pending offers
+        break;
+      case 'awaiting_response':
+        // Optionally, show a waiting indicator
+        break;
+      case 'offering':
+        // Reserved for future expansion
+        break;
+      case 'received_offer':
+        // Deprecated: now handled by queue
+        break;
+      case 'idle':
+      default:
+        // Normal gameplay
+        break;
     }
   }
 
   private showLoreEntry() {
-    // Pick a random lore entry
-    const entry = Phaser.Utils.Array.GetRandom(this.loreEntries);
-    if (this.loreTextBox) this.loreTextBox.destroy();
-    this.loreTextBox = this.add.text(this.loreTerminal.x, this.loreTerminal.y - 60, entry, {
-      font: '20px Arial',
-      color: '#fff',
-      backgroundColor: '#333',
-      wordWrap: { width: 320 },
-      padding: { x: 12, y: 8 },
-    }).setOrigin(0.5);
-    // Hide after a few seconds
-    this.time.delayedCall(4000, () => {
-      if (this.loreTextBox) {
-        this.loreTextBox.destroy();
-        this.loreTextBox = undefined;
-      }
-      this.loreTerminalActive = false;
-    });
+    if (!this.loreTextBox) return;
+    const currentText = this.loreTextBox.text || '';
+    const currentIndex = this.loreEntries.indexOf(currentText);
+    const nextIndex = (currentIndex + 1) % this.loreEntries.length;
+    this.loreTextBox.setText(this.loreEntries[nextIndex]);
   }
 
-  // Call this when an enemy is defeated
-  onEnemyDefeated() {
-    if (this.currentQuest) {
-      this.questState.updateProgress(this.currentQuest, 1);
-      // Optionally, show quest progress in UI
-      // e.g., this.showQuestProgress();
+  // Called when an enemy is defeated by the player
+  private onEnemyDefeated() {
+    // Check if any active mission has a 'defeat' objective
+    const missions = this.missionManager.getAllMissions();
+    for (const mission of missions) {
+      if (mission.status !== 'active') continue;
+      for (const obj of mission.objectives) {
+        if (obj.type === 'defeat' && obj.status === 'incomplete') {
+          // For demo: mark as complete on any enemy defeat
+          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
+          // Optionally, trigger mission event
+          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
+        }
+      }
+    }
+    // Existing quest/respawn logic
+    const allDefeated = this.enemies.every(enemy => !enemy.isAlive);
+    if (allDefeated) {
+      this.respawnEnemies();
     }
   }
 
-  // --- PAUSE / RESUME ---
-  pause() {
-    this.scene.pause();
-    // Pause all tweens and timers
-    this.tweens.pauseAll();
-    this.time.timeScale = 0;
-    // Optionally: pause sound/music if needed
-    if (this.sound) this.sound.pauseAll();
+  private respawnEnemies() {
+    for (const enemy of this.enemies) {
+      if (!enemy.isAlive) {
+        enemy.isAlive = true;
+        enemy.health = enemy.definition.maxHealth; // Restore health
+        const sprite = this.enemySprites.get(enemy);
+        if (sprite) {
+          sprite.setPosition(enemy.x, enemy.y);
+          sprite.setVisible(true);
+        }
+        const healthBar = this.enemyHealthBars.get(enemy);
+        if (healthBar) {
+          healthBar.setVisible(true);
+          healthBar.updateHealth(enemy.health, enemy.definition.maxHealth);
+        }
+      }
+    }
   }
 
-  resume() {
-    this.scene.resume();
-    // Resume all tweens and timers
-    this.tweens.resumeAll();
-    this.time.timeScale = 1;
-    // Optionally: resume sound/music if needed
-    if (this.sound) this.sound.resumeAll();
+  private saveAnchorsToStorage() {
+    localStorage.setItem('realityAnchors', JSON.stringify(this.anchors));
+  }
+
+  private updateMinimapAnchors() {
+    if (this.minimap) {
+      this.minimap.drawWarpAnchors(
+        this.anchors.map(a => ({ x: a.center.x, y: a.center.y, datakey: a.label }))
+      );
+    }
+  }
+
+  private exportAnchor(idx: number) {
+    const anchor = this.anchors[idx];
+    if (!anchor) return;
+    const shareData = {
+      seed: anchor.seed,
+      label: anchor.label,
+      center: anchor.center,
+      owner: anchor.owner || 'local',
+      shared: true
+    };
+    const code = btoa(unescape(encodeURIComponent(JSON.stringify(shareData))));
+    navigator.clipboard.writeText(code);
+    alert('Anchor share code copied to clipboard!');
+  }
+
+  private importAnchor() {
+    const code = prompt('Paste anchor share code:');
+    if (!code) return;
+    try {
+      const json = decodeURIComponent(escape(atob(code)));
+      const data = JSON.parse(json);
+      if (!data.seed || !data.center) throw new Error('Invalid anchor');
+      this.anchors.push({
+        seed: data.seed,
+        label: data.label + ' (shared)',
+        center: data.center,
+        owner: data.owner || 'shared',
+        shared: true
+      });
+      this.saveAnchorsToStorage();
+      this.updateMinimapAnchors();
+      alert('Anchor imported!');
+    } catch {
+      alert('Invalid anchor code!');
+    }
+  }
+
+  // Example: Use timestream/warp zone managers in anchor warping
+  private handleAnchorWarp(anchor: { seed: string, label: string, center: { x: number, y: number } }) {
+    // Branch timeline on warp
+    const currentTimestream = this.timestreamManager.createTimestream(anchor.label, {
+      id: `tl_${Date.now()}`,
+      label: anchor.label,
+      events: [],
+      parentTimestream: 'root',
+      branchFromEventId: undefined
+    });
+    // Optionally, trigger a warp zone event
+    // this.warpZoneManager.triggerZone(anchor.seed, { anchor });
+    // Update UI (stub)
+    this.timeMapVisualizer.render({ nodes: [], edges: [] });
+  }
+
+  // Called when the player reaches a location (e.g., for 'location' objectives)
+  private onPlayerReachLocation(locationId: string) {
+    const missions = this.missionManager.getAllMissions();
+    for (const mission of missions) {
+      if (mission.status !== 'active') continue;
+      for (const obj of mission.objectives) {
+        if (obj.type === 'location' && obj.status === 'incomplete' && obj.target === locationId) {
+          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
+          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
+        }
+      }
+    }
+  }
+
+  // Called when the player collects an item (for 'collect' objectives)
+  private onPlayerCollectItem(itemId: string, amount: number = 1) {
+    const missions = this.missionManager.getAllMissions();
+    for (const mission of missions) {
+      if (mission.status !== 'active') continue;
+      for (const obj of mission.objectives) {
+        if (obj.type === 'collect' && obj.status === 'incomplete' && obj.target === itemId) {
+          // Increment progress or mark complete
+          const newProgress = (obj.progress || 0) + amount;
+          if (newProgress >= 1) { // For demo, 1 is enough; adjust as needed
+            this.missionManager.updateObjective(mission.id, obj.id, 'complete', newProgress);
+            this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
+          } else {
+            this.missionManager.updateObjective(mission.id, obj.id, 'incomplete', newProgress);
+          }
+        }
+      }
+    }
+  }
+
+  // Called when the player interacts with an object (for 'interact' objectives)
+  private onPlayerInteract(targetId: string) {
+    const missions = this.missionManager.getAllMissions();
+    for (const mission of missions) {
+      if (mission.status !== 'active') continue;
+      for (const obj of mission.objectives) {
+        if (obj.type === 'interact' && obj.status === 'incomplete' && obj.target === targetId) {
+          this.missionManager.updateObjective(mission.id, obj.id, 'complete');
+          this.missionManager.triggerEvent(mission.id, 'onObjectiveComplete', { objectiveId: obj.id });
+        }
+      }
+    }
+  }
+
+  // Grant rewards for a completed mission
+  private grantMissionRewards(missionId: string) {
+    const mission = this.missionManager.getMission(missionId);
+    if (!mission || !mission.rewards) return;
+    for (const reward of mission.rewards) {
+      switch (reward.type) {
+        case 'xp':
+          // Example: add XP to player stats
+          if (typeof reward.value === 'number') {
+            this.getPlayerStats().addXP?.(reward.value);
+          }
+          break;
+        case 'item':
+          // Example: add item to inventory
+          if (typeof reward.value === 'string') {
+            this.tilemapManager.inventoryPanel?.addItem?.(reward.value, 1);
+          }
+          break;
+        case 'currency':
+          // Example: add currency to player
+          if (typeof reward.value === 'number') {
+            this.getPlayerStats().addCurrency?.(reward.value);
+          }
+          break;
+        case 'unlock':
+          // Example: unlock feature or tech
+          // Implement unlock logic as needed
+          break;
+        case 'faction':
+          // Example: increase faction reputation
+          // Implement faction logic as needed
+          break;
+        case 'custom':
+          // Custom reward handler (modding/extensibility)
+          // Implement as needed
+          break;
+      }
+    }
+  }
+
+  private grantAnchorTradeReward() {
+    // Give the player a 'traded_anchor_token' item for completing an anchor trade
+    this.tilemapManager.inventoryService.addItem('traded_anchor_token', 1);
+    // Show notification text
+    const centerX = this.cameras.main.width / 2;
+    const centerY = this.cameras.main.height / 2;
+    const notif = this.add.text(centerX, centerY - 80, 'Received: Traded Anchor Token! 🔗', {
+      fontSize: '24px', color: '#0fa', backgroundColor: '#222', padding: { left: 16, right: 16, top: 8, bottom: 8 }
+    }).setOrigin(0.5).setDepth(3000);
+    this.tweens.add({
+      targets: notif,
+      alpha: 0,
+      y: centerY - 120,
+      duration: 1800,
+      ease: 'Cubic.easeIn',
+      onComplete: () => notif.destroy()
+    });
+    // Play a sound effect if available
+    if (this.sound && this.sound.play) {
+      try { this.sound.play('item_pickup'); } catch (e) { /* ignore if sound missing */ }
+    }
   }
 }

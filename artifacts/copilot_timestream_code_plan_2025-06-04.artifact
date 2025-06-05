@@ -1,0 +1,137 @@
+// copilot_timestream_code_plan_2025-06-04.artifact
+// Artifact: Timestream & Warp Zone Modular System Code Plan
+// Date: 2025-06-04
+// Author: GitHub Copilot
+
+## Purpose
+Defines the code plan for a modular, extensible library to handle timestreams, timelines, time maps, warp zones, and anchors in ProtoFusionGirl. This artifact guides the implementation of core data types, managers, and integration points for narrative and world-logic branching.
+
+## Core Data Types
+- Timestream: Branching, mutable flow of time (references timelines, branches, world states)
+  ```ts
+  export interface Timestream {
+    id: string;
+    label: string;
+    rootTimeline: Timeline;
+    branches: Timeline[];
+    metadata: Record<string, any>;
+  }
+  ```
+- Timeline: Linear sequence of events (single branch in a timestream)
+  ```ts
+  export interface Timeline {
+    id: string;
+    label: string;
+    events: TimelineEvent[];
+    parentTimestream: string;
+    branchFromEventId?: string;
+  }
+  ```
+- TimeMap: Structure for visualizing/querying relationships between timestreams, timelines, and warp events
+  ```ts
+  export interface TimeMap {
+    nodes: Array<{ id: string, type: 'timestream' | 'timeline' | 'event', ref: any }>;
+    edges: Array<{ from: string, to: string, type: string }>;
+  }
+  ```
+- WarpZone: Spatial region or anchor that triggers a reality warp or timestream branch
+  ```ts
+  export interface WarpZone {
+    id: string;
+    label: string;
+    region: { x: number, y: number, width: number, height: number };
+    triggerType: 'anchor' | 'area' | 'event' | string;
+    linkedTimelineId?: string;
+    metadata: Record<string, any>;
+  }
+  ```
+- WarpAnchor: User/system anchor for warping, bookmarking, or sharing
+  ```ts
+  export interface WarpAnchor {
+    id: string;
+    label: string;
+    position: { x: number, y: number };
+    owner?: string;
+    shared?: boolean;
+    linkedWarpZoneId?: string;
+    metadata: Record<string, any>;
+  }
+  ```
+
+## Core Components/Managers
+- TimestreamManager: Handles creation, branching, merging, traversal of timestreams/timelines
+  ```ts
+  export class TimestreamManager {
+    createTimestream(...): Timestream { /* ... */ }
+    branchTimeline(...): Timeline { /* ... */ }
+    mergeTimelines(...): Timeline { /* ... */ }
+    // ...
+  }
+  ```
+- WarpZoneManager: Manages all warp zones, triggers, and effects on world/timestream
+  ```ts
+  export class WarpZoneManager {
+    registerZoneType(type: string, handler: (zone: WarpZone, context: any) => void): void { /* ... */ }
+    // ...
+  }
+  ```
+- TimeMapVisualizer: UI for displaying time maps, branches, player position in timestream
+  ```ts
+  export class TimeMapVisualizer {
+    render(map: TimeMap): void { /* ... */ }
+    // ...
+  }
+  ```
+- RealityWarpSystem: Orchestrates world regeneration, anchor warping, timestream transitions (extend existing)
+
+## Supporting Utilities
+- Serialization/deserialization for all core types (see types.ts for signatures)
+- Modding hooks for extending timestream, timeline, warp zone logic (see modding_hooks artifact)
+- Event system for broadcasting changes to UI, minimap, multiplayer
+
+## Implementation Steps
+- [ ] Define TypeScript interfaces/types for all core data types in `src/world/timestream/types.ts`
+- [ ] Implement stubs for TimestreamManager, WarpZoneManager, TimeMapVisualizer in `src/world/timestream/`
+- [ ] Integrate with existing anchor, worldgen, and minimap systems
+- [ ] Add serialization and modding hooks
+- [ ] Document all APIs and integration points
+- [ ] Write unit tests for all core managers and types
+- [ ] Provide sample data and test cases
+
+## Acceptance Criteria
+- All core types and managers are implemented and covered by unit tests
+- Modding hooks are documented and tested with sample mods
+- UI/UX integration points are documented and demoed
+- Artifacts are cross-referenced and up to date
+
+## Integration Points
+- GameScene: Anchor UI, warping, minimap
+- WorldGen/ChunkManager: World state branching, chunk replacement
+- Artifacts: Document all new types and APIs
+- UI/UX: See copilot_timestream_ui_2025-06-04.artifact for visual requirements
+
+## Testing & Validation
+- Unit tests for TimestreamManager, WarpZoneManager, TimeMapVisualizer
+- Integration tests for anchor warping and timeline branching
+- Sample data for time maps and warp events
+
+## Modding API Examples
+```ts
+TimestreamManager.registerBranchingHook((timeline, event) => { /* ... */ });
+WarpZoneManager.registerZoneType('custom', (zone, ctx) => { /* ... */ });
+TimeMapVisualizer.registerPlugin(myPlugin);
+```
+
+## Glossary
+- **Timestream:** Branching, mutable flow of time
+- **Timeline:** Linear sequence of events within a timestream
+- **TimeMap:** Data structure for visualizing/querying time relationships
+- **WarpZone:** Region or anchor that triggers a reality warp
+- **WarpAnchor:** User/system anchor for warping/bookmarking
+
+## See Also
+- copilot_timestream_types_2025-06-04.artifact
+- copilot_timestream_modding_hooks_2025-06-04.artifact
+- copilot_timestream_ui_2025-06-04.artifact
+- copilot_timestream_narrative_2025-06-04.artifact
+- copilot_timestream_branching_edge_cases_2025-06-04.artifact

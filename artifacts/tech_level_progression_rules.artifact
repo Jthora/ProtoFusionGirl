@@ -1,0 +1,25 @@
+---
+artifact: tech_level_progression_rules
+created: 2025-06-04
+purpose: Document rules and triggers for advancing/regressing tech levels.
+type: rules
+tags: [tech, progression, rules, artifact]
+format: markdown
+---
+
+# Tech Level Progression Rules
+
+## Advancement
+- Meet all advancement triggers listed in the tech level artifact (e.g., discovery, research, event).
+- Satisfy dependencies (e.g., previous tech level, world state).
+- Optional: Complete specific missions or challenges.
+
+## Regression
+- Triggered by major setbacks (e.g., disaster, war, loss of knowledge).
+- Failing to maintain requirements (e.g., infrastructure collapse).
+
+## Edge Cases
+- Multiple players/factions: Use majority or leader state.
+- Tech regression can be temporary or permanent based on context.
+
+# See individual tech level artifacts for specific triggers.

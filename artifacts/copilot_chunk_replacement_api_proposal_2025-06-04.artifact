@@ -1,0 +1,20 @@
+# Chunk Replacement System: API Proposal
+
+## New/Updated Methods
+- `ChunkManager.replaceChunk(chunkX, chunkY, newChunk)`
+  - Replaces the chunk at (chunkX, chunkY) with `newChunk` in the loaded chunks map.
+  - Triggers downstream updates (tilemap, minimap, etc.).
+- `TilemapManager.refreshAfterChunkReplacement(chunkX, chunkY)`
+  - Refreshes tilemap, entities, and minimap for the affected chunk.
+- `RealityWarpSystem.handleChunkReplacement(chunkX, chunkY, newChunk)`
+  - Coordinates chunk replacement and notifies other systems.
+
+## Usage Example
+```ts
+const newChunk = worldGen.generateChunk(chunkX, chunkY, worldMeta);
+chunkManager.replaceChunk(chunkX, chunkY, newChunk);
+tilemapManager.refreshAfterChunkReplacement(chunkX, chunkY);
+```
+
+---
+Created by Copilot, 2025-06-04.

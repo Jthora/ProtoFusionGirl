@@ -1,0 +1,27 @@
+# Automation & AI Integration
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Describes how scripts, AI agents, and onboarding processes interact with artifacts and code in ProtoFusionGirl.
+
+## Scope
+- Automation workflows
+- AI agent integration
+- Artifact/task management
+
+## Context
+Supports rapid onboarding, documentation, and continuous improvement.
+
+## Related Artifacts
+- project_goals_2025-06-04.artifact
+
+---
+
+## Workflows
+- Onboarding automation
+- Docs/task indexing
+- AI-driven development loops
+
+## See also
+artifacts/instructions.md

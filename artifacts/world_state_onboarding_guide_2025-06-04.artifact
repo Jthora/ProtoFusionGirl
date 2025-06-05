@@ -1,0 +1,49 @@
+---
+artifact: world_state_onboarding_guide_2025-06-04
+name: World State Onboarding & Developer Guide
+created: 2025-06-04
+purpose: Quickstart and reference for new contributors (human or AI) to understand and extend the world state/event system.
+type: guide
+format: markdown
+tags: [onboarding, guide, world, state, event, developer]
+---
+
+# World State Onboarding & Developer Guide
+
+## Quickstart Steps
+1. Read the World State System Design and Data Model artifacts
+2. Review the Event Bus Specification and API/Modding Interface
+3. Explore example code and integration tests
+4. Use the provided API to query/update world state and listen for events
+5. Register new state domains or event types as needed
+
+## Key Concepts
+- Centralized, persistent world state
+- Event-driven cross-system communication
+- Strong typing and schema validation
+- Extensibility for mods, AI, and new features
+
+## How to Add New State Domains
+- Define TypeScript interface and schema
+- Register with WorldStateManager
+- Document in the Data Model artifact
+
+## How to Add New Event Types
+- Define event type and payload schema
+- Register with EventBus
+- Document in the Event Bus artifact
+
+## Troubleshooting & Debugging
+- Use event replay and logging for debugging
+- Validate all state updates and event payloads
+- Check integration tests for regressions
+
+## Versioning & Documentation
+- Always update the version field for new/changed state domains or event types
+- Document all changes in the relevant artifact
+- Reference related artifacts for deeper context
+
+## Related Artifacts
+- See: `world_state_system_design_2025-06-04.artifact`, `world_state_data_model_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`
+
+---

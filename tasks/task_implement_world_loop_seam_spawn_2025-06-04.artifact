@@ -1,0 +1,26 @@
+---
+artifact: task_implement_world_loop_seam_spawn_2025-06-04
+created: 2025-06-04
+purpose: Implement seamless world looping and spawn the main character/camera at the seam where the start and end of the tilemap meet.
+type: todo
+tags: [todo, world, tilemap, edge-case, camera, spawn, loop, torus, seam]
+related: [tilemap_system_design.artifact, copilot_advanced_todos_2025-06-03.artifact]
+format: markdown
+---
+
+# TODO: Seamless World Loop & Spawn at Seam (2025-06-04)
+
+## Requirements
+- The world is a horizontal loop: the leftmost tile (0) is adjacent to the rightmost tile (circumference - 1).
+- The main character and camera must spawn exactly at the seam (tile 0,0 or (circumference,0)), visually centered.
+- Movement, rendering, and world logic must seamlessly wrap around this edge—no visible gap, glitch, or coordinate overflow.
+- The player and camera can move left from the first tile and appear on the last tile, and vice versa.
+- All systems (collision, chunk loading, minimap, etc.) must treat the world as a torus horizontally.
+- The world appears flat to the player, but the code/data must treat it as a loop.
+
+## Next Steps
+- Update tilemap/camera/player spawn logic to support seamless looping.
+- Add tests to ensure no visual or logic discontinuity at the seam.
+- Document this requirement in the tilemap system design artifact.
+
+---

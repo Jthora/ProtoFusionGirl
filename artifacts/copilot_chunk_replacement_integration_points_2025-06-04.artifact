@@ -1,0 +1,14 @@
+# Chunk Replacement System: Integration Points
+
+## Where to Integrate
+- `WorldGen.regenerateWorldFromSeed`: After generating a new chunk, call `ChunkManager.replaceChunk`.
+- `RealityWarpSystem`: Ensure chunk replacement is triggered after a warp.
+- `TilemapManager`: Provide a method to refresh tilemaps and entities after chunk replacement.
+- `GameScene`: Listen for warp events and trigger UI/physics/minimap updates.
+
+## Notes
+- Ensure all references to old chunk data are updated.
+- Consider batching updates for performance during large/full warps.
+
+---
+Created by Copilot, 2025-06-04.

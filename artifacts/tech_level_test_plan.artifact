@@ -1,0 +1,23 @@
+---
+artifact: tech_level_test_plan
+created: 2025-06-04
+purpose: Define test cases and validation criteria for tech level features.
+type: testplan
+tags: [tech, test, artifact]
+format: markdown
+---
+
+# Tech Level Test Plan
+
+## Unit Tests
+- Validate correct parsing/loading of tech level data
+- Test progression and regression logic
+- Test unlocks for each tech level
+
+## Integration Tests
+- Ensure tech level changes update UI and gameplay systems
+- Test artifact/code sync automation
+
+## Edge Cases
+- Regression after advancement
+- Multiple players/factions at different tech levels

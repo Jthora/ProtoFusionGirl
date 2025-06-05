@@ -1,0 +1,41 @@
+---
+artifact: tech_level_warp
+name: Warp Tech
+created: 2025-06-04
+purpose: Master artifact for Type II (Late) - Warp Tech (Subgalactic/Interstellar Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, subgalactic, type2]
+---
+
+# Tech Level: Warp Tech
+
+## Classification
+- Type: Type II (Stellar)
+- Era: Late
+- Sphere: Subgalactic
+- Age: Interstellar Age
+
+## Description
+Civilizations master FTL (faster-than-light) travel, enabling interstellar empires and rapid galactic expansion. Advanced spacetime manipulation and wormhole engineering are possible.
+
+## Gameplay Unlocks
+- FTL drives, wormholes
+- Interstellar empires and trade
+- Advanced spacetime engineering
+
+## Advancement Triggers
+- Stable wormhole networks
+- Mastery of FTL physics
+
+## Regression Triggers
+- Wormhole collapse, FTL disasters
+
+## Risks & Consequences
+- Timeline instability, paradoxes, cosmic threats
+
+## Related Artifacts
+- timeline_warp.artifact
+- zone_wormhole_gate.artifact
+
+---

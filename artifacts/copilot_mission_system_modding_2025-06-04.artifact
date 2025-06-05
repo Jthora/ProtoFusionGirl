@@ -1,0 +1,19 @@
+# Mission System Modding & Extensibility Hooks
+
+## Modding Goals
+- Allow new missions, objectives, and rewards to be defined via data or code
+- Support mission scripting (triggers, conditions, rewards)
+- Enable mission packs and community content
+
+## Hooks & Extension Points
+- Mission data loader: accepts external JSON/TS files
+- Objective handler registry: add new objective types
+- Trigger/event system: allow custom mission logic
+- Reward handler registry: add new reward types
+
+## Example: Adding a Custom Objective
+- Register new objective type with handler function
+- Reference in mission data
+
+---
+# End of Artifact

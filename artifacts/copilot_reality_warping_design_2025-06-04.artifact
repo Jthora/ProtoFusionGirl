@@ -1,0 +1,26 @@
+# Reality Warping System Design (2025-06-04)
+
+## Purpose
+Integrate reality warping (warp anchors/zones) as a core Universal Magic mechanic, tightly coupled with the Timestream Framework, Universal Language, and player agency. Enable anchor sharing, multiplayer, and narrative consequences.
+
+## Key Features
+- Warp anchors/zones as Universal Magic manifestations (not just tech)
+- Anchor creation/restoration requires Universal Language puzzles or rituals
+- Overuse/misuse of warping causes timeline instability, NPC/faction reactions, or cosmic threats
+- Anchor sharing as "quantum bookmarks" (tradable, discoverable, multiplayer-enabled)
+- Anchors interact with Timestream Framework (timeline branches, mission/faction unlocks)
+- Robust, accessible, and customizable UI/UX for anchor management
+- Modding hooks for new anchor types, effects, and Universal Language puzzles
+
+## Technical Notes
+- Strong serialization, hashing, and validation for anchor data
+- Configurable visual/audio effects (cosmic, harmonic, symbol-based)
+- Automated tests for edge cases, multiplayer, and anchor sharing
+- Accessibility options for all major effects
+
+## Next Steps
+1. Deepen anchor/warping integration with Universal Magic and Timestream
+2. Build collaborative/competitive anchor sharing and multiplayer support
+3. Polish UI/UX, accessibility, and modding hooks
+4. Expand procedural content and narrative branching via anchors
+5. Iterate with player feedback and community-driven content

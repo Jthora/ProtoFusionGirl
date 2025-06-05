@@ -1,0 +1,41 @@
+---
+artifact: tech_level_super
+name: Super Tech
+created: 2025-06-04
+purpose: Master artifact for Type III (Early) - Super Tech (Supergalactic/Intergalactic Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, supergalactic, type3]
+---
+
+# Tech Level: Super Tech
+
+## Classification
+- Type: Type III (Galactic)
+- Era: Early
+- Sphere: Supergalactic
+- Age: Intergalactic Age
+
+## Description
+Civilizations span and manipulate entire galaxies. Energy and matter are controlled on a galactic scale. Intergalactic travel and communication are possible. Societies may be post-physical or collective intelligences.
+
+## Gameplay Unlocks
+- Galactic-scale engineering
+- Intergalactic travel
+- Collective consciousness
+
+## Advancement Triggers
+- Mastery of galactic physics
+- Creation of galactic networks
+
+## Regression Triggers
+- Galactic collapse, cosmic threats
+
+## Risks & Consequences
+- Loss of individuality, cosmic predators
+
+## Related Artifacts
+- timeline_super.artifact
+- zone_galactic_core.artifact
+
+---

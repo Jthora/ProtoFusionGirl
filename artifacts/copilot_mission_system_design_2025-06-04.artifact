@@ -1,0 +1,75 @@
+# Mission System Design & Data Model
+
+## Purpose
+Defines the structure, types, and serialization format for all mission types (main, side, dynamic) in ProtoFusionGirl.
+
+## Core Types
+- Mission
+  - id: string
+  - title: string
+  - description: string
+  - type: 'main' | 'side' | 'dynamic'
+  - status: 'inactive' | 'active' | 'completed' | 'failed'
+  - objectives: Objective[]
+  - rewards: Reward[]
+  - triggers: MissionTrigger[]
+  - dependencies: string[] (mission ids)
+  - version: number (for migration)
+
+- Objective
+  - id: string
+  - description: string
+  - type: 'location' | 'collect' | 'defeat' | 'interact' | 'escort' | 'activate' | 'survive' | 'custom'
+  - target: string | number | object
+  - status: 'incomplete' | 'complete' | 'failed'
+  - progress: number (optional, for partial objectives)
+
+- Reward
+  - type: 'xp' | 'item' | 'currency' | 'unlock' | 'faction' | 'custom'
+  - value: number | string | object
+
+- MissionTrigger
+  - type: 'onStart' | 'onComplete' | 'onFail' | 'onObjectiveComplete' | 'onTimeElapsed' | 'custom'
+  - event: string
+  - params: object
+
+## Example Mission JSON
+```json
+{
+  "id": "main_001",
+  "title": "Awaken in the Rift",
+  "description": "Find your way out of the anomaly and reach the base.",
+  "type": "main",
+  "status": "active",
+  "objectives": [
+    { "id": "obj1", "description": "Exit the anomaly", "type": "location", "target": "anomaly_exit", "status": "incomplete" }
+  ],
+  "rewards": [
+    { "type": "xp", "value": 100 },
+    { "type": "item", "value": "starter_kit" }
+  ],
+  "triggers": [
+    { "type": "onStart", "event": "showIntroCinematic", "params": {} }
+  ],
+  "dependencies": [],
+  "version": 1
+}
+```
+
+## Serialization
+- Missions are stored as JSON (single file or per-mission) in `data/missions/`.
+- File naming: `mission_<id>.json` or `missions.json` for batch.
+- Save/load system integrates with mission state.
+- Version field supports future migration.
+
+## Extensibility
+- New mission types and objectives can be added via data or code.
+- Objective and reward handler registries support custom logic.
+- Event/callback API for mission triggers (see integration artifact).
+
+## Error Handling
+- If a dependency is missing or a mission is corrupted, log and skip mission, continue loading others.
+- If a trigger fails, mark mission as failed and notify player.
+
+---
+# End of Artifact

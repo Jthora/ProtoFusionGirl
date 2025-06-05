@@ -1,0 +1,38 @@
+---
+artifact: tech_level_data_model
+created: 2025-06-04
+purpose: Canonical data structure for tech levels in code and artifacts.
+type: schema
+tags: [tech, data, schema, artifact, automation]
+format: typescript
+---
+
+# Tech Level Data Model (TypeScript Example)
+
+```ts
+export interface TechLevel {
+  id: string;
+  name: string;
+  type: string; // e.g., Type 0, Type I, etc.
+  era: string;
+  sphere: string;
+  age: string;
+  description: string;
+  gameplayUnlocks: string[];
+  advancementTriggers: string[];
+  regressionTriggers: string[];
+  risks: string[];
+  relatedArtifacts: string[];
+}
+```
+
+# Field Descriptions
+- **id**: Unique identifier (e.g., 'neolithic', 'cyber')
+- **name**: Display name
+- **type/era/sphere/age**: Classification
+- **description**: Lore and context
+- **gameplayUnlocks**: Features/items unlocked
+- **advancementTriggers**: How to advance
+- **regressionTriggers**: How to regress
+- **risks**: Dangers or consequences
+- **relatedArtifacts**: Linked artifact files

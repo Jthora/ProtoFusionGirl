@@ -1,0 +1,41 @@
+---
+artifact: tech_level_fusion
+name: Fusion Tech
+created: 2025-06-04
+purpose: Master artifact for Type II (Early) - Fusion Tech (Astrospheric/Astral Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, astrospheric, type2]
+---
+
+# Tech Level: Fusion Tech
+
+## Classification
+- Type: Type II (Stellar)
+- Era: Early
+- Sphere: Astrospheric
+- Age: Astral Age
+
+## Description
+Civilizations harness fusion energy and begin stellar engineering. Interstellar travel is possible. Societies may be post-scarcity, with advanced AI and synthetic life.
+
+## Gameplay Unlocks
+- Fusion reactors, starships
+- Terraforming and stellar engineering
+- Synthetic biology and advanced AI
+
+## Advancement Triggers
+- Dyson sphere construction
+- Interstellar colonization
+
+## Regression Triggers
+- Stellar disasters, rogue AI
+
+## Risks & Consequences
+- Star lifting accidents, existential threats
+
+## Related Artifacts
+- timeline_fusion.artifact
+- zone_fusion_reactor.artifact
+
+---

@@ -1,0 +1,15 @@
+# copilot_reality_warping_best_practices_2025-06-04.artifact
+
+## Best Practices for Reality Warping & Warp Zones
+- Use minimal, lossless serialization for tile data (avoid unnecessary bloat)
+- Always include tile metadata and state in the datablob
+- Use a strong, fast hash for datakey/seed generation (e.g., SHA-256, MurmurHash)
+- When serializing across the seam, use toroidal math to ensure correct wrap-around
+- Store warp anchors with timestamps and player context for easy retrieval
+- Visualize warp zones and anchors clearly in the UI (minimap, overlays, tooltips)
+- Allow for modding/extension: custom tile types, metadata, and warp effects
+- Test with large and edge-case warp zones (crossing seam, max size, etc.)
+- Make visual/sound effects configurable and accessible (user settings, effect parameters)
+- Provide fallbacks or warnings for missing sound assets
+- Sequence effects and restoration for polish (e.g., delay restore until after effect)
+- Add hooks/events for effect testability

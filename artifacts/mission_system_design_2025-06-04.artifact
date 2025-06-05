@@ -1,0 +1,39 @@
+# Mission System Design
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Outlines the quest/mission structure, branching logic, and progression for ProtoFusionGirl.
+
+## Scope
+- Mission types and objectives
+- Branching and dynamic logic
+- Progression and rewards
+- Edge cases (failed missions, incomplete objectives)
+- Accessibility and localization
+
+## Context
+Missions drive player engagement and progression. Integrates with persona core, combat, and world state.
+
+## Related Artifacts
+- mission_system_integration_2025-06-04.artifact
+- mission_system_modding_2025-06-04.artifact
+- mission_system_ui_2025-06-04.artifact
+
+---
+
+## Mission Data Format
+- JSON/YAML structure for mission definitions
+- Scripting hooks for dynamic events
+- Localization support
+
+## Authoring
+- Support for modding and custom missions
+- Templates and validation tools
+
+## Edge Cases
+- Handling mission failure or abandonment
+- Progression rollback or compensation
+
+## See also
+artifacts/instructions.md

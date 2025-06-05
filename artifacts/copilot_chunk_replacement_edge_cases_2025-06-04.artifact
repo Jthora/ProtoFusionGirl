@@ -1,0 +1,17 @@
+# Chunk Replacement System: Edge Cases & Testing
+
+## Edge Cases
+- Player or entities inside a chunk being replaced.
+- Chunks with unsaved edits or modded data.
+- Multiplayer: sync chunk replacement across clients.
+- Minimap and UI not updating after chunk change.
+- Physics bodies not refreshed after tilemap update.
+
+## Testing Plan
+- Unit test: Replace a chunk and verify new data is present.
+- Integration test: Trigger a warp and check world, minimap, and UI update.
+- Manual test: Warp while standing on a chunk boundary.
+- Regression test: Ensure no memory leaks or stale references.
+
+---
+Created by Copilot, 2025-06-04.

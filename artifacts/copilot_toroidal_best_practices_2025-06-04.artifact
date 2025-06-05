@@ -1,0 +1,32 @@
+# copilot_toroidal_best_practices_2025-06-04.artifact
+
+## Toroidal World Logic: Best Practices & Checklist
+
+### Math Utilities
+- [x] Use wrapX and toroidalDistanceX for all X coordinate math
+- [x] Use wrapChunkX and toroidalChunkDistanceX for chunk logic
+- [x] Use BigInt variants for extreme world sizes
+
+### Systems to Refactor/Test
+- [x] Chunk loading/unloading (done)
+- [x] Player/camera movement and centering (done)
+- [x] Enemy/AI position and distance (partial)
+- [ ] AI/pathfinding (use toroidal math for all X logic)
+- [ ] Minimap/world map UI (toroidal rendering)
+- [ ] Projectiles/physics (toroidal movement, collision, targeting)
+- [ ] Persistence/save-load (wrap all X coordinates)
+- [ ] Edge-aware rendering (sprites/effects at seam)
+- [ ] Vertical boundaries/wrapping (decide: hard, soft, or toroidal Y)
+
+### Testing & Validation
+- [ ] Add unit tests for all toroidal math utilities (including edge cases)
+- [ ] Add integration tests for seam-crossing (player, enemy, chunk, camera, etc.)
+
+### Documentation & Onboarding
+- [x] Document all toroidal utilities in code
+- [ ] Expand onboarding docs with toroidal math usage, examples, and gotchas
+- [ ] Maintain artifact checklists for future contributors
+
+### Performance
+- [ ] Profile chunk loading/unloading and seam rendering for large worlds
+- [ ] Optimize as needed

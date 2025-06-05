@@ -28,6 +28,7 @@ related: [copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.a
 - Add script documentation and usage examples to all automation scripts.
 - Regularly review and clean up unused or outdated artifacts.
 - Expand `copilot_memory.artifact` with new lessons and heuristics as the project evolves.
+- Refactor all world, chunk, AI, minimap, and rendering logic to use new toroidal math utilities for robust edge-aware behavior (see task_apply_toroidal_utilities_everywhere_2025-06-04.artifact).
 
 ---
 

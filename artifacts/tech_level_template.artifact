@@ -1,0 +1,35 @@
+---
+artifact: tech_level_template
+name: Tech Level Template
+created: 2025-06-04
+purpose: Canonical template for defining a tech level in FusionGirl. Use as a base for all tech level artifacts.
+type: tech_level
+tags: [template, tech, progression, worldbuilding]
+format: markdown
+---
+
+# Tech Level: <Name>
+
+## Classification
+- Type: <Type 0/Type I/Type II/etc.>
+- Era: <e.g., Neolithic, Cyber, Fusion, Warp, Ultra>
+
+## Description
+<Describe the civilization, technology, metaphysics, and societal traits at this level.>
+
+## Gameplay Unlocks
+- <Abilities, UQPL commands, vehicles, weapons, zone types, etc.>
+
+## Advancement Triggers
+- <Missions, puzzles, narrative events required to advance to this level>
+
+## Regression Triggers
+- <Events or failures that can cause a timeline to regress>
+
+## Risks & Consequences
+- <Timeline instability, cosmic threats, ethical dilemmas, etc.>
+
+## Related Artifacts
+- <List of related timeline, faction, zone, or magic artifacts>
+
+---

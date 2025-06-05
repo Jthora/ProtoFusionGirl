@@ -1,20 +1,25 @@
-// WorldEvents: Event bus for world/tilemap changes (edit, chunk load/unload, etc.)
-type WorldEventType = 'tileEdit' | 'chunkLoad' | 'chunkUnload' | 'worldSave' | 'worldLoad';
+// DEPRECATED: Moved to src/core/EventBus.ts as part of core architecture refactor (2025-06-04).
+// See src/core/EventBus.ts and core/README.md for the new generic event bus implementation.
 
-export interface WorldEvent {
-  type: WorldEventType;
-  data: any;
+// EventBus: Generic event bus for decoupled communication across systems.
+// Moved to core/ as part of architecture refactor (2025-06-04). See core/README.md.
+
+export type EventType = string;
+
+export interface Event<T = any> {
+  type: EventType;
+  data: T;
 }
 
-export class WorldEvents {
-  private listeners: Map<WorldEventType, ((event: WorldEvent) => void)[]> = new Map();
+export class EventBus<T = any> {
+  private listeners: Map<EventType, ((event: Event<T>) => void)[]> = new Map();
 
-  on(type: WorldEventType, handler: (event: WorldEvent) => void) {
+  on(type: EventType, handler: (event: Event<T>) => void) {
     if (!this.listeners.has(type)) this.listeners.set(type, []);
     this.listeners.get(type)!.push(handler);
   }
 
-  emit(event: WorldEvent) {
+  emit(event: Event<T>) {
     (this.listeners.get(event.type) || []).forEach(fn => fn(event));
   }
 }

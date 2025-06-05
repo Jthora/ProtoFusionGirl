@@ -1,0 +1,41 @@
+---
+artifact: tech_level_industrial
+name: Industrial Tech
+created: 2025-06-04
+purpose: Master artifact for Type 0 (Late) - Industrial Tech (Atmospheric/Atomic Age) in FusionGirl, per canonical tech level documentation.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding, atmospheric, type0]
+---
+
+# Tech Level: Industrial Tech
+
+## Classification
+- Type: Type 0 (Local)
+- Era: Late
+- Sphere: Atmospheric
+- Age: Atomic Age
+
+## Description
+Steam, coal, and early electricity power mass production. Urbanization, railways, and telegraphs. Science and industry reshape society, but pollution and class divides grow.
+
+## Gameplay Unlocks
+- Factories, railways
+- Firearms, explosives
+- Early electricity and telegraphy
+
+## Advancement Triggers
+- Widespread electrification
+- Scientific method adoption
+
+## Regression Triggers
+- Resource exhaustion, revolution
+
+## Risks & Consequences
+- Pollution, labor unrest, industrial accidents
+
+## Related Artifacts
+- timeline_industrial.artifact
+- zone_factory.artifact
+
+---

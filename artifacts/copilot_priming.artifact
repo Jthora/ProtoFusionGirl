@@ -1,0 +1,22 @@
+---
+title: Copilot Priming Artifact
+created: 2025-06-05
+purpose: Machine-readable, always-updated context for Copilot/AI agents.
+---
+
+projectPurpose: "ProtoFusionGirl: AI-Driven Game Development"
+keyScripts:
+  - name: Guided Onboarding
+    command: node scripts/guidedOnboarding.js
+  - name: Update Docs Index
+    command: npx node scripts/indexDocs.js
+artifactIndex: artifacts/artifact_index.artifact
+docsIndex: docs/docs_index.json
+openTasks:
+  - Refactor mission system
+  - Update combat mechanics docs
+agentInstructions:
+  - Always check onboarding status before automation.
+  - Use docs index for fast lookup.
+  - If context is missing, create a feedback artifact in /tasks/.
+lastUpdated: 2025-06-05

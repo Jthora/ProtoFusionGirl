@@ -1,0 +1,124 @@
+---
+artifact: copilot_reality_warping_code_plan_2025-06-04
+created: 2025-06-04
+purpose: Code plan for grid-to-seed reality warping as a core physics/world mechanic in ProtoFusionGirl.
+type: design
+format: markdown
+tags: [reality-warping, worldgen, tilemap, physics, artifact, code-plan]
+related: [copilot_reality_warping_design_2025-06-04.artifact, copilot_warp_anchor_systems_2025-06-04.artifact, copilot_timestreams_and_warp_zones_2025-06-04.artifact]
+---
+
+# Grid-to-Seed Reality Warping: Enhanced Code Plan
+
+## Summary
+This plan details how to make reality warping a core part of the physics/world engine. Jane (the player) can trigger a reality warp, causing the local grid of tiles to be serialized into a deterministic seed, which is then used for procedural world generation. This enables portals, anchors, and Jane's psionic suit to shift realities in a lore-consistent, data-driven way.
+
+## 1. Tilemap/World System Changes
+- **TilemapManager**
+  - Add `serializeGridToSeed(center: {x, y}, size: {w, h}): string`
+    - Collects all tile data in the grid around a center point.
+    - Serializes tile types, metadata, and positions into a deterministic string or hash (e.g., SHA-256).
+    - Optionally, include environmental state (entities, weather, time) for richer seeds.
+    - Support for variable grid shapes (circle, rectangle, custom mask) for advanced warps.
+    - **Performance:** Use incremental or chunk-based serialization/regeneration to reduce performance impact, especially for large grids.
+    - **Accessibility:** Provide fallback or simplified modes for lower-end hardware or accessibility needs.
+- **WorldGen**
+  - Accepts a custom seed for procedural generation.
+  - When a warp is triggered, uses the grid-derived seed to generate the new world state around Jane.
+  - Supports seamless transition and rollback to previous realities (history stack).
+  - Optionally, allow partial world regeneration (only affected chunks/tiles).
+  - **Testing:** Integrate robust testing and debugging framework for reality/seed transitions and state rollbacks.
+
+## 2. Reality Warp System
+- **RealityWarpSystem (new module)**
+  - Handles warp triggers (Jane’s ability, portals, anchors, narrative events).
+  - Stores mapping: `{ seed: worldState }` for persistence and replay.
+  - Exposes API: `warpToReality(seed: string, options?)`
+  - Integrates with event system for narrative hooks and consequences.
+  - Supports multiplayer/anchor sharing (syncing seeds between players).
+  - Optionally, allow for reality branching (multiple timelines from a single anchor).
+  - **Persistence:** Design storage to avoid data bloat and save/load issues; prune unused branches and compress world state as needed.
+  - **Analytics:** Plan for analytics/telemetry to monitor real-world usage and edge cases post-launch.
+
+## 3. Jane’s Abilities
+- **Jane/Player Class**
+  - Method: `triggerRealityWarp(gridSize, options)`
+    - Calls `TilemapManager.serializeGridToSeed(...)`
+    - Passes seed to `RealityWarpSystem.warpToReality(...)`
+    - Handles animation, cooldown, and UI feedback.
+    - Can upgrade/modify grid size, shape, or seed logic via progression or items.
+    - Optionally, allow Jane to "anchor" a reality for later return.
+    - **UX:** Involve narrative and UX designers early to ensure the system is both fun and understandable for players.
+
+## 4. Modding & Extensibility
+- **Mod API**
+  - Allow mods to define new warp types, grid serialization logic, or anchor behaviors.
+  - Expose event hooks for before/after warp, seed mutation, and anchor creation.
+  - Support for custom UI overlays and warp effects.
+  - **Edge Cases:** Provide clear guidelines and test cases for modders to avoid introducing hard-to-test edge cases.
+
+## 5. UI/UX
+- **Warp Visualization**
+  - Highlight the grid area (with shape/size feedback).
+  - Show psionic effects and transition animation.
+  - Optionally, display the seed or “reality signature.”
+  - UI for managing anchors/bookmarks and returning to previous realities.
+  - Visualize ley lines, portals, and anchor points on minimap/world map.
+  - **UI/UX Burden:** Prioritize intuitive and accessible design for advanced features (anchor management, timeline navigation, visualization). Consider staged rollout of features.
+
+## 6. Data Structure Example
+```ts
+interface RealityWarpEvent {
+  initiator: 'jane' | 'anchor' | 'portal' | 'narrative';
+  gridCenter: { x: number, y: number };
+  gridSize: { width: number, height: number };
+  gridShape?: 'rectangle' | 'circle' | 'custom';
+  tileData: TileData[];
+  environmentData?: any; // Entities, weather, etc.
+  seed: string;
+  timestamp: number;
+  resultingWorldId: string;
+  previousWorldId?: string;
+  branchId?: string; // For timeline branching
+}
+```
+
+## 7. Physics Engine Integration
+- Warp logic is part of the core physics/tilemap update loop.
+- All collision, AI, and procedural events are aware of the current reality/seed.
+- Optionally, allow for "unstable" realities (physics modifiers, glitches, etc.) based on seed properties.
+
+## 8. Narrative & Multiplayer Hooks
+- Warps can trigger story events, unlock new quests, or alter world state.
+- Anchors and seeds can be shared between players (multiplayer or social features).
+- Timeline/reality history is tracked for narrative consequences and replayability.
+
+## Critique
+
+### Strengths
+- **Comprehensive Integration:** The plan covers not just the core mechanic, but also extensibility, UI/UX, narrative, and multiplayer hooks, making it robust and future-proof.
+- **Modularity:** By isolating the RealityWarpSystem and providing modding hooks, the design supports future expansion and community-driven content.
+- **Lore Alignment:** The system is deeply tied to narrative and metaphysical concepts, supporting both gameplay and story.
+- **Replayability:** Timeline branching, anchor management, and history tracking enable emergent gameplay and replay value.
+- **Physics Engine Awareness:** Ensuring all core systems (AI, collision, procedural events) are seed/reality-aware is a strong foundation for consistency.
+
+### Weaknesses & Risks
+- **Complexity:** The plan introduces significant complexity, especially in state management, rollback, and multiplayer synchronization. This may increase development time and bug surface area.
+- **Performance:** Serializing large grids and regenerating world state on-the-fly could impact performance, especially on lower-end devices or in multiplayer scenarios.
+- **Persistence Overhead:** Storing and managing multiple world states, seeds, and branches may require careful design to avoid data bloat and save/load issues.
+- **Edge Cases:** Handling partial world regeneration, unstable realities, and custom mod logic could introduce hard-to-test edge cases.
+- **UI/UX Burden:** The advanced features (anchor management, timeline navigation, visualization) may require significant UI/UX work to be intuitive and accessible.
+
+### Opportunities for Improvement
+- Consider incremental or chunk-based serialization/regeneration to reduce performance impact.
+- Provide fallback or simplified modes for lower-end hardware or accessibility.
+- Develop a robust testing and debugging framework for reality/seed transitions and state rollbacks.
+- Involve narrative and UX designers early to ensure the system is both fun and understandable for players.
+- Plan for analytics/telemetry to monitor real-world usage and edge cases post-launch.
+
+## Next Steps
+- Implement `serializeGridToSeed` in TilemapManager.
+- Add RealityWarpSystem and integrate with WorldGen and physics engine.
+- Add Jane’s ability to trigger warps and anchor realities.
+- Expose hooks for modding, narrative, and multiplayer events.
+- Prototype UI/UX for warp visualization and anchor management.

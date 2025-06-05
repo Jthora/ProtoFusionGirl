@@ -39,4 +39,14 @@ contract ModRegistry {
     function getModCount() external view returns (uint256) {
         return mods.length;
     }
+
+    // Returns mod registration info by IPFS CID (for frontend lookup)
+    function getModByCID(string calldata ipfsCID) external view returns (string memory name, string memory version, address owner, uint256 modId) {
+        for (uint256 i = 0; i < mods.length; i++) {
+            if (keccak256(bytes(mods[i].ipfsCID)) == keccak256(bytes(ipfsCID))) {
+                return (mods[i].name, mods[i].version, mods[i].owner, i);
+            }
+        }
+        revert("Mod not found");
+    }
 }

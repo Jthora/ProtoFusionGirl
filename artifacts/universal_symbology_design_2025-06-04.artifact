@@ -1,0 +1,28 @@
+# Universal Symbology & Puzzle System
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Documents the universal language, puzzle, and crafting systems for ProtoFusionGirl.
+
+## Scope
+- Symbol language
+- Puzzle mechanics
+- Crafting integration
+
+## Context
+Unique gameplay system for communication and problem-solving.
+
+## Related Artifacts
+- persona_core_architecture_2025-06-04.artifact
+- mission_system_design_2025-06-04.artifact
+
+---
+
+## System Overview
+- Base12 harmonic symbology
+- Puzzle types and logic
+- Crafting recipes
+
+## See also
+artifacts/instructions.md

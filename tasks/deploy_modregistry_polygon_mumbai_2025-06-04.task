@@ -1,0 +1,19 @@
+---
+title: Deploy ModRegistry to Polygon Mumbai
+id: w3-6
+status: pending
+assignee: copilot
+created: 2025-06-04
+related_artifact: copilot_web3_integration_checklist_2025-06-04
+---
+# Task: Deploy ModRegistry to Polygon Mumbai
+
+## Steps
+- Compile the ModRegistry contract
+- Deploy to Polygon Mumbai using Hardhat
+- Record the deployed address in an artifact and update VITE_MOD_REGISTRY_ADDRESS
+- Verify contract on Polygonscan (optional)
+
+## Acceptance Criteria
+- Contract is deployed and address is available for frontend integration
+- Deployment details are documented in artifacts

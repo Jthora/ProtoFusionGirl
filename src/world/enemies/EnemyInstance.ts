@@ -22,4 +22,14 @@ export class EnemyInstance {
       this.isAlive = false;
     }
   }
+
+  setPosition(x: number, y: number) {
+    // Wrap x for seamless world torus
+    this.x = require('../tilemap/TilemapManager').TilemapManager.wrapX(x);
+    this.y = y;
+  }
+
+  getToroidalDistanceX(otherX: number): number {
+    return require('../tilemap/TilemapManager').TilemapManager.toroidalDistanceX(this.x, otherX);
+  }
 }

@@ -1,0 +1,96 @@
+---
+artifact: world_state_system_design_2025-06-04
+name: Unified World State & Event System Design
+created: 2025-06-04
+purpose: Blueprint for the architecture, responsibilities, and integration points of the WorldStateManager and event bus in ProtoFusionGirl.
+type: design
+format: markdown
+tags: [system, world, event, architecture, design, core]
+---
+
+# Unified World State & Event System Design
+
+## Overview
+A central system to manage all persistent, cross-functional game state and events, enabling emergent gameplay, automation, and extensibility.
+
+## Architecture Diagram
+```mermaid
+graph TD;
+  WorldStateManager((WorldStateManager))
+  EventBus((EventBus))
+  Missions(Missions/Quests)
+  Tilemap(Tilemap/WorldGen)
+  Player(Player/Inventory/Progression)
+  Economy(Economy/Crafting)
+  LeyLines(Ley Lines/Rifts)
+  AI(API/Agent/Mod)
+
+  WorldStateManager-->|publish/subscribe|EventBus
+  EventBus-->|events|Missions
+  EventBus-->|events|Tilemap
+  EventBus-->|events|Player
+  EventBus-->|events|Economy
+  EventBus-->|events|LeyLines
+  EventBus-->|events|AI
+  Missions-->|query/update|WorldStateManager
+  Tilemap-->|query/update|WorldStateManager
+  Player-->|query/update|WorldStateManager
+  Economy-->|query/update|WorldStateManager
+  LeyLines-->|query/update|WorldStateManager
+  AI-->|query/update|WorldStateManager
+```
+
+## Responsibilities
+- Persist and manage global world state
+- Provide event-driven communication between systems
+- Expose query/update API
+- Support serialization for save/load/modding
+- Validate and version state updates
+- Enforce security and permissions for mods/AI
+
+## Integration Points
+- Missions/Quests
+- Tilemap/WorldGen
+- Player/Inventory/Progression
+- Economy/Crafting
+- Ley Lines/Rifts
+- AI/Agent/Mod APIs
+
+## Event Types & Flows
+- System: e.g., `RIFT_OPENED`, `MISSION_COMPLETED`, `PLAYER_MOVED`
+- User/AI: e.g., `MOD_TRIGGERED`, `AGENT_ACTION`
+- Events have schemas, can be replayed for debugging/AI
+
+## Event Flow Example
+1. Rift opens (event: `RIFT_OPENED`)
+2. Mission system updates objectives
+3. UI notifies player
+4. Economy adjusts resource spawns
+
+## Serialization & Persistence
+- Full and partial state save/load
+- JSON format, versioned
+- Modding hooks for state injection
+- Migration/versioning strategy for upgrades
+
+## Security & Validation
+- Schema validation for all state updates/events
+- Permission checks for sensitive domains
+- Sandboxing for mods/AI
+
+## Versioning & Migration
+- State version field in all saves
+- Migration scripts for breaking changes
+- Rollback support for failed updates
+
+## Checklist for Integration
+- [ ] Refactor subsystems to use WorldStateManager
+- [ ] Register event listeners for all major systems
+- [ ] Document API and event types
+- [ ] Add integration and regression tests
+- [ ] Update onboarding and modding docs
+
+## Related Artifacts
+- See: `world_state_data_model_2025-06-04.artifact`, `event_bus_spec_2025-06-04.artifact`, `world_state_api_modding_2025-06-04.artifact`, `world_state_testing_strategy_2025-06-04.artifact`, `world_state_onboarding_guide_2025-06-04.artifact`
+
+---

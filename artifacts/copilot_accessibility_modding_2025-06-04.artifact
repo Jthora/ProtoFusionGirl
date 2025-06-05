@@ -1,0 +1,10 @@
+# Accessibility & Modding Hooks (2025-06-04)
+
+## Accessibility
+- Configurable visual/audio effects for all reality warping and Universal Magic actions
+- Options for colorblindness, photosensitivity, and sound sensitivity
+- In-game settings for effect intensity, style, and UI scale
+
+## Modding
+- APIs/hooks for custom anchor types, effects, and Universal Language puzzles
+- Support for community-created anchor sharing, UI themes, and lore extensions

@@ -1,0 +1,37 @@
+# Combat Mission Outcome Types
+Author: GitHub Copilot
+Date: 2025-06-04
+
+## Purpose
+Defines the canonical, extensible list of possible outcomes for combat missions in ProtoFusionGirl. Supports narrative depth, replayability, and meaningful player choice.
+
+## Outcome Types
+- victory_by_defeat: All enemies defeated (classic win)
+- defeat_by_death: Player or party is killed (classic loss)
+- retreat_escape: Player escapes or flees the battle
+- surrender: Player or enemy surrenders, leading to negotiation or capture
+- capture_rescue: Player captures an enemy or rescues an ally/hostage
+- stalemate: Neither side wins; mission ends in a draw or unresolved state
+- diplomatic_resolution: Combat is avoided or ended via negotiation, intimidation, or persuasion
+- objective_accomplished: Player completes a non-combat objective during the fight (e.g., hacking, sabotage, stealing, protecting)
+- environmental_outcome: The environment changes the outcome (e.g., collapse, fire, flooding, time runs out)
+- transformation: Player or enemy is transformed (e.g., mind control, corruption, conversion)
+- betrayal_ally_switch: An ally or enemy switches sides mid-combat
+- special_condition: Custom outcomes (e.g., puzzle solved, artifact activated, ritual completed)
+- mercy_spare: Player chooses to spare an enemy, leading to future consequences
+- recruitment: Player recruits an enemy or NPC during/after combat
+- resource_depletion: Player runs out of key resources (ammo, energy, time), forcing a different outcome
+
+## Related Lists
+- Mission Objective Types
+- Mission Failure Types
+- Mission Reward Types
+- Mission Branching/Follow-up Types
+
+## Extensibility
+- New outcome types can be added as the game evolves or for modding support.
+
+## See also
+artifacts/combat_mechanics_2025-06-04.artifact
+artifacts/mission_system_design_2025-06-04.artifact
+artifacts/mission_objective_types_2025-06-04.artifact

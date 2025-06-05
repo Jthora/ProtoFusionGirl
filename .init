@@ -1,0 +1,39 @@
+---
+title: ProtoFusionGirl Initialization
+created: 2025-06-05
+purpose: Declarative instructions for initializing the project and agent environment.
+references:
+  - .manifest
+  - .schema
+  - .startup
+  - scripts/
+  - artifacts/
+minimum_requirements:
+  node: '18.0.0'
+  npm: '8.0.0'
+  os: 'macOS, Linux, Windows'
+dependencies:
+  - js-yaml
+  - eslint
+  - prettier
+  - husky
+initialization:
+  # Initialization
+
+  required_folders:
+    - artifacts/
+    - docs/
+    - scripts/
+    - tasks/
+
+  required_env:
+    - NODE_ENV=development
+    - AGENT_MODE=enabled
+
+  seed_scripts:
+    - node scripts/guidedOnboarding.js
+    - npx node scripts/indexDocs.js
+
+  post_init_validation:
+    - Run Validate Schemas task
+    - Run Update Manifest task

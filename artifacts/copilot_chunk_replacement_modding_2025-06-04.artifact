@@ -1,0 +1,13 @@
+# Chunk Replacement System: Modding & Extensibility
+
+## Mod Hooks
+- Allow mods to hook into chunk replacement events.
+- Provide a callback: `onChunkReplaced(chunkX, chunkY, newChunk, oldChunk)`.
+- Document how mods can update or veto chunk replacement.
+
+## Extensibility
+- Support for custom chunk data (e.g., puzzle state, magic fields).
+- Allow mods to register additional update handlers for minimap, UI, etc.
+
+---
+Created by Copilot, 2025-06-04.

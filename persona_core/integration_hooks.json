@@ -1,0 +1,5 @@
+{
+  "onboarding": "Reference Persona Core for initial focus",
+  "taskSelection": "Filter and sort tasks using decisionHeuristics",
+  "selfPrompting": "Generate new prompts based on operationalFocus"
+}

@@ -1,0 +1,43 @@
+---
+artifact: tech_level_ascendant
+name: Ascendant Tech
+created: 2025-06-04
+purpose: Canonical master artifact for Type III (Ascendant) tech level in FusionGirl.
+type: tech_level
+format: markdown
+tags: [master, tech, progression, worldbuilding]
+---
+
+# Tech Level: Ascendant
+
+## Classification
+- Type: Type III
+- Era: Post-Singularity/Transcendent
+
+## Description
+Civilizations span galaxies, manipulate spacetime, and may transcend physical form. Reality-warping, universal computation, and cosmic-scale engineering are possible. The distinction between technology and magic blurs.
+
+## Gameplay Unlocks
+- Reality-warping abilities
+- Universal computation
+- Galaxy-scale travel
+- Creation of new universes
+
+## Advancement Triggers
+- Mastery of universal physics
+- Successful reality-warping
+
+## Regression Triggers
+- Cosmic collapse
+- Loss of cohesion or purpose
+
+## Risks & Consequences
+- Attracting cosmic predators
+- Timeline instability
+- Loss of individuality
+
+## Related Artifacts
+- timeline_ascendant.artifact
+- magic_reality_warping.artifact
+
+---

@@ -71,6 +71,38 @@ format: markdown
   process.exit(0);
 }
 
+// --- Enhancement: Show which scripts are referenced in docs ---
+const DOCS_INDEX_PATH = path.join(__dirname, '../docs/docs_index.json');
+function loadDocsIndex() {
+  if (fs.existsSync(DOCS_INDEX_PATH)) {
+    try {
+      return JSON.parse(fs.readFileSync(DOCS_INDEX_PATH, 'utf8'));
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
+}
+
+if (args.includes('--show-docs-refs')) {
+  const docsIndex = loadDocsIndex();
+  if (!docsIndex || !docsIndex.docs) {
+    console.log('No docs index found.');
+    process.exit(0);
+  }
+  scripts.forEach(s => {
+    const refs = docsIndex.docs.filter(d =>
+      (d.summary && d.summary.toLowerCase().includes(s.name.replace('.js', '').toLowerCase())) ||
+      (d.keywords && d.keywords.includes(s.name.replace('.js', '').toLowerCase()))
+    );
+    if (refs.length) {
+      s.referencedInDocs = refs.map(d => d.file);
+    }
+  });
+  console.log(JSON.stringify(scripts, null, 2));
+  process.exit(0);
+}
+
 function printHelp() {
   console.log(`\nUsage: node scripts/listScripts.js [--json] [--help]\n`);
   console.log('Onboarding: Lists all available scripts in the scripts/ directory with descriptions, usage, and onboarding info.');

@@ -1,0 +1,83 @@
+[
+  {
+    "filename": "timestream-branching-and-consequences.task",
+    "title": "Timestream Branching and Narrative Consequences",
+    "description": "Integrate warp anchor use with the Timestream Framework. Using a warp anchor creates a timeline branch, tracked in the Timestream. Overuse/misuse causes instability, visual effects, NPC/faction reactions, or cosmic threat warnings. Visualize timeline branches and anchor history in the UI.",
+    "status": "todo",
+    "priority": 3,
+    "created": "2025-06-04",
+    "tags": ["timestream", "branching", "narrative", "warp-anchor", "ui"],
+    "related": [
+      "artifacts/copilot_timestreams_and_warp_zones_2025-06-04.artifact",
+      "artifacts/copilot_warp_anchor_systems_2025-06-04.artifact"
+    ],
+    "dependencies": []
+  },
+  {
+    "filename": "anchor-ui-ux-and-accessibility.task",
+    "title": "Anchor Management UI/UX and Accessibility",
+    "description": "Polish anchor management panel with puzzle integration, overlays, tutorials, and feedback. Add accessibility settings for all anchor effects (visual/audio, colorblind, photosensitivity). Support controller/gamepad navigation.",
+    "status": "todo",
+    "priority": 4,
+    "created": "2025-06-04",
+    "tags": ["ui", "ux", "accessibility", "warp-anchor", "tutorial"],
+    "related": [
+      "artifacts/copilot_anchor_ui_ux_2025-06-04.artifact",
+      "artifacts/copilot_accessibility_modding_2025-06-04.artifact"
+    ],
+    "dependencies": []
+  },
+  {
+    "filename": "modding-hooks-for-warp-zones.task",
+    "title": "Modding Hooks for Warp Zones and Puzzles",
+    "description": "Expose APIs for custom warp zone types, effects, and Universal Language puzzles. Support community-created anchor sharing, UI themes, and lore extensions.",
+    "status": "todo",
+    "priority": 5,
+    "created": "2025-06-04",
+    "tags": ["modding", "api", "warp-anchor", "universal-language", "extension"],
+    "related": [
+      "artifacts/copilot_accessibility_modding_2025-06-04.artifact",
+      "artifacts/copilot_warp_anchor_systems_2025-06-04.artifact"
+    ],
+    "dependencies": []
+  },
+  {
+    "filename": "README.task",
+    "title": "Task System Documentation",
+    "description": "This file documents the .task format and indexing conventions for the ProtoFusionGirl project.",
+    "status": "done",
+    "priority": 0,
+    "created": "2025-06-04",
+    "tags": ["meta", "documentation", "onboarding"],
+    "related": ["tasks/README.md"],
+    "dependencies": []
+  },
+  {
+    "filename": "universal-magic-puzzle-integration.task",
+    "title": "Universal Magic Puzzle Integration for Warp Anchors",
+    "description": "Require solving a Universal Language puzzle to create or restore a warp anchor. Add puzzle modal/UI and block anchor actions until solved.",
+    "status": "todo",
+    "priority": 1,
+    "created": "2025-06-04",
+    "tags": ["universal-magic", "warp-anchor", "ui", "puzzle"],
+    "related": [
+      "artifacts/copilot_universal_language_puzzles_2025-06-04.artifact",
+      "artifacts/copilot_warp_anchor_systems_2025-06-04.artifact"
+    ],
+    "dependencies": []
+  },
+  {
+    "filename": "anchor-sharing-and-bookmarks.task",
+    "title": "Anchor Sharing and Quantum Bookmarks",
+    "description": "Enable exporting/importing warp anchors as quantum bookmarks (datablobs). Build UI for anchor trading, discovery, and multiplayer sync. Prepare serialization and validation for multiplayer and PvP/Co-op anchor interactions.",
+    "status": "todo",
+    "priority": 2,
+    "created": "2025-06-04",
+    "tags": ["warp-anchor", "sharing", "multiplayer", "serialization"],
+    "related": [
+      "artifacts/copilot_multiplayer_anchor_sharing_2025-06-04.artifact",
+      "artifacts/copilot_warp_anchor_systems_2025-06-04.artifact"
+    ],
+    "dependencies": []
+  }
+]

@@ -1,0 +1,14 @@
+---
+artifact: persona_core_changelog_2025-06-04
+created: 2025-06-04
+purpose: Human-readable changelog for all Persona Core module updates and reviews
+format: markdown
+---
+
+# Persona Core Changelog (2025-06-04)
+
+| Date                | Module                | Author   | Rationale                        |
+|---------------------|----------------------|----------|-----------------------------------|
+| 2025-06-04T12:00:00Z| core_values.json      | system   | Initial modular Persona Core migration. |
+
+> For full details and diffs, see `persona_core/changelog.json`.

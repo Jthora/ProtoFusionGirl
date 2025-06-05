@@ -1,0 +1,49 @@
+title: Task System Documentation
+description: This file documents the .task format and indexing conventions for the ProtoFusionGirl project.
+status: done
+priority: 0
+created: 2025-06-04
+tags: [meta, documentation, onboarding]
+related:
+  - tasks/README.md
+dependencies: []
+
+# Persona Core Task Format Examples
+
+Below are examples of valid `.task` files for the `/tasks/` folder. Both YAML and JSON formats are supported.
+
+---
+
+## YAML Example
+```yaml
+title: Example YAML Task
+description: This is a sample task in YAML format.
+status: todo
+priority: 2
+assignee: copilot
+tags: [example, yaml]
+related: []
+dependencies: []
+```
+
+---
+
+## JSON Example
+```json
+{
+  "title": "Example JSON Task",
+  "description": "This is a sample task in JSON format.",
+  "status": "todo",
+  "priority": 2,
+  "assignee": "copilot",
+  "tags": ["example", "json"],
+  "related": [],
+  "dependencies": []
+}
+```
+
+---
+
+**Required fields:** `title`, `description`, `status`, `priority`, `assignee`
+
+For more, see ONBOARDING.md and Persona Core documentation.

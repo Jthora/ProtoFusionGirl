@@ -1,0 +1,33 @@
+---
+title: ModRegistry Polygon Mumbai Deployment Instructions
+id: w3-6-deploy-instructions
+status: complete
+created: 2025-06-04
+related_artifact: copilot_web3_integration_checklist_2025-06-04
+---
+# ModRegistry Polygon Mumbai Deployment Instructions
+
+## Prerequisites
+- Node.js and npm installed
+- Hardhat and dependencies installed (`npm install`)
+- Polygon Mumbai RPC URL (e.g., from Alchemy or Infura)
+- Deployer wallet private key with testnet MATIC
+
+## Environment Variables
+Set these in your shell or in a `.env` file:
+
+```
+export MUMBAI_RPC_URL="https://rpc-mumbai.maticvigil.com/v1/your-api-key"
+export PRIVATE_KEY="your-wallet-private-key"
+```
+
+## Deployment Command
+```
+npx hardhat run scripts/deployModRegistry.js --network mumbai
+```
+
+## After Deployment
+- Copy the deployed contract address from the output.
+- Update `.env` or Vite config:
+  - `VITE_MOD_REGISTRY_ADDRESS=0x...`
+- Document the deployment in an artifact.

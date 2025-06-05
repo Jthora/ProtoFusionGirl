@@ -1,0 +1,73 @@
+---
+artifact: copilot_persona_core_design_2025-06-04
+created: 2025-06-04
+purpose: Design and best practices for implementing a dynamic, AI/human-aligned Persona Core for ProtoFusionGirl
+format: markdown
+tags: [persona, ai, copilot, decision, onboarding, automation, context, self-prompt]
+related: [ONBOARDING.md, data/self_prompt_queue.json, tasks/task_index.json]
+---
+
+# Persona Core Design for ProtoFusionGirl
+
+## Purpose
+The Persona Core acts as a living operational lens for both AI (GitHub Copilot) and human contributors. It encodes project values, priorities, heuristics, and operational context, enabling context-aware, auditable, and adaptive decision-making.
+
+## Key Principles
+- **Layered Structure:**
+  - Core Layer: Immutable project values and long-term goals.
+  - Operational Layer: Current priorities, focus, and heuristics (updated as project evolves).
+  - Contextual Layer: Real-time signals (onboarding gaps, blockers, urgent tasks) and recent history, possibly auto-updated by scripts or the self-prompt queue.
+- **Transparency & Collaboration:**
+  - Human-readable and editable.
+  - Supports human overrides and annotations.
+  - All changes are versioned and auditable.
+- **Integration:**
+  - Hooks for onboarding, self-prompting, and task selection scripts.
+  - Used by Copilot to filter, sort, and select tasks, and to generate operational prompts.
+- **Self-Improvement:**
+  - Includes meta-prompts for Copilot to self-reflect and prompt for human review if misalignment is detected.
+  - Feedback loop for both AI and humans to propose updates.
+- **Balance:**
+  - Provides strong guidance but allows for justified deviations and human intervention.
+
+## Example Structure
+```json
+{
+  "coreValues": ["AI-first automation", "Artifact-driven development", "Rapid onboarding", "Human-AI collaboration"],
+  "operationalFocus": {
+    "currentPriority": "Universal Magic Puzzle Integration for Warp Anchors",
+    "secondaryFocus": ["Onboarding hygiene", "Task automation"]
+  },
+  "decisionHeuristics": [
+    "Resolve blockers and errors first",
+    "Prioritize tasks with highest impact and lowest effort",
+    "Keep documentation and onboarding up to date",
+    "Favor automation and self-maintaining workflows"
+  ],
+  "overrides": {
+    "2025-06-04": "Pause all new features until onboarding gaps are resolved"
+  },
+  "metaPrompts": [
+    "Is my current focus still aligned with project goals?",
+    "Should I prompt for human review before reprioritizing?"
+  ],
+  "integrationHooks": {
+    "onboarding": "Reference Persona Core for initial focus",
+    "taskSelection": "Filter and sort tasks using decisionHeuristics",
+    "selfPrompting": "Generate new prompts based on operationalFocus"
+  },
+  "version": "2025-06-04T12:00:00Z"
+}
+```
+
+## Best Practices
+- Keep the Persona Core up to date with project evolution.
+- Use it as the single source of truth for AI/human operational context.
+- Integrate with onboarding, task management, and self-prompting systems.
+- Regularly review and version changes for transparency and improvement.
+- Encourage both AI and human contributors to propose updates as priorities shift.
+
+## See Also
+- `ONBOARDING.md` for integration points
+- `data/self_prompt_queue.json` for self-prompting
+- `tasks/task_index.json` for actionable items

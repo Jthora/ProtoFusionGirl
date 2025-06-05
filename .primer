@@ -3,7 +3,31 @@ project: ProtoFusionGirl
 created: 2025-06-03
 purpose: AI/Human onboarding, project header, and automation conventions
 format: markdown
----
+references:
+  - .persona
+  - .priming
+  - .manifest
+  - .datapack
+  - .schema
+  - docs/
+  - scripts/
+minimum_versions:
+  node: '18.0.0'
+  npm: '8.0.0'
+  os: 'macOS, Linux, Windows'
+agent_capabilities:
+  - Automate onboarding, validation, and context sync
+  - Generate, update, and validate artifacts and tasks
+  - Escalate missing context or blockers via feedback artifacts
+  - Never make undocumented or destructive changes
+  - Propose improvements and auto-generate documentation
+agent_instructions:
+  - Always run scripts/guidedOnboarding.js --auto for onboarding, validation, and context sync
+  - Copilot/agents must self-onboard for EVERY file and context change
+  - Onboarding is fully autonomous and requires no human intervention
+  - Do NOT use any other onboarding/validation scripts directly
+  - Escalate unclear requirements or blockers via feedback artifacts
+  - Halt automation if validation fails or context is missing
 
 # ProtoFusionGirl Primer
 

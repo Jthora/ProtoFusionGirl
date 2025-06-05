@@ -1,0 +1,10 @@
+title: Anchor Sharing and Quantum Bookmarks
+description: Enable exporting/importing warp anchors as quantum bookmarks (datablobs). Build UI for anchor trading, discovery, and multiplayer sync. Prepare serialization and validation for multiplayer and PvP/Co-op anchor interactions.
+status: todo
+priority: 2
+created: 2025-06-04
+tags: [warp-anchor, sharing, multiplayer, serialization]
+related:
+  - artifacts/copilot_multiplayer_anchor_sharing_2025-06-04.artifact
+  - artifacts/copilot_warp_anchor_systems_2025-06-04.artifact
+dependencies: []

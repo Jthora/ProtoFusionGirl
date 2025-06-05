@@ -1,0 +1,24 @@
+# Migrated from copilot_advanced_todos_2025-06-03.artifact
+# See original artifact for full context
+
+title: Advanced TODOs and Recommendations for Onboarding, Artifact Robustness, and Edge Cases
+status: todo
+priority: 3
+tags: [todo, advanced, ai, onboarding, artifact, workflow, context, edge-case]
+description: |
+  - Enhance listScripts.js to include script descriptions, usage examples, and onboarding relevance
+  - Add a guided onboarding script that walks a new agent through the most important artifacts, scripts, and conventions, and verifies understanding
+  - Implement bi-directional code/artifact mapping
+  - Add a script to warn if code references a non-canonical artifact version
+  - Add a script to auto-update or prompt for artifact/code reference updates when artifacts are renamed or deleted
+  - Add a script to visualize the artifact dependency/importance graph
+  - Add a script to prompt for feedback/retrospective linkage when creating those artifacts, and update both sides with cross-links
+  - Add a script to summarize and clean up unused or deprecated artifacts
+  - Ensure seamless world looping at the tilemap seam
+  - Refactor all world, chunk, AI, minimap, and rendering logic to use new toroidal math utilities
+  - Expand copilot_memory.artifact with new heuristics, lessons, and context
+  - Add a script to prompt for context/memory expansion when new systems or artifacts are added
+  - Add checks for artifact deleted/renamed but still referenced in code; multiple artifacts with similar names; feedback artifacts not linked to their source; primer bloat; scripts added but not documented; AI agent starts with no context
+related:
+  - artifacts/copilot_next_steps_2025-06-03.artifact
+  - artifacts/copilot_memory.artifact

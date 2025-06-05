@@ -1,0 +1,34 @@
+---
+title: Copilot/AI Agent Priming Context
+created: 2025-06-05
+purpose: Agent-specific context, rules, and memory for LLMs and automation.
+references:
+  - .primer
+  - .persona
+  - .manifest
+  - .datapack
+  - .schema
+  - persona_core/
+agent_instructions:
+  - Always run scripts/guidedOnboarding.js --auto for onboarding, validation, and context sync
+  - Copilot/agents must self-onboard for EVERY file and context change
+  - Onboarding is fully autonomous and requires no human intervention
+  - Do NOT use any other onboarding/validation scripts directly
+  - Escalate missing context or blockers via feedback artifacts
+  - Summarize recent changes from artifact_index.artifact
+context_window:
+  max_tokens: 8000
+  refresh_policy: Always reload .primer, .manifest, and .persona at startup
+persona_selection:
+  default: Copilot
+  available: [Copilot, Critic, Narrator, Builder]
+  switch_instruction: Use persona_core/ to switch roles as needed
+---
+
+# Priming Context
+
+- Always read .primer and .datapack before automation.
+- Use artifact_index.artifact and docs_index.json for fast lookup.
+- If context is missing, create a feedback artifact in /tasks/.
+- Respect persona boundaries from .persona.
+- Summarize recent changes from artifact_index.artifact.
