@@ -1,0 +1,71 @@
+import { EnemyInstance } from '../enemies/EnemyInstance';
+import { AttackRegistry } from '../combat/AttackRegistry';
+import { CombatService } from '../combat/CombatService';
+import { PlayerStats } from './PlayerStats';
+import { DamageNumber } from '../../ui/components/DamageNumber';
+import Phaser from 'phaser';
+
+export interface PlayerAttackControllerConfig {
+  scene: Phaser.Scene;
+  playerSprite: Phaser.Physics.Arcade.Sprite;
+  enemies: EnemyInstance[];
+  enemySprites: Map<EnemyInstance, Phaser.Physics.Arcade.Sprite>;
+  attackRegistry: AttackRegistry;
+  getPlayerStats: () => PlayerStats;
+  onEnemyDefeated: (enemy: EnemyInstance) => void;
+}
+
+export class PlayerAttackController {
+  private scene: Phaser.Scene;
+  private playerSprite: Phaser.Physics.Arcade.Sprite;
+  private enemies: EnemyInstance[];
+  private enemySprites: Map<EnemyInstance, Phaser.Physics.Arcade.Sprite>;
+  private attackRegistry: AttackRegistry;
+  private getPlayerStats: () => PlayerStats;
+  private onEnemyDefeated: (enemy: EnemyInstance) => void;
+
+  constructor(config: PlayerAttackControllerConfig) {
+    this.scene = config.scene;
+    this.playerSprite = config.playerSprite;
+    this.enemies = config.enemies;
+    this.enemySprites = config.enemySprites;
+    this.attackRegistry = config.attackRegistry;
+    this.getPlayerStats = config.getPlayerStats;
+    this.onEnemyDefeated = config.onEnemyDefeated;
+  }
+
+  public attackNearestEnemy() {
+    if (this.enemies.length === 0) return;
+    // Find nearest alive enemy
+    const px = this.playerSprite.x, py = this.playerSprite.y;
+    let nearest: EnemyInstance | null = null;
+    let minDist = Infinity;
+    for (const enemy of this.enemies) {
+      if (!enemy.isAlive) continue;
+      const sprite = this.enemySprites.get(enemy);
+      if (!sprite) continue;
+      const dx = sprite.x - px, dy = sprite.y - py;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < minDist && dist < 60) { // 60px attack range
+        minDist = dist;
+        nearest = enemy;
+      }
+    }
+    if (!nearest) return;
+    // Use first attack from registry (or fallback)
+    const attack = this.attackRegistry.getAttack('slime_bounce') || { id: 'basic', name: 'Punch', type: 'melee', damage: 5, range: 60, cooldown: 0.5 };
+    const playerStats = this.getPlayerStats();
+    const damage = CombatService.playerAttackEnemy(playerStats, nearest, attack);
+    // Show damage number
+    const sprite = this.enemySprites.get(nearest);
+    if (sprite) {
+      const damageText = new DamageNumber(this.scene, sprite.x, sprite.y - 20, damage);
+      damageText.setOrigin(0.5, 0);
+      this.scene.add.existing(damageText);
+    }
+    // --- Connect quest/mission progress to enemy defeat ---
+    if (!nearest.isAlive) {
+      this.onEnemyDefeated(nearest);
+    }
+  }
+}
