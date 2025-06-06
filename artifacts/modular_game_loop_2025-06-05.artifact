@@ -1,0 +1,30 @@
+---
+artifact: modular_game_loop_2025-06-05
+created: 2025-06-05
+purpose: Modular breakdown of the main and supplementary gameplay loops for extensibility and testing.
+type: design
+format: markdown
+---
+
+# Modular Game Loop
+
+## Main Loop Phases
+1. Preparation
+2. Engagement
+3. Progression
+4. Reflection & Retention
+
+## Supplementary Loops
+- Exploration & Discovery
+- Crafting & Customization
+- Faction Influence
+- Community Collaboration
+- Trade & Economy
+- Psionic Mastery
+- Narrative Progression
+
+## Modular Interfaces
+- Each loop is a module with clear entry/exit points, state management, and event hooks.
+- Pseudocode and state diagrams for each loop.
+
+---

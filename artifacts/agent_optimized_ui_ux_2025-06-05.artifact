@@ -1,0 +1,22 @@
+---
+artifact: agent_optimized_ui_ux_2025-06-05
+created: 2025-06-05
+purpose: Design a modular, context-aware interface for both human and AI-driven play, supporting ASI/Jane roles.
+type: uiux
+format: markdown
+---
+
+# Agent-Optimized UI/UX
+
+## Principles
+- Modular, context-aware overlays and panels for both ASI (player) and Jane (avatar).
+- Clear distinction between ASI (player) and Jane (avatar) actions and feedback.
+- Immediate and delayed feedback for player choices, including narrative, emotional, and world state consequences.
+
+## UI Components
+- Mission planning, resource management, Universal Magic input, timeline navigation, community/faction interaction.
+- Feedback overlays for narrative, world state, and emotional/relationship changes (distinct for ASI and Jane).
+- Context-sensitive notifications and prompts for both ASI and Jane perspectives.
+
+## Modding Support
+- UI components are pluggable and extensible, supporting new overlays, feedback types, and dual-role extensions.

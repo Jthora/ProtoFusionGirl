@@ -1,0 +1,26 @@
+---
+artifact: copilot_modding_extension_points_2025-06-05
+created: 2025-06-05
+purpose: Document all current and planned extension/modding points in the codebase for rapid modder onboarding and future-proofing.
+type: modding-index
+tags: [modding, extension, hooks, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]
+---
+
+# Copilot Modding & Extension Points (2025-06-05)
+
+| System/Module                | Extension Point/Hook                | Status    | Notes/Next Steps                  |
+|------------------------------|-------------------------------------|-----------|-----------------------------------|
+| PluginManager                | Plugin registration API             | Exists    | Document usage, add examples      |
+| mod_loader                   | Enemy/attack mod registration       | Exists    | Expand for more mod types         |
+| MissionSystem                | Custom mission outcomes/handlers    | Stub      | Implement mod hooks               |
+| WorldStateManager            | State patching, event publishing    | Exists    | Add mod permission checks         |
+| UIManager                    | UI panel injection                  | Planned   | Design UI mod API                 |
+| UniversalLanguageEngine      | Puzzle/script injection             | Planned   | Expose scripting API              |
+| PlayerManager                | ASI/Jane/Ally extension             | Stub      | Implement for multiplayer/mods    |
+| EnemyManager                 | Custom enemy AI/behaviors           | Planned   | Add AI mod hooks                  |
+| Inventory/Crafting           | Item/recipe modding                 | Missing   | Design and implement              |
+
+---
+(End of artifact)

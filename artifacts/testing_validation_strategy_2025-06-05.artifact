@@ -1,0 +1,20 @@
+---
+artifact: testing_validation_strategy_2025-06-05
+created: 2025-06-05
+purpose: Outline a comprehensive approach for testing gameplay loops, narrative branches, and mod/plugin integration.
+type: testplan
+format: markdown
+---
+
+# Testing & Validation Strategy
+
+## Test Plan
+- Unit tests for each gameplay loop module and controller.
+- Integration tests for narrative branches and world state changes.
+- Automated validation for mod/plugin APIs and onboarding scripts.
+
+## Artifact-Driven Test Cases
+- Test cases are defined and tracked as artifacts for traceability.
+- Validation scripts ensure all systems align with the intended gameplay experience.
+
+---

@@ -1,0 +1,21 @@
+---
+artifact: copilot_feedback_and_blockers_log_2025-06-05
+created: 2025-06-05
+purpose: Central log for blockers, feedback, and lessons learned during Copilot/AI implementation. Ensures continuous improvement and context recall.
+type: feedback-log
+tags: [feedback, blockers, log, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]
+---
+
+# Copilot Feedback & Blockers Log (2025-06-05)
+
+## 2025-06-05
+- Initial artifact generation: Roadmap, feature matrix, context index, and missing systems checklist created.
+- Blocker: No concrete Jane/FusionGirl class or AI exists; PlayerManager and ASIController are stubs.
+- Blocker: No inventory, crafting, or dialogue systems implemented.
+- Feedback: MissionSystem and WorldStateManager are extensible but lack real content and integration.
+- Lesson: Anchoring all new work to artifacts and cross-linking context accelerates onboarding and reduces confusion.
+
+---
+(End of artifact)

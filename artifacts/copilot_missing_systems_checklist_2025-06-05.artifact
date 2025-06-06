@@ -1,0 +1,28 @@
+---
+artifact: copilot_missing_systems_checklist_2025-06-05
+created: 2025-06-05
+purpose: Actionable checklist of all missing or stubbed systems, with links to relevant design artifacts and code stubs.
+type: checklist
+tags: [checklist, missing, systems, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]
+---
+
+# Copilot Missing Systems Checklist (2025-06-05)
+
+- [ ] Jane/FusionGirl class, AI, and progression (see: PlayerManager.ts, ASIController.ts)
+- [ ] ASI/Jane duality, consent, and intervention (PlayerManager.ts, ASIController.ts)
+- [x] NPCs, allies, and factions (PsiSys Robots, Beu Sprites, etc.) — scaffolding in place, expand logic and world/UI integration
+- [x] Inventory, crafting, trading, and shop systems — scaffolding in place, expand logic and UI
+- [x] Dialogue and conversation system — scaffolding in place, expand branching, UI/modal, and world hooks
+- [ ] Mission content, branching, and narrative logic (MissionManager.ts, MissionSystem.ts)
+- [ ] Universal Magic and puzzle integration (UniversalLanguageEngine.ts, PuzzleModal.ts)
+- [ ] Progression, leveling, and rewards
+- [ ] Save/load and persistence (WorldStateManager.ts)
+- [ ] World/zone/biome content, ley lines, and events
+- [ ] UI/UX components (mission tracker, inventory, notifications, etc.)
+- [ ] Combat/abilities for player/ASI and enemies
+- [ ] Modding/extension hooks for all major systems
+
+---
+(End of artifact)

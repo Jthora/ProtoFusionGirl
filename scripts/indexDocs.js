@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 
 const DOCS_DIR = path.join(__dirname, '../docs');
 const OUTPUT_FILE = path.join(DOCS_DIR, 'docs_index.json');
+const OUTPUT_FILE_L1 = path.join(DOCS_DIR, 'docs_index_L1.json');
+const OUTPUT_FILE_L2 = path.join(DOCS_DIR, 'docs_index_L2.json');
 
 function getMarkdownFiles(dir) {
   return fs.readdirSync(dir)
@@ -108,6 +110,11 @@ function extractKeywords(headings, codeBlocks) {
   return Array.from(new Set([...headingWords, ...codeLangs])).filter(Boolean);
 }
 
+function getTitleFromHeadingsOrFilename(headings, file) {
+  if (headings && headings.length > 0) return headings[0].text;
+  return path.basename(file, path.extname(file));
+}
+
 function main() {
   if (!fs.existsSync(DOCS_DIR)) {
     console.error('docs/ directory not found.');
@@ -115,7 +122,9 @@ function main() {
   }
   const files = getMarkdownFilesRecursively(DOCS_DIR);
   let globalHeadings = [], globalKeywords = [], totalSections = 0;
-  const index = files.map(file => {
+  const l2Index = [];
+  const l1Index = [];
+  files.forEach(file => {
     const content = fs.readFileSync(file, 'utf8');
     const { headings, summary } = extractHeadingsAndSummary(content);
     const sections = extractSections(content);
@@ -125,7 +134,8 @@ function main() {
     globalKeywords = globalKeywords.concat(keywords);
     totalSections += sections.length;
     const stat = fs.statSync(file);
-    return {
+    // L2: Deep index
+    l2Index.push({
       file: path.relative(process.cwd(), file),
       headings,
       summary,
@@ -138,7 +148,13 @@ function main() {
       })),
       keywords,
       lastModified: stat.mtime.toISOString()
-    };
+    });
+    // L1: Summary index
+    l1Index.push({
+      file: path.relative(process.cwd(), file),
+      title: getTitleFromHeadingsOrFilename(headings, file),
+      summary: summary ? summary.slice(0, 200) : ''
+    });
   });
   // Automation hooks
   const automation = [
@@ -153,8 +169,13 @@ function main() {
     allHeadings: globalHeadings.map(h => h.text),
     automation
   };
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ globalSummary, docs: index }, null, 2));
-  console.log(`Indexed ${files.length} docs. Output: ${OUTPUT_FILE}`);
+  // Write L2 (deep) index
+  fs.writeFileSync(OUTPUT_FILE_L2, JSON.stringify({ globalSummary, docs: l2Index }, null, 2));
+  // Write L1 (summary) index
+  fs.writeFileSync(OUTPUT_FILE_L1, JSON.stringify({ indexedFiles: files.length, docs: l1Index }, null, 2));
+  // For backward compatibility, keep the old index as L2
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ globalSummary, docs: l2Index }, null, 2));
+  console.log(`Indexed ${files.length} docs. Output: ${OUTPUT_FILE_L1}, ${OUTPUT_FILE_L2}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

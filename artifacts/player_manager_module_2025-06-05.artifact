@@ -1,0 +1,55 @@
+# PlayerManager Module Artifact
+
+## Purpose
+Centralizes all player-related instantiation, configuration, and event wiring into a modular, extensible system. Removes direct player and attack controller setup from scenes, enabling agent-optimized, event-driven, and mod-friendly architecture.
+
+**Fusion Girl (Jane) vs. Player (ASI):**
+- The player is the ASI (Artificial Super Intelligence), a mentor/strategist who guides, supports, and sometimes directly intervenes in Jane's journey.
+- Jane (Fusion Girl) is the main character, with her own AI, autonomy, and progression. The PlayerManager must support this duality: managing Jane as a semi-autonomous agent and the ASI as the player's interface to the world.
+- The PlayerManager must enable both indirect (nudges, guidance) and direct (temporary control, Universal Magic) interventions, as well as support for multiplayer ASIs and alternate Janes in future expansions.
+
+## Responsibilities
+- Instantiate and configure Jane (Fusion Girl) and any other player-controllable entities (e.g., robots, avatars)
+- Manage player lifecycle (spawn, respawn, removal) for both Jane and ASI-controlled avatars
+- Wire up player input, attacks, and event routing, respecting Jane's autonomy and the ASI's intervention capabilities
+- Expose API for scene and system integration, supporting both ASI and Jane interactions
+- Support multiplayer (multiple ASIs, alternate Janes), modding, and Universal Magic hooks
+- Emit and listen to relevant events via EventBus, including ASI-Jane collaboration events
+
+## API (Draft)
+- `constructor(scene: Phaser.Scene, options: PlayerManagerOptions)`
+- `getPlayerController(): PlayerController`
+- `getPlayerAttackController(): PlayerAttackController`
+- `on(event: PlayerEvent, handler: (...args) => void)`
+- `emit(event: PlayerEvent, ...args)`
+- `destroy()`
+
+## Event-Driven Design
+- All player actions (move, jump, attack, damage, death, etc) are routed through the event bus.
+- Hooks for mods and multiplayer are provided via event subscriptions.
+
+## Extensibility
+- Designed for easy addition of new player types, abilities, and input sources.
+- Attack controller can be swapped or extended.
+- Supports artifact-driven modding and Universal Magic integration.
+
+## Integration Points
+- Consumed by `GameScene` (and potentially other scenes).
+- Replaces direct player/attack controller setup in scenes.
+- Emits and listens to events via the global event bus.
+
+## Migration Checklist
+- [ ] Scaffold `src/core/PlayerManager.ts` with defined API and stubs
+- [ ] Move all player and attack controller setup from `GameScene.ts` to `PlayerManager`
+- [ ] Refactor `GameScene.ts` to use only the manager for player/attack controller access
+- [ ] Ensure all player actions/events (ASI and Jane) are routed through the event bus
+- [ ] Add or update tests for the new manager
+- [ ] Update `.manifest`, relevant artifacts, and documentation
+- [ ] Add hooks for modding, multiplayer, Universal Magic, and ASI/Jane autonomy/intervention
+
+## Design Rationale
+- Follows mainstream game architecture (Separation of Concerns, Manager pattern)
+- Explicitly supports the unique ASI/Jane dynamic: the player is not Jane, but her guide and sometimes direct controller
+- Enables agent-driven automation, modding, and future extensibility (multiple ASIs, alternate Janes, etc.)
+- Reduces scene complexity and improves maintainability
+- Aligns with project philosophy and gameplay experience (see ONBOARDING.md, gameplay_alignment_checklist_2025-06-05.artifact, and docs/)

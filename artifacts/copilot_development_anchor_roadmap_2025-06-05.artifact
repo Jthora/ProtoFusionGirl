@@ -1,0 +1,81 @@
+---
+artifact: copilot_development_anchor_roadmap_2025-06-05
+created: 2025-06-05
+purpose: High-level, prioritized roadmap for implementing missing and incomplete systems in ProtoFusionGirl. Anchors Copilot/AI development and ensures alignment with design docs, onboarding, and gameplay experience.
+type: roadmap
+tags: [roadmap, anchor, copilot, onboarding, priorities, artifact, workflow]
+format: markdown
+related: [copilot_feature_matrix_2025-06-05.artifact, copilot_context_anchor_index_2025-06-05.artifact, copilot_missing_systems_checklist_2025-06-05.artifact, copilot_onboarding_and_memory_expansion_2025-06-05.artifact, copilot_feedback_and_blockers_log_2025-06-05.artifact, .primer, .manifest, .priming, gameplay_alignment_checklist_2025-06-05.artifact]
+---
+
+# Copilot Development Anchor Roadmap (2025-06-05)
+
+## Overview
+This artifact provides a prioritized, actionable roadmap for implementing all major missing and incomplete systems in ProtoFusionGirl. It is designed to anchor Copilot/AI development, onboarding, and context recall. All contributors and agents should reference this roadmap before making changes or planning new features.
+
+## Priorities & Milestones
+
+### 1. Jane/FusionGirl Character Implementation
+- Concrete class for Jane (FusionGirl) with AI, stats, progression, and player/ASI duality.
+- Consent and control mechanics for ASI/Jane interplay.
+- Cross-reference: PlayerManager, ASIController, docs/FusionGirl - Game Design Document_ Jane Tho'ra.md
+
+### 2. ASI/Player Duality & Collaboration
+- Expand PlayerManager and ASIController for true duality, switching, and collaboration.
+- Implement event-driven consent, intervention, and feedback.
+- Cross-reference: artifacts/player_asi_architecture_2025-06-05.artifact
+
+### 3. NPCs, Allies, and Factions
+- Systems for PsiSys Robots, Beu Sprites, and other allies/factions.
+- Ally summoning, control, and relationship mechanics.
+- Cross-reference: docs/FusionGirl - Game Design Document_ Game Robots.md
+
+### 4. Inventory, Crafting, Trading, and Dialogue
+- Inventory management, item creation, trading, and dialogue systems.
+- UI/UX for inventory, shops, and conversations.
+- Cross-reference: docs/FusionGirl_ Game Design Document - Logical Economy Loops.md
+
+### 5. Mission/Narrative Content & Branching
+- Expand MissionManager and MissionSystem with real mission content, branching, and narrative logic.
+- Integrate with WorldStateManager and EventBus.
+- Cross-reference: artifacts/mission_system_design_2025-06-04.artifact
+
+### 6. Universal Magic & Puzzle Integration
+- Deep integration of UniversalLanguageEngine and puzzles into gameplay, combat, and world manipulation.
+- Symbol puzzles, scripting, and magic as core mechanics.
+- Cross-reference: docs/FusionGirl - Game Design Document_ Universal Language and Mind Puzzles.md
+
+### 7. Progression, Leveling, and Rewards
+- Implement Jane’s leveling, skill trees, and reward systems.
+- Integrate with missions, combat, and exploration.
+- Cross-reference: docs/FusionGirl_ Game Design Document - Player Progression and Advancement.md
+
+### 8. Save/Load & Persistence
+- Robust save/load, migration, and persistence logic for world, player, and mission state.
+- Cross-reference: WorldStateManager, artifacts/save_system_design_2025-06-05.artifact
+
+### 9. World/Zone/Map Content & Events
+- Biomes, ley line logic, dynamic world events, and procedural content.
+- Cross-reference: docs/FusionGirl_ Game Design Document - Game World.md
+
+### 10. UI/UX Completion & Polish
+- Complete missing UI/UX components (mission tracker, inventory, notifications, etc.).
+- Polish overlays, modals, and feedback systems.
+- Cross-reference: artifacts/agent_optimized_ui_ux_2025-06-05.artifact
+
+### 11. Combat, Abilities, and Universal Magic in Battle
+- Player/ASI abilities, psi powers, and Universal Magic in combat.
+- Enemy/NPC abilities and AI.
+- Cross-reference: artifacts/combat_mechanics_2025-06-04.artifact
+
+### 12. Modding & Extension Points
+- Document and implement modding/extension hooks for all major systems.
+- Cross-reference: artifacts/modding_automation_integration_2025-06-05.artifact
+
+## Usage
+- Reference this artifact before starting new features or refactoring.
+- Update related artifacts and checklists as progress is made.
+- Use as a persistent anchor for onboarding, context sync, and roadmap alignment.
+
+---
+(End of artifact)

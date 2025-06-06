@@ -1,0 +1,23 @@
+---
+artifact: narrative_feedback_integration_2025-06-05
+created: 2025-06-05
+purpose: Specify how player actions affect the world, Jane, and the multiverse, and how feedback is delivered.
+type: design
+format: markdown
+---
+
+# Narrative & Feedback Integration
+
+## Action Consequences
+- Immediate: Mission outcomes, world state changes, UI feedback (distinct for ASI and Jane actions).
+- Delayed: Branching narratives, evolving realities, community recognition, changes to Jane’s emotional state, ASI/Jane relationship, and multiversal state.
+- Consequences may differ depending on whether actions are taken by the ASI (player) or Jane (autonomous agent), supporting the duality described in the gameplay blueprint.
+
+## Feedback Mechanisms
+- Event-driven updates to UI and world state, routed through context-aware overlays for both ASI and Jane.
+- Serialization/versioning for persistent narrative and world changes, including relationship and emotional state tracking.
+- Feedback is context-sensitive: ASI receives strategic/world feedback, Jane receives personal/emotional/narrative feedback.
+
+## Narrative Hooks
+- Triggers for story events, cutscenes, alternate endings, and ASI/Jane collaboration moments.
+- Analytics and recognition for player (ASI) and Jane contributions, including multiversal impact and community outcomes.

@@ -1,0 +1,22 @@
+---
+artifact: modding_automation_integration_2025-06-05
+created: 2025-06-05
+purpose: Define extension points, plugin patterns, and automation hooks for mods, AI agents, and community content.
+type: api
+format: markdown
+---
+
+# Modding & Automation Integration
+
+## Extension Points
+- Plugin APIs for gameplay systems, UI, and world state.
+- Automation hooks for onboarding, validation, and context sync.
+
+## Plugin Patterns
+- Registration flows for mods and automation scripts.
+- Guidelines for safe, robust modding and automation.
+
+## Discoverability
+- All extension points are indexed and documented in artifacts and manifest.
+
+---

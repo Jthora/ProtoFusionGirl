@@ -38,28 +38,34 @@ function runOnboarding() {
     // Try to extract and parse last JSON output if present
     result = extractLastJson(stdout);
     if (result) {
+      // Only keep the most critical fields at the top
       statusObj.success = !(result.errors && result.errors.length > 0);
       statusObj.summary = result.summary || '';
       statusObj.errors = result.errors || [];
+      // Place verbose or deep fields under a 'details' key
+      statusObj.details = {
+        artifacts: result.artifacts,
+        essentialFiles: result.essentialFiles,
+        scripts: result.scripts,
+        projectFiles: result.projectFiles,
+        onboardingStatus: result.onboardingStatus,
+        docsIndex: result.docsIndex,
+        docsIndexL1: result.docsIndexL1,
+        docsIndexL2: result.docsIndexL2
+      };
       // --- Enhancement: Generate Copilot Essential Info JSON after onboarding ---
       try {
         require('child_process').spawnSync('node', ['scripts/generateCopilotEssentialInfo.cjs'], { stdio: 'inherit' });
-        // Merge all essential info into statusObj for Copilot
         const info = JSON.parse(fs.readFileSync(path.join(__dirname, '../artifacts/copilot_essential_info.json'), 'utf8'));
-        Object.assign(statusObj, info);
-        // Print a Copilot onboarding summary for seamless UX
-        console.log('\n[Copilot Onboarding Summary]');
-        console.log('- Artifacts:', Object.keys(info.artifacts).length);
-        console.log('- Essential Files:', Object.keys(info.essentialFiles).length);
-        console.log('- Scripts:', info.scripts.length);
-        console.log('- Project Files:', Object.keys(info.projectFiles).length);
-        if (info.onboardingStatus && info.onboardingStatus.success !== undefined) {
-          console.log('- Onboarding Status:', info.onboardingStatus.success ? 'PASS' : 'FAIL');
-        }
-        if (info.docsIndex && info.docsIndex.indexedFiles) {
-          console.log('- Docs Indexed:', info.docsIndex.indexedFiles);
-        }
-        console.log('Copilot onboarding context is now fully up to date.');
+        // Only merge in summary fields at the top level
+        statusObj.copilotSummary = {
+          artifacts: Object.keys(info.artifacts || {}).length,
+          essentialFiles: Object.keys(info.essentialFiles || {}).length,
+          scripts: info.scripts ? info.scripts.length : 0,
+          projectFiles: Object.keys(info.projectFiles || {}).length,
+          onboardingStatus: info.onboardingStatus && info.onboardingStatus.success !== undefined ? (info.onboardingStatus.success ? 'PASS' : 'FAIL') : undefined,
+          docsIndexed: info.docsIndex && info.docsIndex.indexedFiles ? info.docsIndex.indexedFiles : undefined
+        };
       } catch (e) {
         console.warn('Could not generate Copilot essential info or summary:', e.message);
       }
@@ -68,6 +74,19 @@ function runOnboarding() {
       statusObj.copilotInstructions.push(
         'Copilot/AI agents must read and process the JSON outputs of every script run during onboarding, not just copilot_onboarding_status.json. This includes outputs from scripts like guidedOnboarding.js, generateCopilotEssentialInfo.cjs, and any other onboarding/validation subscripts. Always check for additional JSON files in the artifacts/ directory after onboarding.'
       );
+      // Remove verbose fields from top level if present (forcefully)
+      ['artifacts','essentialFiles','scripts','projectFiles','onboardingStatus','docsIndex','docsIndexL1','docsIndexL2'].forEach(k=>{if(statusObj[k])delete statusObj[k];});
+      // Move all verbose fields under a single 'details' key (overwrite if needed)
+      statusObj.details = {
+        artifacts: result.artifacts,
+        essentialFiles: result.essentialFiles,
+        scripts: result.scripts,
+        projectFiles: result.projectFiles,
+        onboardingStatus: result.onboardingStatus,
+        docsIndex: result.docsIndex,
+        docsIndexL1: result.docsIndexL1,
+        docsIndexL2: result.docsIndexL2
+      };
       writeStatusFile(statusObj);
     } else {
       console.warn('Could not parse onboarding output as JSON. Raw output:');
@@ -118,6 +137,80 @@ function writeStatusFile(statusObj) {
   statusObj.timestamp = new Date().toISOString();
   fs.writeFileSync(statusPath, JSON.stringify(statusObj, null, 2));
   console.log(`Onboarding status written to ${statusPath}`);
+}
+
+function writeSummaryFile(statusObj, info) {
+  // Compose minimal summary for Copilot/AI (≤50 lines)
+  // 1. Gather all tasks from all artifacts with a .tasks array
+  let allTasks = [];
+  if (info && info.artifacts) {
+    Object.values(info.artifacts).forEach(artifact => {
+      if (artifact && Array.isArray(artifact.tasks)) {
+        allTasks = allTasks.concat(artifact.tasks);
+      }
+    });
+  }
+  // Sort tasks by priority (if available), then status (open/todo first)
+  allTasks = allTasks.sort((a, b) => {
+    const prioA = a.priority !== undefined ? a.priority : 99;
+    const prioB = b.priority !== undefined ? b.priority : 99;
+    if (prioA !== prioB) return prioA - prioB;
+    if (a.status === 'open' || a.status === 'todo') return -1;
+    if (b.status === 'open' || b.status === 'todo') return 1;
+    return 0;
+  });
+  // 2. Find 2 most recent artifacts by created/last_updated date
+  let recentArtifacts = [];
+  if (info && info.artifacts) {
+    recentArtifacts = Object.entries(info.artifacts)
+      .map(([filename, v]) => {
+        let date = v && (v.created || v.last_updated);
+        return { filename, type: v.type || '', created: date || '', _sort: date ? new Date(date) : new Date(0) };
+      })
+      .sort((a, b) => b._sort - a._sort)
+      .slice(0, 2)
+      .map(({ filename, type, created }) => ({ filename, type, created }));
+  }
+  // 3. Extract blockers and next steps from any artifact with those fields
+  let blockers = [];
+  let nextSteps = [];
+  if (info && info.artifacts) {
+    Object.values(info.artifacts).forEach(artifact => {
+      if (artifact && Array.isArray(artifact.blockers)) {
+        blockers = blockers.concat(artifact.blockers);
+      }
+      if (artifact && Array.isArray(artifact.nextSteps)) {
+        nextSteps = nextSteps.concat(artifact.nextSteps);
+      }
+    });
+  }
+  // Fallbacks
+  if (blockers.length === 0 && statusObj.errors && statusObj.errors.length) {
+    blockers = statusObj.errors.slice(0, 2);
+  }
+  if (nextSteps.length === 0) {
+    nextSteps = [
+      'Run Validate Schemas task',
+      'Review open tasks in tasks/ folder'
+    ];
+  }
+  // Truncate arrays to keep summary ≤50 lines
+  const summary = {
+    success: statusObj.success,
+    timestamp: statusObj.timestamp,
+    errors: statusObj.errors && statusObj.errors.length ? statusObj.errors.slice(0, 3) : [],
+    criticalTasks: allTasks.slice(0, 3).map(t => ({
+      title: t.title || t.name || '',
+      status: t.status || '',
+      priority: t.priority || ''
+    })),
+    recentArtifacts,
+    blockers: blockers.slice(0, 2),
+    nextSteps: nextSteps.slice(0, 3)
+  };
+  const summaryPath = path.join(__dirname, '../artifacts/copilot_onboarding_status_summary.json');
+  fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
+  console.log(`Minimal Copilot onboarding summary written to ${summaryPath}`);
 }
 
 function remediationHints(errors) {

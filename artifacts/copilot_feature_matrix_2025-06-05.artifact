@@ -1,0 +1,30 @@
+---
+artifact: copilot_feature_matrix_2025-06-05
+created: 2025-06-05
+purpose: Matrix mapping all major game features to their implementation status, key files, and responsible modules. Anchors Copilot/AI context and progress tracking.
+type: feature-matrix
+tags: [feature, matrix, status, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_context_anchor_index_2025-06-05.artifact, copilot_missing_systems_checklist_2025-06-05.artifact]
+---
+
+# Copilot Feature Matrix (2025-06-05)
+
+| Feature                        | Status      | Key Files/Modules                                 | Next Steps/Notes                       |
+|-------------------------------|-------------|--------------------------------------------------|----------------------------------------|
+| Jane/FusionGirl Character      | Missing     | PlayerManager.ts, ASIController.ts                | Implement Jane class, AI, progression  |
+| ASI/Player Duality             | Partial     | PlayerManager.ts, ASIController.ts                | Expand duality, consent, intervention  |
+| NPCs/Allies/Factions           | Scaffolding  | NPCManager.ts                                    | Expand logic, world integration        |
+| Inventory/Crafting/Trading     | Scaffolding  | InventoryManager.ts                              | Add crafting, UI, world hooks          |
+| Dialogue System                | Scaffolding  | DialogueManager.ts                               | Add branching, UI/modal, world hooks   |
+| Mission/Narrative Content      | Partial     | MissionManager.ts, MissionSystem.ts               | Add real missions, branching, narrative|
+| Universal Magic/Puzzles        | Partial     | UniversalLanguageEngine.ts, PuzzleModal.ts        | Integrate with gameplay, expand logic  |
+| Progression/Leveling/Rewards   | Missing     | (none)                                           | Add leveling, skill trees, rewards     |
+| Save/Load/Persistence          | Partial     | WorldStateManager.ts                              | Complete save/load, migration          |
+| World/Zone/Map Content         | Partial     | TilemapManager.ts, ChunkLoader.ts                 | Add biomes, ley lines, events          |
+| UI/UX Components               | Partial     | UIManager.ts, ASIOverlay.ts                      | Complete/polish UI, add missing parts  |
+| Combat/Abilities               | Partial     | EnemyManager.ts, AttackRegistry.ts                | Add player/ASI abilities, psi powers   |
+| Modding/Extension Points       | Partial     | PluginManager.ts, mod_loader.ts                   | Document/expand mod hooks              |
+
+---
+(End of artifact)

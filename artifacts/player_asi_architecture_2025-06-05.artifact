@@ -1,0 +1,26 @@
+---
+artifact: player_asi_architecture_2025-06-05
+created: 2025-06-05
+purpose: Define the technical separation and interaction between the ASI (player) and Jane (avatar).
+type: architecture
+format: markdown
+---
+
+# Player/ASI Architecture
+
+## Separation of Concerns
+- ASI (player): Strategic, indirect/direct control, world/narrative influence.
+- Jane (avatar): In-world agent, emotional/narrative focus, direct actions.
+
+## Control Patterns
+- Indirect: Suggestions, nudges, strategic planning.
+- Direct: Combat, Universal Magic, puzzle-solving, avatar/robot control.
+
+## Event & Narrative Hooks
+- Event bus for communication between ASI, Jane, and world systems.
+- Narrative triggers and feedback mechanisms for both immediate and delayed consequences.
+
+## Interface Contracts
+- Clear APIs/interfaces for ASI-Jane communication, control handoff, and feedback.
+
+---

@@ -1,0 +1,33 @@
+---
+artifact: copilot_onboarding_and_memory_expansion_2025-06-05
+created: 2025-06-05
+purpose: Guide for expanding Copilot/AI onboarding and persistent memory as new systems are implemented. Ensures context sync and onboarding remain up to date.
+type: onboarding-guide
+tags: [onboarding, memory, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]
+---
+
+# Copilot Onboarding & Memory Expansion Guide (2025-06-05)
+
+## When to Update Onboarding/Memory Artifacts
+- After implementing a new system or major feature
+- When refactoring or reorganizing code structure
+- When adding new onboarding scripts or context anchors
+- After resolving major blockers or feedback items
+
+## Steps for Expanding Onboarding/Memory
+1. Update `.primer`, `.manifest`, and `.priming` with new context or rules.
+2. Add new system/module to `copilot_context_anchor_index_2025-06-05.artifact`.
+3. Update `copilot_feature_matrix_2025-06-05.artifact` and `copilot_missing_systems_checklist_2025-06-05.artifact`.
+4. Add lessons learned, heuristics, or persistent context to `copilot_memory.artifact`.
+5. Rerun onboarding and context sync scripts to ensure all agents are up to date.
+
+## Best Practices
+- Cross-link new artifacts and code modules for discoverability
+- Use feedback artifacts to log blockers and lessons
+- Keep onboarding steps actionable and current
+- Regularly review and clean up outdated context
+
+---
+(End of artifact)

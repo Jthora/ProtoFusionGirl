@@ -1,7 +1,7 @@
 {
   "globalSummary": {
-    "indexedFiles": 33,
-    "totalSections": 1095,
+    "indexedFiles": 34,
+    "totalSections": 1098,
     "uniqueKeywords": [
       "beu",
       "benevolent",
@@ -1241,6 +1241,9 @@
       "rendered",
       "steps",
       "q",
+      "docs",
+      "related",
+      "files",
       "mathematical",
       "geometrically",
       "grounded",
@@ -1465,7 +1468,6 @@
       "compared",
       "existing",
       "comparison",
-      "related",
       "vs",
       "logics",
       "domain",
@@ -1486,7 +1488,6 @@
       "agent",
       "instructions",
       "folder",
-      "files",
       "command",
       "center",
       "artifact",
@@ -2398,6 +2399,9 @@
       "The Hero’s Journey \\- 12 Steps (with Timestream Phases)",
       "Proto FusionGirl",
       "Q\\&A",
+      "docs/",
+      "Usage",
+      "Related Files",
       "The Universal Language",
       "A Mathematical Proof of a Geometrically Grounded System for Universal Communication",
       "**I. Introduction**",
@@ -14655,6 +14659,54 @@
         "a"
       ],
       "lastModified": "2025-06-04T19:22:45.499Z"
+    },
+    {
+      "file": "docs/README.md",
+      "headings": [
+        {
+          "level": 1,
+          "text": "docs/"
+        },
+        {
+          "level": 2,
+          "text": "Usage"
+        },
+        {
+          "level": 2,
+          "text": "Related Files"
+        }
+      ],
+      "summary": "This folder contains all human-facing documentation, guides, and reference material for the project. Documentation is indexed in `.manifest` and referenced by `.primer` and `.dashboard` for onboarding and deep dives.",
+      "sections": [
+        {
+          "heading": "docs/",
+          "level": 1,
+          "firstParagraph": "This folder contains all human-facing documentation, guides, and reference material for the project. Documentation is indexed in `.manifest` and referenced by `.primer` and `.dashboard` for onboarding and deep dives.",
+          "codeBlocks": [],
+          "tables": []
+        },
+        {
+          "heading": "Usage",
+          "level": 2,
+          "firstParagraph": "- Keep docs cross-linked with artifacts and custom files for seamless navigation.",
+          "codeBlocks": [],
+          "tables": []
+        },
+        {
+          "heading": "Related Files",
+          "level": 2,
+          "firstParagraph": "- ../.primer",
+          "codeBlocks": [],
+          "tables": []
+        }
+      ],
+      "keywords": [
+        "docs",
+        "usage",
+        "related",
+        "files"
+      ],
+      "lastModified": "2025-06-05T20:34:18.083Z"
     },
     {
       "file": "docs/UL_WhitePaper-Part1.md",

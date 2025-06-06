@@ -1,0 +1,40 @@
+---
+artifact: copilot_context_anchor_index_2025-06-05
+created: 2025-06-05
+purpose: Index of all critical context anchors (design docs, code entry points, onboarding files, persistent state) for rapid lookup and context recall.
+type: context-index
+tags: [context, index, anchor, copilot, artifact, workflow]
+format: markdown
+related: [copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]
+---
+
+# Copilot Context Anchor Index (2025-06-05)
+
+| Anchor/File                                         | Description/Role                                 |
+|-----------------------------------------------------|--------------------------------------------------|
+| .primer                                             | Project philosophy, onboarding, conventions      |
+| .manifest                                           | Live index of all key files, artifacts, scripts  |
+| .priming                                            | Agent-specific context and rules                 |
+| ONBOARDING.md                                       | Human/AI onboarding instructions                 |
+| artifacts/copilot_development_anchor_roadmap_2025-06-05.artifact | Main development roadmap anchor                 |
+| artifacts/copilot_feature_matrix_2025-06-05.artifact | Feature status matrix                            |
+| artifacts/copilot_missing_systems_checklist_2025-06-05.artifact | Checklist of missing/incomplete systems         |
+| artifacts/copilot_onboarding_and_memory_expansion_2025-06-05.artifact | Guide for onboarding/memory expansion           |
+| artifacts/copilot_feedback_and_blockers_log_2025-06-05.artifact | Feedback/blockers log                           |
+| src/scenes/GameScene.ts                             | Core gameplay scene entry point                  |
+| src/core/PlayerManager.ts                           | Player/ASI management                            |
+| src/world/asi/ASIController.ts                      | ASI logic/controller                             |
+| src/world/missions/MissionManager.ts                | Mission management                               |
+| src/world/missions/MissionSystem.ts                 | Mission logic                                    |
+| src/world/WorldStateManager.ts                      | Persistent world state                           |
+| src/world/scripting/UniversalLanguageEngine.ts      | Universal Magic scripting                        |
+| src/ui/components/ASIOverlay.ts                     | ASI UI overlay                                   |
+| src/ui/components/UniversalLanguagePuzzleModal.ts   | Puzzle UI/modal                                  |
+| docs/                                               | Game design documents                            |
+| tasks/                                              | Open/completed tasks, feedback                   |
+| src/core/NPCManager.ts                              | NPC/allies/factions manager, event/mod hooks     |
+| src/core/InventoryManager.ts                        | Inventory/crafting/trading manager, event hooks  |
+| src/core/DialogueManager.ts                         | Dialogue/branching manager, event/modal hooks    |
+
+---
+(End of artifact)

@@ -1,0 +1,21 @@
+---
+artifact: gameplay_alignment_checklist_2025-06-05
+created: 2025-06-05
+purpose: Checklist for ensuring all code, features, and PRs align with the intended gameplay experience blueprint.
+type: checklist
+format: markdown
+---
+
+# Gameplay Experience Alignment Checklist
+
+- [ ] Does this change support the core gameplay loops and player/ASI duality?
+- [ ] Are narrative, feedback, and UI/UX elements consistent with the blueprint?
+- [ ] Are modding and automation extension points respected and documented?
+- [ ] Are all new features and systems tested and validated as per the testing artifact?
+- [ ] Is the gameplay experience engaging, empowering, and aligned with the multiversal narrative?
+- [ ] Are relevant artifacts referenced in code comments and PRs?
+
+_Reference: artifacts/gameplay_experience_blueprint_2025-06-05.artifact_
+
+---
+_Last updated: 2025-06-05_

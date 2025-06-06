@@ -111,6 +111,14 @@ function main() {
   const docsContent = readFileIfExists(DOCS_INDEX);
   result.docsIndex = parseIfPossible(docsContent, 'docs_index.json');
 
+  // Always include docs_index_L1.json and docs_index_L2.json
+  const DOCS_INDEX_L1 = path.join(__dirname, '../docs/docs_index_L1.json');
+  const DOCS_INDEX_L2 = path.join(__dirname, '../docs/docs_index_L2.json');
+  const docsL1Content = readFileIfExists(DOCS_INDEX_L1);
+  const docsL2Content = readFileIfExists(DOCS_INDEX_L2);
+  result.docsIndexL1 = parseIfPossible(docsL1Content, 'docs_index_L1.json');
+  result.docsIndexL2 = parseIfPossible(docsL2Content, 'docs_index_L2.json');
+
   // Add onboarding status if present (parsed)
   const onboardingStatus = path.join(ARTIFACTS_DIR, 'copilot_onboarding_status.json');
   result.onboardingStatus = parseIfPossible(readFileIfExists(onboardingStatus), 'copilot_onboarding_status.json');

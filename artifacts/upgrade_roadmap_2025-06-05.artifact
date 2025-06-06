@@ -1,0 +1,42 @@
+# ProtoFusionGirl Artifact-Driven Upgrade Roadmap (2025-06-05)
+
+This roadmap prioritizes codebase upgrades according to the foundational artifacts created on 2025-06-05. All contributors and AI agents must reference the relevant artifact(s) for each upgrade. This document is a living plan and should be updated as the project evolves.
+
+## Upgrade Priorities & Sequence
+
+### 1. Modular Game Loop Refactor
+- Refactor core game loop logic for modularity and event-driven extensibility.
+- Reference: `artifacts/modular_game_loop_2025-06-05.artifact`
+
+### 2. Player/ASI Duality & Architecture
+- Implement the player/ASI duality, decoupling player logic from ASI systems.
+- Reference: `artifacts/player_asi_architecture_2025-06-05.artifact`
+
+### 3. Narrative & Feedback Integration
+- Integrate event-driven narrative and feedback systems for dynamic player/ASI responses.
+- Reference: `artifacts/narrative_feedback_integration_2025-06-05.artifact`
+
+### 4. Agent-Optimized UI/UX Overhaul
+- Overhaul UI/UX for clarity between Jane (player) and ASI, supporting agent-driven workflows.
+- Reference: `artifacts/agent_optimized_ui_ux_2025-06-05.artifact`
+
+### 5. Modding & Automation Extension Points
+- Add extension points for modding and automation, enabling external scripts and mods.
+- Reference: `artifacts/modding_automation_integration_2025-06-05.artifact`
+
+### 6. Automated Testing & Validation
+- Implement and automate testing/validation as per the new strategy.
+- Reference: `artifacts/testing_validation_strategy_2025-06-05.artifact`
+
+### 7. Gameplay Experience Blueprint Alignment
+- Continuously align all upgrades with the intended gameplay experience.
+- Reference: `artifacts/gameplay_experience_blueprint_2025-06-05.artifact`
+
+## How to Use This Roadmap
+- For each upgrade, read the relevant artifact(s) before making changes.
+- Reference the artifact(s) in code comments and PRs.
+- Update this roadmap and the artifacts as the project evolves.
+
+---
+
+_Last updated: 2025-06-05_

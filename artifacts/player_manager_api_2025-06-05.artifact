@@ -1,0 +1,57 @@
+# PlayerManager API Artifact
+
+## API Reference
+
+### Construction
+```ts
+const playerManager = new PlayerManager({
+  scene,
+  eventBus,
+  inputManager,
+  enemyManager,
+  attackRegistry,
+  playerConfig, // extensible config object
+});
+```
+
+### Core Methods
+- `initialize()`: Sets up Jane (Fusion Girl), ASI interfaces, controllers, and event listeners
+- `getJaneController()`: Returns the JaneController instance (Jane's AI/agent)
+- `getASIController(id?: string)`: Returns the ASI (player) controller instance
+- `getPlayerAttackController(id?: string)`: Returns the attack controller for Jane or other avatars
+- `on(event, handler)`: Subscribe to player-related events (ASI, Jane, or both)
+- `emit(event, payload)`: Emit player-related events
+- `addASI(config)`: Add a new ASI (for multiplayer/modding)
+- `removeASI(id)`: Remove an ASI
+- `addJane(config)`: Add an alternate Jane (for multiverse/multiplayer)
+- `removeJane(id)`: Remove a Jane
+
+### Event Routing
+- All player actions (move, jump, attack, Universal Magic, etc.) are routed through the EventBus
+- Supports custom events for modding, Universal Magic, and ASI-Jane collaboration
+- Supports Jane's autonomy and ASI's intervention (temporary direct control, nudges, etc.)
+
+### Extensibility
+- Hooks for modding (custom player types, attacks, abilities, ASI/agent logic)
+- Multiplayer support (multiple ASIs, alternate Janes, network sync)
+- Universal Magic integration (event hooks, ability injection)
+- Explicit support for the ASI/Jane autonomy/intervention dynamic
+
+### Usage Example
+```ts
+// In GameScene.ts
+this.playerManager = new PlayerManager({
+  scene: this,
+  eventBus: this.eventBus,
+  inputManager: this.inputManager,
+  enemyManager: this.enemyManager,
+  attackRegistry: this.attackRegistry,
+  playerConfig: {/* ... */}
+});
+this.playerManager.initialize();
+```
+
+## Notes
+- See `player_manager_module_2025-06-05.artifact` for design and migration details.
+- Update this artifact as the API evolves.
+- Ensure all features support the ASI/Jane distinction and collaboration as described in docs/ and gameplay artifacts.

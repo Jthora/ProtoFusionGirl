@@ -177,6 +177,25 @@ export function registerModAttacks(mod: any, attackRegistry: any) {
   }
 }
 
+// --- Modding & Automation Extension Point: Plugin API (artifact-driven) ---
+export type PluginRegistration = (context: { eventBus: any; modularGameLoop: any; scene: any }) => void;
+
+const registeredPlugins: PluginRegistration[] = [];
+
+export function registerPlugin(plugin: PluginRegistration) {
+  registeredPlugins.push(plugin);
+}
+
+export function runRegisteredPlugins(context: { eventBus: any; modularGameLoop: any; scene: any }) {
+  for (const plugin of registeredPlugins) {
+    try {
+      plugin(context);
+    } catch (e) {
+      console.error('[Modding] Plugin error:', e);
+    }
+  }
+}
+
 // TODO: Create a sample mod JSON file and load it (see .primer)
 // TODO: Validate mod JSON schema strictly (see .primer)
 // TODO: Add mod loader error handling and debug overlay (see .primer)
