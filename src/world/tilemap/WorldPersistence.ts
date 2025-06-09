@@ -30,14 +30,19 @@
 
 // WorldPersistence: Handles saving/loading world data (chunks, metadata, etc.) to disk or cloud
 import { TilemapManager } from './TilemapManager';
+import { Jane } from '../../core/Jane';
+import { EventBus } from '../../core/EventBus';
+import { TimestreamFramework } from '../timestream/TimestreamFramework';
+import { LeyLineInstabilityEvent } from '../leyline/types';
 
 export class WorldPersistence {
   private tilemapManager: TilemapManager;
   private modMetadata: Record<string, any> = {};
+  private timestreamFramework: TimestreamFramework;
 
   // --- Advanced Multiverse State ---
   private multiverseState: {
-    branches: Record<string, { seed: string, deltas: any[], parent?: string, children?: string[] }>;
+    branches: Record<string, { seed: string, deltas: any[], leyLineEvents?: LeyLineInstabilityEvent[], parent?: string, children?: string[] }>; // Add leyLineEvents
     anchors: Record<string, any>;
     meta: any;
   } = {
@@ -47,9 +52,12 @@ export class WorldPersistence {
   };
 
   private proceduralRegistry: any; // Add reference to ProceduralContentRegistry
+  private jane: Jane | null = null;
+  private eventBus: EventBus | null = null;
 
   constructor(tilemapManager: TilemapManager) {
     this.tilemapManager = tilemapManager;
+    this.timestreamFramework = new TimestreamFramework();
   }
 
   setModMetadata(modId: string, data: any) {
@@ -62,6 +70,14 @@ export class WorldPersistence {
 
   setProceduralRegistry(registry: any) {
     this.proceduralRegistry = registry;
+  }
+
+  setJane(jane: Jane) {
+    this.jane = jane;
+  }
+
+  setEventBus(eventBus: EventBus) {
+    this.eventBus = eventBus;
   }
 
   /**
@@ -91,8 +107,8 @@ export class WorldPersistence {
   }
 
   /**
-   * Loads world data from a JSON file (chunks, metadata, etc.).
-   * @param file Path to the world file (relative or absolute)
+   * Loads world data from a JSON file (chunks, metadata, etc.), including Jane and speeder state.
+   * If Jane or speeder state is missing (legacy save), instantiate defaults.
    */
   async loadFromFile(file: string) {
     let data: any;
@@ -134,13 +150,28 @@ export class WorldPersistence {
     if (data.modMetadata) {
       this.modMetadata = data.modMetadata;
     }
+    // --- Jane and Magneto Speeder integration ---
+    if (data.jane) {
+      if (this.eventBus) {
+        this.jane = Jane.fromJSON(data.jane, this.eventBus);
+      } else {
+        // Fallback: create with dummy event bus
+        this.jane = Jane.fromJSON(data.jane, { emit: () => {} } as any);
+      }
+    } else {
+      // Legacy save: create default Jane
+      if (this.eventBus) {
+        this.jane = new Jane({ eventBus: this.eventBus });
+      } else {
+        this.jane = new Jane({ eventBus: { emit: () => {} } as any });
+      }
+    }
     // --- End migration logic ---
     return data;
   }
 
   /**
-   * Saves world data (chunks, metadata, etc.) to a JSON file.
-   * @param file Path to save the world file
+   * Saves world data (chunks, metadata, etc.), including Jane and speeder state.
    */
   async saveToFile(file: string) {
     const data: any = {
@@ -151,7 +182,8 @@ export class WorldPersistence {
       equipmentService: (this.tilemapManager as any).equipmentService?.toJSON?.(),
       playerStats: (this.tilemapManager as any).playerStats?.toJSON?.(),
       inventory: (this.tilemapManager as any).inventoryService?.toJSON?.(),
-      modMetadata: this.modMetadata
+      modMetadata: this.modMetadata,
+      jane: this.jane ? this.jane.toJSON() : undefined
     };
     const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
     if (isBrowser) {
@@ -288,6 +320,7 @@ export class WorldPersistence {
 
   /**
    * Merge two branches (timelines) and resolve deltas/conflicts.
+   * Artifact: leyline_instability_event_integration_points_2025-06-08.artifact
    */
   async mergeBranches(targetBranchId: string, sourceBranchId: string) {
     const target = this.multiverseState.branches[targetBranchId];
@@ -295,6 +328,12 @@ export class WorldPersistence {
     if (!target || !source) throw new Error('Branch not found');
     // Naive merge: append source deltas to target (TODO: CRDT/advanced merge)
     target.deltas = target.deltas.concat(source.deltas);
+    // --- Artifact-driven ley line instability merge ---
+    if (target.leyLineEvents && source.leyLineEvents) {
+      target.leyLineEvents = this.timestreamFramework.resolveInstabilityOnMerge(target, source);
+    } else if (source.leyLineEvents) {
+      target.leyLineEvents = source.leyLineEvents;
+    }
     // Optionally: mark source as merged/pruned
     delete this.multiverseState.branches[sourceBranchId];
   }

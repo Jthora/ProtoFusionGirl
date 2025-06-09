@@ -1,0 +1,72 @@
+---
+artifact: copilot_leyline_system_advanced_development_2025-06-07
+created: 2025-06-07
+purpose: Guide and anchor the advanced, modular, and future-proof development of the ley line system, traversal, and related gameplay features in ProtoFusionGirl.
+type: development-plan
+status: active
+related: [copilot_leyline_unification_plan_2025-06-07.artifact, copilot_anchor_leyline_system_2025-06-06.artifact, src/world/leyline/, src/core/Jane.ts, src/magneto/MagnetoSpeeder.ts, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md]
+tags: [leyline, traversal, modular, procedural, pathfinding, events, visualization, roadmap, copilot]
+
+# Advanced Ley Line System Development Plan
+
+## Objective
+Create a robust, modular, and extensible ley line system that supports procedural generation, advanced pathfinding, dynamic events, and seamless integration with traversal/gameplay systems (Jane, MagnetoSpeeder, etc.).
+
+## Key Principles
+- **Single Source of Truth:** All ley line data and logic centralized in canonical manager and interfaces.
+- **Modularity:** Separate concerns for pathfinding, procedural generation, events, and visualization.
+- **Extensibility:** Easy to add new features (e.g., ley line manipulation, AI, advanced events).
+- **Testability:** Each module and integration point is covered by unit/integration tests.
+- **Artifact-Driven:** All code, docs, and PRs reference this and related artifacts.
+
+## Directory Structure (Target)
+```
+src/
+  world/
+    leyline/
+      LeyLineManager.ts
+      pathfinding/
+        LeyLinePathfinder.ts
+      procedural/
+        LeyLineProceduralGen.ts
+      events/
+        LeyLineEvents.ts
+      visualization/
+        LeyLineVisualization.ts
+  legacy/
+    leyLines.ts
+```
+
+## Development Steps (Prioritized)
+1. **Directory & Codebase Cleanup**
+   - Move all deprecated ley line code to `legacy/`.
+   - Scaffold modular folders under `src/world/leyline/`.
+2. **Data Model & Manager Refactor**
+   - Ensure only one canonical data model.
+   - Refactor `LeyLineManager` to integrate with new submodules.
+3. **Procedural Generation**
+   - Implement ley line network generation (graph-based, world seed support).
+4. **Robust Pathfinding**
+   - Implement A*, Dijkstra, or similar algorithms for ley line-aware traversal.
+5. **Dynamic Events**
+   - Add hooks for activation, surges, disruptions, manipulation.
+6. **Visualization Hooks**
+   - Provide APIs for UI overlays and debugging ley line networks.
+7. **Consumer Refactor**
+   - Update Jane, MagnetoSpeeder, WorldTraversalSystem, etc. to use only the new manager and APIs.
+8. **Testing & Validation**
+   - Expand and update tests for all modules and edge cases.
+9. **Documentation & Artifact Sync**
+   - Update all docs, onboarding, and code comments to reference this artifact and the new structure.
+
+## Definition of Done
+- All ley line logic is modular, robust, and testable.
+- Only one canonical data model and manager exist.
+- Advanced features (procedural, pathfinding, events, visualization) are implemented and documented.
+- All consumers use the new APIs.
+- All tests pass and documentation is up to date.
+- All code and docs reference this artifact and the unification plan.
+
+---
+# Use
+Reference this artifact in all ley line system development, PRs, and documentation. Update as the system evolves.

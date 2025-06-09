@@ -87,4 +87,35 @@ export class MultiverseEventEngine {
     this.getBranchEventState(branchId).events[changeId] = data;
     this.eventBus.emit({ type: changeId, data: { ...data, branchId } });
   }
+
+  /**
+   * Propagate ley line instability event to a branch (artifact-driven)
+   * Artifact: leyline_instability_event_integration_points_2025-06-08.artifact
+   */
+  propagateLeyLineInstability(event: import('../../world/leyline/types').LeyLineInstabilityEvent, targetBranchId: string) {
+    // Example: propagate event to branch event state and emit on eventBus
+    this.getBranchEventState(targetBranchId).events[event.id] = event;
+    this.eventBus.emit({ type: event.type, data: event });
+    // Escalation/mission/narrative hooks (stub)
+    // TODO: If event.severity escalates, trigger mission/narrative consequences
+  }
+
+  /**
+   * Modding/event hook: Register a callback for ley line instability events (artifact-driven)
+   * Artifact: leyline_instability_event_api_reference_2025-06-08.artifact
+   * @param handler Callback to invoke with LeyLineInstabilityEvent
+   */
+  static instabilityEventHandlers: Array<(event: any) => void> = [];
+  static onInstabilityEvent(handler: (event: any) => void) {
+    MultiverseEventEngine.instabilityEventHandlers.push(handler);
+  }
+  /**
+   * Emit a ley line instability event to all registered handlers (for mods, systems, etc.)
+   * @param event Canonical LeyLineInstabilityEvent
+   */
+  static emitInstabilityEvent(event: any) {
+    for (const handler of MultiverseEventEngine.instabilityEventHandlers) handler(event);
+  }
+  // Example usage for designers/modders:
+  // MultiverseEventEngine.onInstabilityEvent((event) => { /* custom logic */ });
 }

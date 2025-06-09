@@ -1,0 +1,14 @@
+# Test Coverage Audit (2025-06-07)
+
+## Scope
+- All test files and test helpers
+
+## Checklist
+- [ ] Audit for legacy state/event usage
+- [ ] Ensure coverage of new event contracts and state flows
+
+## Findings
+- (To be filled during audit)
+
+## Required Refactors
+- (To be filled during audit)

@@ -1,0 +1,125 @@
+---
+artifact: copilot_prioritized_work_2025-06-08.artifact
+created: 2025-06-08
+last_updated: 2025-06-08
+owner: GitHub Copilot
+status: draft
+reviewed_by: null
+related_artifacts:
+  - upgrade_roadmap_2025-06-05.artifact
+  - architecture_blueprint_2025-06-07.artifact
+  - copilot_feature_roadmap_2025-06-04.artifact
+  - copilot_feedback_and_blockers_log_2025-06-05.artifact
+  - .dashboard
+  - .primer
+  - .priming
+  - .manifest
+  - tasks/
+dependencies:
+  - ModularGameLoop
+  - EventBus
+  - UIManager
+  - MissionManager
+  - Automation scripts
+
+# Executive Summary
+This artifact defines the prioritized work plan for agent-driven, artifact-verified development in ProtoFusionGirl. It is designed for both human and AI contributors, emphasizing modularity, traceability, and continuous improvement. All actions must be validated against both code and artifacts, with automation and feedback loops enforced at every step.
+
+## Metadata
+- **Artifact Version:** 2025-06-08
+- **Maintainer:** GitHub Copilot
+- **Status:** Draft (pending review)
+- **Scope:** Core systems, onboarding, automation, documentation, and feedback
+- **Review cadence:** Weekly or after major PRs
+
+## Glossary
+- **Artifact:** A structured, versioned document describing system design, plans, or validation.
+- **Agent:** Any AI or human contributor following artifact-driven workflows.
+- **Traceability:** The ability to cross-reference code, documentation, and artifacts.
+- **Blocker:** Any issue preventing progress, to be logged and escalated.
+
+# Mission Statement
+Modularize, document, and validate all core systems in ProtoFusionGirl, ensuring artifact-driven, agent-optimized workflows and continuous improvement. All contributors must operate with a verification mindset, using both code and artifacts, and must leverage automation and feedback systems to ensure project health and alignment.
+
+# Objectives
+- Ensure all core systems are modular, testable, and extensible.
+- Maintain artifact/code/documentation alignment for agent-driven workflows.
+- Surface, triage, and resolve all actionable TODOs and blockers.
+- Automate onboarding, validation, and feedback for continuous improvement.
+- Maximize discoverability and onboarding for both human and AI contributors.
+
+# Directives
+- Always verify artifact freshness and code state before acting.
+- Escalate blockers or unclear requirements via feedback/task artifacts.
+- Use VS Code tasks and automation scripts for all onboarding and validation.
+- Reference the gameplay alignment checklist for all major features and PRs.
+- Cross-link code, artifacts, and documentation for traceability.
+- Document all new or refactored systems in artifacts and README files.
+
+# Priorities
+1. **Modular Game Loop Activation & Expansion**
+2. **TODO Surfacing & Codebase Hygiene**
+3. **Artifact & Code Consistency**
+4. **Automation & Validation**
+5. **Feedback & Continuous Improvement**
+6. **Documentation & Discoverability**
+
+# Acceptance Criteria
+- [ ] All core systems (game loop, tilemap, enemy, UI, mission) are modular and registered in the ModularGameLoop.
+- [ ] No abandoned or obsolete TODOs remain in the codebase.
+- [ ] All major artifacts are up to date and cross-referenced in code and docs.
+- [ ] Onboarding and validation scripts run without errors via VS Code tasks.
+- [ ] Feedback and blockers are logged and resolved in a timely manner.
+- [ ] Documentation indexes and READMEs are current and referenced in onboarding.
+
+# Work Plan
+## 1. Modular Game Loop Activation & Expansion
+**Goal:** Modularize all core systems and register them in the ModularGameLoop for extensibility and testability.
+- [x] Ensure ModularGameLoop is instantiated and at least one system is registered in GameScene.
+- [ ] Register tilemap, enemy, UI, and mission systems as modular systems.
+- [ ] Document all registered systems and their responsibilities in an artifact.
+
+## 2. TODO Surfacing & Codebase Hygiene
+**Goal:** Surface, triage, and resolve all actionable TODOs; maintain a clean, actionable codebase.
+- [x] Add TODOs in key modules (SkillTree, UniversalMagic, HealthBar, MissionManager, RealityWarpSystem, MultiverseExplorerPanel, RepairMigrationWizard, LoreTerminal, AgentOptimizedUI, TilemapManager, UXManager).
+- [ ] Review and triage all TODOs, linking them to tasks or artifacts as needed.
+- [ ] Remove or resolve abandoned/obsolete TODOs.
+
+## 3. Artifact & Code Consistency
+**Goal:** Ensure all major systems have up-to-date, cross-referenced artifacts.
+- [ ] For every major system (core, world, UI, modding), verify that the corresponding artifact is up to date with the code.
+- [ ] If discrepancies are found, update the artifact or create a feedback/task artifact to track the gap.
+
+## 4. Automation & Validation
+**Goal:** Automate onboarding, validation, and test coverage for all systems.
+- [ ] Ensure all onboarding, validation, and context sync scripts are runnable via VS Code tasks.
+- [x] Add missing test coverage for new or refactored systems (especially ModularGameLoop and agent-optimized UI).
+- [ ] Validate that pre-commit hooks enforce schema and manifest consistency.
+
+## 5. Feedback & Continuous Improvement
+**Goal:** Maintain a live feedback loop and resolve blockers quickly.
+- [ ] Regularly review `.dashboard` and `tasks/` for blockers, feedback, and open tasks.
+- [ ] Log new blockers or improvement ideas in `.feedback` and create new tasks as needed.
+- [ ] Use the gameplay alignment checklist for all major features and PRs.
+
+## 6. Documentation & Discoverability
+**Goal:** Maximize discoverability and onboarding for all contributors.
+- [x] Ensure `docs_index_L1.json` and `docs_index_L2.json` are up to date and referenced in onboarding.
+- [x] Update or create README.md files in any folder missing one, especially for new systems or modules.
+- [x] Cross-link code, artifacts, and documentation for discoverability.
+
+# Agent Workflow Tips
+- Use checklists and acceptance criteria to guide daily/weekly reviews.
+- When in doubt, escalate via `.feedback` or create a new artifact.
+- Always update the artifact version and last_updated fields after major changes.
+- Link all new code, docs, and artifacts for traceability.
+- Prefer automation and VS Code tasks for all repetitive or validation work.
+
+# Review Checklist
+- [ ] Artifact reviewed by at least one other agent or maintainer.
+- [ ] All objectives, directives, and plans are actionable and clear.
+- [ ] Acceptance criteria are explicit and testable.
+- [ ] All sections are up to date and cross-referenced.
+- [ ] Glossary and workflow tips are present for new contributors.
+
+---

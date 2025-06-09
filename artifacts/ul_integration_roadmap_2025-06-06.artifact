@@ -1,0 +1,30 @@
+---
+artifact: ul_integration_roadmap_2025-06-06
+created: 2025-06-06
+purpose: Roadmap for robust, unified Universal Language (UL) system integration across ProtoFusionGirl
+format: markdown
+tags: [universal-language, integration, roadmap, artifact, automation, modding, event-system, validation, ui-ux]
+related: [ul_engine_refactor_2025-06-06.artifact, ul_resource_schema_2025-06-06.artifact, ul_event_spec_2025-06-06.artifact, ul_modding_support_2025-06-06.artifact, ul_validation_matrix_2025-06-06.artifact]
+---
+
+# Universal Language (UL) Integration Roadmap
+
+## Goals
+- Data-driven, extensible UL symbol/grammar/animation system
+- Safe, sandboxed scripting for puzzles and world logic
+- Unified event/feedback system for UI, analytics, and gameplay
+- Context-aware validation and player progression integration
+- Rich, accessible UI/UX for UL puzzles and editing
+- Modding support and documentation
+
+## Milestones
+1. Implement resource loader and schema validation for UL data
+2. Replace eval with sandboxed interpreter for UL scripting
+3. Standardize event bus and feedback streaming for all UL actions
+4. Expand validation logic and progression hooks
+5. Upgrade UI/UX and develop visual UL editor
+6. Document all symbols, grammar, and modding APIs
+7. Integrate UL with combat, world, and AI systems
+
+## Next Steps
+- See related artifacts for technical specs, schemas, and implementation plans

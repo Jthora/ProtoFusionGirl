@@ -1,0 +1,38 @@
+---
+artifact: artifact_codified_conventions_2025-06-08
+created: 2025-06-08
+purpose: Centralized, machine-readable conventions and escalation paths for artifact-driven development.
+type: conventions
+format: markdown
+tags: [artifact, conventions, onboarding, escalation, ai]
+related: [artifact_index.artifact, copilot_memory.artifact, ai_onboarding_2025-06-03.artifact]
+---
+
+# Artifact Codified Conventions & Escalation Paths
+
+## Purpose
+Ensure all contributors (AI and human) follow consistent conventions and know how to escalate blockers or ambiguities.
+
+## Conventions
+- **Artifact Headers:** All artifacts must include `artifact`, `created`, `purpose`, `type`, `format`, and `tags` fields.
+- **Cross-Linking:** Artifacts should reference related scripts, docs, and other artifacts.
+- **Versioning:** Use date-based versioning in artifact filenames.
+- **Machine-Readability:** Prefer JSON or markdown with clear field delimiters.
+- **Update Protocol:** Update artifact index and cross-links after any artifact change.
+
+## Escalation Paths
+- **Ambiguity or Blockers:**
+  - Create a feedback artifact in `tasks/` describing the issue.
+  - Tag with `[blocker, feedback, escalation]`.
+  - Notify project maintainers if urgent.
+- **Security or Governance:**
+  - Require human review and sign-off.
+  - Document decisions in related artifacts.
+
+## Next Steps
+- Review and update this artifact as conventions evolve.
+- Reference this artifact in onboarding and automation scripts.
+
+---
+
+(End of artifact)

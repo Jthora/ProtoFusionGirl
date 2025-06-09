@@ -1,0 +1,59 @@
+---
+artifact: copilot_anchor_leyline_system_2025-06-06
+created: 2025-06-06
+purpose: Development anchor for the Ley Line System overhaul and integration with Jane and the Magneto Speeder.
+type: anchor
+tags: [leyline, navigation, magneto_speeder, jane, world, integration, roadmap, copilot]
+related: [src/world/leyline/, src/core/Jane.ts, src/magneto/MagnetoSpeeder.ts, artifacts/copilot_feature_roadmap_2025-06-04.artifact, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md]
+---
+
+# Copilot Ley Line System Anchor (2025-06-06)
+
+## Objective
+Serve as a persistent anchor and reference point for all development, design, and integration work related to the Ley Line System, Jane, and the Magneto Speeder. All code, documentation, and design changes should reference this artifact for context and traceability.
+
+## Key Goals
+- Implement a real-time LeyLineManager service for querying, updating, and visualizing ley lines and nodes.
+- Integrate ley line proximity and node effects into Magneto Speeder energy, movement, and upgrades.
+- Refactor Jane and Magneto Speeder to use ley line data for navigation, energy, and abilities.
+- Enable event-driven gameplay and UI feedback for ley line events (activation, surges, disruptions).
+- Ensure all changes are documented and cross-referenced with this anchor.
+
+## How to Use This Anchor
+- Reference this artifact in all PRs, code comments, and documentation related to ley line system development.
+- Update this artifact with lessons learned, blockers, or design changes as the system evolves.
+- If you encounter a blocker, create a feedback artifact and reference this anchor.
+- Always keep ley line data and world state in sync before adding UI or feature work.
+- After each milestone, review integration with Jane, the speeder, and world events. Demo or document results.
+- Sync with related systems (world events, UI, AI) and update related artifacts as needed.
+
+## Prioritization & Decision Guidance
+- Prioritize core data and logic (LeyLineManager, world state sync) before UI or advanced features.
+- If integration is blocked by dependencies, escalate with a feedback artifact and document the issue here.
+- Validate each step with tests and/or in-game feedback before moving to the next.
+
+## Definition of Done (per step)
+- [ ] LeyLineManager exposes all required APIs and is covered by unit tests.
+- [ ] Jane and Magneto Speeder use LeyLineManager for real-time interaction.
+- [ ] Ley line-aware pathfinding and navigation is functional and tested.
+- [ ] Event hooks and UI overlays for ley line status are implemented and visible.
+- [ ] All changes are documented and cross-referenced with this anchor.
+
+## Required Tests & Validation
+- Ley line proximity/strength calculations.
+- Energy and movement effects on Magneto Speeder.
+- Event propagation and handling (e.g., node activation, surges).
+- Pathfinding and navigation logic.
+- UI feedback for ley line status.
+
+## Next Steps
+1. Scaffold LeyLineManager in `src/world/leyline/`. (Done)
+2. Refactor Magneto Speeder and Jane to use LeyLineManager for real-time interaction.
+3. Implement ley line-aware pathfinding and navigation.
+4. Add event hooks and UI overlays for ley line status.
+5. Write tests and update documentation.
+
+---
+
+# Use
+Reference this artifact in all PRs, code comments, and documentation related to ley line system development. Update as the system evolves.

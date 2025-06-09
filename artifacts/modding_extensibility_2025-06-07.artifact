@@ -1,0 +1,22 @@
+# Modding & Extensibility Artifact
+
+## Purpose
+Define extension points and modding APIs for community and future-proofing.
+
+## Mod/Plugin Architecture Overview
+- Mods are loaded from the `mods/` directory
+- Mods can register new data (skills, cosmetics, factions, narrative events)
+- Mods can hook into events via the EventBus
+
+## Data-Driven Extension Guidelines
+- Mods should add content via JSON/config files
+- Provide schema validation for mod data
+
+## Example Mod Integration
+- Sample mod that adds a new skill and cosmetic
+- Example of mod listening for `JANE_LEVEL_UP` and triggering a custom event
+
+## API Documentation
+- Document public modding APIs and extension points
+
+---

@@ -99,8 +99,20 @@ export class MissionManager {
     }
   }
 
+  // Add this method for ModularGameLoop integration
+  update(dt: number, context?: any) {
+    // TODO: Implement mission state progression, timers, or triggers as needed
+  }
+
   // Optional: set a callback for mission completion
   onMissionCompleted?: (missionId: string) => void;
+
+  // TODO: Integrate with global event bus for mission triggers and completion events.
+  // TODO: Add support for mission prerequisites and branching objectives.
+  // TODO: Expose modding hooks for custom mission types and rewards.
+  // TODO: Add support for mission progress notifications and UI integration.
+  // TODO: Implement multiplayer mission sync and co-op objectives.
+  // TODO: Add analytics hooks for mission completion and player choices.
 
   // Add more methods for objectives, triggers, etc. as needed
 }

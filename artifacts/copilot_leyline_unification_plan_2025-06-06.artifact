@@ -1,0 +1,19 @@
+# ProtoFusionGirl: Ley Line & World/Event System Unification Plan (2025-06-06)
+
+## Purpose
+Step-by-step plan for deduplication, event contract enforcement, and migration of legacy code in world, ley line, and event systems.
+
+## Steps
+1. Audit all modules for direct state mutation or caching outside WorldStateManager.
+2. Refactor all state access to go through WorldStateManager.
+3. Remove all legacy/local event bus code; use only core/EventBus.
+4. Refactor all event emission/subscription to use strong event contract.
+5. Deduplicate traversal, movement, and energy logic into a shared system.
+6. Refactor editing, generation, and traversal to emit events via EventBus and update state via WorldStateManager.
+7. Remove unused/legacy files and APIs.
+8. Validate with tests after each major change.
+
+## See Also
+- architecture_blueprint_2025-06-07.artifact
+- refactor_anchor_artifacts_2025-06-07.artifact
+- upgrade_roadmap_2025-06-05.artifact

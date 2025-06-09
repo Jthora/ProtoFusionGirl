@@ -1,0 +1,56 @@
+---
+artifact: ley_line_system_design_2025-06-06
+created: 2025-06-06
+purpose: Design and technical specification for the modular ley line and world network system in FusionGirl.
+type: design
+format: markdown
+---
+
+# Ley Line System Design
+
+## Overview
+- Modular ley line generation, node management, and visualization.
+- Real-world data and procedural generation for replayability.
+- API for modding and in-game editing.
+- Artifact cross-referencing for discoverability.
+
+## Key Components
+- Ley line generator (procedural + real-world data)
+- Node manager (placement, state, upgrades)
+- Visualization (2D/3D, overlays, UI)
+- Modding API (external and in-game)
+
+## API Contracts
+- `LeyLineNode` interface: `{ id: string, position: { x: number, y: number }, state: 'active' | 'inactive' | 'unstable', upgrades?: string[] }`
+- `LeyLine` interface: `{ id: string, nodes: [string, string], strength: number }`
+- Methods: `generateNetwork(seed?: number)`, `addNode(node)`, `addLine(line)`, `getNodeById(id)`, `getConnectedNodes(id)`
+
+## Acceptance Criteria
+- [ ] Can generate a network with N nodes and M lines
+- [ ] Nodes and lines are discoverable via API
+- [ ] Visualization overlays display correct state
+- [ ] Modding API allows adding/removing nodes/lines at runtime
+- [ ] All changes are reflected in artifacts and documentation
+
+## Example Usage
+```ts
+const system = new LeyLineSystem();
+system.generateNetwork(42);
+system.addNode({ id: 'A', position: { x: 0, y: 0 }, state: 'active' });
+```
+
+## Milestones
+- Prototype generator
+- Node management module
+- Visualization integration
+- Modding hooks
+- Artifact/documentation cross-linking
+
+## Required Tests
+- Unit tests for node/line creation
+- Integration tests for network generation
+- API contract tests
+
+## Related Artifacts
+- magneto_speeder_mechanics_2025-06-06.artifact
+- universal_language_psionics_2025-06-06.artifact

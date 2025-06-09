@@ -1,0 +1,23 @@
+# Universal Language (UL) Modding & Extensibility Guidelines
+
+## Purpose
+Defines best practices and extension points for modders to add new UL puzzles, scripts, and resources.
+
+## Supported Extensions
+- New puzzles/resources via JSON files in `assets/lang/ul/` or `mods/`
+- Custom validation scripts (must be sandboxed)
+- Metadata tags for mod tracking
+- UI hooks for custom feedback or accessibility
+
+## Requirements
+- All resources must conform to `ul_resource_schema_2025-06-06.artifact`
+- Scripts must be safe and pass static analysis
+- Mods should register via documented API (see src/mods/)
+
+## Best Practices
+- Use unique IDs and namespaces
+- Document all new events or hooks
+- Provide test cases for new puzzles/scripts
+
+## References
+- See `ul_system_technical_spec_2025-06-06.artifact` and `ul_event_spec_2025-06-06.artifact`.

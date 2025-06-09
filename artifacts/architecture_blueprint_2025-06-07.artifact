@@ -1,0 +1,35 @@
+# Architecture Blueprint Artifact
+
+## Purpose
+Defines the high-level architecture for ProtoFusionGirl, including domain boundaries, event flow, data-driven principles, and integration patterns.
+
+## Domain Model Diagram (Textual)
+- Characters (Jane, Companions, Enemies)
+- Combat System
+- Narrative System
+- World/Timeline System
+- Customization System
+- UI/UX
+- Data Layer (JSON/config)
+- Event Bus (core communication)
+
+## Event-Driven Communication
+- All major systems emit/listen to events via a central EventBus.
+- Example: Jane emits `JANE_LEVEL_UP`, UI and Narrative listen and react.
+
+## Data-Driven Design
+- Game content (skills, cosmetics, factions, narrative) is loaded from JSON/config files.
+- Systems are designed to be extended by adding new data, not new code.
+
+## Service Locator/Context
+- Shared systems (inventory, narrative, world state) are accessed via a central context/service locator.
+
+## Example Folder Structure
+- See domain-driven structure in previous recommendations.
+
+## Integration Patterns
+- Use interfaces and events for decoupling.
+- Barrel files (`index.ts`) for each domain.
+- README.md in each folder for documentation.
+
+---

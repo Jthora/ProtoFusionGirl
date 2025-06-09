@@ -1,0 +1,23 @@
+# Testing & Quality Artifact
+
+## Purpose
+Defines the testing strategy, folder structure, and conventions for ProtoFusionGirl.
+
+## Test Structure
+- Mirror `src/` structure in `test/` or `__tests__/` for unit/integration tests
+- Each domain/module has its own test suite
+
+## Coverage Goals
+- 80%+ code coverage for all core systems
+- Critical gameplay and narrative paths must be tested
+
+## Example Test Cases
+- Jane leveling up triggers correct events and stat changes
+- Narrative triggers fire on correct conditions
+- Combat system resolves outcomes as expected
+
+## TDD & CI Guidelines
+- Write tests before/with new features
+- Integrate with CI for automatic test runs on PRs
+
+---

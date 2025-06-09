@@ -31,6 +31,10 @@ export class SpellSystem {
   }
 }
 
+// TODO: Load universal symbols and spell recipes from external data/assets for modding and extensibility.
+// TODO: Add validation and error handling for invalid symbol sequences.
+// TODO: Integrate with player abilities, UI, and event system for spell casting feedback.
+
 // Placeholder for symbol data (to be loaded from data or assets)
 export const UNIVERSAL_SYMBOLS: UniversalSymbol[] = [
   // Example: { id: 'energy', name: 'Energy', description: 'Represents raw power.' }

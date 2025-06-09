@@ -2,19 +2,22 @@
 // Prototype for world state repair/migration (see copilot_world_state_tooling artifact).
 import Phaser from 'phaser';
 import { TilemapManager } from '../../world/tilemap/TilemapManager';
+import { EventBus } from '../../core/EventBus';
 
 export class RepairMigrationWizard extends Phaser.GameObjects.Container {
   private tilemapManager: TilemapManager;
   private width: number;
   private height: number;
   private branchId: string;
+  private eventBus: EventBus;
 
-  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, branchId: string, width = 400, height = 220) {
+  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, branchId: string, width = 400, height = 220, eventBus: EventBus) {
     super(scene);
     this.tilemapManager = tilemapManager;
     this.branchId = branchId;
     this.width = width;
     this.height = height;
+    this.eventBus = eventBus;
     scene.add.existing(this);
     this.setScrollFactor(0);
     this.setDepth(1100);
@@ -48,12 +51,16 @@ export class RepairMigrationWizard extends Phaser.GameObjects.Container {
   }
 
   private autoRepair() {
-    // TODO: Implement auto-repair logic (fix common issues, missing anchors, etc.)
-    alert(`Auto-repair for branch: ${this.branchId} (prototype)`);
+    // Emit event for auto-repair request
+    this.eventBus.emit({ type: 'BRANCH_REPAIR_REQUESTED', data: { branchId: this.branchId } } as any);
+    // TODO: Implement actual repair logic for corrupted or outdated save data.
   }
 
   private migrateBranch() {
-    // TODO: Implement migration logic (update to latest schema, fix legacy fields, etc.)
-    alert(`Migrate branch: ${this.branchId} to latest format (prototype)`);
+    // Emit event for migration request
+    this.eventBus.emit({ type: 'BRANCH_MIGRATION_REQUESTED', data: { branchId: this.branchId } } as any);
+    // TODO: Implement actual migration logic via WorldStateManager
+    // TODO: Add migration steps for schema/version upgrades.
   }
 }
+// TODO: Integrate with feedback/logging system for repair outcomes.

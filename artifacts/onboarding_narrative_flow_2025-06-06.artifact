@@ -1,0 +1,36 @@
+---
+artifact: onboarding_narrative_flow_2025-06-06
+created: 2025-06-06
+purpose: Narrative-driven onboarding and tutorial plan for progressive feature introduction.
+type: onboarding
+format: markdown
+---
+
+# Onboarding & Narrative Flow
+
+## Approach
+- Multi-phase tutorial integrated with story
+- In-game AI guides (Mecha Jono, Beu)
+- Contextual hints and feedback
+
+## Steps
+- Phase 1: Ley lines and basic traversal
+- Phase 2: Magneto Speeder upgrades
+- Phase 3: Universal Language/psionics
+- Phase 4: Modding and community features
+
+## Acceptance Criteria
+- [ ] Each phase introduces only one new mechanic at a time
+- [ ] Contextual hints are available for every new feature
+- [ ] Onboarding progress is tracked and can be resumed
+
+## Example User Story
+- "As a new player, I want to learn ley line navigation through a guided mission with Mecha Jono, so I can understand the basics before exploring on my own."
+
+## Required Tests
+- Playtest onboarding flow with new users
+- Automated tests for onboarding triggers and progress tracking
+
+## Related Artifacts
+- magneto_speeder_mechanics_2025-06-06.artifact
+- universal_language_psionics_2025-06-06.artifact

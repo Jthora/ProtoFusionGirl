@@ -1,0 +1,17 @@
+# UI & Overlay Audit Plan (2025-06-07)
+
+## Scope
+- All files in src/ui/ and overlays in src/scenes/
+
+## Checklist
+- [ ] Identify all UI components/overlays interacting with world, ley line, or speeder state
+- [ ] Check for direct state mutation
+- [ ] Check for legacy/local event bus usage
+- [ ] Check for outdated/duplicated state representations
+- [ ] Ensure use of WorldStateManager and unified EventBus/event types
+
+## Findings
+- (To be filled during audit)
+
+## Required Refactors
+- (To be filled during audit)

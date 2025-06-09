@@ -1,0 +1,12 @@
+[
+  {
+    "id": "intro_event",
+    "trigger": "game_start",
+    "actions": ["show_intro_cinematic", "unlock_basic_skills"]
+  },
+  {
+    "id": "angelic_trial_complete",
+    "trigger": "quest_completed:angelic_trial",
+    "actions": ["unlock_cosmetic:outfit_angelic", "award_xp:100"]
+  }
+]

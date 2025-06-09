@@ -1,6 +1,1466 @@
 .
-├── .eslintrc.json
+├── .changelog
+├── .dashboard
+├── .datapack
+├── .eslintrc.js
+├── .feedback
+├── .git
+│   ├── branches
+│   ├── COMMIT_EDITMSG
+│   ├── config
+│   ├── description
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   ├── exclude
+│   │   └── refs
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── master
+│   │       └── remotes
+│   │           └── origin
+│   │               ├── HEAD
+│   │               └── master
+│   ├── objects
+│   │   ├── 00
+│   │   │   ├── 26bfa533ba6cd26d9196693e735e5e6c69717f
+│   │   │   ├── 322f38e13c2c7f32235fc92edf2ce5cd595168
+│   │   │   ├── 43912706f8a0d91dc22e185627c6f3578cc3a3
+│   │   │   ├── 7a7a1718136ef27416dc7cda4769896c8af499
+│   │   │   ├── 9e701831d386a531423c690f991dc781399c54
+│   │   │   └── d2b1a9d1776841f5b7c42e1cda7d8f201f9001
+│   │   ├── 01
+│   │   │   ├── 4a8f83dc40e4727274f76e747a1a23b26bc4e3
+│   │   │   └── 644c587a5b91f3e5ca5cfbde714320e63b21a4
+│   │   ├── 02
+│   │   │   ├── 13684e02cb1dc62e7f86bd00fbf38fe9c94135
+│   │   │   ├── 39d571fed82cfd1aba9e13b0e9043289387328
+│   │   │   ├── 623f5372e7df476cd8d6baa6869ab3727c9ffb
+│   │   │   └── 96edcc64a52b8fab80d45321053f534035a8df
+│   │   ├── 03
+│   │   │   ├── 0cb62daf19e6d0d7e0654b4abbcd8a474c52fe
+│   │   │   ├── 1362a73c72c5a808ece83a3943b1e0071e0e47
+│   │   │   ├── 51522f8e810794121f6bf791a7f58ce43c772d
+│   │   │   └── f40a32c6d6efa2947ebacb7350554369674a61
+│   │   ├── 04
+│   │   │   ├── 5d20c046a5511f576489507eb71237de681ebb
+│   │   │   ├── 8156e2aa495faddf1f96c15da20958771480b4
+│   │   │   └── bcae8e2345007acb1d9ae8fbce42c81955b0c5
+│   │   ├── 05
+│   │   │   ├── 141a1b84f000501b6c4fa44934ab7a14eb7b91
+│   │   │   ├── 539d603b4b6489d0c6cb2bda6f14337d95acfd
+│   │   │   ├── 6a72faa688a917c383840d700bf51d2439a186
+│   │   │   └── fd6cbd6461ba521e26110f46897a3a12edad17
+│   │   ├── 06
+│   │   │   ├── 1aa9dc2bdb1aeea7a452572984e7db99649f48
+│   │   │   ├── 48cd26f5ad52d0fbf57595a68c2f992c6ee265
+│   │   │   ├── a80d96a4fe970d0f3f5db8a2cd558fd1c69c0e
+│   │   │   ├── d8f4b4671453ba53c32289934d545aaaced4c6
+│   │   │   └── f46ef275c2143330dae79f392714f6ce75ac7b
+│   │   ├── 07
+│   │   │   ├── 333115c968533c21756b9d24e96b53512b237d
+│   │   │   └── de5b4b97385e28adce9ad90dd08e600d30cd97
+│   │   ├── 08
+│   │   │   ├── 20eb5c9d6320fda181e07b8f8dccc35837439b
+│   │   │   ├── 2a95672b1c57e6280285571316e3bbdcce5699
+│   │   │   └── f5a92dd78b859f5605af2e6d9d52beaf50c29b
+│   │   ├── 09
+│   │   │   ├── 481fb19315410aad70c2ab430f9daeef8d56a2
+│   │   │   ├── 53413e168e9ff09f7946f3013dda004b5f5fda
+│   │   │   ├── 54a5f917ae8a3adf28530d54ef67090692e535
+│   │   │   ├── 642c7ff211a1e18642430ef8c92208da58c1c0
+│   │   │   ├── b8d1fe9b8edacc154792a6ac16606761b1a801
+│   │   │   └── fddcaf23f22fb3cb231672fa78a96660024312
+│   │   ├── 0a
+│   │   │   ├── 8312f38cc60c4317ace996597d47b094101c77
+│   │   │   ├── 9610c409bfbd563b9f54c307a0637ec3d61d0c
+│   │   │   └── c931f84b45a4d1fa613e5d5c20fa65795b42d7
+│   │   ├── 0b
+│   │   │   ├── 0b95d6067f866321c4ff99f6f8e84322b86dff
+│   │   │   ├── 27449a03dcb667abf46cb0720a886affef5b8e
+│   │   │   └── 7796ce5ff93784c2b4b98ac11c6d856e31bc1a
+│   │   ├── 0c
+│   │   │   └── 740a6755a0957cb60645c5b3e964ad0e01e1ae
+│   │   ├── 0d
+│   │   │   └── b4780037b2df5370fe7f1c6476db83708dfc5d
+│   │   ├── 0e
+│   │   │   ├── 630ade5e35c8cb3fb87d79551b62300ad89abd
+│   │   │   └── 8864077d56b24b6fa192fde3ee0e432c423238
+│   │   ├── 0f
+│   │   │   ├── 1c42a9addbaa22465d30edf3e2ecb01d6ab6f5
+│   │   │   └── da692a15322479d67295ff618f98cb9b872a6b
+│   │   ├── 10
+│   │   │   ├── 48e84fa3681f8546f0ec942ca553bc749c4fb6
+│   │   │   ├── 5e60f113ad2c2097901353646e33006d02e8b6
+│   │   │   ├── 8f908da7ece62c6060157bd5ce79229cf75bd9
+│   │   │   ├── cb03e7d91a7fcb80d8aed88312b6d4c5ce48b1
+│   │   │   ├── d4a47745b86284cab01fdf4981cfe95da300f5
+│   │   │   └── e6d49ce543a03c46b26eb79801d1d9be40544b
+│   │   ├── 11
+│   │   │   ├── 0d366e488e8dc3cc55456f6a9bedc38439d0eb
+│   │   │   ├── 2f075fb48676beb0fe5e0dad2e6e65de4aeb07
+│   │   │   ├── 4e8490114f3bfc734c4b8ac5089a3e654dbec2
+│   │   │   ├── 658aec76621054a1f81c93df70cf92de245e84
+│   │   │   └── a17e4d148c7935b79060271c6d85ff9648161b
+│   │   ├── 12
+│   │   │   └── e65fe3194d72a535a7b604e6ab608046cfb5b9
+│   │   ├── 13
+│   │   │   ├── 0e9c6fae6499a3d0ed3ec5b441657929dc6b92
+│   │   │   ├── 30da77f4bc80a1c622c8c70c334a8c52933dbc
+│   │   │   ├── 60f9f17672b8f07cb9c0667b5aaf3cc90e8968
+│   │   │   └── f641275019fec217ca22acba6990b12853db6d
+│   │   ├── 14
+│   │   │   ├── 22192b037575b91ef60e87927968767606b523
+│   │   │   ├── 25ce7104b5f4fc53f5703f2bb0ac3774aef992
+│   │   │   ├── 684a509fdda361952edec96167ea2b0e1fd5ec
+│   │   │   ├── 6ca96290c0a2d37517cab27e4d3df76a09383c
+│   │   │   ├── b33febb2af838425c62b3d235f7a0ef8475c35
+│   │   │   ├── e2df8903cdac4ad6139bd4e945fd9b2e1b3ba8
+│   │   │   └── e6b106cb1de062f01879d547abc45a58f768d4
+│   │   ├── 15
+│   │   │   ├── 0bfb70258ce860f10872aab2aeb24c14a5d26a
+│   │   │   ├── 16c4b24a9e63963e1f6c55152907ff803bcdc6
+│   │   │   ├── 6797ad5a68cc1c0b2558ce7891d1ca0f9da125
+│   │   │   ├── 71929028f246b259c4c798ca68bd8a3e035467
+│   │   │   ├── acf8ddc787f07fccd147f38eea9f290aa42e80
+│   │   │   ├── cc5a4b75d3217507d15c159618fcb2c37c906f
+│   │   │   └── cd3220cc5b33708954a4320cd6942b5478d29e
+│   │   ├── 16
+│   │   │   ├── 7c3311da3bf9fdb4242ac1a03658258f4794a5
+│   │   │   └── e7c9d1ce4b0413e58c64fda9f86eea28ee46cd
+│   │   ├── 17
+│   │   │   ├── 3cef0fc9b584af9fcb9a96e33faafca446e97c
+│   │   │   └── c52bd4d9b1c25bd3344412233ed22800ffddd0
+│   │   ├── 18
+│   │   │   ├── 543ba7f74c4b276ea91077351b16af290345d8
+│   │   │   ├── 54ca4d6c7a19f4f6b4ebd5c03ce7c6053d3f91
+│   │   │   ├── 6e4d8e57ede7f3f0def892f18cbfd936eda7bb
+│   │   │   ├── e3722a8b8c00105507e80ec2a3d451fce5e304
+│   │   │   └── fe3f27c833c2d6caff1b1d7c65317a1e6d2364
+│   │   ├── 19
+│   │   │   ├── 1089fba0b5672e6ecf8e34bfacfdf6e00a306d
+│   │   │   ├── 1c4e3e7bae2b260651c7f7fe5236ecc18324a7
+│   │   │   ├── 65c8573b0fe745e1193cf1ee9439d470ae4d66
+│   │   │   ├── b3130ece292f35fe93e9f25d13db2e04d86dc3
+│   │   │   ├── c51cc83a374647261301b07b193001df951f11
+│   │   │   └── f9b3380fc37fb97ea405e4dd98cf1d48588ab4
+│   │   ├── 1a
+│   │   │   ├── 2652bd8ec63dcb0a4d41e77cd2e723dc663442
+│   │   │   ├── 4aed3ec361d64bc20a8fc7bc55cbc8e0cf41a1
+│   │   │   ├── 76a8255ed8a14672fa29829d409fcc76eaf3c3
+│   │   │   ├── 7eaeae439e4784fe33a1e378ec19fded0adc3e
+│   │   │   └── d980e00b7f600d7dacd726d4a221ac1f30be55
+│   │   ├── 1b
+│   │   │   ├── 0a22bc28c59bf4357179b1dba3e10a31c525b0
+│   │   │   ├── 0e2bc4d2ed1457b5fec83e6ee5d41c896da829
+│   │   │   ├── 4a74cea455fb274ec056254d9bf5bab5af7566
+│   │   │   ├── 8efe80e26109b4688b76ea662a23ee39b2af4e
+│   │   │   ├── d5b797f7a8aac5c84a7d0d3597aa03921a0a6c
+│   │   │   ├── e341b2f394452fc29c41a0b774d8677bbb8721
+│   │   │   └── e53462e9a81def1b5ce30973eb9c4e0782e5bf
+│   │   ├── 1c
+│   │   │   └── 8cb3851b84d22369a910bfc3ec841b0099ebb5
+│   │   ├── 1d
+│   │   │   └── 7423e98f8bbd7649304b874e9e6916b9a4b25c
+│   │   ├── 1e
+│   │   │   ├── 3a2f5f09503cbe881ba4b286719bd60502d8ba
+│   │   │   └── f52ffeae28290a55d0900c299e52ea0340d0e1
+│   │   ├── 1f
+│   │   │   ├── 108f4eb255c68ea68f9ddef6b4fb05fc3b8e15
+│   │   │   ├── 221f04d3a1291930abfd2b1615a6db54d1b5a4
+│   │   │   ├── 23312883d48ead6daf3c54afdcdad90872ad61
+│   │   │   ├── 9ce616e8527b35a4c983dfaf109c7053e90f11
+│   │   │   └── ffae68777ca5b8eacd11ac3ba2d61d69a8adf7
+│   │   ├── 20
+│   │   │   ├── 20544b24ed46833a6c226672469eef6ee3ead9
+│   │   │   ├── 504f8f16a9906a4a1baea5e970f84ce6f3c5a8
+│   │   │   ├── 5aedbbb2707b91b42e538007a510fef432e7ef
+│   │   │   └── 931b300fcbda7a2e786a23f0a73e346fd27b99
+│   │   ├── 21
+│   │   │   ├── 09c1381fe3e1041ce353d7a9045feb0ba6b057
+│   │   │   ├── 4f0f6a08f1b49a9ce9d63cbe960707575d3e28
+│   │   │   ├── 67a83a9047e926edad3bc15ad8cf9cb717a0f1
+│   │   │   ├── c827ec19e76d79e04e9d5be42bee81587b6cc5
+│   │   │   ├── e5dd02967e52cb4854245e66805432044bc727
+│   │   │   └── fdd93c35e17ec1b7e8bfe177fe5d9a9c1d9118
+│   │   ├── 22
+│   │   │   ├── 1be1412d272253a98f477355355388c5fd92a0
+│   │   │   ├── 22b54d1fd689d9ced47dd98de4eb05478b3539
+│   │   │   ├── 3056002d4062f9f58e7b7732cdb6714cdb7dee
+│   │   │   ├── 5b07483d197907aab7662ec495af4374ea39ce
+│   │   │   ├── 8d46a2691157468c97ac490ae7ac9c5a8d4421
+│   │   │   └── 92e11aafb95e0d4ec4e15ba7ec468b2c64e474
+│   │   ├── 23
+│   │   │   ├── 433d508bfa0f756232e211f8d2a2ef980dd8b9
+│   │   │   ├── 51daa804ff5345b422b7999dbe90e9d73233c6
+│   │   │   └── d129a3a71e480874dd10c3d3c27950bb16306b
+│   │   ├── 24
+│   │   │   ├── b3f869b256cbe3d1cac9abf9574120d3d40590
+│   │   │   └── f8342922d9c1bfb52cc364da02b368525b485f
+│   │   ├── 25
+│   │   │   └── 1b3e956ffb271a014fd294db4a1f017ba441f7
+│   │   ├── 26
+│   │   │   ├── 0da4aff72304f1a2c41a7efe7582101678ab9a
+│   │   │   └── dffacbbe7d37420eaae530ae705ad3c7eee441
+│   │   ├── 27
+│   │   │   ├── 1ad7e93ab511401ab53ed352f382179b1a348c
+│   │   │   ├── 3a493cb07460ecc6d022407224a6d81287c156
+│   │   │   ├── 6c7a82eb1f599430ca4cf7f62d9a121cea4041
+│   │   │   └── d01cbfe3fbd1b8565931298c27c20ec5e2b73f
+│   │   ├── 28
+│   │   │   ├── 1465ff16f3d3477cdd322fec77d2671dacc595
+│   │   │   ├── 2bff83712411fd4413ceabba2ae5adac31fe7e
+│   │   │   ├── cb5e6b00067f870c12771e2e763c6eaf0223a0
+│   │   │   └── f1d6aad461b8a8447a9c1056659cf55490d00c
+│   │   ├── 29
+│   │   │   ├── 02a6fee66b9e9a6a274f90a0476016bdbc3db4
+│   │   │   ├── 49833859acd59788bffbc90431725ffffd7841
+│   │   │   ├── 50aeda8113903192749ac08a84d71c84eb02e3
+│   │   │   ├── 609988b622e84a381b33684e424ee139fe2e5f
+│   │   │   ├── 68d5ccb00cbba40f78507797ce9a6cb2e0769a
+│   │   │   ├── 80a4b8fc9ae767431cf293100e1ed637eb91e5
+│   │   │   └── a06017e81889dd3e6160684772a60832012dae
+│   │   ├── 2a
+│   │   │   └── 2a1a7b2c27bc63b8c002e6f720c9f74ad310e5
+│   │   ├── 2b
+│   │   │   ├── 4377f87de65950b942c89be281e19a889caac5
+│   │   │   ├── 9345f2bde47cd7ca3e2a8c506891d282c5a492
+│   │   │   ├── 9dce6afb3f56ead0625d4fcc9d2b9eb3c4b580
+│   │   │   └── bebd23ddc178f635fd3552273ecc65e61cfa80
+│   │   ├── 2c
+│   │   │   ├── 1b3cb9cd3e3799c1c3067ddc1fda14afaab0bf
+│   │   │   ├── 29d726747db3958ed909c056b67b98470a3ae2
+│   │   │   ├── 3876637680788614aef10f44692e6025ef383c
+│   │   │   ├── 3b1a1b6baa5afc01d62841e41add18d04baaff
+│   │   │   ├── 6aa66f2d12c0adedfd244727a9974e8d1dc71c
+│   │   │   ├── 936acd4670cb6b5f79348f8dd5a76c1706a990
+│   │   │   ├── 9b82d9ac63e5ae00f684654af4551d1f14d1d8
+│   │   │   └── b9bd2272482b8db3bee7841512dcfb8c3e8cb2
+│   │   ├── 2d
+│   │   │   ├── 724fef96c09102b952742da093f5d3bdaf9080
+│   │   │   └── f9d32c7bf4e44eaae75a5725bdbf10cb2a2d2a
+│   │   ├── 2e
+│   │   │   ├── d6be1741a6dfe4e04c7a2343e989ce52ee8b90
+│   │   │   ├── e1e986c5c131d69f637ff84088ae182dfb63c2
+│   │   │   └── e8f089da8a7f662d1c88d4d85751fed2a05924
+│   │   ├── 2f
+│   │   │   ├── 096e30c49e08b7ffdf50690f8ddff1c2092fa6
+│   │   │   └── 1e02122751184f30e6b5312d26c5e95db2a0ee
+│   │   ├── 30
+│   │   │   └── b95205db4ba2755802183e9b14cc0bd48fceae
+│   │   ├── 31
+│   │   │   ├── 039cbf3ff64bbda6e83f3c5a317ef55c4aa2f5
+│   │   │   ├── 199bd4aecff5fbb1bd59d2f46d52ec96a5f8eb
+│   │   │   ├── 25a2c0aeca3b6cd617762d01b4d5f1e36c0f3c
+│   │   │   ├── a5e429c4db5013c5b9a9289fd8692a5663d16c
+│   │   │   └── f949f0695189c7dc587662dda27684fb0578a5
+│   │   ├── 32
+│   │   │   ├── 4dd6a7d09566296f65f4b7ab8aeb56ca5e7ce7
+│   │   │   ├── 9cadbea2043b2d8113e1d11edeedc93334d821
+│   │   │   ├── ac5d30e7f061bf8505f0a3a9d2ed4e6f004d83
+│   │   │   └── c6f4a309cb64a702ea98fa6d8f0848868398bf
+│   │   ├── 33
+│   │   │   └── 1ccee2b07de331fd48049ec864fd64d7e6fe5b
+│   │   ├── 34
+│   │   │   ├── 45c2a3f4ded924dc9071ddb48aed3a753eea00
+│   │   │   ├── 642aefb2d57ad23a68f9b95fc1513ace21754b
+│   │   │   ├── 9d155ec557b7cce53778a6f889718e32769bdb
+│   │   │   └── 9ec21c33d97ca0f4772be09708d55f5614fc48
+│   │   ├── 35
+│   │   │   ├── 2a1cad50c9df67ec8a7d846e45f5ba820f180d
+│   │   │   └── 7b15392299726c589d134d566abfee5930cf09
+│   │   ├── 36
+│   │   │   ├── 0f291b284602b3426989ad86dcbfbf1d7860b5
+│   │   │   └── ca1aa5715518fa12c6b0e2001bee145377ca0a
+│   │   ├── 37
+│   │   │   ├── 2db28db89c89f186dbb9c6bfed686caa4e18bb
+│   │   │   ├── 9bd711326f554f17fc468f3a11822a8b6aa700
+│   │   │   ├── ce019b5baac2bfd2e31c5e6b3be25b7662141d
+│   │   │   └── f75a271c034dc902c912c116f4cd3d1893e3f3
+│   │   ├── 38
+│   │   │   ├── 03e9cf561058d0172e08dce86105859e007b01
+│   │   │   └── 609ff4654b642486b65457ea63a6c006f38576
+│   │   ├── 39
+│   │   │   ├── 0594dfb6cf3071b9ae7f162ba5540b73fa814d
+│   │   │   ├── 3d3d44f0c96d4a896600819e973847b4ae1059
+│   │   │   ├── 4f91397721761988695ef9f8118e6d3a7840cf
+│   │   │   ├── aa31a2b886f222a1de374ce48e322e606ce55d
+│   │   │   ├── c5d910f1be15d7727bfae3d07511bbfdd12a26
+│   │   │   └── fb8fd287fbfd06030211cd0fc2180d666fd167
+│   │   ├── 3a
+│   │   │   ├── efb84fe5ec6faed8a90aa6a7bd693037342eec
+│   │   │   └── fb8e180e2bb0ad44491ff08d7ff49efb9e8d63
+│   │   ├── 3b
+│   │   │   ├── 7f303da68c22435500752eab8739bc8829a7de
+│   │   │   ├── a1beb80180f9369598d9a6da031297a245a94b
+│   │   │   ├── c4a5c7181575242f062ec1727f635f1d13de35
+│   │   │   └── f18467f59af508fcce2c0277aca2fcb2de7aa5
+│   │   ├── 3c
+│   │   │   ├── 338310ae734c60412eb0dd65f795d13aa365ab
+│   │   │   └── d213a2d93ff1b9510be55ae5d67b3b70f30729
+│   │   ├── 3d
+│   │   │   ├── 38a4840f138151f66489375287a20c590d8149
+│   │   │   └── 7e69a3048edfa0020bf7b6d7e9d6a38690248e
+│   │   ├── 3e
+│   │   │   ├── 02952a1867c87bcc5c747aa71ac481fb256c59
+│   │   │   ├── 11d41eaf514c753061131b1da95ccb9b1ea0e0
+│   │   │   ├── 2c33de0e039cb8ab361d22955542596d6ddb29
+│   │   │   ├── 472d720b1cbc5e6243643364f448d387e5d875
+│   │   │   ├── 5376eab87cb81344f52660f1b111d70f1f59b0
+│   │   │   └── 8d9f7b04255a109b7682c5e57bed5505631db9
+│   │   ├── 3f
+│   │   │   └── 70343e4de2006deaf9d509bbe2da7d4097f61a
+│   │   ├── 40
+│   │   │   ├── 275ae99e1433e1095416cc7c6b6ca8c6d07407
+│   │   │   ├── 3b4bcf5c11bf45ad2efebfd8572d3ec7c1155d
+│   │   │   ├── 3e5efaedb78aee5617a7292061135fab03c0de
+│   │   │   └── f420571a2e0d7a1ed9de07716717b5e4448d98
+│   │   ├── 41
+│   │   │   ├── b35bc81a1722873f4b8755e40e71269f7ef7f8
+│   │   │   └── cdb1f6ab2a98785b14e9def262848d14ca5a1d
+│   │   ├── 42
+│   │   │   ├── 181f797a3161bd0cfae6a3e496e22ea1ef7660
+│   │   │   ├── e5b9cdc34029b4a08b49badba13dcf285e94ab
+│   │   │   └── f1e3b8b4362424bc4ca2b467d16f03ea9c586a
+│   │   ├── 43
+│   │   │   └── de6dd45a1531afd3958f88c6a9be2aa6087d3d
+│   │   ├── 44
+│   │   │   ├── 16f237953edf1a303d694fc6d56288afaf1c4e
+│   │   │   └── ac5f7bde9279e7685158a4d41f0b5e8193bfd2
+│   │   ├── 45
+│   │   │   ├── bd7a9f41d3830330d52b92ab424259f615ed9b
+│   │   │   └── cf312dec08a9cd57c79c76bf3ed202a9796b0f
+│   │   ├── 46
+│   │   │   └── bbd3b0cfe435287b0f870be71f897931c66bda
+│   │   ├── 47
+│   │   │   ├── 1c8aea48e38ab62e78b58437614876442266ee
+│   │   │   ├── e22b8d7c109e5ae4832f4ca05a927a11e2cac6
+│   │   │   ├── f682d0508412c5f5692afc091081ad6cd99354
+│   │   │   └── fe6fba1f1df0c3393e1c69f8d04ada31a92f7e
+│   │   ├── 48
+│   │   │   ├── 29e2aa3d6405ed19e978a29a9fef9a316562ca
+│   │   │   ├── 4afa3d092bd4cb840d9c60e1a461c124d1d2e7
+│   │   │   ├── 625571fdb2c10d26e42dfdb3088c39795e52bf
+│   │   │   ├── 6a5bd4efc4a67177d2dabf104ae2f8abf07fd9
+│   │   │   ├── 7ef8210f5cb4c2348ebd983365764dc79ac2b8
+│   │   │   ├── 861962a220186ec23cf254215fbeed14a8cb10
+│   │   │   ├── 86611a642229cfcf01b00d5e6d4e71c7bcc411
+│   │   │   └── a0d63708678a1ef68176a0f48d88f799604981
+│   │   ├── 49
+│   │   │   ├── 1e91a063ac3dc6aeba913675c5a9834334a426
+│   │   │   ├── 6110468f42ac3f2357dd7c8e579961127503e7
+│   │   │   └── e89d87cdf74dc781c1700a439b42fd3a5fdc12
+│   │   ├── 4a
+│   │   │   ├── 5838bc682c7956391e5b0bc7c4e842196684c1
+│   │   │   └── c54bc8bdcc24e7c15135b0d2bdb26b74a787cf
+│   │   ├── 4b
+│   │   │   ├── 4d4353bd8b5517bda2631d4638de5f54073000
+│   │   │   ├── 718b71af3ed4661d7422b4b9560f22d0a715b7
+│   │   │   ├── 752673c4dc5d6ae751e024fb7ee3a8b653c34f
+│   │   │   ├── a45d17cfaced933e3a07f85224f95361159e9d
+│   │   │   └── b73bcc220b0bac24fedd806cae88f2d1ae5f07
+│   │   ├── 4c
+│   │   │   ├── 45e66cab9ce96a6513498a75b90cae253b6220
+│   │   │   ├── cc2e08f86fa4277921e63ce15761c67687094b
+│   │   │   └── dbab34f3a0ced524c628b56670e30c4efd529d
+│   │   ├── 4d
+│   │   │   ├── 5a1435e5bbc4e1a5c85c71d802b65ea1c03a7b
+│   │   │   ├── 5bbb1aa4868892e29e09bfa0974d8f8e33d845
+│   │   │   ├── 7338581061227c3ef0fe6c1b60e6ecdcc080b9
+│   │   │   ├── 7dd1aea5b5f3910f45cbd1abf244287c2a0746
+│   │   │   └── b526911008180272bac7d43180a4033e00bf89
+│   │   ├── 4e
+│   │   │   ├── 664f1d55b3b9c47e2810b8ef76bba7bc719752
+│   │   │   └── 92e1a66caa6eaec89ddc5dea204efd99ec3692
+│   │   ├── 4f
+│   │   │   ├── 2ec8aad1ab14dcf88c8e7d6ebbda21a999ba3f
+│   │   │   └── 420aaaeec2e718a21054993f77e22918931a60
+│   │   ├── 50
+│   │   │   ├── a2f41c3edaed99fb6be936280b6d09a179c067
+│   │   │   ├── b6639290611e40da6f0eaf4446dbbbb02dcdaf
+│   │   │   ├── b6e304406a51ce1d64ff0b32720172a5eecf1d
+│   │   │   ├── ba16166fcadd715d2811c99b0f52ede26a5903
+│   │   │   └── cc51fc4c19614b7bc70e58855cbbb7db7a2a92
+│   │   ├── 51
+│   │   │   ├── 03f50f706a89d87e1c77597b1f68cc1b8dfffa
+│   │   │   ├── 22f982738885b4106440a2696e8eff2b0f2857
+│   │   │   ├── 40952eb8ffe7a4f471f522f2335da01ab63578
+│   │   │   ├── 5a38c36962dfac670e4aac7188ae5c3034e306
+│   │   │   ├── 954685a6c54eb65f10f3bb5dae4a5c0ab428ab
+│   │   │   ├── cdbf930c19ed24d603853fd921c57356bf75bb
+│   │   │   └── ea14bb19f0fbb349d815705a1afdc0e74d3e65
+│   │   ├── 52
+│   │   │   ├── e307aa3f90e3139e0d774c9dbb34d2c7ef3703
+│   │   │   ├── e66d29163d30619f80b60bf7e0235474ae16c8
+│   │   │   └── ffffcdaa5d04585fb19cd55fda68b32259a3ae
+│   │   ├── 53
+│   │   │   ├── 033aab55ad00745f559017b19d13be537192ab
+│   │   │   ├── 21d7d12c051a33637f04baadbada2beb1f0812
+│   │   │   ├── c3c407e99d09b808bff2064b67b916b6b322ca
+│   │   │   └── e7bcbc59da0f0509b7a52c353bad5935a96203
+│   │   ├── 54
+│   │   │   ├── 519352a1795f2aee9c53f3147de44c71456feb
+│   │   │   ├── 752c5294cd2ee44480ea218de541277818fe1a
+│   │   │   ├── 8ed5dc3a8b16d9b20163bbe09d08011e6af8de
+│   │   │   ├── 8f0e3c77b4e894931376d051369258863a9d5a
+│   │   │   ├── c9fffd47ae5f1377bd353040610369065aecc3
+│   │   │   └── de180f856967a70e3c84f9a8fad35ec02e7ae2
+│   │   ├── 55
+│   │   │   ├── 4e382371631e79fffa9aa0ee40deaac18b247f
+│   │   │   └── f10c92750db82661e596ffcfdf62a80f6621bb
+│   │   ├── 56
+│   │   │   ├── 26602a5c311f6380b98b72dfa22af966bfceef
+│   │   │   └── eb31587619b786dbda456c0fcf00f9281a5c05
+│   │   ├── 57
+│   │   │   └── 9a711b318c7d27813050f4ca5634083f8c85c2
+│   │   ├── 58
+│   │   │   ├── 346045dddf617e37d91eb2a72d5c8dd74773cb
+│   │   │   ├── 58eb3775725b594cf0ae4978df35f55dc7443d
+│   │   │   ├── b16db99f181f42a81f39285eaf72f038c68b44
+│   │   │   └── c449e70bcc505d7744caa196c8586c8cc7da31
+│   │   ├── 59
+│   │   │   ├── 372dbdfa91334fb62649623eb3aeda21f6d05f
+│   │   │   ├── 7c44c748f07c21bd7094d62e1b60969378ff73
+│   │   │   └── b8309540281c7807e10d697f07649547460516
+│   │   ├── 5a
+│   │   │   ├── 3c6698ad34cec9ca9ca5bd63fbbe742edaaa4b
+│   │   │   └── 4228c2b4391fc3bfcf5db3af6213a0ef4f846e
+│   │   ├── 5b
+│   │   │   └── e2c9bc1b517520ccfc4b6a4e2596939c0e8b07
+│   │   ├── 5d
+│   │   │   ├── c4f639db405ee68155fe883527ff75906f4333
+│   │   │   ├── f57bdd5e9b958a78acbcbdde3d54ffc9616c64
+│   │   │   └── f8f45ac44aa6019565b1e9c9a044fc64682596
+│   │   ├── 5e
+│   │   │   ├── 0b849f4e72c28483ac9f5885597ed89fcc8653
+│   │   │   ├── 1bd92cd9c6b0b9e904a59a3b7785ab71bcb0de
+│   │   │   ├── 89281e0501f3bebdcab77f948608a48aa05aa9
+│   │   │   └── 9ce42c566bec2105271d181cb015cc312013c9
+│   │   ├── 60
+│   │   │   ├── 0b51eab462ed2d843377a993f9ababf068095e
+│   │   │   ├── 64718995481a19c551db738e74f42e76b4daba
+│   │   │   ├── a2c5a6f5f1e4e2569dd09cf2b84f5ce675b694
+│   │   │   ├── b5c1113a1dc830f73950db0a69c606a11287d5
+│   │   │   ├── bf680ca7e6b6294cf9e5192ca5b47b16e63ef5
+│   │   │   ├── df9da523f90f7607ffc5b62c375f9783c514b1
+│   │   │   └── feb427bb49150980a31c896460e181d86963a2
+│   │   ├── 61
+│   │   │   └── 04d26243d9a0b71753592ed456f8e264cee312
+│   │   ├── 62
+│   │   │   └── 0a9f3dc18cbb5fe7662436b8cc9dd598d52424
+│   │   ├── 63
+│   │   │   ├── 10ad16060555d09e9e6b31d5a7cc4bdfa63712
+│   │   │   ├── 10cfcb8f439a6ed5a61131bbe14e9bb10310da
+│   │   │   ├── 242db0f6b8d5ea8cd3b32e8c0045602e5f22b7
+│   │   │   └── cc57bf57c42e5aca5b2bc8afbcdca68591e359
+│   │   ├── 64
+│   │   │   ├── 034a865d78f4fb7535768e1185ca19b861af50
+│   │   │   ├── 0cf06331eade9ab1eb5777d226b38e5aad7090
+│   │   │   ├── 2a357970b48d08c81794fc5aa5d1de6aeab19f
+│   │   │   ├── 8a1090ec7b103ef41e808e03359328cf01d160
+│   │   │   ├── a4f4c916ec15c02cdba354ea81ee0adc85314d
+│   │   │   └── fdf321f1dc7a659b0224f79f42e1adda1bb321
+│   │   ├── 65
+│   │   │   ├── 03ca229aa5a8f40b121406dd946bbbe2443e44
+│   │   │   ├── 5bd63de4ac5a03a304332553ae7c6718fd99c6
+│   │   │   ├── d1732ca41466f712eef2dc24f859b30b30b6bb
+│   │   │   ├── d2473da63d3e4350053cc657ac1926849b18ef
+│   │   │   └── fe595fb2827ce85a1dfdbbbd08bbea1b8909b6
+│   │   ├── 66
+│   │   │   ├── 7829166f4cf346329c1776aa41d420410ab6e7
+│   │   │   ├── e5445c73a105a7fdd366992f2a350a7ccae7a9
+│   │   │   └── fccd40dd0c0b697f72fb8d3b75eb2c7873a418
+│   │   ├── 67
+│   │   │   ├── 4c510c493758c3ef62adc2a15ee7bb8e92c409
+│   │   │   └── f76d0d11c1c1780095e781f323f0f822368892
+│   │   ├── 68
+│   │   │   ├── 1bdccc29107b435a58a52d24bb6c0971d7dccf
+│   │   │   ├── 6b099d6c91d9c17e63e53ea999823e9f1cef97
+│   │   │   └── d0963170886315300bbf684b47f5bbcb64414c
+│   │   ├── 69
+│   │   │   ├── 9ef5e79686a8eee713ffb0554c000d82508069
+│   │   │   ├── a52f9dd2abb5742361924b803ef0b3403beddb
+│   │   │   ├── aae2c4bcd037b9bb6f01ac577257804a2f71e0
+│   │   │   └── ca20737f8a5f991cd031aeb5f8f585f6d5cab9
+│   │   ├── 6a
+│   │   │   ├── 24c142a3df9148a710be995251306eb96b13a6
+│   │   │   ├── 6f297ddfebf5e789554b34fe35b7fdd4138832
+│   │   │   ├── 786b18889a1d503d321152ca252e59df515820
+│   │   │   ├── 983cc14e28c3af282f9df9512994d11afc1889
+│   │   │   ├── a0c6d560d2ded4611ba727726f044699597aeb
+│   │   │   ├── aecf7ef44856aec6cfadcf139f13f6f2aca861
+│   │   │   ├── dd421720ac95a1da0657c9fa86f7c0937547ed
+│   │   │   └── e9855b4923861dd3d63c36e3956a1530feaf2a
+│   │   ├── 6b
+│   │   │   ├── 152e31f7b3f61d8af36d09d030eda2e2443cee
+│   │   │   ├── 1fa9fbdf4db6641a96cf740b92a497525348fb
+│   │   │   ├── 364c250b5c6e03a8cf9d476112539e2f6ff0c0
+│   │   │   ├── 6f918bae67a36eb06dae5c1fc62b8fb9e148b5
+│   │   │   ├── f40864bc13f760aaed88fe10f2f9e6edae11ca
+│   │   │   └── fa5442fb035497e6784fd7417196c03d66c397
+│   │   ├── 6c
+│   │   │   ├── 042e789f72b1489f72f5c705adc5646cbc1fe0
+│   │   │   ├── 2b490001064acdf53ce77bd0df14cc9338db38
+│   │   │   ├── 89a40922ac9bfdc309e6a1c53963fb579069a7
+│   │   │   ├── 8eb8e1133a3738a6d5dbf0268d5e194e09b49f
+│   │   │   └── d4cd00c7da382c26a34f88824e68d5e3f58a5c
+│   │   ├── 6d
+│   │   │   ├── 0d3166e2b9e54bcb2853919e9185fbe3cdd13d
+│   │   │   └── 92b1b1f6cbea748eef1809dfc059d0baf95f0b
+│   │   ├── 6e
+│   │   │   ├── 240789322ee0ba3c024a8097c5641e292501e9
+│   │   │   ├── 80691ee3cd9080601574e1305907a3ae85e7df
+│   │   │   ├── 97d8e3e36bcbde71ea20b9fbc3a55bb79d9904
+│   │   │   ├── e658b1a67b84dab0c1843f6d2a8e3cea823f18
+│   │   │   └── f00c418eb8a9a1dfdd188522f0e467785863e7
+│   │   ├── 6f
+│   │   │   └── fa2f621d3afb726a935d664e51bb743b26b8cb
+│   │   ├── 70
+│   │   │   ├── 06bc4fea5e4310be3be0ef275d5342c972aca3
+│   │   │   ├── 1f4c368ae89cb9b3f6f4a6b7e758e012b2cc9b
+│   │   │   ├── 6575c2333d240508fc5d31b9fd6b8a92f22e71
+│   │   │   ├── 78b791ee4a2c24d05e5e6ebc66b2afa1ff9974
+│   │   │   ├── 867ce6a44c277f0feea26bf1b773d0fb3a6e96
+│   │   │   └── f6324ab6f8e91aa76b21a2320c43acb7d9d4e8
+│   │   ├── 71
+│   │   │   ├── 0997312eb89055784673ff5aa2750b8af06f12
+│   │   │   └── 641c09bdd55c55b158b1bb2301c01d627e5147
+│   │   ├── 72
+│   │   │   ├── 42754f1dc77b5e0ebd074cb1d924c20ec262d7
+│   │   │   ├── 47ef795857395dc0e3d7c55e29667d6c87ceb4
+│   │   │   ├── 96b916732a546a9a4743c73037b1983a0e325e
+│   │   │   └── fa15e1170d6ecdd6773b2d46cb4e3622629a97
+│   │   ├── 73
+│   │   │   ├── 1693ffceb65901ee8b6031af5a81f19e251a3d
+│   │   │   └── 51c985ca19a0f2ed9c6309f8526637377e607f
+│   │   ├── 74
+│   │   │   ├── 003b43bf2f3023bfa1f91ffd1ced3b65a059a4
+│   │   │   ├── 3ca50d32bf9e453980f1c9dfba0c4aeb0dad3e
+│   │   │   ├── 6a669e41d58bf8af2d7ac24e2178d6237c590c
+│   │   │   ├── 79c3ac294e4db4aab7d29f19becf60a27abcab
+│   │   │   ├── a7f21cc743e14ed39d0ed6252f812fefb0e1bd
+│   │   │   ├── c94bec993cfb17eae7e8a217b772f4e9e7a2fb
+│   │   │   ├── ddb2e453657681e29bc6e88c76f7342e900944
+│   │   │   ├── f0fbb2c554e95b4fe35f6edf8367d59ead9ae6
+│   │   │   └── fe5c131079109deedb3214e4da0ccd66121d3a
+│   │   ├── 75
+│   │   │   ├── 2cb8f6194c40b19d4364ea993c5052a2b20469
+│   │   │   ├── 8ba0df36637c0246c1f482f02c7d3028af1d22
+│   │   │   ├── 98bde13ac0ea7f877f85a8fe10df1dca7a831f
+│   │   │   ├── a793e01ad05dabadfcdaf817e475b0c627988a
+│   │   │   └── b00abd35ec69f54e488a489c71154ad1acb725
+│   │   ├── 76
+│   │   │   ├── 1142656f26975ba76a27c5b28cf08108d31710
+│   │   │   ├── 6c61128e5f3f64f04eabadc588b56ae27aa334
+│   │   │   ├── 7509a48ba0fb3bd037c587707d51951c250084
+│   │   │   ├── 75b17deb2c566116a2287d1006cdb9b123932d
+│   │   │   ├── 7b0c026cb633e784674a597dd44ed7b87e8ec7
+│   │   │   ├── 90550bd2ba7d87d952a0d404e513ed000082cf
+│   │   │   ├── a5a9c10b2cd10449c682dfde83c84d50ba31df
+│   │   │   └── b64362ef214c4a7499c636e86818eda2ccc3f7
+│   │   ├── 77
+│   │   │   ├── 1117293279ea4d6062fd189270ca30a1eb2734
+│   │   │   ├── 3d97c65d25933b6717fa0d3ce11551dc9a1c42
+│   │   │   └── 9da9b82693e3dee58046b3dc463cffcd118cdb
+│   │   ├── 78
+│   │   │   ├── 7b4beb6da953732850918a9ea42c0743aba7cb
+│   │   │   └── 8cc87b5a82b82ae5164de43658ee2d4da5b7f3
+│   │   ├── 79
+│   │   │   ├── 0175552c1632ad52459e1a6d651a140b111dc8
+│   │   │   ├── 3424c3774c5fff13590b7f8e7d935448c680b9
+│   │   │   ├── 5601ad9c003bab039566e99a78041b93e940e9
+│   │   │   └── 63794875347daa9487bbcfeb1aed7399bb8069
+│   │   ├── 7a
+│   │   │   ├── 1748fe7fe2e5b0d69e2d10738efc0a45c0e179
+│   │   │   └── aa6ca2325fd1648f7820d50f16be1d858c0f46
+│   │   ├── 7b
+│   │   │   ├── 3cdfb47bc21d37f035f07e2f4900f1cd09023c
+│   │   │   ├── 4997d95fe6070fa6fd46a583b556f515d7cb59
+│   │   │   └── 98669d067278f2b55467d45268d017d2b6df93
+│   │   ├── 7c
+│   │   │   ├── 288feb856d803af5b3d1ff919a36ce565a78f4
+│   │   │   ├── 5a25f9740e136c441a476df0189f5185036a21
+│   │   │   └── 99896ce015135a47276fdc21b77bd9107ec546
+│   │   ├── 7d
+│   │   │   ├── 0e27fc445296de896d0080a6d78a186e13d02f
+│   │   │   ├── 230866d63fb7eb644f92149e0e6a2299a2a331
+│   │   │   ├── 6c33f63e82db28db4b69c71365ce9564212645
+│   │   │   └── 801fc62c4a4202e29dc1d5be6241dda4f8f9e5
+│   │   ├── 7e
+│   │   │   ├── 0e75c141d9b10b8e15d680fcd05cb4ef4d98f9
+│   │   │   ├── 287c05623a9e46d095bc35989c359f6cae86ea
+│   │   │   ├── 46283b4a9ad922f737d95c6e1435d4a86aa2c4
+│   │   │   ├── 6ba57a1f9779ed63834a8269cae10e481a2918
+│   │   │   └── ed6fa7b709fa1de15764e56db144ecf197ae19
+│   │   ├── 7f
+│   │   │   ├── 261701ea609992fae5e5f32673eca81c4922bb
+│   │   │   ├── 56eeabd543e0f1882061fc7befb1bdfc12129c
+│   │   │   ├── c3bc63b4d4367932048e4be47bd38cb377fd39
+│   │   │   └── fe22fd8e913279089adf59c6def2a995f99124
+│   │   ├── 80
+│   │   │   ├── 0bf27020f4690ee926e47dd4ba4f3b76b9a972
+│   │   │   └── 12be00b4809ce9c58222397d6a5cd00821e07a
+│   │   ├── 81
+│   │   │   ├── 2bf3ecba1261bdaab74389506c91004affb29b
+│   │   │   ├── 46c0907a7af26acf994f9770a10bf3269fec5c
+│   │   │   ├── 4b17f4dd1b83a22a20302c9b8feaac381b69cf
+│   │   │   ├── 6814f2f4fd90e99894e6b3a88bac8b0e7a7548
+│   │   │   ├── 8a6052bf5a4a2d05b274e7b9fe3da8279c2eb5
+│   │   │   ├── 92cb7cfd8626bcb6b4a86eda27756eeb4268a5
+│   │   │   └── d77df30cb97b1b7535101d4572967850bc114e
+│   │   ├── 82
+│   │   │   ├── 02fbcde9bab67148c285c94b75f705aaad46f2
+│   │   │   └── 485a7dc00de32d5649d13b506325c9853dc445
+│   │   ├── 83
+│   │   │   └── 9c7a15ccf33b1767c11ed21eab81f72f2de5a4
+│   │   ├── 84
+│   │   │   ├── 2057523b3a305a35dec873abe51d4540253cb9
+│   │   │   ├── 5d3464ab11e47b6aa43fb7f9f07f279ef00796
+│   │   │   ├── b531f6e52605ce60c1a1f1c3d92bc779453d1d
+│   │   │   ├── dbe65fce0ea74da7a182873bcdf1b2c5659628
+│   │   │   └── ff95238534fe5708a1554a7d7362bf6c4dd61c
+│   │   ├── 85
+│   │   │   ├── 2c925730496e4be957178137bee9b5a7308bf7
+│   │   │   ├── 7d647031b1f0dc9cbf9dd9c547be350010a5a4
+│   │   │   └── bea1cfb9cddbbe8343d6fb816020c5907ab82d
+│   │   ├── 86
+│   │   │   ├── 416a7541f1f613f3009d32c08c76d855b32c93
+│   │   │   └── d3bb70a76799ff051e743d5b73be5e6b2bdd83
+│   │   ├── 87
+│   │   │   ├── 37a3afa80182728c2ad957f42a5ff51c2080fd
+│   │   │   ├── 78bf91bb24e7a791ed12dd49ea8e6208a39c02
+│   │   │   ├── 911ba1c7a298a7f9448f0589103069fde9c059
+│   │   │   ├── cc81316c4c75d406e5665b14c5b0eff3e81ef6
+│   │   │   └── d737a696e71cbc81b22bde8e2a34e5d45b815c
+│   │   ├── 88
+│   │   │   ├── 26ff8c855956fbe7dd6c11c414643e55bb1db9
+│   │   │   └── 27b9f4dbdc3410e6c4fadd7dbd6b15ef72b195
+│   │   ├── 89
+│   │   │   ├── 25bed2dee8827a2623a97ffadf818ce1b20f55
+│   │   │   ├── 689df1a054aafc3dee98c2e50252cd43e626d1
+│   │   │   ├── 708e2aceccb6ff8ff80b899c06c75cb8597ebd
+│   │   │   ├── 8cb47eaf2dc6de868d9b54cfc971354010355e
+│   │   │   ├── ba167b6adbad2a7bc13dc0f6dfa8d14fe8c6fd
+│   │   │   ├── c415a995fe2171988acf7be77ff9b63afe806a
+│   │   │   └── e200703f23ca9c6af23b3b65bf6df97d1872a9
+│   │   ├── 8a
+│   │   │   ├── 097a307b45d56bb359328f1f6e626e77cc2732
+│   │   │   ├── e4b598b82aa9dc73567332e3f224d0df5f3b1b
+│   │   │   ├── e7f284bd6e0b29bbab870e19b5b2e72b345ebf
+│   │   │   ├── e8a606ec03803b32c4708db2508b2b697c0925
+│   │   │   └── efcc9d89c6aff4e572e7ecdcc28959b0d6a753
+│   │   ├── 8b
+│   │   │   ├── 116e9114a6764c5f803050217ef940aea0ede0
+│   │   │   ├── 78fe99357eb9a63eab61277c2488c2df479cd9
+│   │   │   ├── 9830639fbc3302cbe9a12c7f2299678b7f71a9
+│   │   │   ├── eddda3f0c2fd3a3917fbc5585699d102d21bbb
+│   │   │   └── ee66cf76db4d35e2b6f80a3ccfca4eaffec1bb
+│   │   ├── 8c
+│   │   │   ├── 3e01b7b289fb08b179928ceeb4d4414104eccd
+│   │   │   ├── 8a7d8ff6b64afddec7e1eb351a4ef7f9704f10
+│   │   │   ├── bbdd5f3744e6974b2bff5bfce202122644e6d6
+│   │   │   ├── c388fcf052b1c89ed8a238e12e2a5b4974928a
+│   │   │   ├── c853bc0f84cf62968c0651f80f9e55770fde77
+│   │   │   └── d7809085e0a3fb2b423d203cb24051de2cb38e
+│   │   ├── 8d
+│   │   │   ├── 08b71243d62e820df89a2399831d17bc7a0c0e
+│   │   │   ├── 278015b3ef5d69ab8be8ec54273fb68893e15a
+│   │   │   ├── 3af1f6ed5819c4c744793c611cad946a864dc5
+│   │   │   ├── a4db9cd2067e8ccbf0c148ce2bf87ba6b2bd0a
+│   │   │   └── cc7747e81077fddbbad1662a8c80c4ec4754ae
+│   │   ├── 8e
+│   │   │   ├── 3a710682e178079984f1a668f4396b21860a0e
+│   │   │   ├── 5a5a4f8b261223413e97a59ad250d6abc09957
+│   │   │   ├── 87aa3d0cfc3e8af7bd95b3aa9232db87601720
+│   │   │   ├── d447ce29f1597267e3e39394a79690cbef20c3
+│   │   │   └── fecd91f2f53dfd6468191dc2cb0972ee0674d9
+│   │   ├── 8f
+│   │   │   ├── 0385213e0350d505e3b06b8eec17401fdb7c7d
+│   │   │   └── 9f40deb0f8765e98ff37eb34297870f7cc9d79
+│   │   ├── 90
+│   │   │   ├── 433782f642ab2ea98cc2c9ce93866b783d3b3d
+│   │   │   ├── 6423aa23da34ce9d8243ee960f65344194182a
+│   │   │   ├── 6812e61607fed65d11dec831f11d965bc5e20e
+│   │   │   └── 7387805fd3c74878cc3a73ebe3e19079a94310
+│   │   ├── 91
+│   │   │   ├── 294c20191693ff8ac245c567b66957cfb63f3f
+│   │   │   ├── 69c7e12abd1688f30144d570bd1b81fb6bfec9
+│   │   │   ├── 9c9b6327cd58bee5c22514e13eb110f0ba5d02
+│   │   │   ├── e0e32d025f8d478adda5c47f5249d324fa89f3
+│   │   │   └── f628aaefdf34c4ba698a27809050054ac7db13
+│   │   ├── 92
+│   │   │   ├── 9a41c0f65c8f60c7ed3cb5a77159944761f23f
+│   │   │   └── c2c97b30c817d9e03e1473ef07c2dec2102755
+│   │   ├── 93
+│   │   │   ├── 0bcd9d7651ad6d9e4417a2bf2dc9a53a6a8d59
+│   │   │   ├── 83f69d3284f00d56c46c7e9af7a5d242d74bab
+│   │   │   ├── 8e5a962712732bad2c0666495aeb9ec059b6fc
+│   │   │   ├── c91f570d01ae6b6f8a49b5bae00ec69642881b
+│   │   │   └── e7e5a6f6a4f6c53a21f3ca87a2e32e433cbe65
+│   │   ├── 94
+│   │   │   └── 6f8c78d966f80587e4a6e2204ace12867eb70e
+│   │   ├── 95
+│   │   │   ├── 5310a83171f8d647a94bd773ea19887010f13b
+│   │   │   ├── 589b465129caeca3b6c6610117d2645f66b9d8
+│   │   │   ├── 677a123f55b88c48adc1437d04e84260e9bfda
+│   │   │   ├── 6a705add4e8f38282e020d8344bf147c37e4d1
+│   │   │   └── f5789f4fd41548d8f988af88b6474b1b314d1c
+│   │   ├── 96
+│   │   │   ├── 2819d9f24c7f566254b36fc52e8d01b3b88151
+│   │   │   └── 3c74e35d93dc1e40022f265e80734dfc3c4655
+│   │   ├── 97
+│   │   │   ├── 02b1757c9a5b7d4f4a63a08cf5583c406f8705
+│   │   │   ├── 23395f139dba3d48ba08c66c7c2b513377c507
+│   │   │   ├── 899ca70d019a2723f01b40b2bc41d848863f50
+│   │   │   ├── 8c8ff4422d793762d60b56ea2b5da8132a5e6c
+│   │   │   └── ca06834dd2ee1bc236dc355f3a6684238aa3fb
+│   │   ├── 98
+│   │   │   ├── 43d910d5b2aaeff335bed3c65ccdadda2bf13f
+│   │   │   ├── 4d18ccdece95758498ba7b1b12fda371b4cf12
+│   │   │   ├── 5ece4ded9392b9c2e8a35dd6fe354c63f35cfe
+│   │   │   ├── 6855e29b50a98a37820a8f51a13d4a8062c3de
+│   │   │   └── ca12499168af7ad43f9c7fe34b472e4b0129fd
+│   │   ├── 99
+│   │   │   ├── 4aace7e04588f1ae3b04e5579c79a81117c861
+│   │   │   └── 9d72c38e7c7fa953affe137913ded5387f0615
+│   │   ├── 9a
+│   │   │   ├── 000c0a4f5c905eda51f615d8e27e441d07eea9
+│   │   │   ├── 5dc5b8391a8aac0104e18092f1df2d415fa81b
+│   │   │   ├── 675a3c91a7487a409e36b78b5eace57febc7e8
+│   │   │   ├── 7e77fd5d296754ccd44a35966c3f60a3350699
+│   │   │   ├── 87e6af59c403f7f6cad4b760bc5dab875de7f5
+│   │   │   └── e48cbccd1f2702fc742bbfc190ae707c43ae19
+│   │   ├── 9b
+│   │   │   ├── 56a1de7efbe60a8f85e011968e986a36ab47ec
+│   │   │   └── e7352013c5e4be7a6b2cf3567367f97b2049e0
+│   │   ├── 9c
+│   │   │   ├── 304836b2815572c9d185d4b1c2c82f1683ae92
+│   │   │   ├── 359cbe94dba3232be79da87c8d2d617563df3d
+│   │   │   └── b90e4d3ad37dbb4ee6a0d2a75451c4d411005b
+│   │   ├── 9d
+│   │   │   ├── 93b624bc5c30bad3e56f77bf4c8258d6def2e2
+│   │   │   └── fc75517d2f046cf58fed7e280db430cfd18752
+│   │   ├── 9e
+│   │   │   ├── 3bdc7b5d0dec289ec3319a975c0a0f716966e5
+│   │   │   ├── a86ed0276d409d61a8e4865a6e2f21eed69330
+│   │   │   ├── b0b98de7e82dd6ec9c0543d45b929ce6691d5a
+│   │   │   ├── c13968e32069c26eb808c346bd56254023d941
+│   │   │   └── ce295136925d70ec308726953b9442c3f607b9
+│   │   ├── 9f
+│   │   │   ├── 244a16ca612d80a430e3e7c4e52ffdc3d5f7a7
+│   │   │   ├── 4bd43e43d2ddf5376ddaf06e6f3c630ef66e91
+│   │   │   ├── 6ab93028aed0b9e43e8dd480aa262598a45b3a
+│   │   │   ├── 97004241d243515a0fb14ef1d68d1e4d28f6d6
+│   │   │   ├── a8ce4874f95afd2cab0031e93b7dae4551ac85
+│   │   │   ├── ba8b4eff92068c307a13a10f541012d510b251
+│   │   │   └── fa013f445fa0f626ceb218e9fe659039b363da
+│   │   ├── a1
+│   │   │   ├── 4881e12cfe09e96510fce7ffbd4f3281257899
+│   │   │   ├── 5e92418ee499e36dcbed294bc4cb1df3553df3
+│   │   │   ├── 69625ce68e48902bda18df2e09ab2af3d1a11f
+│   │   │   └── 984f2e62ec5e81734600d0d526a1b02d1c4fe0
+│   │   ├── a2
+│   │   │   └── 9c8e906f2a44fb92f99d38094e186dc1e5f6fb
+│   │   ├── a3
+│   │   │   ├── 22683856bf43b031497afef243aed73489d39d
+│   │   │   ├── 23371cbdd78d7a8743ef049c52075a6e9949e2
+│   │   │   ├── 3ef07ccdb009ab3a1472d80e57e5b75548d005
+│   │   │   ├── 5aa75b02609ff4479ef22cf213652e5e6c1cc8
+│   │   │   ├── cd8963ca740d856911da3cf0f9576a4d7c3d02
+│   │   │   ├── e3fdb39ab0211baebcf51cd428bcb072be7994
+│   │   │   └── f932011378b4da5b45d2d1395a0ecfc56da6c0
+│   │   ├── a4
+│   │   │   ├── 2a626624ad0ba9e7c474439721ea02c4c44bb0
+│   │   │   ├── 43276ce236c87e9acef8a0738c7d3b3baa4fdb
+│   │   │   ├── c6840161c804075faf01bbecb6bb4ac20df75e
+│   │   │   └── f03bfa120190a3569c33ee14cbd746f4adccea
+│   │   ├── a5
+│   │   │   ├── 1d55357200d1754b92deeadcf9c39d362746ba
+│   │   │   └── 41a59bceee577c08793558955a22ebe99db204
+│   │   ├── a6
+│   │   │   ├── 1a903041ae50a576d9d3e30d4a3408b1f3d98f
+│   │   │   ├── 64683bcc3b675170f02ecdc3768450be8f5d82
+│   │   │   └── 832957cdbed91d32c0b73d816d209775466229
+│   │   ├── a7
+│   │   │   ├── 0a7bec413bc1548bc41bc4c12a37d7b87a70d5
+│   │   │   ├── 0b401d3c3c11d8cd9ff67b77e2f99912857058
+│   │   │   ├── 2d5a40ce0283e72c343f3cf1da47540eda928f
+│   │   │   ├── 6b73a01c2beee1ff103e912244265fc2f50f4e
+│   │   │   ├── d0badb0d16e68766e472de62f6d3565a56646d
+│   │   │   ├── d1d4525e5953be663d96f20d11f6749a7a41ac
+│   │   │   ├── e3f1134ddb7da32e318014fd7d593a0c252b84
+│   │   │   └── ed2b29eff60511cce9f1b49b16e74cb95db7af
+│   │   ├── a8
+│   │   │   ├── 579f55400d02bde2d6bc6b75f190bb332cc215
+│   │   │   └── 8c65ddb16599aebc5f99db427db77dd519c10d
+│   │   ├── a9
+│   │   │   ├── 0a06d64ae073943ff066a6f988dd46b66bc26a
+│   │   │   ├── 258b18f8fd09722038c4afc3fe0cd6c4f4e819
+│   │   │   ├── 481d8cadf53aa18b3752427e53485154eef5fd
+│   │   │   ├── cacbeb9a3202fa7de59a1ec424f2e089435e22
+│   │   │   └── ff7b7125d868b22b052935fe605c168b73d9ae
+│   │   ├── aa
+│   │   │   ├── 2d3a8d008e1f9c40a2447e86868eb355a763b7
+│   │   │   ├── 3471209c80adc670c441fe8d370613c49d4369
+│   │   │   ├── 3dd943a5ca44ff70c0b8d1a8c2ec3a6fb62861
+│   │   │   ├── 5a2f66dfdb79681a2322a82fbc9309cb659d48
+│   │   │   ├── c166b5d8366936e6162bac449986f5a53383b0
+│   │   │   └── d8c8dfe25fbf5330f73cf08c82af2298879d53
+│   │   ├── ab
+│   │   │   ├── 095aee1fc606ea7a7d2df16214c98c1c553c2a
+│   │   │   ├── 493f599c81d9f6ae20599451e129f31b02a92b
+│   │   │   ├── 6a4a6ead0589272a336b62a6db394551c444d1
+│   │   │   └── cd14d02cabc39c4b29885f4e873f2d03304289
+│   │   ├── ac
+│   │   │   ├── 16882028dceef5323712a19566f73bb6c1abfe
+│   │   │   └── 9c2cbe12a83c567664a8c5511816989bcaa421
+│   │   ├── ad
+│   │   │   ├── 30b3223f8851119a24b4be6211308bbf302c3f
+│   │   │   ├── 51d3a92e5aafc31797e0bbf62274c4a4b6cabe
+│   │   │   ├── 7aaf9242ccfbfeedbfce09ce53aaef5d77d3db
+│   │   │   └── 8f8b1e6db5b5fe094d846b23be3d61595d7064
+│   │   ├── ae
+│   │   │   └── b300c07be5dab3bb3967a7c55db145d0f0e5cc
+│   │   ├── af
+│   │   │   ├── 1b63dc56e5f3b3ddbe4c04179c5e702da5861c
+│   │   │   ├── 5f0ce7a2ded910ce6c4b521c881fabccd0931c
+│   │   │   └── ed8716a2ec6aa9d8d98eb4d9369e8aa2f910ff
+│   │   ├── b0
+│   │   │   ├── 3dacfdc2978050f0cae485aaf011c1de34f9e2
+│   │   │   ├── 7eb9eaa1559df99f4f997756daf8b943a520d5
+│   │   │   └── fa48392daca7d1ad76c5a2a852cde7e6a07cf3
+│   │   ├── b1
+│   │   │   ├── 438bf676c66bde9e9dae0b7bfe320d0e761cb5
+│   │   │   ├── 48417e215d15e7be7f52269b4ede5304f8b62d
+│   │   │   ├── 6c86b2eaf51ec5a539cb06e65ef93c38baf82b
+│   │   │   ├── 71a2a75ab376fc87295321fdefe5ae1f341c26
+│   │   │   ├── 8546d1b5e29a9a3c4e242f715d47d340bd0516
+│   │   │   ├── d1b3962e006ce55a2b4f37d5c7d0bd9ae319a4
+│   │   │   └── fabff274844eb2d2f21106a9c95295613a1741
+│   │   ├── b2
+│   │   │   ├── 68998e4a6a4df286bb863c7114184e71226542
+│   │   │   ├── 74cd706b3fe7ce4747bff2c26b25faa5193587
+│   │   │   └── 8b5e5531cc416a5fc4fb748bcb861ea120478d
+│   │   ├── b3
+│   │   │   ├── 136759e6ea4e0a63c9b6507958a24e4cf69121
+│   │   │   ├── cf259f25db0ea7dcce5f7e95888d394a960e96
+│   │   │   ├── de8abbde9c9d4e2208a2943d906541afe1ecc7
+│   │   │   └── f6d0f1139978f4eac0431c7fed3bd2c52b9238
+│   │   ├── b4
+│   │   │   ├── c2dcef3aa32d85740f8476bbd5f3e9f27a1238
+│   │   │   ├── cd7ae5552f9e1c480aa4177e5cdc6542894385
+│   │   │   ├── d483c462cf6df99c35237dd05016a012026d63
+│   │   │   └── ecb856b47b327af8224baa7df78ee4cc414f0b
+│   │   ├── b5
+│   │   │   └── f93b81c8c9dcb93596fc9a7a7a0bb0b9ae959b
+│   │   ├── b6
+│   │   │   ├── 0db65e981828e4c958d3e8e2f4f6e2f9a7de1a
+│   │   │   ├── b13f366bdf2a866fbf2caa48181731693f37bf
+│   │   │   └── e65aa0dd23f135e61a15ea71d3513603bace40
+│   │   ├── b7
+│   │   │   ├── 19221340e6bea8ed7e965d3fa22092bc251bdb
+│   │   │   └── 20924269a287b047d19dc02a90d999b2710cfd
+│   │   ├── b8
+│   │   │   ├── 3e09f5da2620c0f3b09b777738fbfcfa3b976f
+│   │   │   ├── 9d130a348f704b3e5b16783495c23bc544f3f3
+│   │   │   ├── cb9df85310ad988bbc2ba6f4582fe95ad94a85
+│   │   │   └── f432e0133805294238c242e17d7cf681e571ef
+│   │   ├── b9
+│   │   │   ├── b7be16d3d0076329af5cbb7829e899fb41814c
+│   │   │   └── ce9766dd5e14d30a4f1bbdef474e5101896b10
+│   │   ├── ba
+│   │   │   ├── 644b3a0293c06620c1ece1f3b45a965afee025
+│   │   │   ├── 7761b15afccec81547285063201179b83e2846
+│   │   │   ├── a5889ae6d5efc9ed4700f6351dd4a489c3d0bf
+│   │   │   └── fb87f0b6ffe392130e3e7f560990a9a11a9191
+│   │   ├── bb
+│   │   │   ├── 35a37b42e13c9bfeff1067d44c758591b0df91
+│   │   │   ├── e2c3d18bea59423bd23738dc7024fcf71b83dd
+│   │   │   └── e73d5fcbb65d5213b8fd78751438e98bc49cc6
+│   │   ├── bc
+│   │   │   ├── 19b8fed56d0d36f3ac4f2f7ee47ad677da4471
+│   │   │   ├── 52df052e1653eba927a9e15108740bb6ab6cbc
+│   │   │   ├── 5608e7b271296c1a50ddb83c38e18695cd5c05
+│   │   │   ├── bb3db809a4d2ea457ffeeea838f6023f7469ee
+│   │   │   └── fb3cac6af40c9e0ebf30f2aa2e1ac4da50e86a
+│   │   ├── bd
+│   │   │   ├── 1311a0dee3caf7387dc20eee0044d6886f6090
+│   │   │   ├── af0deecf83eae8e0016bee4e3ca3572e48b072
+│   │   │   └── b30f9afd6957053b99c798ba715d19c1715628
+│   │   ├── be
+│   │   │   ├── 05fd3da660430d2d44ce35c7d9b73bf6ac8d0e
+│   │   │   ├── 4d87f0e2f2455572b7d3a113aedc5ef7a04c4e
+│   │   │   ├── 6269a3975cd6c1f2b4aca891cec6f853063761
+│   │   │   ├── b26e3b3187fae954cfc6e59499a4c4243fe111
+│   │   │   ├── ba7ced6541b6b34e03c1137b6fd3204c524724
+│   │   │   └── dade77353adc91551a0bad6f98377779be5785
+│   │   ├── bf
+│   │   │   ├── 2bde6988981cbec381efc8dc4288ebdf041422
+│   │   │   ├── 7ecf5ae9fb130460caadde21399049e42e583f
+│   │   │   ├── a151ddd0aba54ab35c1953d394a6e4797f0b4f
+│   │   │   └── b6c4339657ff455c6a2bcd7beb65c2f75a0212
+│   │   ├── c0
+│   │   │   ├── 38053b9f1aceb3bb682c1d00ac7f3dad2fa592
+│   │   │   ├── b1c26fd9bdaeee242a24db6d4b3a275a0e69a2
+│   │   │   ├── bd6e02325695aeffd90eeaa2bc2e43bf76948c
+│   │   │   └── d6858b72c75b92b804bb0c3a0ab6e82221b397
+│   │   ├── c2
+│   │   │   ├── 22bd67f1866e740868268605f0aa50b923f58f
+│   │   │   ├── 255f8af7460bc687259fe8f3522aa93816304c
+│   │   │   ├── 294d5f9d4ec311b4a789f135ae96ecfacc0f81
+│   │   │   ├── 59f84dc1d4f2ba3ad4e39cff0c9570a5dd3252
+│   │   │   ├── cc08d42ec6cc7c1fa27283546e398d24c8adb7
+│   │   │   └── d5a1fd4179d421956d8ef789c509b1953fe298
+│   │   ├── c3
+│   │   │   ├── 1ad4addc314a9b7c1d89680e2f7d1d8ef74ea1
+│   │   │   ├── 6c042562df6d6cf85e15ed3e47465419568603
+│   │   │   ├── 7b4ab158a56c759754d2c1ec064ed80d301bcf
+│   │   │   ├── 97f1017f112e106487021fa99fdaa09facc2eb
+│   │   │   └── e05d083623470e29fe7deff57db234d1312d04
+│   │   ├── c4
+│   │   │   └── 61744f580958ed1a1a525cb5fba5b5ee3f5071
+│   │   ├── c5
+│   │   │   ├── 35573f5cea77a7ac46d9d8733d44523d9700f1
+│   │   │   └── 6691231b16fbabf2eca01a3655ac1091cad02f
+│   │   ├── c6
+│   │   │   ├── 64727bc62d6c62323c035bef5d79864bc9f49e
+│   │   │   ├── 8812745a827dfa38adf41d2ebb270b16fc3c82
+│   │   │   ├── 88d647cb70552c63bf339c0a3e5b02f8897a37
+│   │   │   ├── bf543068faac281353f78bf83ee3e585fe0284
+│   │   │   ├── cb21baa14fd8edaf673f407348770d19cf356e
+│   │   │   ├── e00e6b4e9cd01b906aabb496b283d1ec210ae6
+│   │   │   └── e197c372f26fd12c5b1653ce10fe342ce64efc
+│   │   ├── c7
+│   │   │   ├── 21785de2112916d1dd6e422915ec5b7a439d6f
+│   │   │   ├── 348efbcfc3ece3a35c4c58e628ab6092bd0ae9
+│   │   │   ├── 50a9915e677e9293855649c80f1a93cd9358e3
+│   │   │   ├── afb6dfdf19b0b2162ef860e377facb48868731
+│   │   │   ├── b4ce9c97ceea7f7b572e55ee466ba9613f8e84
+│   │   │   └── ea8f4f604fa02580d2aed59eac9bb4ac1af056
+│   │   ├── c8
+│   │   │   └── 7fe7453aae2171528ac897a3b0ecbafb32df61
+│   │   ├── c9
+│   │   │   ├── 0efcfe61b88fd12fed2ab4a40964cd6c46b1c2
+│   │   │   ├── 73f6b6eafb18ca4812d4b2054889a35a48618f
+│   │   │   └── 9ef4a2be6a4c379ede0e0a412d0184cd322688
+│   │   ├── ca
+│   │   │   ├── 24e1d4cb8ec6648eb02374adee31fad4bd6f5b
+│   │   │   ├── 3adbbbffa6d80d4615874e46256f0ba3e700eb
+│   │   │   ├── 48b8d268aca4ce304a0b89829142be04bebeec
+│   │   │   ├── 64a2f797fff31974d4890b9b9e1924a942068c
+│   │   │   ├── 7894f53a4c33d265958d956217a4eecd09cdde
+│   │   │   ├── d925c620f33fb92da0854a6356199a0c44a5f1
+│   │   │   └── de871b2ed6847b67a177f07292524ec028f2b2
+│   │   ├── cb
+│   │   │   ├── 0709c4ce2586817e0942e19c97142e7e7c2a15
+│   │   │   ├── 566cd57a094b00c52ee6347cbc0e40ee3f3bd8
+│   │   │   ├── 79f9244eeee59dc7150d5be6e81cbe189ab575
+│   │   │   └── 9f5609265e6ada8885497a34271be62de64641
+│   │   ├── cc
+│   │   │   └── f458bbbbab506d8f84955db558d76a7e807842
+│   │   ├── cd
+│   │   │   ├── 17d74ceab1521e9e64235942d39d1f679a49d0
+│   │   │   ├── 4463b1b1fe39874d1b5334ccbed81cd2ca37b0
+│   │   │   ├── 83902d651cd7d5f9af8e5f1f82a76846f1e662
+│   │   │   ├── 9fa7700d8900fb7a300789053184eb520e7107
+│   │   │   ├── bb4a1ace25ba703fa480db3890fef2284866e1
+│   │   │   └── bcfbfe904a2b204d9ea7f3bc47372f10b026aa
+│   │   ├── ce
+│   │   │   ├── 434afd3f237f649edc765817cec965184d1632
+│   │   │   ├── 68c20374e12f7b8d081d9ebf9620b1b25df280
+│   │   │   └── eb9254b78acc8f5fa5971e15d709b10bb7e758
+│   │   ├── cf
+│   │   │   └── 6b78de6e216757307532bb43f5968eb82eb146
+│   │   ├── d0
+│   │   │   ├── 8a21853a061bbf4f054ec4a72cca8fefeb400c
+│   │   │   ├── a6db94bacfa243de4f95a4b012c928619b2112
+│   │   │   └── e1008bca1b0ab42d2dd365cb8d5587ec16af1c
+│   │   ├── d1
+│   │   │   ├── 2d429245e2cd71dc2c2b567b52a86a6efc10f3
+│   │   │   └── f13c31b3d45dfd9052c3a79bf3c8925db0f253
+│   │   ├── d2
+│   │   │   ├── 35084f0e133f09ae790ebf9826dc7b4caf9825
+│   │   │   ├── 3de4a8c17fd03fafed96ea7916affdb02923ac
+│   │   │   ├── 4833b856c23c62284ca2bafec06aa5ddfe0855
+│   │   │   ├── 8a6aeba5b31ac0200ba8bab453aaae89c0754c
+│   │   │   └── dd7ecbd6859d80be6584a356a93df1b7e02947
+│   │   ├── d3
+│   │   │   ├── be74787c9709f7b1e09c2d1323be607edd1f40
+│   │   │   ├── ed1ad7b109ee61ba129359a0e7e3c0d178d2fc
+│   │   │   └── f333c56f43f815430cadeae09bc9eb7d0940ed
+│   │   ├── d4
+│   │   │   ├── 3ee52131b3b0b7d3bfe29b0020eec1d281eba5
+│   │   │   ├── 46f61e36f26f6c478cedeb4b0b690677b92909
+│   │   │   ├── 55b37bb448b65e73af591ef1df34a43f6bff82
+│   │   │   ├── 5c3b502b27a3edfe6b06512c8b39e3ccd619df
+│   │   │   └── 9a7b864bf2b1939deec72f7925497a43863ee4
+│   │   ├── d5
+│   │   │   ├── 5f2bd27de53c322590e2ff6c8607a2de2e75f3
+│   │   │   ├── 84a4af4ad0939790f1218304d6d60bab01592f
+│   │   │   ├── 9820ecbfdf3e96b41f61077cb567355f74d44d
+│   │   │   ├── db74575c75900ddce10aed01e638147c854a3d
+│   │   │   ├── f392c10fdf428c1de5fc062f6002742dc3c4e7
+│   │   │   └── f8a1eb328daf7e8f6f6971db28504ede10e5ca
+│   │   ├── d6
+│   │   │   ├── 148405fab497d5a90a448a1c4b281daa401dbe
+│   │   │   ├── 26abc14c1f8d6c4c9ad5fd166317f536ab950a
+│   │   │   ├── 3f94b6f3997be5811bab4c1920626212b5006f
+│   │   │   ├── 5a6f446f48bcce71674425d25f31a867fee6e5
+│   │   │   ├── c2d5901e7d60ee1d2fd2f7df56127f2654cf51
+│   │   │   └── d98127d40ff99225d42ba56d439ee658d5e955
+│   │   ├── d7
+│   │   │   ├── 187504ef110b67eb121be5c530cb8b5f1fa46e
+│   │   │   ├── 2325f2d5f2d1970a7df847b1fc06026b4233c4
+│   │   │   ├── 714906666886d7ab37b20bca28eec22f238bbb
+│   │   │   ├── 9e8705f97d6101ae7ec9cceb62e9166afa15a6
+│   │   │   └── ba0e75ab3abe77f9c622f04922cb72f1a541aa
+│   │   ├── d8
+│   │   │   └── d316b02238d28f1914dd0491e91ba7e1bf3dfb
+│   │   ├── d9
+│   │   │   ├── 150f5b3beafa36596447b308958354ed70046f
+│   │   │   ├── 9632c11370a044cff8b3962542360da30e081d
+│   │   │   └── a10ddd08526db9ddf869bbfdad4e51fe8a92c3
+│   │   ├── da
+│   │   │   ├── 1010149bffe7c71f4153e9dc17835a3474adeb
+│   │   │   ├── 1c6e8a047b86f7470fcf4cdc64623cf019b949
+│   │   │   ├── 30cb7c625b42a2ed808c235a967899e79d8e28
+│   │   │   ├── 47d2cbdb180feca6ab5a6f6d3e687d44dbb944
+│   │   │   └── 5e9094d254d4046e003db027e753d7d68150d2
+│   │   ├── db
+│   │   │   ├── 3281c0a89c8961da2201cf1edb15289c11c9ab
+│   │   │   ├── b936f1436117c0b72ffb3a9de64842c4dd9e79
+│   │   │   └── da3387ad828ccd9aba4e1f0a646eed751298d2
+│   │   ├── dc
+│   │   │   ├── 1afbfc1fa427c741dca5e5c4761c6ab45029a8
+│   │   │   ├── 829fc2cad7d0ee2343482f35ffa2e1a1ef715b
+│   │   │   ├── 94676684be1affc5a1f8a9d5280ae40c950110
+│   │   │   └── b7760995beb57557b96b6ab30b268d097b7a87
+│   │   ├── dd
+│   │   │   ├── 472af2810e2d737f8d209cea1133ce0eceb4d8
+│   │   │   ├── 80ab5b952ee19066e66d3d90f96f56f053236b
+│   │   │   ├── c699a961f7ae4127b4ce25c91e0ee36051db99
+│   │   │   └── f3f733a113b5a162b2798313254c04c8bb80b2
+│   │   ├── de
+│   │   │   ├── 0cb4ea7b8b8a630a04230f1ce3429ab3f42d6d
+│   │   │   ├── 182a83b7d6bb7bdf040d80f8e29c4046feced9
+│   │   │   ├── 2a5b72889fb8e01a7ec539baa3e3115af965d2
+│   │   │   ├── 81d91cb4a167788fd1972d09afb517e79eefee
+│   │   │   └── f497e488729b5879e3223be6404f273ea86a5e
+│   │   ├── df
+│   │   │   ├── 0eb18209ec22cd101af8334f62df971943c74b
+│   │   │   ├── 29514a90a40211516db9dbaa1048248a2b6dfc
+│   │   │   ├── d134ae87280065408f890e26f15b99e1263a0b
+│   │   │   └── d64fa286e95982ea8bc219084e0f33fd39d48a
+│   │   ├── e0
+│   │   │   ├── 1537c537ba9633d7e6319660c622a90f99faef
+│   │   │   ├── 4c637a4629eeb2814867eeafbe13c632a992c7
+│   │   │   └── 6ef4374ff3a0a36094f11b1673b1eed12bc25b
+│   │   ├── e1
+│   │   │   ├── 3f7c84fda6ecbd435918a417c6d3a53440d22c
+│   │   │   ├── 48e40254c2f07920f0e73771e284587fa8d9a1
+│   │   │   ├── 567f4d94249407c876e4605f2196a5e470bb91
+│   │   │   └── fddedaf3e24c25d0243d158f7da4c772ced330
+│   │   ├── e2
+│   │   │   ├── 4a982e7a9a651d8f9a45d89afc2c710c009c3f
+│   │   │   ├── 6eca59095f1a86af36ad7547a4df6bf7d033b3
+│   │   │   ├── 7fcebbe4ba00a812cbaef50a461c0ff753fccb
+│   │   │   └── c501ddb0e3f33c081b5f9251d0bcab5a916ca0
+│   │   ├── e3
+│   │   │   ├── 2d5bd8504a6542af43d871445eba771c868064
+│   │   │   ├── 42fe9ed6ab6e6baf55909505744773072d0621
+│   │   │   ├── 53cab4bb280457af552d87bd7e76aa423829ab
+│   │   │   └── d7b50db072214520de2fa9a9ccf9f5ecfe6690
+│   │   ├── e4
+│   │   │   ├── 3dcbd1f1b7fb06cd36a35d60807e4a0ff69861
+│   │   │   ├── 5eea2be6080c5c03d158d3a7d0a18f5f784521
+│   │   │   ├── 61f9b385c7601b94639c828d36a17515e354fe
+│   │   │   └── b39058cbbf98019c766c31e3e4f86dc2561083
+│   │   ├── e5
+│   │   │   ├── 51878a5f8eed16e52db689ac201065b4411af4
+│   │   │   ├── 8049c98a85cffaa1e408b8d5a749ecef716d81
+│   │   │   ├── a4226551d3809fef579d4dac4a2b7f40cd3ffb
+│   │   │   ├── c22dfb24516c81b21e42b09a9f23b087e9f3a4
+│   │   │   └── e67c065079348a3fcfcdce352a37d4c939a77d
+│   │   ├── e6
+│   │   │   ├── 0b33fd8adb5489f5cf8deb8d39ace0a8211997
+│   │   │   ├── 2bd2c95e1671ee95a3362af5b930b6d27e927e
+│   │   │   ├── 59dd225364d4c526e54c7bd0f2d92648948d01
+│   │   │   ├── 65c8181c1c1fa2f11dffe27d42c73fda8d31a3
+│   │   │   └── 8cf88edcaa96c69b2601fca0604a3d9499a67a
+│   │   ├── e7
+│   │   │   └── b28fbf72854fc28adcc06a959936dd7d7f578d
+│   │   ├── e8
+│   │   │   ├── 0ec3d18c1348345a5e8a46d4a21575e634d6f3
+│   │   │   ├── 559c74c77bc2f99c8d87417e69340576b717b8
+│   │   │   ├── 582a7a76372f4ff7aa11ad98c5303a2c3716e1
+│   │   │   ├── 7fa8143eac35e7b121a44e496dc4349e7079c1
+│   │   │   ├── af295351a8930fb7bec07e70e5097b8147d910
+│   │   │   └── c4f67e9c805eed96138ca2af8b19e0b7a6a358
+│   │   ├── e9
+│   │   │   └── 7453334e186f4c17f575e8333add04589699cf
+│   │   ├── ea
+│   │   │   └── e54bfa0cbb24bc4712adc0668370678cb2edbb
+│   │   ├── eb
+│   │   │   ├── 2ee7d3832f0425ce622676753921a03f26b206
+│   │   │   ├── 2fbd1968e3de1300a7c9584e7c2fa9b2963218
+│   │   │   └── 558a1a47daf95932703e753205ccaa77a58942
+│   │   ├── ec
+│   │   │   ├── 188152b45728071ba252c860a501c7c0f0ed29
+│   │   │   ├── 806a30e71425dc9bb7e9a6ea265730a70883bc
+│   │   │   └── 87642dcfedb2fc90d937c2406a2d3b05e73068
+│   │   ├── ed
+│   │   │   ├── 8b1e70d3749aa983d773773db7f44a1b1e2cc7
+│   │   │   ├── 8de912001e97b4e2993f17349bdde982d4bcb7
+│   │   │   └── 9cfaa8739857d9e9762a0249a947341d8a035c
+│   │   ├── ee
+│   │   │   ├── 3fc7ece0018daddd31e05aed359fd8456d79cb
+│   │   │   ├── 7d149490b8132758fc065ed809db9bd06843d6
+│   │   │   ├── 800f1dac5ed046f51bdcfe1b6cc0b7354d302e
+│   │   │   ├── 816007dad9036fbc4417985e0042b3a41f9988
+│   │   │   ├── 8c4b46064b1ced00b0da5f2c3b683f5459776e
+│   │   │   ├── d57cea9f3baeb69ac0f83365de95d5cf24b3c6
+│   │   │   └── e131ec8d05b0b7e98c6d489e8646eeecb789c7
+│   │   ├── ef
+│   │   │   └── 36f433ff258c7016145e7dce3b6eea0aff433f
+│   │   ├── f0
+│   │   │   ├── 78773cab0a3dbe51959ad1041797eb50c8b7c3
+│   │   │   ├── 815bcebeda5bffb10039c9bb9e2a4c896de045
+│   │   │   ├── 8b380a276947567b26c1b7f8cde024ee055118
+│   │   │   ├── 9d80d3e376d2eb138a1ec10be1a40eed3a1658
+│   │   │   └── c5a9d3aa3aced56d73b86a89c247b388d3996e
+│   │   ├── f1
+│   │   │   ├── 0a64ebed0e49bea2a45865f6adec806f72ccc4
+│   │   │   ├── 239ff95c77cd46de532cc6dd36a8afca21201c
+│   │   │   └── a0c79b184b5f25b959c03ec62a0a59afd756a8
+│   │   ├── f2
+│   │   │   ├── 68ec9fb24b2a35ca70fb3614aec99c1ca74c26
+│   │   │   └── a33f03d3ae94f8a5abf11803ba7f93a3ca4aff
+│   │   ├── f3
+│   │   │   ├── 912ee1830b045e937aa6c7b45827d244379dca
+│   │   │   ├── 9d4e7e7e7cea428c2ed8836981178083cf60ef
+│   │   │   └── a67be5a875ead80475cef1cc9eb325127abb60
+│   │   ├── f4
+│   │   │   ├── 3cf2ddc4a71e612a6a0ffc793ef0c17029e14e
+│   │   │   ├── 3e3ee883543e549c19b2fa50de4ca3b1adc4a6
+│   │   │   └── ec9f42af4fac8305d96f1ae626e23014f70b0f
+│   │   ├── f5
+│   │   │   └── 14975d44e91234c724c98117dcf31a510b4779
+│   │   ├── f6
+│   │   │   ├── c615769e2375c341b80f93efd970f40ad642c9
+│   │   │   ├── c6a8d2028c1ce8d40a5eb08265710086ca60c6
+│   │   │   ├── f9fa79d00823c97dccbd1c139d61708e5b056c
+│   │   │   └── ffdeda96b316a13747ab09257392a47770783f
+│   │   ├── f8
+│   │   │   ├── 297d22cddf1122d3cde1dc6cd0acfb144f4fd2
+│   │   │   └── 7e6878459d4482edb54c53ae7e3b8f1b55e947
+│   │   ├── f9
+│   │   │   ├── 9859d92a99651a56db142c8b4c782ccd41fac1
+│   │   │   ├── 9866cde60a7bfe369c6f2e0cbdd982b3818efd
+│   │   │   ├── b798bdf76dce0dedb4ff0726f6b335b0c23abd
+│   │   │   └── e7d92f3589eddd38b4157ca81b4d402ffe4243
+│   │   ├── fa
+│   │   │   ├── 70c04a3fb1ecd73ee77f508681ec2fcb633dca
+│   │   │   ├── 7612dadb7c4ecf5efd1e262660b311175b9272
+│   │   │   └── cb324c6abc7eb3d89c3a5ee758ba7209d6f9e1
+│   │   ├── fb
+│   │   │   ├── a001f90a12537215774f5d7884c85df6c828ff
+│   │   │   ├── b55a3c4e40ec42409b66bb1df7e85c53f1da18
+│   │   │   └── fda8a6197cc985a6fce3725493f32feca55ff9
+│   │   ├── fc
+│   │   │   ├── 62c20a58c50e6a18c19ef40ab82347e83645e4
+│   │   │   ├── d87256730817e4a5ae3aceb942c6b08ed0a1ad
+│   │   │   └── f3b15e7d525ffc82e21dc86aaefd77a6fc0c83
+│   │   ├── fd
+│   │   │   ├── 4bb768f51682e965f8021bab01b6c56ff282fe
+│   │   │   └── f1fad6a3c1d6a5f2f0d72a07e4b77b49cb4d79
+│   │   ├── fe
+│   │   │   ├── 5f88ecd07757a0269506b58b6be33e17158a11
+│   │   │   ├── 6c626ae9ef140e3e3f39e679c2084e26ecc075
+│   │   │   └── cf4a72694603748418361525291a8573dab7c0
+│   │   ├── ff
+│   │   │   ├── 7187edac98bf57bc87642a038d65d481af1494
+│   │   │   └── a5c74dd8dbe63a8814b4e58fb24c21ddfc89cb
+│   │   ├── info
+│   │   │   ├── commit-graph
+│   │   │   └── packs
+│   │   └── pack
+│   │       ├── pack-b095c102ecd83531b0a895caa198e107e2cfc420.idx
+│   │       ├── pack-b095c102ecd83531b0a895caa198e107e2cfc420.pack
+│   │       ├── pack-b095c102ecd83531b0a895caa198e107e2cfc420.rev
+│   │       ├── pack-d9269e00107768f32c67c7c7d24337d7129c846b.idx
+│   │       ├── pack-d9269e00107768f32c67c7c7d24337d7129c846b.pack
+│   │       ├── pack-d9269e00107768f32c67c7c7d24337d7129c846b.rev
+│   │       ├── pack-f6beab1c483aaff0794674c014d4e0b0f451bd35.idx
+│   │       ├── pack-f6beab1c483aaff0794674c014d4e0b0f451bd35.pack
+│   │       └── pack-f6beab1c483aaff0794674c014d4e0b0f451bd35.rev
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       │   └── master
+│       ├── remotes
+│       │   └── origin
+│       │       ├── HEAD
+│       │       └── master
+│       └── tags
 ├── .gitignore
+├── .husky
+│   └── pre-commit
+├── .init
+├── .manifest
+├── .memory
+├── .persona
+├── .prettierrc
+├── .primer
+├── .priming
+├── .schema
+├── .startup
+├── .vscode
+│   ├── tasks_fallback.json
+│   └── tasks.json
+├── animated_morphing_resized_final_optimized.gif
+├── artifact_graph.dot
+├── artifacts
+│   ├── agent_optimized_ui_ux_2025-06-05.artifact
+│   ├── ai_onboarding_2025-06-03.artifact
+│   ├── architecture_blueprint_2025-06-07.artifact
+│   ├── artifact_index.artifact
+│   ├── automation_integration_2025-06-04.artifact
+│   ├── build-info
+│   │   └── d9749955756c0de9b410f6ff3fe59373.json
+│   ├── codegen_task_add_20250603_1749023401003.txt
+│   ├── codegen_task_add_20250603_1749023424590.txt
+│   ├── combat_mechanics_2025-06-04.artifact
+│   ├── combat_mechanics.artifact
+│   ├── combat_mission_outcome_types_2025-06-04.artifact
+│   ├── community_modding_governance_2025-06-06.artifact
+│   ├── contracts
+│   │   ├── Lock.sol
+│   │   │   ├── Lock.dbg.json
+│   │   │   └── Lock.json
+│   │   └── ModRegistry.sol
+│   │       ├── ModRegistry.dbg.json
+│   │       └── ModRegistry.json
+│   ├── copilot_accessibility_modding_2025-06-04.artifact
+│   ├── copilot_analytics_replay_story_2025-06-05.artifact
+│   ├── copilot_anchor_leyline_system_2025-06-06.artifact
+│   ├── copilot_anchor_ui_ux_2025-06-04.artifact
+│   ├── copilot_build_instructions_2025-06-03.artifact
+│   ├── copilot_chunk_replacement_api_proposal_2025-06-04.artifact
+│   ├── copilot_chunk_replacement_edge_cases_2025-06-04.artifact
+│   ├── copilot_chunk_replacement_integration_points_2025-06-04.artifact
+│   ├── copilot_chunk_replacement_modding_2025-06-04.artifact
+│   ├── copilot_chunk_replacement_requirements_2025-06-04.artifact
+│   ├── copilot_context_anchor_index_2025-06-05.artifact
+│   ├── copilot_cosmic_env_simulation_2025-06-05.artifact
+│   ├── copilot_development_anchor_roadmap_2025-06-05.artifact
+│   ├── copilot_essential_info.json
+│   ├── copilot_feature_matrix_2025-06-05.artifact
+│   ├── copilot_feature_roadmap_2025-06-04.artifact
+│   ├── copilot_feature_scaffolding_guide_2025-06-07.artifact
+│   ├── copilot_feedback_and_blockers_log_2025-06-05.artifact
+│   ├── copilot_leyline_system_advanced_development_2025-06-07.artifact
+│   ├── copilot_leyline_tilemap_traversal_integration_2025-06-07.artifact
+│   ├── copilot_leyline_unification_plan_2025-06-06.artifact
+│   ├── copilot_leyline_unification_plan_2025-06-07.artifact
+│   ├── copilot_memory.artifact
+│   ├── copilot_missing_systems_checklist_2025-06-05.artifact
+│   ├── copilot_mission_system_design_2025-06-04.artifact
+│   ├── copilot_mission_system_integration_2025-06-04.artifact
+│   ├── copilot_mission_system_modding_2025-06-04.artifact
+│   ├── copilot_mission_system_roadmap_2025-06-04.artifact
+│   ├── copilot_mission_system_ui_2025-06-04.artifact
+│   ├── copilot_modding_extension_points_2025-06-05.artifact
+│   ├── copilot_multiplayer_anchor_sharing_2025-06-04.artifact
+│   ├── copilot_multiverse_event_engine_2025-06-05.artifact
+│   ├── copilot_multiverse_priority_todo_2025-06-05.artifact
+│   ├── copilot_multiverse_sync_sharing_2025-06-05.artifact
+│   ├── copilot_onboarding_and_memory_expansion_2025-06-05.artifact
+│   ├── copilot_onboarding_status_details.json
+│   ├── copilot_onboarding_status_summary.json
+│   ├── copilot_onboarding_status.json
+│   ├── copilot_persona_core_architecture_2025-06-04.artifact
+│   ├── copilot_persona_core_design_2025-06-04.artifact
+│   ├── copilot_priming.artifact
+│   ├── copilot_prioritized_work_2025-06-08.artifact
+│   ├── copilot_procedural_content_registry_2025-06-05.artifact
+│   ├── copilot_project_goals_2025-06-04.artifact
+│   ├── copilot_reality_warping_best_practices_2025-06-04.artifact
+│   ├── copilot_reality_warping_code_plan_2025-06-04.artifact
+│   ├── copilot_reality_warping_design_2025-06-04.artifact
+│   ├── copilot_reality_warping_feature_brainstorm_2025-06-04.artifact
+│   ├── copilot_script_generator_improvement_plan_2025-06-04.artifact
+│   ├── copilot_script_tools_2025-06-04.artifact
+│   ├── copilot_timestream_branching_edge_cases_2025-06-04.artifact
+│   ├── copilot_timestream_code_plan_2025-06-04.artifact
+│   ├── copilot_timestream_framework_deep_design_2025-06-04.artifact
+│   ├── copilot_timestream_modding_hooks_2025-06-04.artifact
+│   ├── copilot_timestream_multiplayer_2025-06-04.artifact
+│   ├── copilot_timestream_narrative_2025-06-04.artifact
+│   ├── copilot_timestream_serialization_2025-06-04.artifact
+│   ├── copilot_timestream_types_2025-06-04.artifact
+│   ├── copilot_timestream_ui_2025-06-04.artifact
+│   ├── copilot_timestreams_and_warp_zones_2025-06-04.artifact
+│   ├── copilot_toroidal_best_practices_2025-06-04.artifact
+│   ├── copilot_toroidal_math_usage_examples_2025-06-04.artifact
+│   ├── copilot_universal_language_engine_2025-06-05.artifact
+│   ├── copilot_universal_language_puzzles_2025-06-04.artifact
+│   ├── copilot_universal_magic_integration_2025-06-04.artifact
+│   ├── copilot_warp_anchor_systems_2025-06-04.artifact
+│   ├── copilot_web3_integration_blockers_2025-06-04.artifact
+│   ├── copilot_web3_integration_checklist_2025-06-04.artifact
+│   ├── copilot_web3_integration_faq_2025-06-04.artifact
+│   ├── copilot_web3_integration_roadmap_2025-06-04.artifact
+│   ├── copilot_web3_integration_status_2025-06-04.artifact
+│   ├── copilot_world_state_tooling_2025-06-05.artifact
+│   ├── data_schema_content_2025-06-07.artifact
+│   ├── datapack_index.artifact
+│   ├── deep_ai_self_autonomy_design_2025-06-03.artifact
+│   ├── directory_migration_plan_2025-06-04.artifact
+│   ├── directory_structure_2025-06-03.artifact
+│   ├── directory_structure_2025-06-04.artifact
+│   ├── documentation_onboarding_2025-06-07.artifact
+│   ├── domain_module_spec_characters_2025-06-07.artifact
+│   ├── event_bus_spec_2025-06-04.artifact
+│   ├── event_contracts_2025-06-07.artifact
+│   ├── feature_roadmap_2025-06-04.artifact
+│   ├── feedback_2025-06-03.artifact
+│   ├── gameplay_alignment_checklist_2025-06-05.artifact
+│   ├── gameplay_experience_blueprint_2025-06-05.artifact
+│   ├── gamescene_core_audit_2025-06-05.artifact
+│   ├── legacy_code_removal_plan_2025-06-07.artifact
+│   ├── ley_line_system_design_2025-06-06.artifact
+│   ├── leyline_system_integration_2025-06-04.artifact
+│   ├── magneto_speeder_gameplay_foundation_2025-06-06.artifact
+│   ├── magneto_speeder_mechanics_2025-06-06.artifact
+│   ├── master_multiverse_systems_2025-06-05.artifact
+│   ├── migration_refactor_roadmap_2025-06-07.artifact
+│   ├── mission_system_design_2025-06-04.artifact
+│   ├── mission_system_integration_2025-06-04.artifact
+│   ├── mission_system_modding_2025-06-04.artifact
+│   ├── mission_system_ui_2025-06-04.artifact
+│   ├── modding_automation_integration_2025-06-05.artifact
+│   ├── modding_extensibility_2025-06-07.artifact
+│   ├── modding_extension_audit_plan_2025-06-07.artifact
+│   ├── modding_support_2025-06-04.artifact
+│   ├── modregistry_deploy_instructions_mumbai_2025-06-04.artifact
+│   ├── modular_game_loop_2025-06-05.artifact
+│   ├── modular_game_loop_registered_systems_2025-06-08.artifact
+│   ├── multiplayer_anchor_sharing_2025-06-04.artifact
+│   ├── narrative_feedback_integration_2025-06-05.artifact
+│   ├── onboarding_narrative_flow_2025-06-06.artifact
+│   ├── peripheral_systems_audit_plan_2025-06-07.artifact
+│   ├── persona_core_architecture_2025-06-04.artifact
+│   ├── persona_core_changelog_2025-06-04.artifact
+│   ├── persona_core_dashboard_2025-06-04.artifact
+│   ├── persona_core_design_2025-06-04.artifact
+│   ├── persona_index.artifact
+│   ├── phase1_brainstorm.artifact
+│   ├── player_asi_architecture_2025-06-05.artifact
+│   ├── player_manager_api_2025-06-05.artifact
+│   ├── player_manager_module_2025-06-05.artifact
+│   ├── progression_system_2025-06-03.artifact
+│   ├── project_goals_2025-06-04.artifact
+│   ├── project_state_2025-06-03.artifact
+│   ├── proposed_directory_structure_2025-06-04.artifact
+│   ├── README.md
+│   ├── reality_warping_best_practices_2025-06-04.artifact
+│   ├── reality_warping_code_plan_2025-06-04.artifact
+│   ├── reality_warping_design_2025-06-04.artifact
+│   ├── refactor_anchor_artifacts_2025-06-07.artifact
+│   ├── retrospective_tilemap_2025-06-03.artifact
+│   ├── save_system_design_2025-06-05.artifact
+│   ├── scripts_full_esmodule_migration_plan_2025-06-03.artifact
+│   ├── scripts_index.artifact
+│   ├── self_healing_automation_2025-06-06.artifact
+│   ├── self_prompt_pipeline_instructions.artifact
+│   ├── super_integration_plan_2025-06-04.artifact
+│   ├── tech_level_angel.artifact
+│   ├── tech_level_archo.artifact
+│   ├── tech_level_ascendant.artifact
+│   ├── tech_level_cyber.artifact
+│   ├── tech_level_data_model.artifact
+│   ├── tech_level_feedback_and_retrospective.artifact
+│   ├── tech_level_fusion_lore.artifact
+│   ├── tech_level_fusion_modding.artifact
+│   ├── tech_level_fusion_risks.artifact
+│   ├── tech_level_fusion_testplan.artifact
+│   ├── tech_level_fusion_triggers.artifact
+│   ├── tech_level_fusion_unlocks.artifact
+│   ├── tech_level_fusion.artifact
+│   ├── tech_level_gameplay_mapping.artifact
+│   ├── tech_level_holo.artifact
+│   ├── tech_level_hyper.artifact
+│   ├── tech_level_index.artifact
+│   ├── tech_level_industrial.artifact
+│   ├── tech_level_integration_tasks.artifact
+│   ├── tech_level_magic.artifact
+│   ├── tech_level_medieval.artifact
+│   ├── tech_level_neolithic.artifact
+│   ├── tech_level_omni.artifact
+│   ├── tech_level_primitive.artifact
+│   ├── tech_level_progression_rules.artifact
+│   ├── tech_level_spacefaring.artifact
+│   ├── tech_level_spacer.artifact
+│   ├── tech_level_star.artifact
+│   ├── tech_level_stellar.artifact
+│   ├── tech_level_super.artifact
+│   ├── tech_level_template.artifact
+│   ├── tech_level_test_plan.artifact
+│   ├── tech_level_ui_ux_plan.artifact
+│   ├── tech_level_ultra.artifact
+│   ├── tech_level_warp.artifact
+│   ├── tech_tree_stellar.artifact
+│   ├── test_artifact_2025-06-03.artifact
+│   ├── test_coverage_audit_2025-06-07.artifact
+│   ├── test_results_2025-06-03.artifact
+│   ├── testing_quality_2025-06-07.artifact
+│   ├── testing_validation_strategy_2025-06-05.artifact
+│   ├── tilemap_system_design.artifact
+│   ├── todo_triage_2025-06-08.artifact
+│   ├── ui_overlay_audit_plan_2025-06-07.artifact
+│   ├── ui_ux_accessibility_2025-06-06.artifact
+│   ├── ul_animation_library.artifact
+│   ├── ul_api_contract.artifact
+│   ├── ul_event_spec_2025-06-06.artifact
+│   ├── ul_expression_examples.artifact
+│   ├── ul_grammar_rules.artifact
+│   ├── ul_integration_roadmap_2025-06-06.artifact
+│   ├── ul_modding_support_2025-06-06.artifact
+│   ├── ul_onboarding_guide.artifact
+│   ├── ul_puzzle_templates.artifact
+│   ├── ul_resource_schema_2025-06-06.artifact
+│   ├── ul_symbol_movement_map.artifact
+│   ├── ul_system_documentation_2025-06-06.artifact
+│   ├── ul_system_technical_spec_2025-06-06.artifact
+│   ├── ul_validation_matrix_2025-06-06.artifact
+│   ├── universal_language_psionics_2025-06-06.artifact
+│   ├── universal_symbology_design_2025-06-04.artifact
+│   ├── upgrade_roadmap_2025-06-05.artifact
+│   ├── world_state_api_modding_2025-06-04.artifact
+│   ├── world_state_data_model_2025-06-04.artifact
+│   ├── world_state_integration_plan_2025-06-04.artifact
+│   ├── world_state_onboarding_guide_2025-06-04.artifact
+│   ├── world_state_system_design_2025-06-04.artifact
+│   └── world_state_testing_strategy_2025-06-04.artifact
+├── cache
 ├── contracts
 │   ├── Lock.sol
 │   └── ModRegistry.sol
@@ -10,44 +1470,304 @@
 │   ├── lcov-report
 │   │   ├── base.css
 │   │   ├── block-navigation.js
+│   │   ├── core
+│   │   │   ├── EventBus.ts.html
+│   │   │   ├── index.html
+│   │   │   └── Jane.ts.html
 │   │   ├── favicon.png
 │   │   ├── index.html
-│   │   ├── mod_loader.ts.html
+│   │   ├── LeyLineEvents.ts.html
+│   │   ├── LeyLineSystem.ts.html
+│   │   ├── magneto
+│   │   │   ├── index.html
+│   │   │   └── MagnetoSpeeder.ts.html
+│   │   ├── MagnetoSpeeder.ts.html
 │   │   ├── prettify.css
 │   │   ├── prettify.js
+│   │   ├── SelfHealingEngine.ts.html
 │   │   ├── sort-arrow-sprite.png
-│   │   └── sorter.js
+│   │   ├── sorter.js
+│   │   ├── ul
+│   │   │   ├── index.html
+│   │   │   └── ulEventBus.ts.html
+│   │   ├── ulEngine.ts.html
+│   │   ├── UniversalLanguageEngine.ts.html
+│   │   └── world
+│   │       ├── EventBus.ts.html
+│   │       ├── index.html
+│   │       ├── leyline
+│   │       │   ├── events
+│   │       │   │   ├── index.html
+│   │       │   │   └── LeyLineEvents.ts.html
+│   │       │   ├── index.html
+│   │       │   ├── LeyLineManager.ts.html
+│   │       │   ├── pathfinding
+│   │       │   │   ├── index.html
+│   │       │   │   └── LeyLinePathfinder.ts.html
+│   │       │   ├── procedural
+│   │       │   │   ├── index.html
+│   │       │   │   └── LeyLineProceduralGen.ts.html
+│   │       │   └── visualization
+│   │       │       ├── index.html
+│   │       │       └── LeyLineVisualization.ts.html
+│   │       └── WorldStateManager.ts.html
 │   └── lcov.info
+├── data
+│   ├── cosmetics.json
+│   ├── mk3CosmicCypher.json
+│   ├── persona_core.json
+│   ├── README.md
+│   ├── self_prompt_queue.json
+│   └── ul
+│       ├── ul_animation_library.json
+│       ├── ul_api_contract.json
+│       ├── ul_expression_examples.json
+│       ├── ul_grammar_rules.json
+│       ├── ul_onboarding_guide.json
+│       ├── ul_puzzle_templates.json
+│       └── ul_symbol_movement_map.json
 ├── directory-structure.txt
 ├── docs
-│   └── modding.md
+│   ├── docs_index_L1.json
+│   ├── docs_index_L2.json
+│   ├── docs_index.json
+│   ├── FusionGirl - Game Design Document_ Beu.md
+│   ├── FusionGirl - Game Design Document_ Game Robots.md
+│   ├── FusionGirl - Game Design Document_ Jane Tho'ra.md
+│   ├── FusionGirl - Game Design Document_ Universal Language and Mind Puzzles.md
+│   ├── FusionGirl Game Design Document - Real Immersive Experience.md
+│   ├── FusionGirl_ Game Design Document - Core Game Loop.md
+│   ├── FusionGirl_ Game Design Document - Dynamic Threats.md
+│   ├── FusionGirl_ Game Design Document - Earth Alliance.md
+│   ├── FusionGirl_ Game Design Document - Game Missions.md
+│   ├── FusionGirl_ Game Design Document - Game World.md
+│   ├── FusionGirl_ Game Design Document - Innovative Concept and Market Potential.md
+│   ├── FusionGirl_ Game Design Document - Ion Storms.md
+│   ├── FusionGirl_ Game Design Document - Ley Lines and Vortices.md
+│   ├── FusionGirl_ Game Design Document - Logical Economy Loops.md
+│   ├── FusionGirl_ Game Design Document - Pitch Strategy.md
+│   ├── FusionGirl_ Game Design Document - Player Progression and Advancement.md
+│   ├── FusionGirl_ Game Design Document - PsiNet Down Time Scenario Handling.md
+│   ├── FusionGirl_ Game Design Document - Rewards and Unlockables.md
+│   ├── FusionGirl_ Game Design Document - Tech Levels.md
+│   ├── FusionGirl_ Video Game Document - AI Development Plan.md
+│   ├── FusionGirl_ Video Game Document - Cosmic Cypher.md
+│   ├── FusionGirl_ Video Game Document - Gameplay Mechanics.md
+│   ├── FusionGirl_ Video Game Document - Lore_ Nefarium.md
+│   ├── FusionGirl_ Video Game Document - Timestreams, Time Maps, and Timeline.md
+│   ├── FusionGirl_Documentation_QandA.md
+│   ├── instructions.md
+│   ├── lint_format_test_automation.md
+│   ├── modding.md
+│   ├── precommit_automation.md
+│   ├── README.md
+│   ├── UL_WhitePaper-Part1.md
+│   ├── UL_WhitePaper-Part2.md
+│   ├── UL_WhitePaper-Part3.md
+│   └── universal_symbology_Base12Harmonic.md
+├── FusionGirl_Icon_x1024.png
+├── fusiongirl_profileicon_a_0001_by_jonothora_da4eprs-375w-2x-1.jpg
 ├── hardhat.config.cjs
 ├── ignition
 │   └── modules
 │       └── Lock.js
 ├── index.html
+├── jane__born_of_sovi_by_jonothora_d1tjn7u-375w-2x-1.jpg
 ├── jest.config.mjs
 ├── jest.config.ts.bak
+├── jest.setup.js
+├── onboarding.json
+├── ONBOARDING.md
+├── package-artifact.json
 ├── package-lock.json
 ├── package.json
+├── persona_core
+│   ├── changelog.json
+│   ├── core_values.json
+│   ├── decision_heuristics.json
+│   ├── integration_hooks.json
+│   ├── meta_prompts.json
+│   ├── operational_focus.json
+│   ├── README.md
+│   └── version.json
+├── pfg_facebookbanner_0001_by_jonothora_da4eqkp-414w-2x-1.jpg
 ├── public
 │   └── vite.svg
-├── README.md
+├── scripts
+│   ├── aggregatePersonas.js
+│   ├── aiAutonomousDevLoop.js
+│   ├── aiTaskManager.js
+│   ├── archiveCompletedTasks.js
+│   ├── artifact-index-update.sh
+│   ├── assetValidation.ts
+│   ├── autoRepairArtifacts.js
+│   ├── autoUpdateArtifactRefs.js
+│   ├── biDirectionalArtifactMap.js
+│   ├── checkArtifactCodeSync.js
+│   ├── copilot_content_consistency_checker.js
+│   ├── copilot_docs_search_enhancer.js
+│   ├── copilot_improvement_task_suggester.js
+│   ├── copilot_mods_and_missions_lister.js
+│   ├── copilot_script_generator.js
+│   ├── copilotOnboarding.cjs
+│   ├── deployModRegistry.js
+│   ├── generateArtifactIndex.js
+│   ├── generateCopilotEssentialInfo.cjs
+│   ├── generatePersonaCoreDashboard.js
+│   ├── guidedOnboarding.js
+│   ├── indexDocs.js
+│   ├── listArtifactRelations.js
+│   ├── listOrDiffArtifactVersions.js
+│   ├── listScripts.js
+│   ├── listTasks.js
+│   ├── loadPersonaCore.js
+│   ├── masterOnboarding.cjs
+│   ├── newArtifact.js
+│   ├── newFeedbackOrRetrospective.js
+│   ├── newTask.js
+│   ├── notifyOpenTasks.js
+│   ├── personaCoreUtils.js
+│   ├── project_dashboard.js
+│   ├── promptFeedbackLinkage.js
+│   ├── README.md
+│   ├── scanDevEnvironment.cjs
+│   ├── scanDevEnvironment.js
+│   ├── searchArtifacts.js
+│   ├── selfPromptPipeline.js
+│   ├── selfPromptToolkit.cjs
+│   ├── selfPromptToolkit.js
+│   ├── setupWorkspace.cjs
+│   ├── snapshotDirectory.js
+│   ├── suggestDocsTasks.js
+│   ├── summarizeAndCleanUnusedArtifacts.js
+│   ├── syncDatapack.js
+│   ├── syncTasksWithCode.js
+│   ├── taskIndexUpdate.js
+│   ├── updateDashboard.js
+│   ├── updateManifest.js
+│   ├── updatePersonaCore.js
+│   ├── updatePersonaCoreModule.js
+│   ├── updatePrimer.js
+│   ├── updateTask.js
+│   ├── updateTaskIndex.js
+│   ├── validatePersonaCore.js
+│   ├── validateSchemas.js
+│   ├── validateTaskSchema.js
+│   ├── versionArtifact.js
+│   ├── visualizeArtifactGraph.js
+│   ├── warnNonCanonicalArtifactRefs.js
+│   └── watchTasksAndUpdateIndex.js
 ├── src
+│   ├── accessibility
+│   │   └── AccessibilityManager.ts
+│   ├── ai
+│   │   ├── CompanionAI.ts
+│   │   └── JaneAI.ts
+│   ├── analytics
+│   │   ├── __tests__
+│   │   │   └── AnalyticsReplayEngine.test.ts
+│   │   └── AnalyticsReplayEngine.ts
 │   ├── assets
-│   │   └── recipes.json
+│   │   ├── recipes.json
+│   │   ├── tiles.json
+│   │   └── tileset.json
+│   ├── automation
+│   │   └── SelfHealingEngine.ts
+│   ├── characters
+│   │   ├── index.ts
+│   │   ├── Jane.ts
+│   │   └── README.md
+│   ├── combat
+│   │   ├── CombatSystem.ts
+│   │   ├── EnemyTypes.ts
+│   │   ├── index.ts
+│   │   ├── PsiAbilities.ts
+│   │   └── README.md
+│   ├── companions
+│   │   ├── AlternateJane.ts
+│   │   └── PsiSysRobot.ts
 │   ├── core
 │   │   ├── .keep
-│   │   └── controls
-│   │       ├── AIInput.ts
-│   │       ├── GamepadInput.ts
-│   │       ├── InputManager.ts
-│   │       ├── KeyboardInput.ts
-│   │       └── TouchInput.ts
+│   │   ├── Accessibility.ts
+│   │   ├── AppStateMachine.ts
+│   │   ├── controls
+│   │   │   ├── AIInput.ts
+│   │   │   ├── GamepadInput.ts
+│   │   │   ├── InputManager.ts
+│   │   │   ├── KeyboardInput.ts
+│   │   │   └── TouchInput.ts
+│   │   ├── DevToolsManager.ts
+│   │   ├── DialogueManager.ts
+│   │   ├── EnemyManager.ts
+│   │   ├── EventBus.ts
+│   │   ├── EventTypes.ts
+│   │   ├── FactionSystem.ts
+│   │   ├── IAppStateMachine.ts
+│   │   ├── index.ts
+│   │   ├── InputManagerModule.ts
+│   │   ├── Inventory.ts
+│   │   ├── InventoryManager.ts
+│   │   ├── IState.ts
+│   │   ├── ISubStateMachine.ts
+│   │   ├── Jane.ts
+│   │   ├── MagicCraftingInterface.tsx
+│   │   ├── ModularGameLoop.README.md
+│   │   ├── ModularGameLoop.test.ts
+│   │   ├── ModularGameLoop.ts
+│   │   ├── NarrativeEngine.ts
+│   │   ├── NarrativeManager.ts
+│   │   ├── NPCManager.ts
+│   │   ├── PlayerManager.ts
+│   │   ├── PluginManager.ts
+│   │   ├── README.md
+│   │   ├── SkillTree.ts
+│   │   ├── StateContext.ts
+│   │   ├── StateRegistry.ts
+│   │   ├── UIManager.ts
+│   │   ├── UniversalMagic.ts
+│   │   ├── UniversalSymbols.ts
+│   │   └── WorldEditorManager.ts
 │   ├── counter.ts
+│   ├── customization
+│   │   ├── Cosmetics.ts
+│   │   ├── CosmeticUnlocks.ts
+│   │   ├── CosmeticUtils.ts
+│   │   ├── CustomizationEngine.ts
+│   │   ├── index.ts
+│   │   └── README.md
+│   ├── data
+│   │   ├── attackLoader.ts
+│   │   ├── attacks.json
+│   │   ├── characterLoader.ts
+│   │   ├── characters.json
+│   │   ├── cosmeticLoader.ts
+│   │   ├── cosmetics.json
+│   │   ├── factionLoader.ts
+│   │   ├── factions.json
+│   │   ├── index.ts
+│   │   ├── leyLineLoader.ts
+│   │   ├── leyLines.json
+│   │   ├── narrative.json
+│   │   ├── narrativeLoader.ts
+│   │   ├── README.md
+│   │   ├── skillLoader.ts
+│   │   ├── skills.json
+│   │   ├── zoneLoader.ts
+│   │   └── zones.json
 │   ├── lang
 │   │   └── .keep
+│   ├── legacy
+│   │   └── leyLines.ts
+│   ├── leyline
+│   │   └── LeyLineSystem.ts
+│   ├── magneto
+│   │   ├── MagnetoSpeeder.ts
+│   │   ├── SpeederManager.ts
+│   │   ├── SpeederUI.ts
+│   │   └── SpeederUpgradeSystem.ts
 │   ├── main.ts
+│   ├── modding
+│   │   └── ModdingAPI.ts
 │   ├── mods
 │   │   ├── index.ts
 │   │   ├── mod_loader.test.ts
@@ -57,14 +1777,28 @@
 │   │   ├── sample_equipment_mod.json
 │   │   ├── sample_item_mod.json
 │   │   └── sample_mod.json
+│   ├── narrative
+│   │   ├── CutsceneManager.ts
+│   │   ├── DialogueSystem.ts
+│   │   ├── index.ts
+│   │   ├── NarrativeEngine.ts
+│   │   ├── README.md
+│   │   └── StoryEvents.ts
+│   ├── onboarding
+│   │   └── OnboardingManager.ts
+│   ├── save
+│   │   └── SaveSystem.ts
 │   ├── scenes
+│   │   ├── AnchorManager.ts
 │   │   ├── GameScene.test.ts
 │   │   ├── GameScene.ts
 │   │   ├── index.ts
+│   │   ├── MissionHandlers.ts
 │   │   ├── PauseMenuScene.ts
 │   │   ├── SettingsScene.ts
 │   │   └── StartScene.ts
 │   ├── services
+│   │   ├── AnchorSyncService.ts
 │   │   ├── index.ts
 │   │   ├── ModRegistryService.ts
 │   │   └── SettingsService.ts
@@ -75,9 +1809,14 @@
 │   │   └── mod_loader.test.ts
 │   ├── typescript.svg
 │   ├── ui
+│   │   ├── AgentOptimizedUI.test.ts
+│   │   ├── AgentOptimizedUI.ts
 │   │   ├── components
+│   │   │   ├── AnchorTradeOfferModal.ts
+│   │   │   ├── ASIOverlay.ts
 │   │   │   ├── CraftingPanel.ts
 │   │   │   ├── DamageNumber.ts
+│   │   │   ├── DialogueModal.ts
 │   │   │   ├── Dropdown.ts
 │   │   │   ├── EnemyHealthBar.ts
 │   │   │   ├── EquipmentPanel.ts
@@ -85,22 +1824,50 @@
 │   │   │   ├── GuestModeButton.ts
 │   │   │   ├── HealthBar.ts
 │   │   │   ├── index.ts
+│   │   │   ├── InventoryOverlay.ts
 │   │   │   ├── InventoryPanel.ts
 │   │   │   ├── Label.ts
+│   │   │   ├── LeyLineMinimapOverlay.ts
+│   │   │   ├── LoreTerminal.ts
 │   │   │   ├── MenuButton.ts
+│   │   │   ├── Minimap.ts
+│   │   │   ├── MissionTracker.tsx
 │   │   │   ├── ModCountButton.ts
 │   │   │   ├── ModToggleButton.ts
+│   │   │   ├── MultiverseExplorerPanel.ts
+│   │   │   ├── RepairMigrationWizard.ts
 │   │   │   ├── SettingsButton.ts
 │   │   │   ├── Slider.ts
+│   │   │   ├── TimelinePanel.ts
 │   │   │   ├── TitleText.ts
 │   │   │   ├── ToggleButton.ts
 │   │   │   ├── TouchControls.ts
-│   │   │   └── WalletButton.ts
-│   │   └── layouts
-│   │       └── .keep
+│   │   │   ├── UniversalLanguagePuzzleModal.ts
+│   │   │   ├── WalletButton.ts
+│   │   │   └── WarpAnchorPanel.ts
+│   │   ├── feedback
+│   │   │   └── EventDrivenFeedbackRouter.ts
+│   │   ├── index.ts
+│   │   ├── layouts
+│   │   │   └── .keep
+│   │   ├── README.md
+│   │   └── UXManager.ts
+│   ├── ul
+│   │   ├── __tests__
+│   │   │   ├── ulEngine.test.ts
+│   │   │   └── ulResourceLoader.test.ts
+│   │   ├── ulEngine.ts
+│   │   ├── ulEventBus.ts
+│   │   ├── ulResourceLoader.ts
+│   │   └── ulTypes.ts
+│   ├── unilang
+│   │   └── UniversalLanguageEngine.ts
 │   ├── vite-env.d.ts
 │   ├── web3.ts
+│   ├── web3Demo.ts
 │   └── world
+│       ├── asi
+│       │   └── ASIController.ts
 │       ├── combat
 │       │   ├── AttackDefinition.ts
 │       │   ├── AttackRegistry.ts
@@ -108,6 +1875,8 @@
 │       ├── crafting
 │       │   ├── CraftingRegistry.ts
 │       │   └── CraftingService.ts
+│       ├── economy
+│       │   └── EconomySystem.ts
 │       ├── enemies
 │       │   ├── EnemyDefinition.ts
 │       │   ├── EnemyInstance.ts
@@ -118,6 +1887,12 @@
 │       │   ├── EquipmentRegistry.ts
 │       │   ├── EquipmentService.ts
 │       │   └── EquipmentSlot.ts
+│       ├── event
+│       │   ├── __tests__
+│       │   │   └── MultiverseEventEngine.edge.test.ts
+│       │   └── MultiverseEventEngine.ts
+│       ├── EventBus.ts
+│       ├── FactionData.ts
 │       ├── index.ts
 │       ├── inventory
 │       │   ├── Inventory.ts
@@ -125,36 +1900,418 @@
 │       ├── items
 │       │   ├── ItemInstance.ts
 │       │   └── ItemRegistry.ts
+│       ├── leyline
+│       │   ├── events
+│       │   │   └── LeyLineEvents.ts
+│       │   ├── LeyLineManager.test.ts
+│       │   ├── LeyLineManager.ts
+│       │   ├── pathfinding
+│       │   │   └── LeyLinePathfinder.ts
+│       │   ├── procedural
+│       │   │   └── LeyLineProceduralGen.ts
+│       │   ├── types.ts
+│       │   └── visualization
+│       │       └── LeyLineVisualization.ts
+│       ├── missions
+│       │   ├── index.ts
+│       │   ├── MissionEventHandlers.ts
+│       │   ├── MissionManager.ts
+│       │   ├── MissionSystem.test.ts
+│       │   ├── MissionSystem.ts
+│       │   ├── README.md
+│       │   ├── sampleMissions.ts
+│       │   └── types.ts
 │       ├── player
+│       │   ├── PlayerAttackController.ts
+│       │   ├── PlayerController.ts
+│       │   ├── PlayerFactory.ts
 │       │   └── PlayerStats.ts
-│       └── tilemap
-│           ├── ChunkManager.ts
-│           ├── EditorHistory.ts
-│           ├── TileBrush.ts
-│           ├── TileClipboard.ts
-│           ├── TileHistoryVisualizer.ts
-│           ├── TileInspector.ts
-│           ├── TilemapManager.ts
-│           ├── TilePalette.ts
-│           ├── TileRegistry.edge.test.ts
-│           ├── TileRegistry.integration.test.ts
-│           ├── TileRegistry.test.ts
-│           ├── TileRegistry.ts
-│           ├── TileSelectionOverlay.ts
-│           ├── TileUndoManager.test.ts
-│           ├── TileUndoManager.ts
-│           ├── WorldEditAutosave.ts
-│           ├── WorldEditInput.ts
-│           ├── WorldEditOverlay.ts
-│           ├── WorldEditPermissions.ts
-│           ├── WorldEditService.ts
-│           ├── WorldEditSession.ts
-│           ├── WorldEvents.ts
-│           ├── WorldGen.ts
-│           ├── WorldPersistence.ts
-│           └── WorldSelection.ts
+│       ├── quest
+│       │   └── QuestPrototype.ts
+│       ├── README.md
+│       ├── RealityWarpSystem.ts
+│       ├── registry
+│       │   └── ProceduralContentRegistry.ts
+│       ├── scripting
+│       │   └── UniversalLanguageEngine.ts
+│       ├── simulation
+│       │   └── CosmicEnvSimulation.ts
+│       ├── tech
+│       │   ├── levels
+│       │   │   ├── index.ts
+│       │   │   ├── Type0
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── Industrial
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── IndustrialTech.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   ├── Medieval
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── MedievalTech.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   └── Neolithic
+│       │   │   │       ├── index.ts
+│       │   │   │       ├── Lore.ts
+│       │   │   │       ├── Modding.ts
+│       │   │   │       ├── NeolithicTech.ts
+│       │   │   │       ├── Risks.ts
+│       │   │   │       ├── TestPlan.ts
+│       │   │   │       ├── Triggers.ts
+│       │   │   │       └── Unlocks.ts
+│       │   │   ├── TypeI
+│       │   │   │   ├── Cyber
+│       │   │   │   │   ├── CyberTech.ts
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   ├── Holo
+│       │   │   │   │   ├── HoloTech.ts
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   ├── index.ts
+│       │   │   │   └── Spacer
+│       │   │   │       ├── index.ts
+│       │   │   │       ├── Lore.ts
+│       │   │   │       ├── Modding.ts
+│       │   │   │       ├── Risks.ts
+│       │   │   │       ├── SpacerTech.ts
+│       │   │   │       ├── TestPlan.ts
+│       │   │   │       ├── Triggers.ts
+│       │   │   │       └── Unlocks.ts
+│       │   │   ├── TypeII
+│       │   │   │   ├── Fusion
+│       │   │   │   │   ├── AI.ts
+│       │   │   │   │   ├── FusionTech.ts
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── Starships.ts
+│       │   │   │   │   ├── Terraforming.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── Star
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── StarTech.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   └── Warp
+│       │   │   │       ├── index.ts
+│       │   │   │       ├── Lore.ts
+│       │   │   │       ├── Modding.ts
+│       │   │   │       ├── Risks.ts
+│       │   │   │       ├── TestPlan.ts
+│       │   │   │       ├── Triggers.ts
+│       │   │   │       ├── Unlocks.ts
+│       │   │   │       └── WarpTech.ts
+│       │   │   ├── TypeIII
+│       │   │   │   ├── Hyper
+│       │   │   │   │   ├── HyperTech.ts
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── Super
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── SuperTech.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   └── Ultra
+│       │   │   │       └── UltraTech.ts
+│       │   │   ├── TypeIV
+│       │   │   │   ├── Archo
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Main.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   └── index.ts
+│       │   │   ├── TypeV
+│       │   │   │   ├── index.ts
+│       │   │   │   └── Magic
+│       │   │   │       ├── index.ts
+│       │   │   │       ├── Lore.ts
+│       │   │   │       ├── Main.ts
+│       │   │   │       ├── Modding.ts
+│       │   │   │       ├── Risks.ts
+│       │   │   │       ├── TestPlan.ts
+│       │   │   │       ├── Triggers.ts
+│       │   │   │       └── Unlocks.ts
+│       │   │   ├── TypeVI
+│       │   │   │   ├── Angel
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Lore.ts
+│       │   │   │   │   ├── Main.ts
+│       │   │   │   │   ├── Modding.ts
+│       │   │   │   │   ├── Risks.ts
+│       │   │   │   │   ├── TestPlan.ts
+│       │   │   │   │   ├── Triggers.ts
+│       │   │   │   │   └── Unlocks.ts
+│       │   │   │   └── index.ts
+│       │   │   └── TypeVII
+│       │   │       ├── index.ts
+│       │   │       └── Omni
+│       │   │           ├── index.ts
+│       │   │           ├── Lore.ts
+│       │   │           ├── Main.ts
+│       │   │           ├── Modding.ts
+│       │   │           ├── Risks.ts
+│       │   │           ├── TestPlan.ts
+│       │   │           ├── Triggers.ts
+│       │   │           └── Unlocks.ts
+│       │   ├── tech_levels.json
+│       │   ├── TechLevel.ts
+│       │   ├── TechLevelEngine.ts
+│       │   └── TechLevelManager.ts
+│       ├── tilemap
+│       │   ├── __tests__
+│       │   │   ├── TilemapManager.anchor.test.ts
+│       │   │   └── TilemapManager.branch.test.ts
+│       │   ├── ChunkLoader.ts
+│       │   ├── ChunkManager.ts
+│       │   ├── EditorHistory.ts
+│       │   ├── README.md
+│       │   ├── TerrainGenerator.ts
+│       │   ├── TileBrush.ts
+│       │   ├── TileClipboard.ts
+│       │   ├── TileHistoryVisualizer.ts
+│       │   ├── TileInspector.ts
+│       │   ├── TilemapManager.ts
+│       │   ├── TilePalette.ts
+│       │   ├── TileRegistry.edge.test.ts
+│       │   ├── TileRegistry.integration.test.ts
+│       │   ├── TileRegistry.test.ts
+│       │   ├── TileRegistry.ts
+│       │   ├── TileSelectionOverlay.ts
+│       │   ├── TileSpriteFactory.ts
+│       │   ├── TileUndoManager.test.ts
+│       │   ├── TileUndoManager.ts
+│       │   ├── WarpZoneHash.ts
+│       │   ├── WarpZoneUtils.edge.test.ts
+│       │   ├── WarpZoneUtils.ts
+│       │   ├── WorldEditAutosave.ts
+│       │   ├── WorldEditInput.ts
+│       │   ├── WorldEditOverlay.ts
+│       │   ├── WorldEditPermissions.ts
+│       │   ├── WorldEditService.ts
+│       │   ├── WorldEditSession.ts
+│       │   ├── WorldEvents.ts
+│       │   ├── WorldGen.ts
+│       │   ├── WorldGenV2.ts
+│       │   ├── WorldGenWarp.ts
+│       │   ├── WorldPersistence.ts
+│       │   ├── WorldPhysics.ts
+│       │   └── WorldSelection.ts
+│       ├── TimelineManager.ts
+│       ├── timestream
+│       │   ├── __tests__
+│       │   │   ├── TimeMapVisualizer.test.ts
+│       │   │   ├── TimestreamManager.test.ts
+│       │   │   └── WarpZoneManager.test.ts
+│       │   ├── index.ts
+│       │   ├── integrateTimestreamWithWarp.ts
+│       │   ├── TimeMapVisualizer.ts
+│       │   ├── TimestreamFramework.ts
+│       │   ├── TimestreamHooks.ts
+│       │   ├── TimestreamManager.ts
+│       │   ├── TimestreamUI.ts
+│       │   ├── TimestreamUtils.ts
+│       │   ├── types.ts
+│       │   └── WarpZoneManager.ts
+│       ├── WorldEngine.ts
+│       ├── WorldStateManager.ts
+│       └── WorldTraversalSystem.ts
+├── tasks
+│   ├── ai_onboarding_feedback_2025-06-05.task
+│   ├── anchor-sharing-and-bookmarks.task
+│   ├── anchor-ui-ux-and-accessibility.task
+│   ├── copilot_advanced_todos_2025-06-03.task
+│   ├── copilot_advanced_todos_2025-06-04.task
+│   ├── copilot_next_steps_2025-06-03_20250603T194710.task
+│   ├── copilot_next_steps_2025-06-03.task
+│   ├── copilot_reality_warping_todo_2025-06-04.task
+│   ├── copilot_todo_automation_upgrades_2025-06-03.task
+│   ├── copilot_todos_2025-06-03.task
+│   ├── copilot_todos_2025-06-04.task
+│   ├── deploy_modregistry_polygon_mumbai_2025-06-04.task
+│   ├── gamescene_missing_features_2025-06-05.task
+│   ├── modding-hooks-for-warp-zones.task
+│   ├── organize_core_folder_2025-06-04.task
+│   ├── README.md
+│   ├── README.task
+│   ├── refactor_2025-06-07.task
+│   ├── task_add_20250603.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250603.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_primer_gamescene_ts_5_20250604.artifact
+│   ├── task_add_a_scrolling_background_with_parallax_effect_see_protofusiongirl_primer_gamescene_ts_5_20250603.artifact
+│   ├── task_add_a_web3_wallet_connect_button_to_the_start_screen_see_primer_startscene_ts_9_20250603.artifact
+│   ├── task_add_a_web3_wallet_connect_button_to_the_start_screen_see_protofusiongirl_primer_startscene_ts_9_20250603.artifact
+│   ├── task_add_documentation_linting_and_format_checks_to_the_automation_pipeline_20250604.artifact
+│   ├── task_add_guest_mode_button_for_local_play_see_primer_startscene_ts_10_20250603.artifact
+│   ├── task_add_guest_mode_button_for_local_play_see_protofusiongirl_primer_startscene_ts_10_20250603.artifact
+│   ├── task_add_lore_terminal_that_displays_random_lore_from_datapack_20250604.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250603.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_primer_mod_loader_ts_182_20250604.artifact
+│   ├── task_add_mod_loader_error_handling_and_debug_overlay_see_protofusiongirl_primer_mod_loader_ts_182_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_36_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250603.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_primer_gamescene_test_ts_45_20250604.artifact
+│   ├── task_add_tests_for_tilemap_loading_and_health_bar_ui_see_protofusiongirl_primer_gamescene_test_ts_36_20250603.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250603.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_82_20250604.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_85_20250604.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_93_20250604.artifact
+│   ├── task_add_tiles_json_tiled_map_export_and_tiles_png_tileset_image_to_src_assets_gamescene_ts_97_20250604.artifact
+│   ├── task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250603.artifact
+│   ├── task_add_touch_controls_for_mobile_see_primer_gamescene_ts_3_20250604.artifact
+│   ├── task_add_touch_controls_for_mobile_see_protofusiongirl_primer_gamescene_ts_3_20250603.artifact
+│   ├── task_apply_toroidal_utilities_everywhere_2025-06-04.artifact
+│   ├── task_automate_the_onboarding_process_with_a_script_that_runs_all_onboarding_and_synchronization_tasks_20250604.artifact
+│   ├── task_create_20250603.artifact
+│   ├── task_create_a_feedback_artifact_template_and_process_for_onboarding_blockers_and_improvements_20250604.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250603.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_primer_mod_loader_ts_180_20250604.artifact
+│   ├── task_create_a_sample_mod_json_file_and_load_it_see_protofusiongirl_primer_mod_loader_ts_180_20250603.artifact
+│   ├── task_create_a_visual_project_dashboard_artifact_for_real_time_project_task_status_20250604.artifact
+│   ├── task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250603.artifact
+│   ├── task_custom_brush_logic_e_g_from_mod_or_user_input_tilebrush_ts_47_20250604.artifact
+│   ├── task_custom_erase_logic_tilebrush_ts_71_20250603.artifact
+│   ├── task_custom_erase_logic_tilebrush_ts_71_20250604.artifact
+│   ├── task_design_20250603.artifact
+│   ├── task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250603.artifact
+│   ├── task_download_from_ipfs_and_add_to_scene_textures_or_scene_cache_mod_loader_ts_102_20250604.artifact
+│   ├── task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250603.artifact
+│   ├── task_draw_selection_rectangle_overlay_in_the_scene_tileselectionoverlay_ts_12_20250604.artifact
+│   ├── task_expand_20250603.artifact
+│   ├── task_grant_rewards_questprototype_ts_66_20250603.artifact
+│   ├── task_grant_rewards_questprototype_ts_66_20250604.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250603.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_399_20250604.artifact
+│   ├── task_handle_pause_state_e_g_stop_timers_animations_gamescene_ts_468_20250604.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250603.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_404_20250604.artifact
+│   ├── task_handle_resume_state_e_g_restart_timers_animations_gamescene_ts_473_20250604.artifact
+│   ├── task_implement_20250603.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250603.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_primer_gamescene_ts_6_20250604.artifact
+│   ├── task_implement_a_health_bar_ui_above_the_player_sprite_see_protofusiongirl_primer_gamescene_ts_6_20250603.artifact
+│   ├── task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250603.artifact
+│   ├── task_implement_a_json_based_tilemap_see_primer_gamescene_ts_4_20250604.artifact
+│   ├── task_implement_a_json_based_tilemap_see_protofusiongirl_primer_gamescene_ts_4_20250603.artifact
+│   ├── task_implement_a_self_healing_artifact_check_and_repair_script_to_ensure_artifact_code_consistency_20250604.artifact
+│   ├── task_implement_ai_input_logic_aiinput_ts_4_20250603.artifact
+│   ├── task_implement_ai_input_logic_aiinput_ts_4_20250604.artifact
+│   ├── task_implement_ai_jump_aiinput_ts_13_20250603.artifact
+│   ├── task_implement_ai_jump_aiinput_ts_13_20250604.artifact
+│   ├── task_implement_ai_left_right_aiinput_ts_8_20250603.artifact
+│   ├── task_implement_ai_left_right_aiinput_ts_8_20250604.artifact
+│   ├── task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250603.artifact
+│   ├── task_implement_equipment_logic_weapons_armor_inventoryservice_ts_54_20250604.artifact
+│   ├── task_implement_gamepad_jump_gamepadinput_ts_13_20250603.artifact
+│   ├── task_implement_gamepad_jump_gamepadinput_ts_13_20250604.artifact
+│   ├── task_implement_gamepad_left_right_gamepadinput_ts_8_20250603.artifact
+│   ├── task_implement_gamepad_left_right_gamepadinput_ts_8_20250604.artifact
+│   ├── task_implement_gamepad_polling_gamepadinput_ts_4_20250603.artifact
+│   ├── task_implement_gamepad_polling_gamepadinput_ts_4_20250604.artifact
+│   ├── task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250603.artifact
+│   ├── task_implement_item_use_logic_heal_place_etc_inventoryservice_ts_50_20250604.artifact
+│   ├── task_implement_world_loop_seam_spawn_2025-06-04.artifact
+│   ├── task_index.artifact
+│   ├── task_index.json
+│   ├── task_onboarding_20250603.artifact
+│   ├── task_onboarding_document_and_resolve_vs_code_task_runner_node_path_issues_and_ensure_onboarding_scripts_run_reliably_via_both_terminal_and_vs_code_tasks_20250604.artifact
+│   ├── task_optionally_unload_mod_assets_here_startscene_ts_153_20250603.artifact
+│   ├── task_reference_artifacts_and_primer_for_onboarding_and_ui_conventions_startscene_ts_11_20250603.artifact
+│   ├── task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250603.artifact
+│   ├── task_reference_artifacts_tilemap_system_design_artifact_for_tilemap_logic_gamescene_ts_7_20250604.artifact
+│   ├── task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250603.artifact
+│   ├── task_remove_unused_variables_or_use_them_in_future_implementations_gamescene_ts_57_20250604.artifact
+│   ├── task_replace_with_actual_abi_array_modregistryservice_ts_11_20250603.artifact
+│   ├── task_replace_with_actual_abi_array_modregistryservice_ts_11_20250604.artifact
+│   ├── task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250603.artifact
+│   ├── task_replace_with_actual_deployed_contract_address_and_abi_modregistryservice_ts_6_20250604.artifact
+│   ├── task_replace_with_dynamic_loading_from_datapack_gamescene_ts_77_20250604.artifact
+│   ├── task_template.artifact
+│   ├── task_test_codegen_20250604.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250603.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_primer_mod_loader_ts_181_20250604.artifact
+│   ├── task_validate_mod_json_schema_strictly_see_protofusiongirl_primer_mod_loader_ts_181_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_35_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250603.artifact
+│   ├── task_write_jest_test_for_player_movement_see_primer_gamescene_test_ts_44_20250604.artifact
+│   ├── task_write_jest_test_for_player_movement_see_protofusiongirl_primer_gamescene_test_ts_35_20250603.artifact
+│   ├── timestream-branching-and-consequences.task
+│   └── universal-magic-puzzle-integration.task
+├── templates
+│   ├── .dashboard
+│   ├── .datapack
+│   ├── .feedback
+│   ├── .manifest
+│   ├── .primer
+│   └── .priming
 ├── test
-│   └── Lock.js
+│   ├── automation
+│   │   └── SelfHealingEngine.test.ts
+│   ├── characters
+│   │   └── Jane.test.ts
+│   ├── combat
+│   │   └── AttackLoader.test.ts
+│   ├── core
+│   │   └── Jane_LeyLineManager.integration.test.ts
+│   ├── customization
+│   │   ├── Cosmetics.test.ts
+│   │   └── CustomizationEngine.test.ts
+│   ├── leyline
+│   │   ├── LeyLineEvents.integration.test.ts
+│   │   └── LeyLineSystem.test.ts
+│   ├── Lock.js
+│   ├── magneto
+│   │   └── MagnetoSpeeder.test.ts
+│   ├── ModRegistry.js
+│   ├── narrative
+│   │   └── NarrativeEngine.test.ts
+│   ├── ui
+│   │   └── Minimap_LeyLineOverlay.integration.test.ts
+│   ├── unilang
+│   │   └── UniversalLanguageEngine.test.ts
+│   └── world
+│       └── WorldEngine.test.ts
 └── tsconfig.json
 
-30 directories, 128 files
+396 directories, 1919 files

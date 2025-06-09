@@ -1,0 +1,27 @@
+[
+  {
+    "id": "basic_punch",
+    "name": "Punch",
+    "type": "melee",
+    "damage": 5,
+    "range": 60,
+    "cooldown": 0.5
+  },
+  {
+    "id": "slime_bounce",
+    "name": "Slime Bounce",
+    "type": "melee",
+    "damage": 8,
+    "range": 50,
+    "cooldown": 0.7
+  },
+  {
+    "id": "psi_burst",
+    "name": "Psi Burst",
+    "type": "magic",
+    "damage": 15,
+    "range": 100,
+    "cooldown": 1.2,
+    "effect": "stun"
+  }
+]

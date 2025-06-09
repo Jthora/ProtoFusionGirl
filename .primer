@@ -60,6 +60,40 @@ This file is the AI's header and onboarding guide. It defines the project's purp
 - Reference `.datapack` for deep context and creative/technical inspiration.
 - Let Copilot/AI automate, recall, and expand context as much as possible. Human contributors should assist as needed and keep documentation up to date.
 
+# 🚦 Copilot/AI Agent: Full Autonomous Onboarding Flow
+
+**Phase 1: Core Context & Rules**
+1. Read `.primer` for project rules, automation entry points, and best practices.
+2. Read `.priming` for agent-specific context, instructions, and persona rules.
+3. Read `.manifest` for a live index of all artifacts, scripts, and key files.
+4. Read `.dashboard` for project status, open tasks, and onboarding pass/fail.
+5. Read `.feedback` for recent issues, blockers, and resolutions.
+
+**Phase 2: Artifact & Documentation Index**
+6. Read `artifacts/ai_onboarding_*.artifact` for onboarding flow/checklist.
+7. Read `artifacts/artifact_index.artifact` for a manifest of all artifacts.
+8. Read `artifacts/copilot_memory.artifact` for persistent AI memory and heuristics.
+9. Read `artifacts/gameplay_alignment_checklist_*.artifact` for gameplay alignment.
+10. Read `artifacts/upgrade_roadmap_*.artifact` for upgrade priorities.
+11. Read `docs/docs_index_L1.json` and `docs/docs_index_L2.json` for documentation lookup.
+
+**Phase 3: Scripts & Automation**
+12. List all scripts in `scripts/` (see `scripts_index.artifact`).
+13. Run `node scripts/guidedOnboarding.js --auto` for onboarding, validation, and context sync.
+14. Run `node scripts/listScripts.js` to discover automation tools.
+15. Run `node scripts/checkArtifactCodeSync.js` to verify code/artifact linkage.
+
+**Phase 4: Directory & Data**
+16. Read and scan `directory-structure.txt` for current project structure.
+17. Read all `README.md` files in `artifacts/`, `tasks/`, `persona_core/`, `data/`, `docs/`, `scripts/`.
+18. Review all `.task` files in `tasks/` for open/completed tasks.
+
+**Phase 5: Validation & Test**
+19. Run all tests using the `Run All Tests` VS Code task or `npx jest`.
+20. If onboarding or validation fails, escalate via a feedback artifact in `tasks/`.
+
+**Always:** Rerun onboarding after any major change, and keep all context, memory, and cross-links up to date.
+
 ---
 
 For deep context, see `.datapack`. For persistent memory, see artifacts/. For full onboarding and automation details, see `artifacts/instructions.md`.

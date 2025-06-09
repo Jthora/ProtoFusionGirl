@@ -1,0 +1,16 @@
+[
+  {
+    "id": "psi_burst",
+    "name": "Psi Burst",
+    "description": "A powerful psionic attack that stuns enemies.",
+    "effects": ["stun", "damage"],
+    "requirements": ["Jane:level>=2"]
+  },
+  {
+    "id": "telekinetic_push",
+    "name": "Telekinetic Push",
+    "description": "Pushes enemies away with a burst of force.",
+    "effects": ["knockback"],
+    "requirements": ["Jane:level>=1"]
+  }
+]

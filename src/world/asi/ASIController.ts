@@ -5,6 +5,7 @@
 import { EventBus } from '../../core/EventBus';
 import { ModularGameLoop, GameLoopSystem } from '../../core/ModularGameLoop';
 import { Jane } from '../../core/Jane';
+import { ulEventBus } from '../../ul/ulEventBus';
 
 export interface ASIControllerConfig {
   eventBus: EventBus;
@@ -33,6 +34,21 @@ export class ASIController {
     this.eventBus.on('JANE_ASI_OVERRIDE', (event: any) => {
       // React to Jane's consent for ASI control
       // event.data.enabled: true/false
+    });
+    // Listen for UL puzzle completion/validation events
+    ulEventBus.on('ul:puzzle:completed', (payload) => {
+      // Example: adapt ASI strategy, provide feedback, or trigger narrative
+      if (payload && payload.id) {
+        // TODO: Map puzzle IDs to ASI/AI behaviors or narrative triggers
+        console.log(`[UL] ASIController: Puzzle completed: ${payload.id}`);
+        // Example: this.adaptStrategyForULPuzzle(payload.id);
+      }
+    });
+    ulEventBus.on('ul:puzzle:validated', (payload) => {
+      if (payload && payload.result === false && payload.errors) {
+        // Optionally: provide hints, adapt difficulty, or trigger ASI intervention
+        console.log(`[UL] ASIController: Puzzle validation failed: ${payload.id} - ${payload.errors.join(', ')}`);
+      }
     });
   }
 

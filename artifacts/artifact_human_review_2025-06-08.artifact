@@ -1,0 +1,34 @@
+---
+artifact: artifact_human_review_2025-06-08
+created: 2025-06-08
+purpose: Protocol for human review and sign-off on critical artifacts (governance, security, upgrades).
+type: protocol
+format: markdown
+tags: [artifact, human-review, governance, security, onboarding]
+related: [artifact_codified_conventions_2025-06-08.artifact, community_modding_governance_2025-06-06.artifact]
+---
+
+# Human Review & Sign-Off Protocol
+
+## Purpose
+Define when and how human review is required for critical artifacts, ensuring safety and consensus in governance, security, and upgrade decisions.
+
+## Protocol
+- **When Required:**
+  - Governance changes (DAO, voting, mod approval rules)
+  - Smart contract upgrades or deployments
+  - Security-sensitive automation or validation scripts
+- **Process:**
+  - Assign a human reviewer (project maintainer or domain expert)
+  - Reviewer must read, comment, and sign off in the artifact header or related feedback artifact
+  - Document decision and rationale in the artifact
+- **Escalation:**
+  - If consensus is not reached, escalate via feedback artifact and notify maintainers
+
+## Next Steps
+- Reference this protocol in all governance, contract, and security artifacts.
+- Update as project needs evolve.
+
+---
+
+(End of artifact)

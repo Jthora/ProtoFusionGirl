@@ -1,0 +1,42 @@
+---
+artifact: community_modding_governance_2025-06-06
+created: 2025-06-06
+purpose: Plan for community-driven modding, DAO governance, and NFT-based content sharing.
+type: design
+format: markdown
+---
+
+# Community Modding & Governance
+
+## Features
+- In-game and external modding tools
+- DAO-style proposal and voting system
+- NFT-based content sharing and rewards
+
+## Contribution Guidelines
+- How to submit a mod: Fork, PR, or in-game editor
+- Proposal format for governance: Title, summary, rationale, voting options
+- NFT content requirements: Metadata, licensing, rewards
+
+## Roadmap
+- Modding API and editor
+- Governance system prototype
+- NFT/content sharing integration
+- Community onboarding
+
+## Acceptance Criteria
+- [ ] Modding API is documented and accessible
+- [ ] Governance proposals can be submitted and voted on
+- [ ] NFT content can be created, shared, and rewarded
+
+## Example Task
+- "Submit a new ley line network mod via the in-game editor and propose it for community vote."
+
+## Required Tests
+- Integration tests for mod loading
+- Governance/voting logic tests
+- NFT minting and sharing tests
+
+## Related Artifacts
+- ley_line_system_design_2025-06-06.artifact
+- onboarding_narrative_flow_2025-06-06.artifact

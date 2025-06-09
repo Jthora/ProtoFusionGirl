@@ -1,0 +1,27 @@
+---
+artifact: artifact_index_quickref_2025-06-08
+created: 2025-06-08
+purpose: Quick reference index for key artifact-driven development and automation artifacts created on 2025-06-08.
+type: index
+format: markdown
+tags: [artifact, index, quickref, onboarding, automation]
+related: [artifact_index.artifact, copilot_memory.artifact]
+---
+
+# Quick Reference: Key Artifact Index (2025-06-08)
+
+| Artifact Filename                                 | Purpose/Description                                                      |
+|---------------------------------------------------|--------------------------------------------------------------------------|
+| artifact_codified_conventions_2025-06-08.artifact | Conventions & escalation paths for artifact-driven development           |
+| artifact_granularity_guidelines_2025-06-08.artifact| Guidelines for breaking down artifacts for Copilot/AI workflows          |
+| artifact_health_check_2025-06-08.artifact          | Automated health check & maintenance plan for all artifacts              |
+| artifact_human_review_2025-06-08.artifact          | Protocol for human review & sign-off on critical artifacts               |
+| artifact_testing_validation_2025-06-08.artifact    | Testing & validation strategy for schemas, contracts, and automation     |
+| phaser_chunk_loader_design_2025-06-08.artifact     | Design for chunk-based loading in Phaser for large modded worlds         |
+| mod_schema_validation_2025-06-08.artifact          | Modular JSON schema definitions & validation workflow for all mod types  |
+
+---
+
+For details, see each artifact in the `artifacts/` directory. This index is intended for fast onboarding and navigation.
+
+(End of artifact)

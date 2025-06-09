@@ -3,6 +3,9 @@
 // Provides modular, context-aware overlays and panels for both ASI (player) and Jane (avatar).
 // Supports feedback overlays, context-sensitive notifications, and pluggable UI extensions.
 
+import { EventBus } from '../core/EventBus';
+import { GameEvent } from '../core/EventTypes';
+
 export interface OverlayConfig {
   id: string;
   role: 'ASI' | 'Jane';
@@ -69,4 +72,24 @@ export class AgentOptimizedUI {
 
   // Extension point: allow mods to add new overlay types, feedback, etc.
   // ...
+
+  /**
+   * Attach the unified EventBus and listen for overlay/notification events.
+   * This should be called once after instantiation.
+   */
+  attachEventBus(eventBus: EventBus) {
+    eventBus.on('OVERLAY_SHOW', (event: GameEvent<'OVERLAY_SHOW'>) => {
+      this.showOverlay(event.data);
+    });
+    eventBus.on('OVERLAY_HIDE', (event: GameEvent<'OVERLAY_HIDE'>) => {
+      this.hideOverlay(event.data.id);
+    });
+    eventBus.on('NOTIFICATION_SHOW', (event: GameEvent<'NOTIFICATION_SHOW'>) => {
+      this.showNotification(event.data.role, event.data.message, event.data.context);
+    });
+  }
+
+  // TODO: Add context-aware overlays for different game states (combat, exploration, narrative, etc.).
+  // TODO: Implement feedback overlays for player/ASI actions and system events.
+  // TODO: Expose plugin/modding API for custom overlays and notifications.
 }

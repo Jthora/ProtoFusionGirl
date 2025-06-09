@@ -5,6 +5,10 @@
       "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/README.md"
     },
     {
+      "file": "cosmetics.json",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/cosmetics.json"
+    },
+    {
       "file": "mk3CosmicCypher.json",
       "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/mk3CosmicCypher.json"
     },
@@ -15,8 +19,12 @@
     {
       "file": "self_prompt_queue.json",
       "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/self_prompt_queue.json"
+    },
+    {
+      "file": "ul",
+      "path": "/Users/jono/Documents/GitHub/ProtoFusionGirl/data/ul"
     }
   ],
   "datapack": [],
-  "updated": "2025-06-06T02:35:31.441Z"
+  "updated": "2025-06-09T04:28:45.479Z"
 }

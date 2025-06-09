@@ -1,0 +1,28 @@
+# Event Contract Artifact
+
+## Purpose
+Defines all major events, their payloads, and which modules emit/listen to them.
+
+## Event List (Examples)
+- `JANE_LEVEL_UP` { level: number }
+- `CHARACTER_MOVED` { id: string, x: number, y: number }
+- `COMBAT_STARTED` { participants: string[] }
+- `NARRATIVE_TRIGGER` { eventId: string }
+- `ITEM_COLLECTED` { itemId: string, ownerId: string }
+- `FACTION_REPUTATION_CHANGED` { factionId: string, value: number }
+
+## Event Flow Examples
+- Jane levels up → emits `JANE_LEVEL_UP` → UI updates, Narrative checks for story triggers
+- Combat starts → emits `COMBAT_STARTED` → Combat system and UI respond
+
+## Emitter/Listener Table
+| Event Name                | Emitter(s)      | Listener(s)         |
+|--------------------------|-----------------|---------------------|
+| JANE_LEVEL_UP            | Jane            | UI, Narrative       |
+| CHARACTER_MOVED          | Characters      | World, UI           |
+| COMBAT_STARTED           | CombatSystem    | UI, Narrative       |
+| NARRATIVE_TRIGGER        | NarrativeEngine | Characters, UI      |
+| ITEM_COLLECTED           | Inventory       | UI, Achievements    |
+| FACTION_REPUTATION_CHANGED | FactionSystem | UI, Narrative       |
+
+---

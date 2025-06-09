@@ -73,4 +73,8 @@ export class LoreTerminal {
     this.sprite.destroy();
     if (this.promptText) this.promptText.destroy();
   }
+
+  // TODO: Add support for dynamic lore sources (e.g., from datapack, mods, or online updates).
+  // TODO: Implement search/filter for lore entries and player bookmarking.
+  // TODO: Add accessibility features (e.g., text-to-speech, font scaling).
 }

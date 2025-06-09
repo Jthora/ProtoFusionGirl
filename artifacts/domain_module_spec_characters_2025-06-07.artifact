@@ -1,0 +1,24 @@
+# Domain Module Specification: Characters
+
+## Responsibilities
+- Manage all character logic (Jane, Companions, Enemies)
+- Handle stats, skills, AI, inventory, and customization
+
+## Public APIs/Interfaces
+- Character base interface (ICharacter)
+- Methods: move, act, interact, emit events
+- Inventory and skill tree APIs
+
+## Event Contracts
+- Emits: `CHARACTER_MOVED`, `CHARACTER_DAMAGED`, `CHARACTER_LEVEL_UP`, etc.
+- Listens: `NARRATIVE_TRIGGER`, `COMBAT_START`, etc.
+
+## Data Sources
+- Loads stats, skills, cosmetics from JSON
+- Integrates with data/characters.json, data/skills.json, data/cosmetics.json
+
+## Integration Points
+- Combat system, narrative system, world state, UI
+
+---
+# (Repeat for other domains: Combat, Narrative, World, Customization, UI)

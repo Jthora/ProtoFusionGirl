@@ -1,0 +1,50 @@
+---
+artifact: copilot_leyline_unification_plan_2025-06-07
+created: 2025-06-07
+purpose: Anchor and guide the unification and refactor of the ley line system to eliminate redundancy and ensure a single, robust source of truth for all ley line logic.
+type: plan
+tags: [leyline, refactor, unification, world, navigation, copilot, roadmap]
+related: [src/world/leyline/LeyLineManager.ts, src/leyLines.ts, src/world/WorldStateManager.ts, src/world/leyline/LeyLineSystem.ts, artifacts/copilot_anchor_leyline_system_2025-06-06.artifact]
+---
+
+# Ley Line System Unification & Refactor Plan
+
+## Objective
+Unify all ley line data models, management, and logic into a single, canonical system to eliminate redundancy, reduce bugs, and streamline future development.
+
+## Steps
+
+1. **Data Model Unification**
+   - Adopt the `LeyLine` and `LeyLineNode` interfaces from `WorldStateManager.ts` as the canonical model.
+   - Refactor all modules to use this model. Migrate or remove alternate definitions.
+
+2. **Network Management Consolidation**
+   - Merge `LeyLineManager` and `LeyLineNetwork` into a single manager/service.
+   - Ensure this manager handles all ley line queries, updates, procedural generation, and visualization hooks.
+
+3. **Centralize Activation & Event Logic**
+   - Move all ley line activation and event publishing logic into the unified manager.
+   - Ensure all event hooks and activation logic are handled in one place.
+
+4. **Single Source for Pathfinding & Traversal**
+   - Implement ley line-aware pathfinding in the unified manager.
+   - Remove duplicate or stub pathfinding logic elsewhere.
+
+5. **Update All References**
+   - Refactor all code (Jane, MagnetoSpeeder, WorldTraversalSystem, etc.) to use the unified manager and data model.
+   - Update tests and documentation.
+
+6. **Remove Redundant Files/Code**
+   - Delete or archive obsolete files and interfaces after migration.
+
+## Definition of Done
+- Only one set of ley line/node interfaces exists.
+- Only one manager/service handles all ley line logic.
+- All activation, event, and pathfinding logic is centralized.
+- All references in the codebase use the unified system.
+- All tests pass and documentation is up to date.
+
+---
+
+# Use
+Reference this artifact in all PRs, code comments, and documentation related to ley line system unification and refactor. Update as the system evolves.

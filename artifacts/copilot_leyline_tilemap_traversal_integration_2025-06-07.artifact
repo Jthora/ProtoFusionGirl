@@ -1,0 +1,158 @@
+---
+artifact: copilot_leyline_tilemap_traversal_integration_2025-06-07
+created: 2025-06-07
+purpose: Guide and document the integration of the advanced ley line system with world travel and tilemap data in ProtoFusionGirl.
+type: integration-plan
+status: active
+related: [copilot_leyline_system_advanced_development_2025-06-07.artifact, src/world/leyline/, src/world/WorldTraversalSystem.ts, src/world/tilemap/, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md, artifacts/gameplay_alignment_checklist_2025-06-05.artifact]
+tags: [leyline, tilemap, traversal, integration, pathfinding, procedural, worldgen, copilot, lore, gameplay]
+
+# Ley Line, World Travel, and Tilemap Integration Plan
+
+## Objective
+Unify the ley line system with the world travel and tilemap subsystems to enable emergent, strategic traversal, robust pathfinding, and dynamic world interactions in ProtoFusionGirl. Ensure all ley line features reinforce the world’s lore, narrative, and player agency.
+
+## Lore & Narrative Integration
+- Ley lines are ancient, world-shaping forces in ProtoFusionGirl, tied to Jane’s powers and the world’s history (see docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md).
+- All ley line features should reinforce the sense of mystery, power, and strategic opportunity described in the lore.
+- Ley line events and traversal should be able to trigger or respond to major story beats, unlock new areas, or change the world state.
+
+## Integration Principles
+- **Tilemap Awareness:** Ley line procedural generation and pathfinding must respect tilemap constraints (walkability, obstacles, biomes).
+- **Traversal Synergy:** World traversal logic should leverage ley lines for fast travel, energy management, and special abilities.
+- **Event Interoperability:** Ley line events can trigger or respond to tile/world events (e.g., surges opening new paths, disruptions blocking routes).
+- **Single Source of Truth:** All ley line and tilemap data should be synchronized and accessible via canonical managers.
+- **Testability:** All integration points must be covered by unit/integration tests.
+- **Edge Case Handling:** Integration must account for impassable terrain, dynamic world changes, and hybrid/fallback routing.
+- **Ownership & Milestones:** Each step should have a responsible party and suggested milestone.
+- **Emergent Gameplay & Player Agency:** The system must support player and AI manipulation of ley lines, enabling emergent puzzles, traversal, and world events.
+- **UI/UX & Player Feedback:** Ley line state and events must be visualized in the UI, with clear feedback for both narrative and strategic play. Provide overlays, minimap cues, and in-world effects for ley line changes.
+- **Playtesting & Iteration:** After each major integration milestone, conduct playtests to ensure ley line mechanics are fun, understandable, and narratively aligned. Use feedback to iterate on both technical and narrative aspects.
+- **Gameplay Alignment:** All ley line features must be checked against the gameplay alignment checklist and referenced artifacts to ensure consistency with the intended experience.
+
+## Data Flow & Example Interfaces
+- **LeyLineProceduralGen** should accept a tilemap or walkability callback:
+  ```ts
+  generateNetwork(nodeCount: number, tileIsWalkable: (x: number, y: number) => boolean): LeyLineNetwork
+  ```
+- **LeyLinePathfinder** should expose hybrid pathfinding:
+  ```ts
+  findHybridPath(start: Vector2, end: Vector2, tileIsWalkable: (x: number, y: number) => boolean): PathResult
+  ```
+- **Event Payload Example:**
+  ```json
+  { "type": "LEYLINE_SURGE", "affectedTiles": [{"x":10,"y":12}], "effect": "unlock", "lore": "The lost city awakens as the ley surge passes." }
+  ```
+
+## Data Flow Diagram
+- Tilemap → LeyLineProceduralGen (for node placement)
+- LeyLineManager ↔ WorldTraversalSystem (for route planning, energy, events)
+- LeyLineEvents ↔ WorldEvents (for bidirectional event propagation)
+
+## Key Integration Points
+1. **Procedural Generation Alignment**
+   - Snap ley line nodes to valid, walkable tiles during generation.
+   - Avoid impassable terrain and respect world biomes/features.
+   - Optionally, bias ley lines toward points of interest (shrines, rifts, etc.).
+2. **Pathfinding Enhancement**
+   - Combine ley line graph traversal with tile-based pathfinding (A*, Dijkstra).
+   - Allow hybrid routes: ley line fast travel + tile-based movement.
+3. **Traversal System Integration**
+   - `WorldTraversalSystem.ts` should query `LeyLineManager` for optimal routes, ley line strength, and event triggers.
+   - Movement, energy, and abilities should be affected by ley line presence/strength at a tile.
+4. **Event & State Sync**
+   - Ley line events (surges, disruptions) can modify tilemap state (unlock/lock tiles, change hazards).
+   - Tile/world events can trigger ley line changes (e.g., environmental shifts).
+   - Event payloads should follow a documented schema (see above).
+5. **Visualization**
+   - Overlay ley lines on the tilemap in the UI for player strategy and debugging.
+   - Provide debug overlays/tools for developers.
+6. **Migration & Backward Compatibility**
+   - Plan for migration of legacy ley line/tile data and deprecation of old code.
+
+## Implementation Steps & Milestones
+1. **Extend LeyLineProceduralGen** to accept tilemap data and snap nodes to valid tiles. *(Owner: World/Procedural Team, Milestone: v0.1)*
+2. **Update LeyLinePathfinder** to combine ley line and tile-based pathfinding. *(Owner: Pathfinding Team, Milestone: v0.2)*
+3. **Refactor WorldTraversalSystem** to use ley line APIs for route planning and movement effects. *(Owner: Traversal Team, Milestone: v0.3)*
+4. **Add event hooks** between ley line and tile/world event systems. *(Owner: Events Team, Milestone: v0.4)*
+5. **Expand tests** to cover edge cases (impassable terrain, dynamic events, hybrid routes). *(Owner: QA/Testing, Milestone: v0.5)*
+6. **Update documentation** to reflect new integration points and APIs. *(Owner: Docs/Onboarding, Milestone: v0.6)*
+7. **Legacy Migration**: Migrate or deprecate legacy ley line/tile code. *(Owner: Migration Lead, Milestone: v1.0)*
+8. **Playtesting & Narrative Review:** Conduct playtests and narrative review after each milestone. *(Owner: Design/Narrative, Milestone: each major version)*
+
+## Test Strategy
+- **Unit Tests:** For all new/modified functions (e.g., node placement, hybrid pathfinding).
+- **Integration Tests:** For traversal across ley lines and tiles, event propagation, and edge cases.
+- **Test Scenarios:**
+  - Ley line node placement on impassable tiles (should fail or reroute).
+  - Hybrid pathfinding across ley lines and normal tiles.
+  - Dynamic event propagation (e.g., surge unlocks a tile, tile event disrupts ley line).
+  - Narrative event triggers (e.g., ley line surge unlocks a lost city, triggers a quest).
+- **Coverage Goal:** 90%+ for all integration code.
+
+## Edge Cases & Fallbacks
+- If no valid ley line node placement is possible, fallback to nearest valid tile.
+- If ley line or tilemap data is missing, disable ley line traversal and log a warning.
+- If a tile becomes impassable after ley line placement, reroute or deactivate affected ley line nodes/edges.
+- If a ley line event triggers a major story beat, ensure narrative and gameplay are synchronized.
+
+## Contributor Guidance & Artifact Update Process
+- New contributors should review this artifact, related artifacts, and onboarding docs before starting work.
+- Update this artifact as integration evolves (review every milestone or major PR).
+- Use the provided interface examples and schemas for all new code.
+- Always check new ley line features against the gameplay alignment checklist and lore documents.
+
+## Definition of Done
+- Ley line nodes/edges are always valid with respect to the tilemap.
+- Traversal and pathfinding leverage both ley lines and tile data.
+- Events propagate between ley lines and world/tile systems, following documented schemas.
+- All integration points are tested (unit/integration) and documented.
+- Legacy code is migrated or deprecated.
+- All code and docs reference this artifact, the advanced ley line system artifact, and the gameplay/lore documents.
+
+---
+
+# Integration TODOs (as of 2025-06-07)
+
+## ✅ Completed
+- [x] Audit and migrate all legacy ley line/tile code to `src/legacy/`.
+- [x] Modularize ley line system: pathfinding, procedural, events, visualization.
+- [x] Refactor `LeyLineProceduralGen` to use tile walkability callback.
+- [x] Implement hybrid ley line + tile pathfinding in `LeyLinePathfinder`.
+- [x] Add canonical `isTileWalkable(x, y)` to `TilemapManager`.
+- [x] Refactor `WorldTraversalSystem` for hybrid pathfinding and movement.
+- [x] Expose public hybrid pathfinding API in `LeyLineManager`.
+- [x] Add and pass integration tests for Jane, MagnetoSpeeder, LeyLineManager.
+- [x] Add event hooks between ley line and world/tile event systems (`LeyLineEvents`).
+- [x] Implement bidirectional event propagation and narrative payloads.
+- [x] Add and pass integration tests for event propagation and narrative triggers.
+- [x] Integrate ley line visualization overlays and event-driven feedback in `GameScene`.
+
+## 🟡 In Progress / Next
+- [ ] Expand visualization:
+    - [ ] Add minimap ley line overlays.
+    - [ ] Add advanced overlays for ley line surges/disruptions (animated, color-coded).
+    - [ ] Add developer debug tools (toggle overlays, inspect node/edge state, event logs).
+    - [ ] Enhance player feedback (contextual popups, lore snippets, event-driven UI cues).
+- [ ] Expand unit/integration tests:
+    - [ ] Edge cases for ley line node placement (impassable, reroute, fallback).
+    - [ ] Hybrid traversal (ley line + tile, fallback, error handling).
+    - [ ] Visualization triggers (event overlays, UI updates, minimap sync).
+    - [ ] Narrative event triggers (major story beats, quest unlocks, world state changes).
+- [ ] Update onboarding and documentation:
+    - [ ] Add/expand onboarding docs for new ley line/tile APIs and event system.
+    - [ ] Add code comments and usage examples for all new/changed modules.
+    - [ ] Ensure all artifact references are up to date in code and docs.
+- [ ] Complete legacy migration:
+    - [ ] Final sweep for any remaining legacy ley line/tile code.
+    - [ ] Remove or archive deprecated files, update references.
+- [ ] Playtesting & narrative review:
+    - [ ] Conduct playtests after each milestone (focus: fun, clarity, lore alignment).
+    - [ ] Gather feedback from narrative/design team and iterate on integration.
+
+## 📝 Notes
+- All code and docs reference this artifact and the advanced ley line system artifact.
+- All event payloads and integration points follow the documented schema and narrative/lore requirements.
+- Contributors should review this TODO list and update status after each PR or milestone.
+
+---

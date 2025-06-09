@@ -1,0 +1,14 @@
+# Modding & Extension Audit Plan (2025-06-07)
+
+## Scope
+- All files in src/mods/ and extension APIs
+
+## Checklist
+- [ ] Audit for references to old APIs/event types
+- [ ] Ensure compatibility with new event/state contracts
+
+## Findings
+- (To be filled during audit)
+
+## Required Refactors
+- (To be filled during audit)

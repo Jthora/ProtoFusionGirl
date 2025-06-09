@@ -1,0 +1,36 @@
+---
+artifact: mod_schema_validation_2025-06-08
+created: 2025-06-08
+purpose: Modular JSON schema definitions and validation strategy for all mod types (tilemaps, units, scripts).
+type: schema
+format: markdown
+tags: [modding, schema, validation, artifact, onboarding]
+related: [docs/modding.md, scripts/, data/]
+---
+
+# Mod Schema & Validation Artifact
+
+## Purpose
+Define and maintain JSON schemas for all mod types and provide a validation workflow for mod submissions.
+
+## Schemas
+- **Tilemap Mod:**
+  - Required fields: `name`, `author`, `version`, `tilemapData`, `ipfsHash`
+- **Unit Mod:**
+  - Required fields: `name`, `author`, `version`, `unitStats`, `sprite`, `ipfsHash`
+- **Script Mod:**
+  - Required fields: `name`, `author`, `version`, `scriptCode`, `ipfsHash`
+
+## Validation Workflow
+- Use validation scripts in `scripts/` to check mod JSON against schemas.
+- Integrate validation into mod submission UI and onboarding scripts.
+- Output validation results to `artifacts/` for traceability.
+
+## Next Steps
+- Create/expand validation scripts for each mod type.
+- Add test cases and example mods in `data/`.
+- Update this artifact as schemas evolve.
+
+---
+
+(End of artifact)

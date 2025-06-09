@@ -1,0 +1,32 @@
+# ProtoFusionGirl: Refactor Anchor Artifacts
+
+This artifact anchors the critical refactor of the world, ley line, and event systems. It lists the essential artifacts, their roles, and navigation tips for onboarding, deduplication, and architectural clarity.
+
+## Essential Artifacts for Refactor (with Summaries)
+
+- **ONBOARDING.md**: Entry point for onboarding, directory structure, and agent/human quick start. _How to get started and where to look._
+- **.primer**: Project philosophy, conventions, and best practices. _Why we do things this way._
+- **.manifest**: Machine-readable index of all key files, artifacts, and scripts. _Find any file or artifact instantly._
+- **.priming**: Agent-specific context and rules. _How agents should behave and automate._
+- **artifacts/architecture_blueprint_2025-06-07.artifact**: Latest architectural blueprint and integration map. _System structure, boundaries, and integration points. See also: `artifact_graph.dot` for a visual map._
+- **artifacts/copilot_leyline_unification_plan_2025-06-06.artifact**: Step-by-step ley line/world/event system unification plan. _Migration and deduplication checklist._
+- **artifacts/upgrade_roadmap_2025-06-05.artifact**: Prioritized upgrade plan and dependencies. _What to do next and in what order._
+- **.dashboard**: Project status, open tasks, and blockers. _Live status and what needs attention._
+- **Test files**: For validation after each refactor step. _See `test/`, `src/**/__tests__`, and use VS Code tasks: `Run All Tests` or `Run Single Jest Test`._
+- **docs/docs_index_L1.json & docs_index_L2.json**: Documentation lookup and navigation. _Fast doc search and deep context._
+
+## Usage
+Reference these artifacts before and during each major change. Update as needed to reflect new integration points, deduplication, or onboarding requirements.
+
+- **Update Guidance:**
+  - Update this artifact and referenced artifacts after each major refactor or onboarding change.
+  - Ownership: The lead developer or AI agent responsible for the refactor should ensure artifacts are current.
+  - For PRs, reference the relevant artifact(s) in your description.
+
+## Visual Integration Map
+- See `artifacts/architecture_blueprint_2025-06-07.artifact` and `artifact_graph.dot` for a visual system map.
+- For a quick overview, open `artifact_graph.dot` in a Mermaid/Graphviz viewer.
+
+---
+
+For questions, see `.dashboard` or contact the current project lead. All contributors and agents must keep these artifacts up to date for smooth onboarding and architectural clarity.

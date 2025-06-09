@@ -1,0 +1,56 @@
+---
+artifact: todo_triage_2025-06-08.artifact
+created: 2025-06-08
+last_updated: 2025-06-08
+owner: GitHub Copilot
+status: draft
+related_artifacts:
+  - copilot_prioritized_work_2025-06-08.artifact
+
+# TODO Triage Log (2025-06-08)
+
+## Overview
+This artifact tracks all surfaced TODOs in the codebase as of 2025-06-08, their locations, and initial triage status. Each TODO is categorized as actionable, needs clarification, or candidate for removal. This enables systematic codebase hygiene and traceability.
+
+## Triage Categories
+- **[A] Actionable:** Clear, implementable, and relevant.
+- **[C] Clarify:** Needs more detail or context before action.
+- **[R] Remove:** Obsolete, redundant, or no longer relevant.
+
+## TODOs (Sample Extract)
+
+| File/Module                                 | Line | TODO Excerpt                                                                                  | Category | Notes/Next Steps                  |
+|---------------------------------------------|------|----------------------------------------------------------------------------------------------|----------|-----------------------------------|
+| src/core/SkillTree.ts                       | 7    | Add logic for skill unlocks, prerequisites, and integration with Jane's stats and abilities. | [A]      | Link to skill system artifact     |
+| src/core/SkillTree.ts                       | 8    | Load/save skill tree state from persistent storage or player profile.                        | [A]      |                                   |
+| src/core/SkillTree.ts                       | 9    | Expose modding hooks for custom skills and branches.                                         | [A]      |                                   |
+| src/core/UniversalMagic.ts                  | 22   | Implement parsing logic                                                                      | [A]      |                                   |
+| src/core/UniversalMagic.ts                  | 30   | Implement spell effect logic                                                                 | [A]      |                                   |
+| src/core/UniversalMagic.ts                  | 34   | Load universal symbols and spell recipes from external data/assets for modding and extensibility. | [A] |                                   |
+| src/core/UniversalMagic.ts                  | 35   | Add validation and error handling for invalid symbol sequences.                              | [A]      |                                   |
+| src/core/UniversalMagic.ts                  | 36   | Integrate with player abilities, UI, and event system for spell casting feedback.            | [A]      |                                   |
+| src/ui/components/HealthBar.ts              | 58   | Add animation for health bar changes (e.g., smooth transitions, color flashes on damage/heal). | [A]   |                                   |
+| src/ui/components/HealthBar.ts              | 59   | Integrate with event system for automatic updates on player/enemy health changes.            | [A]      |                                   |
+| src/ui/components/HealthBar.ts              | 60   | Support custom styles and mod/plugin extensions for health bar appearance.                   | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 104  | Implement mission state progression, timers, or triggers as needed                           | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 110  | Integrate with global event bus for mission triggers and completion events.                  | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 111  | Add support for mission prerequisites and branching objectives.                              | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 112  | Expose modding hooks for custom mission types and rewards.                                   | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 113  | Add support for mission progress notifications and UI integration.                           | [A]      |                                   |
+| src/world/missions/MissionManager.ts        | 114  | Implement multiplayer mission sync and co-op objectives.                                     | [C]      | Needs multiplayer design context  |
+| src/world/missions/MissionManager.ts        | 115  | Add analytics hooks for mission completion and player choices.                               | [A]      |                                   |
+| src/world/RealityWarpSystem.ts              | 45   | Implement rollback and branching logic for alternate realities.                              | [A]      |                                   |
+| src/ui/components/MultiverseExplorerPanel.ts| 82   | Add interactive branch selection and merge/diff tools.                                       | [A]      |                                   |
+| src/ui/components/RepairMigrationWizard.ts  | 56   | Implement actual repair logic for corrupted or outdated save data.                           | [A]      |                                   |
+| src/ui/components/LoreTerminal.ts           | 77   | Add support for dynamic lore sources (e.g., from datapack, mods, or online updates).         | [A]      |                                   |
+| src/ui/AgentOptimizedUI.ts                  | 92   | Add context-aware overlays for different game states (combat, exploration, narrative, etc.). | [A]      |                                   |
+| src/world/tilemap/TilemapManager.ts         | 505  | Add support for tilemap streaming and chunk-based loading for large worlds.                  | [A]      |                                   |
+| src/ui/UXManager.ts                         | 8    | Display ley line navigation overlays                                                         | [A]      |                                   |
+
+## Next Steps
+- [ ] Review all TODOs for accuracy and relevance.
+- [ ] Link actionable TODOs to tasks or artifacts.
+- [ ] Remove or resolve obsolete TODOs.
+- [ ] Update this artifact after each triage session.
+
+---

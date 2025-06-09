@@ -1,0 +1,26 @@
+# Ley Line Instability Event Test Plan
+
+## Unit Tests
+- Event generation in `CosmicEnvSimulation` (simulateTick triggers instability)
+- State mutation and persistence in `WorldStateManager`
+- Event emission and propagation in `MultiverseEventEngine`
+- Event handling in `LeyLineSystem` (activation, stabilization, escalation)
+- UI feedback and overlay updates in `UIManager` and `Minimap`
+- Pathfinding adaptation in `LeyLinePathfinder`
+
+## Integration Tests
+- End-to-end: Simulate instability, propagate through event system, verify world state and UI
+- Branch/timeline divergence: Instability in one branch does not affect others
+- Mission/narrative triggers: Instability event triggers mission objectives or narrative hooks
+
+## Edge Cases
+- Simultaneous instability events on adjacent ley lines
+- Rapid escalation/resolution cycles
+- Player attempts to stabilize during surge/disruption
+- Timeline merge/rollback with conflicting instability states
+
+## Manual Playtest Checklist
+- Instability events are visible and understandable to the player
+- UI overlays and minimap update correctly
+- Player can interact with unstable ley lines (stabilize, escalate, exploit)
+- Narrative and mission integration is clear and functional

@@ -1,0 +1,24 @@
+# Universal Language (UL) Validation & Test Matrix
+
+## Purpose
+Defines validation rules and test coverage requirements for the UL system, ensuring robustness and mod compatibility.
+
+## Validation Matrix
+| Area         | Rule/Check                        | Automated? | Notes                |
+|--------------|-----------------------------------|------------|----------------------|
+| Schema       | JSON schema validation            | Yes        | All resources        |
+| Scripts      | Sandboxed static analysis         | Yes        | No unsafe eval       |
+| Events       | Event payload structure           | Yes        | See event spec       |
+| UI           | Modal accessibility, feedback     | Partial    | Manual + automated   |
+| Modding      | Resource/ID uniqueness            | Yes        | Namespaces required  |
+| Integration  | Event bus hooks, context sync     | Yes        | Test with mods       |
+
+## Test Coverage
+- All core UL engine logic (unit tests)
+- Resource loader (with modded data)
+- Event system (dispatch/listen)
+- UI/UX (modal, feedback)
+- Mod extension points
+
+## References
+- See `ul_resource_schema_2025-06-06.artifact` and `ul_event_spec_2025-06-06.artifact`.

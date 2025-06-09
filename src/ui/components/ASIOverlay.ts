@@ -3,6 +3,7 @@
 // Reference: artifacts/agent_optimized_ui_ux_2025-06-05.artifact
 
 import Phaser from 'phaser';
+import { EventBus } from '../../core/EventBus';
 
 export interface ASIOverlayConfig {
   scene: Phaser.Scene;
@@ -18,11 +19,17 @@ export class ASIOverlay {
   private consentButton: Phaser.GameObjects.Text | null = null;
   private asiControlled: boolean = false;
   private onConsentCallback: (() => void) | null = null;
+  private eventBus: EventBus;
 
-  constructor(config: ASIOverlayConfig) {
+  constructor(config: ASIOverlayConfig & { eventBus: EventBus }) {
     this.scene = config.scene;
+    this.eventBus = config.eventBus;
     this.container = this.scene.add.container(0, 0).setDepth(2000);
     this.createBasePanels(config.width, config.height);
+    // Subscribe to ASI/Jane state changes
+    this.eventBus.on('JANE_ASI_OVERRIDE', (event: any) => {
+      this.setASIState(event.data.enabled);
+    });
   }
 
   // Suppress unused variable warnings
@@ -36,7 +43,8 @@ export class ASIOverlay {
       .setOrigin(0.5, 0)
       .setInteractive({ useHandCursor: true })
       .on('pointerdown', () => {
-        if (this.onConsentCallback) this.onConsentCallback();
+        // Emit event for ASI consent/override
+        this.eventBus.emit({ type: 'JANE_ASI_OVERRIDE', data: { enabled: !this.asiControlled } } as any);
       });
     this.container.add([bg, label, this.stateText, this.consentButton]);
     this.panels['asiActions'] = bg;

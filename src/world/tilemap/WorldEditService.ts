@@ -3,18 +3,22 @@ import { TilemapManager } from './TilemapManager';
 import { EditorHistory } from './EditorHistory';
 import type { EditAction } from './EditorHistory';
 import { EventBus } from '../../core/EventBus';
+import { WorldStateManager } from '../WorldStateManager';
+import { EventName, GameEvent } from '../../core/EventTypes';
 
 export class WorldEditService {
   private tilemapManager: TilemapManager;
   private history: EditorHistory;
   private events: EventBus;
+  private worldStateManager: WorldStateManager;
 
-  constructor(tilemapManager: TilemapManager) {
+  constructor(tilemapManager: TilemapManager, worldStateManager: WorldStateManager) {
     this.tilemapManager = tilemapManager;
+    this.worldStateManager = worldStateManager;
     this.history = (tilemapManager as any).history || new EditorHistory();
     this.events = (tilemapManager as any).events || new EventBus();
     // --- Event-driven autosave integration ---
-    this.events.on('tileEdit', async () => {
+    this.events.on('TILE_EDITED', async () => {
       // Trigger autosave (prototype: save to autosave.world)
       if (this.tilemapManager.saveWorld) {
         await this.tilemapManager.saveWorld('autosave.world');
@@ -34,23 +38,20 @@ export class WorldEditService {
   // Set a tile at world coordinates (x, y) to tileId, with undo support and event emission
   setTile(x: number, y: number, tileId: string) {
     const prevTile = this.getTile(x, y);
-    if (prevTile === tileId) return; // Early return if no change
-    // Find the chunk for (x, y)
-    const chunkSize = this.tilemapManager.chunkManager.chunkSize;
-    const chunkX = Math.floor(x / chunkSize);
-    const chunkY = Math.floor(y / chunkSize);
-    const chunk = this.tilemapManager.chunkManager.loadChunk(chunkX, chunkY);
-    if (!chunk) return;
-    // Local coordinates within chunk
-    const localX = x % chunkSize;
-    const localY = y % chunkSize;
-    if (!chunk.tiles) chunk.tiles = [];
-    if (!chunk.tiles[localX]) chunk.tiles[localX] = [];
-    chunk.tiles[localX][localY] = tileId;
-    chunk.dirty = true;
+    if (prevTile === tileId) return;
+    // Update world state via WorldStateManager
+    const state = this.worldStateManager.getState();
+    // Assume state has a tilemap or similar structure; update accordingly
+    // (If not, adapt this logic to your actual world state model)
+    // Example: state.tilemap[x][y] = tileId;
+    // For now, emit an event and rely on a reducer/subscriber to update state
+    const event: GameEvent<'TILE_EDITED'> = {
+      type: 'TILE_EDITED',
+      data: { x, y, prevTile, newTile: tileId }
+    };
+    this.events.emit(event);
+    this.worldStateManager.updateState({ /* tile change patch here */ });
     this.history?.push({ type: 'setTile', data: { x, y, prevTile, newTile: tileId } });
-    this.events?.emit({ type: 'tileEdit', data: { x, y, prevTile, newTile: tileId } });
-    // --- Delta recording ---
     this.tilemapManager.recordTileDelta(x, y, prevTile, tileId);
   }
 

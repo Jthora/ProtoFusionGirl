@@ -1,0 +1,14 @@
+[
+  {
+    "id": "earth_alliance",
+    "name": "Earth Alliance",
+    "description": "A militarized faction focused on planetary and interstellar defense.",
+    "reputationRange": [0, 100]
+  },
+  {
+    "id": "chronovore_coalition",
+    "name": "Chronovore Coalition",
+    "description": "A mysterious faction with mastery over time manipulation.",
+    "reputationRange": [-50, 50]
+  }
+]

@@ -1,6 +1,6 @@
 ---
 artifact: artifact_index
-created: 2025-06-05
+created: 2025-06-09
 purpose: Manifest and metadata index for all artifacts in the folder.
 type: index
 tags: [index, manifest, automation]
@@ -8,6 +8,14 @@ format: json
 ---
 
 [
+  {
+    "filename": "agent_optimized_ui_ux_2025-06-05.artifact",
+    "artifact": "agent_optimized_ui_ux_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design a modular, context-aware interface for both human and AI-driven play, supporting ASI/Jane roles.",
+    "type": "uiux",
+    "format": "markdown"
+  },
   {
     "filename": "ai_onboarding_2025-06-03.artifact",
     "artifact": "ai_onboarding_2025-06-03",
@@ -27,6 +35,32 @@ format: json
     "tags": "[combat, balancing, json]",
     "format": "json + markdown",
     "related": "["
+  },
+  {
+    "filename": "community_modding_governance_2025-06-06.artifact",
+    "artifact": "community_modding_governance_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Plan for community-driven modding, DAO governance, and NFT-based content sharing.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "copilot_analytics_replay_story_2025-06-05.artifact",
+    "artifact": "copilot_analytics_replay_story_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for analytics, replay, and emergent storytelling support for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_anchor_leyline_system_2025-06-06.artifact",
+    "artifact": "copilot_anchor_leyline_system_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Development anchor for the Ley Line System overhaul and integration with Jane and the Magneto Speeder.",
+    "type": "anchor",
+    "tags": "[leyline, navigation, magneto_speeder, jane, world, integration, roadmap, copilot]",
+    "related": "[src/world/leyline/, src/core/Jane.ts, src/magneto/MagnetoSpeeder.ts, artifacts/copilot_feature_roadmap_2025-06-04.artifact, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md]"
   },
   {
     "filename": "copilot_anchor_ui_ux_2025-06-04.artifact",
@@ -49,6 +83,119 @@ format: json
     "related": "[.primer, artifact_index.artifact, copilot_advanced_todos_2025-06-03.artifact, ai_onboarding_2025-06-03.artifact, project_dashboard.js]"
   },
   {
+    "filename": "copilot_context_anchor_index_2025-06-05.artifact",
+    "artifact": "copilot_context_anchor_index_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Index of all critical context anchors (design docs, code entry points, onboarding files, persistent state) for rapid lookup and context recall.",
+    "type": "context-index",
+    "tags": "[context, index, anchor, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_cosmic_env_simulation_2025-06-05.artifact",
+    "artifact": "copilot_cosmic_env_simulation_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for a cosmic/environmental simulation layer for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_development_anchor_roadmap_2025-06-05.artifact",
+    "artifact": "copilot_development_anchor_roadmap_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "High-level, prioritized roadmap for implementing missing and incomplete systems in ProtoFusionGirl. Anchors Copilot/AI development and ensures alignment with design docs, onboarding, and gameplay experience.",
+    "type": "roadmap",
+    "tags": "[roadmap, anchor, copilot, onboarding, priorities, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_feature_matrix_2025-06-05.artifact, copilot_context_anchor_index_2025-06-05.artifact, copilot_missing_systems_checklist_2025-06-05.artifact, copilot_onboarding_and_memory_expansion_2025-06-05.artifact, copilot_feedback_and_blockers_log_2025-06-05.artifact, .primer, .manifest, .priming, gameplay_alignment_checklist_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_feature_matrix_2025-06-05.artifact",
+    "artifact": "copilot_feature_matrix_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Matrix mapping all major game features to their implementation status, key files, and responsible modules. Anchors Copilot/AI context and progress tracking.",
+    "type": "feature-matrix",
+    "tags": "[feature, matrix, status, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_context_anchor_index_2025-06-05.artifact, copilot_missing_systems_checklist_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_feedback_and_blockers_log_2025-06-05.artifact",
+    "artifact": "copilot_feedback_and_blockers_log_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Central log for blockers, feedback, and lessons learned during Copilot/AI implementation. Ensures continuous improvement and context recall.",
+    "type": "feedback-log",
+    "tags": "[feedback, blockers, log, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_leyline_system_advanced_development_2025-06-07.artifact",
+    "artifact": "copilot_leyline_system_advanced_development_2025-06-07",
+    "created": "2025-06-07",
+    "purpose": "Guide and anchor the advanced, modular, and future-proof development of the ley line system, traversal, and related gameplay features in ProtoFusionGirl.",
+    "type": "development-plan",
+    "status": "active",
+    "related": "[copilot_leyline_unification_plan_2025-06-07.artifact, copilot_anchor_leyline_system_2025-06-06.artifact, src/world/leyline/, src/core/Jane.ts, src/magneto/MagnetoSpeeder.ts, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md]",
+    "tags": "[leyline, traversal, modular, procedural, pathfinding, events, visualization, roadmap, copilot]",
+    "- **Single Source of Truth": "** All ley line data and logic centralized in canonical manager and interfaces.",
+    "- **Modularity": "** Separate concerns for pathfinding, procedural generation, events, and visualization.",
+    "- **Extensibility": "** Easy to add new features (e.g., ley line manipulation, AI, advanced events).",
+    "- **Testability": "** Each module and integration point is covered by unit/integration tests.",
+    "- **Artifact-Driven": "** All code, docs, and PRs reference this and related artifacts."
+  },
+  {
+    "filename": "copilot_leyline_tilemap_traversal_integration_2025-06-07.artifact",
+    "artifact": "copilot_leyline_tilemap_traversal_integration_2025-06-07",
+    "created": "2025-06-07",
+    "purpose": "Guide and document the integration of the advanced ley line system with world travel and tilemap data in ProtoFusionGirl.",
+    "type": "integration-plan",
+    "status": "active",
+    "related": "[copilot_leyline_system_advanced_development_2025-06-07.artifact, src/world/leyline/, src/world/WorldTraversalSystem.ts, src/world/tilemap/, docs/FusionGirl_ Video Game Document - Gameplay Mechanics.md, artifacts/gameplay_alignment_checklist_2025-06-05.artifact]",
+    "tags": "[leyline, tilemap, traversal, integration, pathfinding, procedural, worldgen, copilot, lore, gameplay]",
+    "- **Tilemap Awareness": "** Ley line procedural generation and pathfinding must respect tilemap constraints (walkability, obstacles, biomes).",
+    "- **Traversal Synergy": "** World traversal logic should leverage ley lines for fast travel, energy management, and special abilities.",
+    "- **Event Interoperability": "** Ley line events can trigger or respond to tile/world events (e.g., surges opening new paths, disruptions blocking routes).",
+    "- **Single Source of Truth": "** All ley line and tilemap data should be synchronized and accessible via canonical managers.",
+    "- **Testability": "** All integration points must be covered by unit/integration tests.",
+    "- **Edge Case Handling": "** Integration must account for impassable terrain, dynamic world changes, and hybrid/fallback routing.",
+    "- **Ownership & Milestones": "** Each step should have a responsible party and suggested milestone.",
+    "- **Emergent Gameplay & Player Agency": "** The system must support player and AI manipulation of ley lines, enabling emergent puzzles, traversal, and world events.",
+    "- **UI/UX & Player Feedback": "** Ley line state and events must be visualized in the UI, with clear feedback for both narrative and strategic play. Provide overlays, minimap cues, and in-world effects for ley line changes.",
+    "- **Playtesting & Iteration": "** After each major integration milestone, conduct playtests to ensure ley line mechanics are fun, understandable, and narratively aligned. Use feedback to iterate on both technical and narrative aspects.",
+    "- **Gameplay Alignment": "** All ley line features must be checked against the gameplay alignment checklist and referenced artifacts to ensure consistency with the intended experience.",
+    "- **LeyLineProceduralGen** should accept a tilemap or walkability callback": "",
+    "generateNetwork(nodeCount": "number, tileIsWalkable: (x: number, y: number) => boolean): LeyLineNetwork",
+    "- **LeyLinePathfinder** should expose hybrid pathfinding": "",
+    "findHybridPath(start": "Vector2, end: Vector2, tileIsWalkable: (x: number, y: number) => boolean): PathResult",
+    "- **Event Payload Example": "**",
+    "{ \"type\"": "\"LEYLINE_SURGE\", \"affectedTiles\": [{\"x\":10,\"y\":12}], \"effect\": \"unlock\", \"lore\": \"The lost city awakens as the ley surge passes.\" }",
+    "- Allow hybrid routes": "ley line fast travel + tile-based movement.",
+    "1. **Extend LeyLineProceduralGen** to accept tilemap data and snap nodes to valid tiles. *(Owner": "World/Procedural Team, Milestone: v0.1)*",
+    "2. **Update LeyLinePathfinder** to combine ley line and tile-based pathfinding. *(Owner": "Pathfinding Team, Milestone: v0.2)*",
+    "3. **Refactor WorldTraversalSystem** to use ley line APIs for route planning and movement effects. *(Owner": "Traversal Team, Milestone: v0.3)*",
+    "4. **Add event hooks** between ley line and tile/world event systems. *(Owner": "Events Team, Milestone: v0.4)*",
+    "5. **Expand tests** to cover edge cases (impassable terrain, dynamic events, hybrid routes). *(Owner": "QA/Testing, Milestone: v0.5)*",
+    "6. **Update documentation** to reflect new integration points and APIs. *(Owner": "Docs/Onboarding, Milestone: v0.6)*",
+    "7. **Legacy Migration**": "Migrate or deprecate legacy ley line/tile code. *(Owner: Migration Lead, Milestone: v1.0)*",
+    "8. **Playtesting & Narrative Review": "** Conduct playtests and narrative review after each milestone. *(Owner: Design/Narrative, Milestone: each major version)*",
+    "- **Unit Tests": "** For all new/modified functions (e.g., node placement, hybrid pathfinding).",
+    "- **Integration Tests": "** For traversal across ley lines and tiles, event propagation, and edge cases.",
+    "- **Test Scenarios": "**",
+    "- **Coverage Goal": "** 90%+ for all integration code."
+  },
+  {
+    "filename": "copilot_leyline_unification_plan_2025-06-07.artifact",
+    "artifact": "copilot_leyline_unification_plan_2025-06-07",
+    "created": "2025-06-07",
+    "purpose": "Anchor and guide the unification and refactor of the ley line system to eliminate redundancy and ensure a single, robust source of truth for all ley line logic.",
+    "type": "plan",
+    "tags": "[leyline, refactor, unification, world, navigation, copilot, roadmap]",
+    "related": "[src/world/leyline/LeyLineManager.ts, src/leyLines.ts, src/world/WorldStateManager.ts, src/world/leyline/LeyLineSystem.ts, artifacts/copilot_anchor_leyline_system_2025-06-06.artifact]"
+  },
+  {
     "filename": "copilot_memory.artifact",
     "artifact": "copilot_memory",
     "created": "2025-06-03",
@@ -57,6 +204,63 @@ format: json
     "tags": "[memory, ai, context, heuristics, onboarding, automation]",
     "format": "markdown",
     "related": "[copilot_next_steps_2025-06-03.artifact, copilot_todos_2025-06-03.artifact, protoFusionGirl.primer, artifact_index.artifact]"
+  },
+  {
+    "filename": "copilot_missing_systems_checklist_2025-06-05.artifact",
+    "artifact": "copilot_missing_systems_checklist_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Actionable checklist of all missing or stubbed systems, with links to relevant design artifacts and code stubs.",
+    "type": "checklist",
+    "tags": "[checklist, missing, systems, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_modding_extension_points_2025-06-05.artifact",
+    "artifact": "copilot_modding_extension_points_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Document all current and planned extension/modding points in the codebase for rapid modder onboarding and future-proofing.",
+    "type": "modding-index",
+    "tags": "[modding, extension, hooks, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_multiverse_event_engine_2025-06-05.artifact",
+    "artifact": "copilot_multiverse_event_engine_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for a branch-aware event and narrative state engine for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_multiverse_priority_todo_2025-06-05.artifact",
+    "artifact": "copilot_multiverse_priority_todo_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Ordered, prioritized TODO list for ProtoFusionGirl multiverse systems, derived from artifact review and integration points.",
+    "type": "todo-list",
+    "format": "markdown",
+    "related": ""
+  },
+  {
+    "filename": "copilot_multiverse_sync_sharing_2025-06-05.artifact",
+    "artifact": "copilot_multiverse_sync_sharing_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for a multiverse synchronization and sharing layer for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
+    "filename": "copilot_onboarding_and_memory_expansion_2025-06-05.artifact",
+    "artifact": "copilot_onboarding_and_memory_expansion_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Guide for expanding Copilot/AI onboarding and persistent memory as new systems are implemented. Ensures context sync and onboarding remain up to date.",
+    "type": "onboarding-guide",
+    "tags": "[onboarding, memory, copilot, artifact, workflow]",
+    "format": "markdown",
+    "related": "[copilot_development_anchor_roadmap_2025-06-05.artifact, copilot_feature_matrix_2025-06-05.artifact]"
   },
   {
     "filename": "copilot_persona_core_architecture_2025-06-04.artifact",
@@ -83,6 +287,36 @@ format: json
     "purpose": "Machine-readable, always-updated context for Copilot/AI agents."
   },
   {
+    "filename": "copilot_prioritized_work_2025-06-08.artifact",
+    "artifact": "copilot_prioritized_work_2025-06-08.artifact",
+    "created": "2025-06-08",
+    "last_updated": "2025-06-08",
+    "owner": "GitHub Copilot",
+    "status": "draft",
+    "reviewed_by": "null",
+    "related_artifacts": "",
+    "dependencies": "",
+    "- **Artifact Version": "** 2025-06-08",
+    "- **Maintainer": "** GitHub Copilot",
+    "- **Status": "** Draft (pending review)",
+    "- **Scope": "** Core systems, onboarding, automation, documentation, and feedback",
+    "- **Review cadence": "** Weekly or after major PRs",
+    "- **Artifact": "** A structured, versioned document describing system design, plans, or validation.",
+    "- **Agent": "** Any AI or human contributor following artifact-driven workflows.",
+    "- **Traceability": "** The ability to cross-reference code, documentation, and artifacts.",
+    "- **Blocker": "** Any issue preventing progress, to be logged and escalated.",
+    "**Goal": "** Maximize discoverability and onboarding for all contributors."
+  },
+  {
+    "filename": "copilot_procedural_content_registry_2025-06-05.artifact",
+    "artifact": "copilot_procedural_content_registry_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for a procedural content registry and modding API for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
     "filename": "copilot_reality_warping_code_plan_2025-06-04.artifact",
     "artifact": "copilot_reality_warping_code_plan_2025-06-04",
     "created": "2025-06-04",
@@ -99,6 +333,33 @@ format: json
     "filename": "copilot_script_tools_2025-06-04.artifact",
     "# Artifact": "copilot_content_consistency_checker_2025-06-04.artifact",
     "- Optional": "filter by type, output format"
+  },
+  {
+    "filename": "copilot_toroidal_best_practices_2025-06-04.artifact",
+    "artifact": "copilot_toroidal_best_practices_2025-06-04",
+    "created": "2025-06-05",
+    "purpose": "Document best practices, guidelines, and common pitfalls for applying toroidal math in ProtoFusionGirl.",
+    "type": "best-practices",
+    "format": "markdown",
+    "related": ""
+  },
+  {
+    "filename": "copilot_toroidal_math_usage_examples_2025-06-04.artifact",
+    "artifact": "copilot_toroidal_math_usage_examples_2025-06-04",
+    "created": "2025-06-05",
+    "purpose": "Provide concrete code examples and test cases for using toroidal math utilities in ProtoFusionGirl.",
+    "type": "example",
+    "format": "markdown + code",
+    "related": ""
+  },
+  {
+    "filename": "copilot_universal_language_engine_2025-06-05.artifact",
+    "artifact": "copilot_universal_language_engine_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for a Universal Language and puzzle scripting engine for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
   },
   {
     "filename": "copilot_web3_integration_blockers_2025-06-04.artifact",
@@ -164,6 +425,15 @@ format: json
     "next_steps": ""
   },
   {
+    "filename": "copilot_world_state_tooling_2025-06-05.artifact",
+    "artifact": "copilot_world_state_tooling_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for world state diffing, visualization, and debugging tools for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[master_multiverse_systems_2025-06-05.artifact]"
+  },
+  {
     "filename": "deep_ai_self_autonomy_design_2025-06-03.artifact",
     "format": "(auto-repaired)",
     "tags": "(auto-repaired)",
@@ -213,6 +483,9 @@ format: json
     "tags": "[event, bus, system, api, design, core]"
   },
   {
+    "filename": "event_contracts_2025-06-07.artifact"
+  },
+  {
     "filename": "feedback_2025-06-03.artifact",
     "artifact": "feedback_2025-06-03",
     "created": "2025-06-03",
@@ -223,10 +496,71 @@ format: json
     "related": "["
   },
   {
+    "filename": "gameplay_alignment_checklist_2025-06-05.artifact",
+    "artifact": "gameplay_alignment_checklist_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Checklist for ensuring all code, features, and PRs align with the intended gameplay experience blueprint.",
+    "type": "checklist",
+    "format": "markdown"
+  },
+  {
+    "filename": "gameplay_experience_blueprint_2025-06-05.artifact",
+    "artifact": "gameplay_experience_blueprint_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Blueprint for the intended player experience, ASI/Jane duality, and core gameplay loops in ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "gamescene_core_audit_2025-06-05.artifact",
+    "- [x] System/module file(s) exist in expected location(s)": "`src/scenes/GameScene.ts`"
+  },
+  {
+    "filename": "ley_line_system_design_2025-06-06.artifact",
+    "artifact": "ley_line_system_design_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Design and technical specification for the modular ley line and world network system in FusionGirl.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
     "filename": "leyline_system_integration_2025-06-04.artifact",
     "- **WorldStateManager": "** Reads and updates ley line state, with schema validation and versioning.",
     "- **EventBus": "** Listens for and emits events (e.g., `LEYLINE_ACTIVATED`) to enable cross-system reactions and mod hooks.",
     "- Tests confirm": ""
+  },
+  {
+    "filename": "magneto_speeder_gameplay_foundation_2025-06-06.artifact",
+    "artifact": "magneto_speeder_gameplay_foundation_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Anchor and roadmap for developing the Magneto Speeder as a core gameplay system for Jane (FusionGirl).",
+    "type": "design+roadmap",
+    "format": "markdown"
+  },
+  {
+    "filename": "magneto_speeder_mechanics_2025-06-06.artifact",
+    "artifact": "magneto_speeder_mechanics_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Design and implementation plan for Magneto Speeder traversal, upgrades, and player experience.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "master_multiverse_systems_2025-06-05.artifact",
+    "artifact": "master_multiverse_systems_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Master plan and artifact index for all core technical systems required to realize ProtoFusionGirl's multiverse, timeline, and reality-warping vision.",
+    "type": "master-design",
+    "format": "markdown",
+    "related": ""
+  },
+  {
+    "filename": "modding_automation_integration_2025-06-05.artifact",
+    "artifact": "modding_automation_integration_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Define extension points, plugin patterns, and automation hooks for mods, AI agents, and community content.",
+    "type": "api",
+    "format": "markdown"
   },
   {
     "filename": "modregistry_deploy_instructions_mumbai_2025-06-04.artifact",
@@ -235,6 +569,39 @@ format: json
     "status": "complete",
     "created": "2025-06-04",
     "related_artifact": "copilot_web3_integration_checklist_2025-06-04"
+  },
+  {
+    "filename": "modular_game_loop_2025-06-05.artifact",
+    "artifact": "modular_game_loop_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Modular breakdown of the main and supplementary gameplay loops for extensibility and testing.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "modular_game_loop_registered_systems_2025-06-08.artifact",
+    "artifact": "modular_game_loop_registered_systems_2025-06-08.artifact",
+    "created": "2025-06-08",
+    "last_updated": "2025-06-08",
+    "owner": "GitHub Copilot",
+    "status": "draft",
+    "related_artifacts": ""
+  },
+  {
+    "filename": "narrative_feedback_integration_2025-06-05.artifact",
+    "artifact": "narrative_feedback_integration_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Specify how player actions affect the world, Jane, and the multiverse, and how feedback is delivered.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "onboarding_narrative_flow_2025-06-06.artifact",
+    "artifact": "onboarding_narrative_flow_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Narrative-driven onboarding and tutorial plan for progressive feature introduction.",
+    "type": "onboarding",
+    "format": "markdown"
   },
   {
     "filename": "persona_core_changelog_2025-06-04.artifact",
@@ -259,6 +626,14 @@ format: json
     "tags": "[ideas, vision, planning]",
     "format": "markdown",
     "related": "["
+  },
+  {
+    "filename": "player_asi_architecture_2025-06-05.artifact",
+    "artifact": "player_asi_architecture_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Define the technical separation and interaction between the ASI (player) and Jane (avatar).",
+    "type": "architecture",
+    "format": "markdown"
   },
   {
     "filename": "progression_system_2025-06-03.artifact",
@@ -301,6 +676,15 @@ format: json
     "related": "["
   },
   {
+    "filename": "save_system_design_2025-06-05.artifact",
+    "artifact": "save_system_design_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Design and prototype plan for an advanced, seed/delta/timeline-aware save/load system for ProtoFusionGirl.",
+    "type": "design",
+    "format": "markdown",
+    "related": "[tilemap_system_design.artifact, copilot_reality_warping_code_plan_2025-06-04.artifact, copilot_timestream_code_plan_2025-06-04.artifact, WorldPersistence.ts, TilemapManager.ts]"
+  },
+  {
     "filename": "scripts_full_esmodule_migration_plan_2025-06-03.artifact",
     "artifact": "scripts_full_esmodule_migration_plan_2025-06-03",
     "created": "2025-06-04",
@@ -317,6 +701,14 @@ format: json
     "type": "index",
     "tags": "[script, index, automation, ai, copilot]",
     "related": "[artifact_index.artifact, aiTaskManager.js, listScripts.js]",
+    "format": "markdown"
+  },
+  {
+    "filename": "self_healing_automation_2025-06-06.artifact",
+    "artifact": "self_healing_automation_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Automation and self-healing plan for validation, feedback, and artifact generation.",
+    "type": "automation",
     "format": "markdown"
   },
   {
@@ -641,14 +1033,64 @@ format: json
     "related": "["
   },
   {
+    "filename": "testing_validation_strategy_2025-06-05.artifact",
+    "artifact": "testing_validation_strategy_2025-06-05",
+    "created": "2025-06-05",
+    "purpose": "Outline a comprehensive approach for testing gameplay loops, narrative branches, and mod/plugin integration.",
+    "type": "testplan",
+    "format": "markdown"
+  },
+  {
     "filename": "tilemap_system_design.artifact",
     "artifact": "tilemap_system_design",
-    "created": "2025-06-03",
-    "purpose": "Pseudocode, diagrams, and notes for the tilemap and chunk management system.",
+    "created": "2025-06-05",
+    "purpose": "Design and implementation plan for the tilemap and chunk management system, including toroidal world logic.",
     "type": "design",
-    "tags": "[tilemap, chunk, pseudocode]",
     "format": "markdown + pseudocode",
-    "related": "["
+    "related": ""
+  },
+  {
+    "filename": "todo_triage_2025-06-08.artifact",
+    "artifact": "todo_triage_2025-06-08.artifact",
+    "created": "2025-06-08",
+    "last_updated": "2025-06-08",
+    "owner": "GitHub Copilot",
+    "status": "draft",
+    "related_artifacts": "",
+    "- **[A] Actionable": "** Clear, implementable, and relevant.",
+    "- **[C] Clarify": "** Needs more detail or context before action.",
+    "- **[R] Remove": "** Obsolete, redundant, or no longer relevant."
+  },
+  {
+    "filename": "ui_ux_accessibility_2025-06-06.artifact",
+    "artifact": "ui_ux_accessibility_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "UI/UX and accessibility plan for ley line navigation, Magneto Speeder, and puzzle systems.",
+    "type": "design",
+    "format": "markdown"
+  },
+  {
+    "filename": "ul_integration_roadmap_2025-06-06.artifact",
+    "artifact": "ul_integration_roadmap_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Roadmap for robust, unified Universal Language (UL) system integration across ProtoFusionGirl",
+    "format": "markdown",
+    "tags": "[universal-language, integration, roadmap, artifact, automation, modding, event-system, validation, ui-ux]",
+    "related": "[ul_engine_refactor_2025-06-06.artifact, ul_resource_schema_2025-06-06.artifact, ul_event_spec_2025-06-06.artifact, ul_modding_support_2025-06-06.artifact, ul_validation_matrix_2025-06-06.artifact]"
+  },
+  {
+    "filename": "ul_onboarding_guide.artifact"
+  },
+  {
+    "filename": "ul_validation_matrix_2025-06-06.artifact"
+  },
+  {
+    "filename": "universal_language_psionics_2025-06-06.artifact",
+    "artifact": "universal_language_psionics_2025-06-06",
+    "created": "2025-06-06",
+    "purpose": "Modular system for Universal Language puzzles and psionic abilities, scaling with narrative.",
+    "type": "design",
+    "format": "markdown"
   },
   {
     "filename": "world_state_api_modding_2025-06-04.artifact",

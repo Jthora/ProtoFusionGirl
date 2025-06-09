@@ -5,6 +5,7 @@
 import { EventBus } from './EventBus';
 import { Jane } from './Jane';
 import { PlayerController } from '../world/player/PlayerController';
+import { ulEventBus } from '../ul/ulEventBus';
 // ...import other dependencies as needed...
 
 export interface PlayerManagerConfig {
@@ -65,7 +66,40 @@ export class PlayerManager {
       });
       (this.jane as any).sprite = (this.jane as any).playerController.sprite;
     }
-    // ...stub: instantiate ASI(s), set up controllers, wire events...
+    // Wire up UL event handlers for animation and feedback
+    this.eventBus.on('UL_ANIMATION', (event: { type: string; data: any }) => {
+      const janeSprite = this.getJaneSprite();
+      if (janeSprite && event.data && event.data.animation) {
+        // Play the animation on Jane's sprite if it exists
+        if (janeSprite.anims && janeSprite.anims.exists && janeSprite.anims.exists(event.data.animation)) {
+          janeSprite.play(event.data.animation, true);
+        } else if (janeSprite.anims && janeSprite.anims.play) {
+          // Try to play even if not pre-registered (Phaser will warn if missing)
+          janeSprite.anims.play(event.data.animation, true);
+        }
+      }
+    });
+    // Optionally, wire up UL_FEEDBACK to UIManager if available
+    if (this.scene && this.scene.uiManager && this.scene.uiManager.showULFeedback) {
+      this.eventBus.on('UL_FEEDBACK', (event: { type: string; data: any }) => {
+        this.scene.uiManager.showULFeedback(event.data);
+      });
+    }
+    // Cross-system integration: Listen for UL puzzle completion/validation
+    ulEventBus.on('ul:puzzle:completed', (payload) => {
+      // Example: grant reward, unlock area, trigger world/AI event
+      if (payload && payload.id) {
+        // TODO: Integrate with progression, analytics, or world state
+        console.log(`[UL] Puzzle completed: ${payload.id}`);
+        // Example: this.grantULReward(payload.id);
+      }
+    });
+    ulEventBus.on('ul:puzzle:validated', (payload) => {
+      if (payload && payload.result === false && payload.errors) {
+        // Optionally: track failed attempts, provide feedback, or trigger consequences
+        console.log(`[UL] Puzzle validation failed: ${payload.id} - ${payload.errors.join(', ')}`);
+      }
+    });
   }
 
   getJane() {

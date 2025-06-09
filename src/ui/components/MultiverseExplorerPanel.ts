@@ -2,6 +2,7 @@
 // Prototype for world state diffing, visualization, and debugging (see copilot_world_state_tooling artifact).
 import Phaser from 'phaser';
 import { TilemapManager } from '../../world/tilemap/TilemapManager';
+import { EventBus } from '../../core/EventBus';
 
 export class MultiverseExplorerPanel extends Phaser.GameObjects.Container {
   private tilemapManager: TilemapManager;
@@ -9,12 +10,14 @@ export class MultiverseExplorerPanel extends Phaser.GameObjects.Container {
   private height: number;
   private branchNodes: Phaser.GameObjects.Graphics[] = [];
   private branchLabels: Phaser.GameObjects.Text[] = [];
+  private eventBus: EventBus;
 
-  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, width = 480, height = 320) {
+  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, width = 480, height = 320, eventBus: EventBus) {
     super(scene);
     this.tilemapManager = tilemapManager;
     this.width = width;
     this.height = height;
+    this.eventBus = eventBus;
     scene.add.existing(this);
     this.setScrollFactor(0);
     this.setDepth(1003);
@@ -76,20 +79,23 @@ export class MultiverseExplorerPanel extends Phaser.GameObjects.Container {
       this.add(repairBtn);
       y += nodeYSpacing;
     }
+    // TODO: Add interactive branch selection and merge/diff tools.
+    // TODO: Integrate with world state rollback and migration systems.
+    // TODO: Support mod/plugin extensions for custom branch visualizations.
   }
 
   private diffBranch(branchId: string) {
+    this.eventBus.emit({ type: 'BRANCH_DIFF_REQUESTED', data: { branchId } } as any);
     // TODO: Implement world state diffing UI/modal for this branch
-    alert(`Diff for branch: ${branchId} (prototype)`);
   }
 
   private mergeBranch(branchId: string) {
+    this.eventBus.emit({ type: 'BRANCH_MERGE_REQUESTED', data: { branchId } } as any);
     // TODO: Implement merge UI/modal (select target branch, show preview, etc.)
-    alert(`Merge for branch: ${branchId} (prototype)`);
   }
 
   private repairBranch(branchId: string) {
+    this.eventBus.emit({ type: 'BRANCH_REPAIR_REQUESTED', data: { branchId } } as any);
     // TODO: Implement repair/migration wizard for this branch
-    alert(`Repair/Migrate branch: ${branchId} (prototype)`);
   }
 }

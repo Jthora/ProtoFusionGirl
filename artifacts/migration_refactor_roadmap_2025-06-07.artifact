@@ -1,0 +1,28 @@
+# Migration & Refactor Roadmap Artifact
+
+## Purpose
+Step-by-step plan for refactoring ProtoFusionGirl to the new architecture.
+
+## Phases
+1. Event Bus upgrade and event contract enforcement
+2. Extract domain modules (Characters, Combat, Narrative, World, Customization, UI)
+3. Migrate hardcoded logic to data-driven (JSON/config)
+4. Implement service locator/context for shared systems
+5. Add/upgrade barrel files and folder-level README.md
+6. Expand and enforce test coverage
+7. Document all modules and update onboarding
+
+## Task Breakdown
+- For each phase, list specific files/folders to refactor
+- Assign priorities and owners
+- Track progress in tasks/
+
+## Risk Assessment
+- Identify dependencies and possible blockers
+- Plan for incremental, test-driven migration
+
+## Milestones
+- Each phase completion is a milestone
+- Review and validate with tests and documentation
+
+---

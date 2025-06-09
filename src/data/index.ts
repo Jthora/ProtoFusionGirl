@@ -1,0 +1,1 @@
+export { loadAttacks } from './attackLoader';

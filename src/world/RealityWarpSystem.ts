@@ -42,6 +42,7 @@ export class RealityWarpSystem {
       this.worldGen.regenerateWorldFromSeed(seed);
     }
     // Save previous world state, handle rollback/branching (TODO)
+    // TODO: Implement rollback and branching logic for alternate realities.
     // --- Narrative & Multiplayer Hooks ---
     if (options.initiator === 'jane') {
       // Example: trigger a story event or quest update
@@ -49,7 +50,9 @@ export class RealityWarpSystem {
       console.log('[Narrative] Jane warped reality!');
     }
     // TODO: Multiplayer sync (emit warp event to other players)
+    // TODO: Integrate with multiplayer sync and anchor sharing systems.
     // TODO: Analytics/telemetry hook
+    // TODO: Add event hooks for modding and narrative triggers.
     // Log the warp event
     console.log(`[RealityWarpSystem] Warped to reality with seed: ${seed}`, options);
   }

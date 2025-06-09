@@ -4,6 +4,7 @@
 
 import { WorldStateManager } from '../WorldStateManager';
 import { EventBus, WorldEvent } from '../EventBus';
+import { ulEventBus } from '../../ul/ulEventBus';
 
 export interface MissionObjective {
   id: string;
@@ -51,9 +52,28 @@ export class MissionSystem {
     this.playerId = playerId;
     this.eventBus.subscribe('ENEMY_DEFEATED', this.onEnemyDefeated);
     this.eventBus.subscribe('ITEM_COLLECTED', this.onItemCollected);
-    // Listen for ability use events
-    // Use .subscribe instead of .on for event bus
     this.eventBus.subscribe('PLAYER_USED_ABILITY', this.onPlayerUsedAbility);
+    // Artifact: leyline_instability_event_api_reference_2025-06-08.artifact
+    // Listen for all ley line instability event types
+    this.eventBus.subscribe('LEYLINE_INSTABILITY', (e) => this.onLeyLineInstability(e.data));
+    this.eventBus.subscribe('LEYLINE_SURGE', (e) => this.onLeyLineInstability(e.data));
+    this.eventBus.subscribe('LEYLINE_DISRUPTION', (e) => this.onLeyLineInstability(e.data));
+    this.eventBus.subscribe('RIFT_FORMED', (e) => this.onLeyLineInstability(e.data));
+    // Cross-system integration: Listen for UL puzzle completion/validation
+    ulEventBus.on('ul:puzzle:completed', (payload) => {
+      // Example: advance mission, unlock branch, or trigger special outcome
+      if (payload && payload.id) {
+        // TODO: Map puzzle IDs to mission objectives or outcomes
+        console.log(`[UL] MissionSystem: Puzzle completed: ${payload.id}`);
+        // Example: this.advanceMissionForULPuzzle(payload.id);
+      }
+    });
+    ulEventBus.on('ul:puzzle:validated', (payload) => {
+      if (payload && payload.result === false && payload.errors) {
+        // Optionally: fail or branch mission on repeated puzzle failure
+        console.log(`[UL] MissionSystem: Puzzle validation failed: ${payload.id} - ${payload.errors.join(', ')}`);
+      }
+    });
   }
 
   startMission(mission: Mission) {
@@ -267,5 +287,39 @@ export class MissionSystem {
   private showOutcomeFeedback(_mission: Mission, _outcome: MissionOutcomeType) {
     // TODO: Integrate with UI system to show outcome to player
     // e.g., display modal, toast, or log entry
+  }
+
+  /**
+   * Handle ley line instability event as a mission/narrative trigger (artifact-driven)
+   * Artifact: leyline_instability_event_narrative_examples_2025-06-08.artifact
+   */
+  onLeyLineInstability(event: import('../leyline/types').LeyLineInstabilityEvent) {
+    // Find active missions with ley line objectives
+    const state = this.worldStateManager.getState();
+    const player = state.players.find(p => p.id === this.playerId);
+    if (!player || !(player as any).missions) return;
+    for (const mission of (player as any).missions as Mission[]) {
+      if (mission.status !== 'active') continue;
+      // Example: objective type 'activate', 'custom', or target matches leyLineId
+      const leyObj = mission.objectives.find(obj =>
+        (obj.type === 'activate' || obj.type === 'custom') &&
+        obj.target === event.leyLineId &&
+        !obj.completed
+      );
+      if (leyObj) {
+        // Progress or fail objective based on event type/severity
+        if (event.type === 'LEYLINE_INSTABILITY' && event.severity === 'minor') {
+          this.showOutcomeFeedback(mission, 'environmental_outcome');
+        } else if (event.type === 'LEYLINE_SURGE' || event.severity === 'moderate') {
+          this.showOutcomeFeedback(mission, 'special_condition');
+        } else if (event.type === 'RIFT_FORMED' || event.severity === 'major') {
+          this.showOutcomeFeedback(mission, 'resource_depletion');
+        }
+        // Optionally: mark objective as failed or escalate mission
+        // TODO: Advance/fail/branch mission based on design
+      }
+    }
+    // Global narrative feedback (if no mission matches)
+    // (Optional: show generic feedback as before)
   }
 }

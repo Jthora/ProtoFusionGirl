@@ -1,0 +1,36 @@
+---
+artifact: modular_game_loop_registered_systems_2025-06-08.artifact
+created: 2025-06-08
+last_updated: 2025-06-08
+owner: GitHub Copilot
+status: draft
+related_artifacts:
+  - copilot_prioritized_work_2025-06-08.artifact
+  - modular_game_loop_2025-06-05.artifact
+
+# ModularGameLoop Registered Systems (as of 2025-06-08)
+
+## Overview
+This artifact documents all systems currently registered in the ModularGameLoop within `GameScene.ts`, their priorities, and their core responsibilities. This ensures traceability, onboarding clarity, and agent-optimized extensibility.
+
+## Registered Systems
+
+| System ID         | Priority | Source/Class      | Responsibilities                                                                 |
+|-------------------|----------|------------------|----------------------------------------------------------------------------------|
+| player-update     | 1        | PlayerManager    | Updates player AI and state each frame.                                          |
+| tilemap-update    | 2        | TilemapManager   | Handles tilemap overlays, streaming, and worldgen updates.                       |
+| enemy-update      | 3        | EnemyManager     | Updates enemy AI, movement, and health bars.                                     |
+| ui-update         | 4        | UIManager        | Updates UI overlays, feedback, and agent-optimized UI logic.                     |
+| mission-update    | 5        | MissionManager   | Progresses mission state, timers, and triggers.                                  |
+
+## Notes
+- All systems are modular and can be extended or replaced for testing or modding.
+- System priorities determine update order (lower runs first).
+- Responsibilities should be kept up to date as systems evolve.
+
+## Review Checklist
+- [ ] Artifact reviewed after any system registration change.
+- [ ] Responsibilities and priorities match code in `GameScene.ts`.
+- [ ] Cross-referenced in onboarding and developer docs.
+
+---

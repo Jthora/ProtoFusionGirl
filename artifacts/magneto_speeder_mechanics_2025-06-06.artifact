@@ -1,0 +1,48 @@
+---
+artifact: magneto_speeder_mechanics_2025-06-06
+created: 2025-06-06
+purpose: Design and implementation plan for Magneto Speeder traversal, upgrades, and player experience.
+type: design
+format: markdown
+---
+
+# Magneto Speeder Mechanics
+
+## Features
+- Dual-mode controls (Jane/manual, ASI/auto-pilot)
+- Upgrade/customization system
+- Energy/performance tied to ley lines and world state
+- Accessibility and onboarding
+
+## API Contracts
+- `MagnetoSpeeder` class: `mode: 'manual' | 'auto'`, `energy: number`, `upgrades: SpeederUpgrade[]`
+- Methods: `setMode(mode)`, `applyUpgrade(upgrade)`, `updateEnergy(delta)`
+- `SpeederUpgrade` interface: `{ id: string, name: string, effect: string }`
+
+## Acceptance Criteria
+- [ ] Player can switch between manual and auto modes
+- [ ] Upgrades affect performance and are visible in UI
+- [ ] Energy changes based on ley line proximity
+- [ ] Accessibility features (remapping, colorblind, etc.) are available
+
+## Example Usage
+```ts
+const speeder = new MagnetoSpeeder();
+speeder.setMode('auto');
+speeder.applyUpgrade({ id: 'boost', name: 'Speed Boost', effect: '+20% speed' });
+```
+
+## Tasks
+- Control system prototype
+- Upgrade tree and UI
+- Energy/ley line integration
+- Accessibility features
+- Playtest and iterate
+
+## Required Tests
+- Unit tests for mode switching and upgrades
+- Integration tests for energy/ley line logic
+
+## Related Artifacts
+- ley_line_system_design_2025-06-06.artifact
+- ui_ux_accessibility_2025-06-06.artifact

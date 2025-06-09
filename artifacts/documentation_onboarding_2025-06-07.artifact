@@ -1,0 +1,26 @@
+# Documentation & Onboarding Artifact
+
+## Purpose
+Standardize documentation and onboarding for contributors and AI agents.
+
+## Folder-level README.md Templates
+- Each major folder/domain must have a README.md explaining:
+  - Purpose
+  - Main modules/classes
+  - Integration points
+  - Example usage
+
+## Barrel File (`index.ts`) Conventions
+- Each folder exports its public API via `index.ts`
+- Example: `export * from './Jane'; export * from './SkillTree';`
+
+## Onboarding Checklist
+- Read ONBOARDING.md and relevant README.md files
+- Run onboarding scripts/tasks
+- Review architecture and event contract artifacts
+- Run and pass all tests
+
+## Example Documentation
+- Provide a sample README.md for a domain (e.g., Characters)
+
+---

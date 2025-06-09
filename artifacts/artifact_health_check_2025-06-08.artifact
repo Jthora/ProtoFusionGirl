@@ -1,0 +1,43 @@
+---
+artifact: artifact_health_check_2025-06-08
+created: 2025-06-08
+purpose: Automated health check and maintenance plan for all artifacts in the ProtoFusionGirl project.
+type: automation
+format: markdown
+tags: [artifact, health, automation, maintenance, onboarding]
+related: [artifact_index.artifact, copilot_memory.artifact, ai_onboarding_2025-06-03.artifact]
+---
+
+# Artifact Health Check & Maintenance Plan
+
+## Purpose
+Automate the detection of stale, missing, or inconsistent artifacts and prompt for updates or human review. Ensure all artifacts remain actionable, discoverable, and up to date for both AI and human contributors.
+
+## Health Check Automation
+- **Staleness Detection:**
+  - Compare artifact `created`/`last_updated` fields to current date.
+  - Flag artifacts not updated in >90 days for review.
+- **Missing Artifact Detection:**
+  - Cross-reference `.manifest` and `artifact_index.artifact` to find referenced but missing artifacts.
+- **Inconsistency Detection:**
+  - Check for missing headers, required fields, or broken cross-links.
+  - Validate all artifacts against `.schema` definitions.
+- **Automation:**
+  - Use `summarizeAndCleanUnusedArtifacts.js` and `generateArtifactIndex.js` scripts regularly.
+  - Output a summary report to `artifacts/artifact_health_report_YYYY-MM-DD.artifact`.
+
+## Maintenance Workflow
+- **Automated:**
+  - Run health check scripts weekly or after major merges.
+  - Auto-create tasks for flagged artifacts in `tasks/`.
+- **Human Review:**
+  - Require human sign-off for governance, security, and upgrade artifacts.
+  - Escalate ambiguous or blocked issues via feedback artifacts.
+
+## Next Steps
+- Integrate health check into onboarding and project sync scripts.
+- Expand this artifact as new heuristics or needs emerge.
+
+---
+
+(End of artifact)

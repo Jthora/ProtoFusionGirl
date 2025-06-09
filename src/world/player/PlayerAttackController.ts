@@ -4,6 +4,8 @@ import { CombatService } from '../combat/CombatService';
 import { PlayerStats } from './PlayerStats';
 import { DamageNumber } from '../../ui/components/DamageNumber';
 import Phaser from 'phaser';
+import { Jane } from '../../core/Jane';
+import { CombatSystem } from '../../combat/CombatSystem';
 
 export interface PlayerAttackControllerConfig {
   scene: Phaser.Scene;
@@ -13,6 +15,8 @@ export interface PlayerAttackControllerConfig {
   attackRegistry: AttackRegistry;
   getPlayerStats: () => PlayerStats;
   onEnemyDefeated: (enemy: EnemyInstance) => void;
+  jane: Jane;
+  combatSystem: CombatSystem;
 }
 
 export class PlayerAttackController {
@@ -23,6 +27,8 @@ export class PlayerAttackController {
   private attackRegistry: AttackRegistry;
   private getPlayerStats: () => PlayerStats;
   private onEnemyDefeated: (enemy: EnemyInstance) => void;
+  private jane: Jane;
+  private combatSystem: CombatSystem;
 
   constructor(config: PlayerAttackControllerConfig) {
     this.scene = config.scene;
@@ -32,6 +38,8 @@ export class PlayerAttackController {
     this.attackRegistry = config.attackRegistry;
     this.getPlayerStats = config.getPlayerStats;
     this.onEnemyDefeated = config.onEnemyDefeated;
+    this.jane = config.jane;
+    this.combatSystem = config.combatSystem;
   }
 
   public attackNearestEnemy() {
@@ -52,18 +60,35 @@ export class PlayerAttackController {
       }
     }
     if (!nearest) return;
-    // Use first attack from registry (or fallback)
+
+    // If Jane is mounted, use speeder attack logic
+    if (this.jane.isMounted && this.jane.speeder) {
+      this.combatSystem.speederAttack('ram');
+      // Example: apply damage to enemy based on speeder's attack stat (placeholder value for now)
+      const speederDamage = 15; // TODO: Replace with dynamic stat from MagnetoSpeeder
+      nearest.takeDamage(speederDamage);
+      const nearestSprite = this.enemySprites.get(nearest);
+      if (nearestSprite) {
+        const damageText = new DamageNumber(this.scene, nearestSprite.x, nearestSprite.y - 20, speederDamage);
+        damageText.setOrigin(0.5, 0);
+        this.scene.add.existing(damageText);
+      }
+      if (!nearest.isAlive) {
+        this.onEnemyDefeated(nearest);
+      }
+      return;
+    }
+
+    // Otherwise, use standard player attack logic
     const attack = this.attackRegistry.getAttack('slime_bounce') || { id: 'basic', name: 'Punch', type: 'melee', damage: 5, range: 60, cooldown: 0.5 };
     const playerStats = this.getPlayerStats();
-    const damage = CombatService.playerAttackEnemy(playerStats, nearest, attack);
-    // Show damage number
-    const sprite = this.enemySprites.get(nearest);
-    if (sprite) {
-      const damageText = new DamageNumber(this.scene, sprite.x, sprite.y - 20, damage);
+    const normalDamage = CombatService.playerAttackEnemy(playerStats, nearest, attack);
+    const nearestSprite = this.enemySprites.get(nearest);
+    if (nearestSprite) {
+      const damageText = new DamageNumber(this.scene, nearestSprite.x, nearestSprite.y - 20, normalDamage);
       damageText.setOrigin(0.5, 0);
       this.scene.add.existing(damageText);
     }
-    // --- Connect quest/mission progress to enemy defeat ---
     if (!nearest.isAlive) {
       this.onEnemyDefeated(nearest);
     }

@@ -1,0 +1,108 @@
+{
+  "description": "Registry of all available dance/gesture animations, now annotated with formal geometric/logic properties and constraints per UL whitepapers.",
+  "created": "2025-06-05",
+  "version": "3.0.0",
+  "author": "GitHub Copilot (corrected)",
+  "animations": [
+    {
+      "name": "spin_360",
+      "ul_symbol": "circle",
+      "duration_sec": 1.2,
+      "geometric_property": "circle(x): (x-h)^2+(y-k)^2=r^2",
+      "logic_axiom": "circle(x) ↔ ∃h,k,r, x = { (x,y) | (x-h)^2+(y-k)^2=r^2, r>0 }",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["requires_root_motion"],
+      "usage_stats": {"count": 120, "contexts": ["greeting", "ritual"]},
+      "accessibility_notes": ["no flashing", "motion_smooth"]
+    },
+    {
+      "name": "triangle_footwork",
+      "ul_symbol": "triangle",
+      "duration_sec": 1.5,
+      "geometric_property": "triangle(x): closed path of 3 points in ℝ²",
+      "logic_axiom": "triangle(x) ↔ x is a set of 3 points in ℝ², forming a closed path",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["no root motion"],
+      "usage_stats": {"count": 80, "contexts": ["puzzle", "magic"]},
+      "accessibility_notes": ["no rapid movement"]
+    },
+    {
+      "name": "wave_arm",
+      "ul_symbol": "wave",
+      "duration_sec": 1.0,
+      "geometric_property": "wave(x): y = A sin(ωx + φ)",
+      "logic_axiom": "wave(x) ↔ x is a function f: ℝ→ℝ, periodic",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["no root motion"],
+      "usage_stats": {"count": 95, "contexts": ["diplomacy", "signal"]},
+      "accessibility_notes": ["motion_smooth"]
+    },
+    {
+      "name": "box_step_anim",
+      "ul_symbol": "square",
+      "duration_sec": 1.3,
+      "geometric_property": "square(x): 4 points, equal sides, right angles",
+      "logic_axiom": "square(x) ↔ x is a set of 4 points in ℝ², equal sides, right angles",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["requires_stable_ground"],
+      "usage_stats": {"count": 60, "contexts": ["defense", "ritual"]},
+      "accessibility_notes": ["no flashing"]
+    },
+    {
+      "name": "spiral_turn_anim",
+      "ul_symbol": "spiral",
+      "duration_sec": 1.7,
+      "geometric_property": "spiral(x): r = a + bθ",
+      "logic_axiom": "spiral(x) ↔ x = { (r cos θ, r sin θ) | r = a + bθ, θ ∈ ℝ }",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["requires_spinning"],
+      "usage_stats": {"count": 40, "contexts": ["healing", "magic"]},
+      "accessibility_notes": ["motion_smooth"]
+    },
+    {
+      "name": "zigzag_dash_anim",
+      "ul_symbol": "zigzag",
+      "duration_sec": 1.1,
+      "geometric_property": "zigzag(x): sequence of line segments, alternating slopes",
+      "logic_axiom": "zigzag(x) ↔ x is a sequence of line segments with alternating slopes",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["requires_fast_transition"],
+      "usage_stats": {"count": 30, "contexts": ["combat", "evasion"]},
+      "accessibility_notes": ["no rapid flashing"]
+    },
+    {
+      "name": "high_leap_anim",
+      "ul_symbol": "leap",
+      "duration_sec": 1.6,
+      "geometric_property": "leap(x): parabolic arc, y = ax² + bx + c",
+      "logic_axiom": "leap(x) ↔ x is a parabolic trajectory in ℝ²",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["requires_jump_capability"],
+      "usage_stats": {"count": 25, "contexts": ["exploration", "escape"]},
+      "accessibility_notes": ["motion_smooth"]
+    },
+    {
+      "name": "curve_arm_anim",
+      "ul_symbol": "curve",
+      "duration_sec": 1.1,
+      "geometric_property": "curve(x): parametric C(t) = (x(t), y(t)), t ∈ (a, b), curvature κ ≠ 0",
+      "logic_axiom": "curve(x) ↔ ∃f: ℝ→ℝ², x = { f(t) | t ∈ (a, b) }, f twice differentiable, κ ≠ 0",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["no root motion"],
+      "usage_stats": {"count": 50, "contexts": ["transition", "flow"]},
+      "accessibility_notes": ["motion_smooth"]
+    },
+    {
+      "name": "angle_pose_anim",
+      "ul_symbol": "angle",
+      "duration_sec": 0.8,
+      "geometric_property": "angle(x): two lines sharing a vertex, measure θ",
+      "logic_axiom": "angle(x) ↔ ∃P, Q, R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R",
+      "required_rig": "humanoid_v1",
+      "technical_constraints": ["no root motion"],
+      "usage_stats": {"count": 35, "contexts": ["focus", "direction"]},
+      "accessibility_notes": ["motion_smooth"]
+    }
+  ],
+  "notes": "Each animation is now annotated with its formal geometric and logic properties, as required by the UL whitepapers."
+}

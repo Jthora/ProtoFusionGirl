@@ -1,0 +1,15 @@
+# Peripheral Gameplay Systems Audit Plan (2025-06-07)
+
+## Scope
+- All files in src/services/, src/scenes/, and related gameplay modules
+
+## Checklist
+- [ ] Identify modules interacting with world/ley line/speeder state
+- [ ] Check for direct state mutation or legacy event usage
+- [ ] Ensure use of WorldStateManager and unified EventBus/event types
+
+## Findings
+- (To be filled during audit)
+
+## Required Refactors
+- (To be filled during audit)

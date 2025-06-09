@@ -1,0 +1,14 @@
+# Legacy Code Removal Plan (2025-06-07)
+
+## Scope
+- All legacy/unused files, event bus code, helpers
+
+## Checklist
+- [ ] Search for unused/legacy files and code
+- [ ] Plan removal or archival
+
+## Candidates for Removal
+- (To be filled during audit)
+
+## Actions
+- (To be filled during audit)

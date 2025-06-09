@@ -1,0 +1,67 @@
+# Dynamic Ley Line Instability Event Design
+
+## Overview
+Dynamic Ley Line Instability Events introduce emergent, escalating hazards and opportunities into the world. These events are triggered by simulation, player actions, environmental factors, or narrative hooks, and can escalate from minor surges to full rift formation.
+
+---
+
+## Event Types
+- **LEYLINE_INSTABILITY**: A ley line or node becomes unstable, increasing local hazard and risk of disruption.
+- **LEYLINE_SURGE**: A sudden burst of energy, may unlock new paths or cause temporary effects.
+- **LEYLINE_DISRUPTION**: A ley line or node is disabled, blocking travel and causing environmental hazards.
+- **RIFT_FORMED**: A dimensional rift opens, spawning enemies and altering the zone.
+
+---
+
+## State Transitions
+- Stable → Instability → Surge/Disruption → Rift Formed → (Resolution or Escalation)
+- Instability can propagate to nearby nodes/lines.
+- Player or AI actions can stabilize or escalate events.
+
+---
+
+## Triggers
+- Simulation tick (random chance, environmental conditions)
+- Player actions (overuse, sabotage, failed stabilization)
+- Narrative triggers (story events, boss fights)
+- Environmental hazards (Ion Storms, natural disasters)
+
+---
+
+## Data Model (TypeScript Example)
+```ts
+interface LeyLineInstabilityEvent {
+  id: string;
+  type: 'LEYLINE_INSTABILITY' | 'LEYLINE_SURGE' | 'LEYLINE_DISRUPTION' | 'RIFT_FORMED';
+  leyLineId: string;
+  nodeId?: string;
+  severity: 'minor' | 'moderate' | 'major';
+  triggeredBy: 'simulation' | 'player' | 'environment' | 'narrative';
+  timestamp: number;
+  branchId?: string;
+  data?: Record<string, any>;
+}
+```
+
+---
+
+## Example Event Payloads
+```json
+{
+  "id": "evt_leyline_001",
+  "type": "LEYLINE_INSTABILITY",
+  "leyLineId": "ley_12",
+  "nodeId": "node_5",
+  "severity": "moderate",
+  "triggeredBy": "simulation",
+  "timestamp": 1728440000000
+}
+```
+
+---
+
+## Narrative & Gameplay Impact
+- Unstable ley lines may block travel, spawn hazards, or alter resource flows.
+- Surges can unlock new areas or provide temporary buffs/debuffs.
+- Disruptions and rifts create high-risk, high-reward opportunities.
+- Player actions can resolve, escalate, or exploit instability.

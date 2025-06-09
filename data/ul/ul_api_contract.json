@@ -1,0 +1,58 @@
+{
+  "description": "TypeScript/OpenAPI contract for encoding, decoding, validating, and streaming Universal Language (UL) expressions, now referencing formal logic, model-theoretic validation, and error handling per the UL whitepapers.",
+  "created": "2025-06-05",
+  "version": "3.0.0",
+  "author": "GitHub Copilot (corrected)",
+  "api": {
+    "encodeULExpression": {
+      "params": ["sequence: string[]"],
+      "returns": "ULExpression",
+      "description": "Encodes a sequence of movement primitives into a UL expression object, mapping each to a formal predicate (e.g., spin → circle(x), arm_curve → curve(c), angle_pose_anim → angle(a), spiral_turn → spiral(s), zigzag_dash → zigzag(z), high_leap → leap(l)).",
+      "example_request": {"sequence": ["spin", "arm_curve", "angle_pose_anim", "spiral_turn", "zigzag_dash", "high_leap"]},
+      "example_response": {"ulExpression": {"predicates": ["circle(x)", "curve(c)", "angle(a)", "spiral(s)", "zigzag(z)", "leap(l)"], "valid": true}},
+      "error_codes": ["INVALID_SEQUENCE", "UNKNOWN_PRIMITIVE", "NOT_WELL_FORMED"],
+      "version": "3.0.0"
+    },
+    "decodeULExpression": {
+      "params": ["ulExpression: ULExpression"],
+      "returns": "string[]",
+      "description": "Decodes a UL expression object into a sequence of movement primitives, using the formal mapping from predicates to primitives.",
+      "example_request": {"ulExpression": {"predicates": ["triangle(t)", "circle(c)"]}},
+      "example_response": {"sequence": ["step_sequence_triangle", "spin"]},
+      "error_codes": ["INVALID_UL_EXPRESSION", "NOT_WELL_FORMED"],
+      "version": "3.0.0"
+    },
+    "validateULSequence": {
+      "params": ["sequence: string[]"],
+      "returns": "boolean",
+      "description": "Validates a sequence of movement primitives against UL's formal grammar and axioms (well-formed formula, type exclusivity, closure, context restrictions, etc) for all core and extended symbols.",
+      "example_request": {"sequence": ["spin", "spin", "spin", "spin"]},
+      "example_response": {"valid": false, "error": "EXCEEDS_REPETITION_LIMIT"},
+      "error_codes": ["EXCEEDS_REPETITION_LIMIT", "UNKNOWN_PRIMITIVE", "NOT_WELL_FORMED"],
+      "version": "3.0.0"
+    },
+    "batchEncodeULExpressions": {
+      "params": ["sequences: string[][]"],
+      "returns": "ULExpression[]",
+      "description": "Batch encodes multiple sequences into UL expressions, each mapped to formal predicates and validated as well-formed formulas.",
+      "example_request": {"sequences": [["spin", "arm_wave"], ["box_step"]]},
+      "example_response": {"ulExpressions": [{"predicates": ["circle(x)", "wave(y)"], "valid": true}, {"predicates": ["square(s)"], "valid": true}]},
+      "error_codes": ["BATCH_SIZE_LIMIT_EXCEEDED", "NOT_WELL_FORMED"],
+      "version": "3.0.0"
+    },
+    "streamULFeedback": {
+      "params": ["sequence: string[]"],
+      "returns": "AsyncIterable<ULFeedback>",
+      "description": "Streams real-time feedback as a sequence is performed, checking each step for well-formedness and model validity.",
+      "example_request": {"sequence": ["spin", "arm_wave"]},
+      "example_response": "Yields: {step: 1, valid: true, hint: null}, {step: 2, valid: true, hint: 'Try a slower arm wave for better effect.'}",
+      "error_codes": ["STREAM_INTERRUPTED", "NOT_WELL_FORMED"],
+      "version": "3.0.0"
+    }
+  },
+  "authentication": "API key required for write operations.",
+  "rate_limiting": "1000 requests/minute per key.",
+  "extension_points": ["custom validation hooks (for new axioms)", "webhook for feedback"],
+  "typescript_types": "export type ULExpression = { predicates: string[], valid: boolean }; export type ULFeedback = { step: number, valid: boolean, hint?: string }; // All predicates may include: point(x), line(x), circle(x), triangle(x), square(x), curve(x), angle(x), wave(x), spiral(x), zigzag(x), leap(x)",
+  "openapi_schema": "openapi: 3.0.0\ninfo:\n  title: UL API\n  version: 3.0.0\npaths:\n  /encode:\n    post:\n      summary: Encode a sequence into a UL expression\n      requestBody:\n        content:\n          application/json:\n            schema:\n              type: object\n              properties:\n                sequence:\n                  type: array\n                  items:\n                    type: string\n      responses:\n        '200':\n          description: Encoded UL expression\n          content:\n            application/json:\n              schema:\n                $ref: '#/components/schemas/ULExpression'\n  /decode:\n    post:\n      summary: Decode a UL expression into a sequence\n      requestBody:\n        content:\n          application/json:\n            schema:\n              type: object\n              properties:\n                ulExpression:\n                  $ref: '#/components/schemas/ULExpression'\n      responses:\n        '200':\n          description: Decoded sequence\n          content:\n            application/json:\n              schema:\n                type: object\n                properties:\n                  sequence:\n                    type: array\n                    items:\n                      type: string\ncomponents:\n  schemas:\n    ULExpression:\n      type: object\n      properties:\n        predicates:\n          type: array\n          items:\n            type: string\n        valid:\n          type: boolean\n"
+}

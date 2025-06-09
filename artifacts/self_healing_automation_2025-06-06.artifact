@@ -1,0 +1,37 @@
+---
+artifact: self_healing_automation_2025-06-06
+created: 2025-06-06
+purpose: Automation and self-healing plan for validation, feedback, and artifact generation.
+type: automation
+format: markdown
+---
+
+# Self-Healing & Automation
+
+## Goals
+- Automated onboarding, validation, and context sync
+- Self-healing for missing/broken data
+- Feedback artifact generation
+
+## Steps
+- Script automation for all core systems
+- Error detection and auto-repair
+- Feedback loop integration
+- Artifact/documentation sync
+
+## Acceptance Criteria
+- [ ] All core systems have automated validation scripts
+- [ ] Errors are detected and auto-repaired or escalated
+- [ ] Feedback artifacts are generated for every critical issue
+
+## Example Usage
+- "Run validation scripts after every build; if a ley line node is missing, auto-generate a repair task and feedback artifact."
+
+## Required Tests
+- Unit tests for validation scripts
+- Integration tests for error detection and repair
+- Artifact sync tests
+
+## Related Artifacts
+- ley_line_system_design_2025-06-06.artifact
+- onboarding_narrative_flow_2025-06-06.artifact

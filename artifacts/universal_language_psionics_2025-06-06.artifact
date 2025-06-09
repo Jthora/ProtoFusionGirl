@@ -1,0 +1,44 @@
+---
+artifact: universal_language_psionics_2025-06-06
+created: 2025-06-06
+purpose: Modular system for Universal Language puzzles and psionic abilities, scaling with narrative.
+type: design
+format: markdown
+---
+
+# Universal Language & Psionics
+
+## System Goals
+- Modular puzzle engine
+- Psionic abilities tied to ley lines/world state
+- Narrative-driven unlocks
+
+## API Contracts
+- `Puzzle` interface: `{ id: string, difficulty: number, symbols: string[], solved: boolean }`
+- `UniversalLanguageEngine` class: `puzzles: Puzzle[]`, methods: `addPuzzle(puzzle)`, `solvePuzzle(id, symbols)`
+
+## Acceptance Criteria
+- [ ] Can add and solve puzzles
+- [ ] Psionic abilities unlock as narrative progresses
+- [ ] Puzzle UI integrates with main game UI
+
+## Example Usage
+```ts
+const engine = new UniversalLanguageEngine();
+engine.addPuzzle({ id: 'p1', difficulty: 2, symbols: ['A', 'B'], solved: false });
+engine.solvePuzzle('p1', ['A', 'B']);
+```
+
+## Implementation Steps
+- Puzzle system prototype
+- Psionic ability integration
+- Narrative triggers
+- Testing and balancing
+
+## Required Tests
+- Unit tests for puzzle logic
+- Integration tests for UI and narrative triggers
+
+## Related Artifacts
+- ley_line_system_design_2025-06-06.artifact
+- ui_ux_accessibility_2025-06-06.artifact

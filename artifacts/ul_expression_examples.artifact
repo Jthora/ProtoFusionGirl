@@ -1,0 +1,149 @@
+{
+  "description": "Sample Universal Language (UL) expressions with formal parsing, logic, and model-theoretic validation, per the UL whitepapers.",
+  "created": "2025-06-05",
+  "version": "3.0.0",
+  "author": "GitHub Copilot (corrected)",
+  "examples": [
+    {
+      "expression": ["spin", "arm_wave"],
+      "ul_symbols": ["circle", "wave"],
+      "meaning": "Initiate a peaceful greeting ritual.",
+      "formal_parse": "circle(x) ∧ wave(y)",
+      "model_validation": "∃x ∈ ℝ², ∃y: wave(y) holds; both are well-formed and valid in the model.",
+      "logic_steps": [
+        "spin maps to circle(x)",
+        "arm_wave maps to wave(y)",
+        "circle(x) ∧ wave(y) is a valid conjunction by conjunction introduction"
+      ],
+      "expected_effect": "NPC responds with friendly gesture.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["step_sequence_triangle", "spin"],
+      "ul_symbols": ["triangle", "circle"],
+      "meaning": "Request transformation and unity.",
+      "formal_parse": "triangle(t) ∧ circle(c)",
+      "model_validation": "∃t, c ∈ ℝ², triangle(t), circle(c) hold; valid in the model.",
+      "logic_steps": [
+        "step_sequence_triangle maps to triangle(t)",
+        "spin maps to circle(c)",
+        "triangle(t) ∧ circle(c) is a valid conjunction"
+      ],
+      "expected_effect": "Unlocks a puzzle door.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["arm_wave", "arm_wave", "spin"],
+      "ul_symbols": ["wave", "wave", "circle"],
+      "meaning": "Signal for help, then establish unity.",
+      "formal_parse": "wave(w₁) ∧ wave(w₂) ∧ circle(c)",
+      "model_validation": "∃w₁, w₂, c, all valid in the model; repetition allowed by closure axiom.",
+      "logic_steps": [
+        "arm_wave maps to wave(w₁)",
+        "arm_wave maps to wave(w₂)",
+        "spin maps to circle(c)",
+        "All are valid and can be conjoined"
+      ],
+      "expected_effect": "Allies are summoned to the player.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["zigzag_dash", "high_leap"],
+      "ul_symbols": ["zigzag", "leap"],
+      "meaning": "Evade and escape danger.",
+      "formal_parse": "zigzag(z) ∧ leap(l)",
+      "model_validation": "∃z, l, both valid in the model; sequence is well-formed.",
+      "logic_steps": [
+        "zigzag_dash maps to zigzag(z)",
+        "high_leap maps to leap(l)",
+        "zigzag(z) ∧ leap(l) is a valid conjunction"
+      ],
+      "expected_effect": "Player escapes combat zone.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["spin", "spin", "spin", "spin"],
+      "ul_symbols": ["circle", "circle", "circle", "circle"],
+      "meaning": "Invalid: excessive repetition.",
+      "formal_parse": "circle(c₁) ∧ circle(c₂) ∧ circle(c₃) ∧ circle(c₄)",
+      "model_validation": "Fails: exceeds repetition limit set by the system's closure/identity rules.",
+      "logic_steps": [
+        "Each spin maps to circle(ci)",
+        "System checks for idempotence/identity; excessive repetition is invalid"
+      ],
+      "expected_effect": "Sequence rejected; error message shown.",
+      "test_case": "Invalid sequence; fails model-theoretic validation."
+    },
+    {
+      "expression": ["box_step"],
+      "ul_symbols": ["square"],
+      "meaning": "Defensive stance (Order Guardians only).",
+      "formal_parse": "square(s)",
+      "model_validation": "square(s) holds only if context(faction=order_guardians)",
+      "logic_steps": [
+        "box_step maps to square(s)",
+        "Context checked for faction; only valid for order_guardians"
+      ],
+      "expected_effect": "Player gains shield if faction matches; error otherwise.",
+      "test_case": "Context-dependent; model validation conditional."
+    },
+    {
+      "expression": ["arm_curve", "spin"],
+      "ul_symbols": ["curve", "circle"],
+      "meaning": "Transition into unity (flow into closure).",
+      "formal_parse": "curve(c) ∧ circle(x)",
+      "model_validation": "∃c, x, curve(c), circle(x) hold; valid in the model.",
+      "logic_steps": [
+        "arm_curve maps to curve(c)",
+        "spin maps to circle(x)",
+        "curve(c) ∧ circle(x) is a valid conjunction"
+      ],
+      "expected_effect": "Player transitions smoothly into a ritual circle.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["angle_pose_anim", "step_line"],
+      "ul_symbols": ["angle", "line"],
+      "meaning": "Focus direction, then progress.",
+      "formal_parse": "angle(a) ∧ line(l)",
+      "model_validation": "∃a, l, angle(a), line(l) hold; valid in the model.",
+      "logic_steps": [
+        "angle_pose_anim maps to angle(a)",
+        "step_line maps to line(l)",
+        "angle(a) ∧ line(l) is a valid conjunction"
+      ],
+      "expected_effect": "Player focuses, then advances.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["spiral_turn", "arm_wave"],
+      "ul_symbols": ["spiral", "wave"],
+      "meaning": "Energize and signal.",
+      "formal_parse": "spiral(s) ∧ wave(w)",
+      "model_validation": "∃s, w, spiral(s), wave(w) hold; valid in the model.",
+      "logic_steps": [
+        "spiral_turn maps to spiral(s)",
+        "arm_wave maps to wave(w)",
+        "spiral(s) ∧ wave(w) is a valid conjunction"
+      ],
+      "expected_effect": "Player energizes the field and signals allies.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    },
+    {
+      "expression": ["zigzag_dash", "angle_pose_anim", "high_leap"],
+      "ul_symbols": ["zigzag", "angle", "leap"],
+      "meaning": "Evade, redirect, then escape.",
+      "formal_parse": "zigzag(z) ∧ angle(a) ∧ leap(l)",
+      "model_validation": "∃z, a, l, all valid in the model; sequence is well-formed.",
+      "logic_steps": [
+        "zigzag_dash maps to zigzag(z)",
+        "angle_pose_anim maps to angle(a)",
+        "high_leap maps to leap(l)",
+        "zigzag(z) ∧ angle(a) ∧ leap(l) is a valid conjunction"
+      ],
+      "expected_effect": "Player escapes a trap with agility and focus.",
+      "test_case": "Valid sequence; model-theoretically sound."
+    }
+  ],
+  "notes": "Each example now includes a formal parse, logic steps, and explicit model-theoretic validation, as required by the UL whitepapers."
+}

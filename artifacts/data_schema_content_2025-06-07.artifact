@@ -1,0 +1,50 @@
+# Data Schema & Content Artifact
+
+## Purpose
+Specifies the structure and location of all data-driven content (skills, cosmetics, factions, narrative, etc.).
+
+## JSON Schema Definitions (Examples)
+
+### Skill
+{
+  "id": "string",
+  "name": "string",
+  "description": "string",
+  "effects": ["string"],
+  "requirements": ["string"]
+}
+
+### Cosmetic
+{
+  "id": "string",
+  "type": "outfit" | "hairstyle" | "wings",
+  "name": "string",
+  "unlockCondition": "string"
+}
+
+### Faction
+{
+  "id": "string",
+  "name": "string",
+  "description": "string",
+  "reputationRange": [number, number]
+}
+
+### Narrative Event
+{
+  "id": "string",
+  "trigger": "string",
+  "actions": ["string"]
+}
+
+## Example Data Files
+- data/skills.json
+- data/cosmetics.json
+- data/factions.json
+- data/narrative.json
+
+## Guidelines
+- All data files must validate against their schema
+- New content should be added via data, not code
+
+---

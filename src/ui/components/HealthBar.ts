@@ -54,4 +54,8 @@ export class HealthBar {
     this.bg.destroy();
     this.bar.destroy();
   }
+
+  // TODO: Add animation for health bar changes (e.g., smooth transitions, color flashes on damage/heal).
+  // TODO: Integrate with event system for automatic updates on player/enemy health changes.
+  // TODO: Support custom styles and mod/plugin extensions for health bar appearance.
 }

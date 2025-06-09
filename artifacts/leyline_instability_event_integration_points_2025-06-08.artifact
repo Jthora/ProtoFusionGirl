@@ -1,0 +1,45 @@
+# Ley Line Instability Event Integration Points
+
+## Affected Modules & Classes
+- `src/world/simulation/CosmicEnvSimulation.ts`: Event simulation, triggers, escalation logic
+- `src/world/WorldStateManager.ts`: Canonical world state, persistence, event bus updates
+- `src/world/event/MultiverseEventEngine.ts`: Event emission, propagation, branch/timeline awareness
+- `src/world/leyline/LeyLineSystem.ts`: Ley line-specific logic, event handling
+- `src/core/UIManager.ts`, `src/ui/components/Minimap.ts`, `src/scenes/GameScene.ts`: UI overlays, minimap, player feedback
+- `src/world/leyline/procedural/LeyLineProceduralGen.ts`, `src/world/leyline/pathfinding/LeyLinePathfinder.ts`: Procedural worldgen, pathfinding adaptation
+- `src/world/missions/MissionSystem.ts`: Mission/narrative triggers and objectives
+- `src/world/timestream/TimestreamFramework.ts`, `src/world/RealityWarpSystem.ts`: Branch/timeline support
+
+---
+
+## Required Changes / Hooks
+- Add instability event generation to `simulateTick` in `CosmicEnvSimulation`
+- Update world state and emit event bus updates in `WorldStateManager`
+- Define and propagate new event types in `MultiverseEventEngine`
+- Handle instability events in `LeyLineSystem` (activation, stabilization, escalation)
+- Visualize instability in UI overlays and minimap
+- Adapt procedural generation and pathfinding to instability/rift status
+- Integrate with mission/narrative systems for objectives and consequences
+- Ensure all event/state changes are branch-aware
+
+---
+
+## Sequence Diagram (Simplified)
+```
+[Simulation] → [CosmicEnvSimulation.simulateTick] → [WorldStateManager.updateState] → [MultiverseEventEngine.triggerWorldChange] → [EventBus] → [LeyLineSystem, UIManager, Missions, etc.]
+```
+
+---
+
+## API Contracts (EventBus Example)
+```ts
+eventBus.emit({
+  type: 'LEYLINE_INSTABILITY',
+  data: {
+    leyLineId: 'ley_12',
+    nodeId: 'node_5',
+    severity: 'moderate',
+    ...
+  }
+});
+```

@@ -1,0 +1,36 @@
+# Universal Language (UL) System Documentation
+
+## Overview
+The Universal Language (UL) system provides a data-driven, extensible framework for puzzles, symbols, grammar, and animations in ProtoFusionGirl. It is fully integrated with player, mission, world, and AI systems via a standardized event bus.
+
+## Architecture & Integration Points
+- **Resource Loader**: Loads and validates UL puzzles, symbols, grammar, and animations from core and mod directories.
+- **Sandboxed Scripting**: All puzzle scripts are executed in a secure, sandboxed environment.
+- **Event Bus**: Standardized events (`ul:puzzle:completed`, `ul:puzzle:validated`, etc.) connect UL actions to gameplay, UI, analytics, and other systems.
+- **Cross-System Hooks**: PlayerManager, MissionSystem, WorldStateManager, and ASIController all listen for UL events and react accordingly.
+
+## Adding/Modding UL Content
+- Place new puzzles, symbols, grammar, or animations in the appropriate JSON format in `data/ul/` (core) or `src/mods/` (mods).
+- Modded content must use unique, namespaced IDs and include `metadata.mod` or `metadata.author`.
+- All resources are validated for schema, uniqueness, and safety.
+
+## Event System
+- Subscribe to UL events via `ulEventBus`:
+  - `ul:puzzle:loaded`, `ul:puzzle:validated`, `ul:puzzle:completed`
+  - `ul:symbol:loaded`, `ul:animation:loaded`, etc.
+- Payloads include resource IDs, metadata, validation results, and errors.
+- See `src/ul/ulEventBus.ts` for event types and usage.
+
+## Integration Examples
+- **PlayerManager**: Grants rewards or triggers effects on puzzle completion.
+- **MissionSystem**: Advances or branches missions based on UL puzzle outcomes.
+- **WorldStateManager**: Unlocks areas or changes environment when specific puzzles are solved.
+- **ASIController**: Adapts AI/ASI behavior in response to UL events.
+
+## Testing & Validation
+- Automated tests cover resource loading, validation, event emission, and modding.
+- See `src/ul/__tests__/ulResourceLoader.test.ts` for examples.
+- All mods must pass schema and safety checks before being loaded.
+
+## References
+- See related artifacts: `ul_integration_roadmap_2025-06-06.artifact`, `ul_resource_schema_2025-06-06.artifact`, `ul_event_spec_2025-06-06.artifact`, `ul_modding_support_2025-06-06.artifact`, `ul_validation_matrix_2025-06-06.artifact`.

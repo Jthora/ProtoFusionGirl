@@ -1,0 +1,42 @@
+# Ley Line Instability Event API Reference
+
+## TypeScript Interfaces
+```ts
+export interface LeyLineInstabilityEvent {
+  id: string;
+  type: 'LEYLINE_INSTABILITY' | 'LEYLINE_SURGE' | 'LEYLINE_DISRUPTION' | 'RIFT_FORMED';
+  leyLineId: string;
+  nodeId?: string;
+  severity: 'minor' | 'moderate' | 'major';
+  triggeredBy: 'simulation' | 'player' | 'environment' | 'narrative';
+  timestamp: number;
+  branchId?: string;
+  data?: Record<string, any>;
+}
+```
+
+## EventBus Contract
+```ts
+eventBus.emit({
+  type: 'LEYLINE_INSTABILITY',
+  data: LeyLineInstabilityEvent
+});
+
+// Listeners
+ eventBus.on('LEYLINE_INSTABILITY', (event) => { /* handle event */ });
+```
+
+## Example Usage
+```ts
+// Emitting an instability event
+const event: LeyLineInstabilityEvent = {
+  id: 'evt_leyline_001',
+  type: 'LEYLINE_INSTABILITY',
+  leyLineId: 'ley_12',
+  nodeId: 'node_5',
+  severity: 'moderate',
+  triggeredBy: 'simulation',
+  timestamp: Date.now()
+};
+eventBus.emit({ type: event.type, data: event });
+```

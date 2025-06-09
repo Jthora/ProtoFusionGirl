@@ -56,8 +56,8 @@ function runOnboarding() {
       // --- Enhancement: Generate Copilot Essential Info JSON after onboarding ---
       try {
         require('child_process').spawnSync('node', ['scripts/generateCopilotEssentialInfo.cjs'], { stdio: 'inherit' });
+        // Only merge in summary fields at the top level (avoid hyper-engaging the file)
         const info = JSON.parse(fs.readFileSync(path.join(__dirname, '../artifacts/copilot_essential_info.json'), 'utf8'));
-        // Only merge in summary fields at the top level
         statusObj.copilotSummary = {
           artifacts: Object.keys(info.artifacts || {}).length,
           essentialFiles: Object.keys(info.essentialFiles || {}).length,
@@ -67,7 +67,7 @@ function runOnboarding() {
           docsIndexed: info.docsIndex && info.docsIndex.indexedFiles ? info.docsIndex.indexedFiles : undefined
         };
       } catch (e) {
-        console.warn('Could not generate Copilot essential info or summary:', e.message);
+        console.warn('Could not generate Copilot essential info:', e.message);
       }
       // --- Copilot Instruction: Check all JSON outputs from onboarding subscripts ---
       statusObj.copilotInstructions = statusObj.copilotInstructions || [];
@@ -97,9 +97,16 @@ function runOnboarding() {
         // --- Enhancement: Generate Copilot Essential Info JSON after onboarding ---
         try {
           require('child_process').spawnSync('node', ['scripts/generateCopilotEssentialInfo.cjs'], { stdio: 'inherit' });
-          // Merge all essential info into statusObj for Copilot
+          // Only merge in summary fields at the top level (avoid hyper-engaging the file)
           const info = JSON.parse(fs.readFileSync(path.join(__dirname, '../artifacts/copilot_essential_info.json'), 'utf8'));
-          Object.assign(statusObj, info);
+          statusObj.copilotSummary = {
+            artifacts: Object.keys(info.artifacts || {}).length,
+            essentialFiles: Object.keys(info.essentialFiles || {}).length,
+            scripts: info.scripts ? info.scripts.length : 0,
+            projectFiles: Object.keys(info.projectFiles || {}).length,
+            onboardingStatus: info.onboardingStatus && info.onboardingStatus.success !== undefined ? (info.onboardingStatus.success ? 'PASS' : 'FAIL') : undefined,
+            docsIndexed: info.docsIndex && info.docsIndex.indexedFiles ? info.docsIndex.indexedFiles : undefined
+          };
         } catch (e) {
           console.warn('Could not generate Copilot essential info:', e.message);
         }

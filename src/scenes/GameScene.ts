@@ -31,6 +31,9 @@ import { InventoryManager, Item } from '../core/InventoryManager';
 import { InventoryOverlay } from '../ui/components/InventoryOverlay';
 import { DialogueManager, DialogueNode } from '../core/DialogueManager';
 import { DialogueModal } from '../ui/components/DialogueModal';
+import { LeyLineManager } from '../world/leyline/LeyLineManager';
+import { LeyLineVisualization } from '../world/leyline/visualization/LeyLineVisualization';
+import { WorldStateManager } from '../world/WorldStateManager';
 
 // Optionally, run asset validation at startup (for dev environments)
 try {
@@ -85,6 +88,15 @@ export class GameScene extends Phaser.Scene {
   // Dialogue variables
   private dialogueManager!: DialogueManager;
   private dialogueModal?: DialogueModal;
+
+  // Ley line variables
+  private leyLineManager!: LeyLineManager;
+  private leyLineOverlay!: Phaser.GameObjects.Graphics;
+  private leyLineEventHistory: any[] = [];
+
+  // --- WORLD STATE MANAGER SETUP ---
+  // TODO: Replace with actual initial state loading as needed
+  private worldStateManager!: WorldStateManager;
 
   constructor() {
     super({ key: 'GameScene' });
@@ -226,6 +238,54 @@ export class GameScene extends Phaser.Scene {
       this.playerManager.getPlayerAttackController()?.attackNearestEnemy();
     });
 
+    // --- MODULAR GAME LOOP SETUP ---
+    this.modularGameLoop = new ModularGameLoop(this.eventBus);
+
+    // Register player update system
+    this.modularGameLoop.registerSystem({
+      id: 'player-update',
+      priority: 1,
+      update: (dt, context) => {
+        this.playerManager.getJane()?.updateAI?.(dt);
+      }
+    });
+
+    // Register tilemap system
+    this.modularGameLoop.registerSystem({
+      id: 'tilemap-update',
+      priority: 2,
+      update: (dt, context) => {
+        this.tilemapManager?.update?.(dt, context);
+      }
+    });
+
+    // Register enemy system
+    this.modularGameLoop.registerSystem({
+      id: 'enemy-update',
+      priority: 3,
+      update: () => {
+        this.enemyManager?.update?.();
+      }
+    });
+
+    // Register UI system
+    this.modularGameLoop.registerSystem({
+      id: 'ui-update',
+      priority: 4,
+      update: (dt, context) => {
+        this.uiManager?.update?.(dt, context);
+      }
+    });
+
+    // Register mission system
+    this.modularGameLoop.registerSystem({
+      id: 'mission-update',
+      priority: 5,
+      update: (dt, context) => {
+        this.missionManager?.update?.(dt, context);
+      }
+    });
+
     // --- MANAGER MODULES SETUP ---
     this.uiManager = new UIManager(
       this,
@@ -233,8 +293,11 @@ export class GameScene extends Phaser.Scene {
       janeSprite,
       this.enemyManager.enemies,
       this.enemyManager.enemySprites,
-      [] // loreEntries, now handled in UIManager or NarrativeManager
+      [], // loreEntries, now handled in UIManager or NarrativeManager
+      this.eventBus
     );
+    // Attach UIManager to scene for PlayerManager feedback integration
+    (this as any).uiManager = this.uiManager;
     this.narrativeManager = new NarrativeManager(
       this,
       this.missionManager,
@@ -261,7 +324,8 @@ export class GameScene extends Phaser.Scene {
     this.asiOverlay = new ASIOverlay({
       scene: this,
       width: this.scale.width,
-      height: this.scale.height
+      height: this.scale.height,
+      eventBus: this.eventBus
     });
     this.asiOverlay.setASIState(this.playerManager.isJaneASIControlled());
     this.asiOverlay.onConsent(() => {
@@ -318,6 +382,52 @@ export class GameScene extends Phaser.Scene {
     this.dialogueManager.onDialogueStarted((node) => {
       this.dialogueModal?.show(node);
     });
+
+    // --- LEY LINE MANAGER & VISUALIZATION OVERLAY ---
+    this.leyLineManager = new LeyLineManager(this.worldStateManager, this.eventBus as any); // Use unified state
+    this.leyLineOverlay = this.add.graphics();
+    this.leyLineOverlay.setDepth(1000); // Draw above tilemap
+    // Listen for ley line events to update overlay and feedback
+    this.eventBus.on('LEYLINE_SURGE', (event: any) => {
+      this.leyLineEventHistory.push(event.data);
+      this.refreshLeyLineOverlay();
+      this.showLeyLineFeedback(event.data);
+    });
+    this.eventBus.on('LEYLINE_DISRUPTION', (event: any) => {
+      this.leyLineEventHistory.push(event.data);
+      this.refreshLeyLineOverlay();
+      this.showLeyLineFeedback(event.data);
+    });
+    // Initial overlay draw
+    this.refreshLeyLineOverlay();
+
+    // --- DEV DEBUG TOOLS: Toggle ley line overlay on minimap ---
+    this.input.keyboard?.on('keydown-D', () => {
+      this.uiManager.minimap?.toggleLeyLineOverlayVisible();
+    });
+
+    // Artifact: leyline_instability_event_narrative_examples_2025-06-08.artifact
+    // Listen for ley line instability and related events for in-world feedback
+    if (this.eventBus) {
+      this.eventBus.on('LEYLINE_INSTABILITY', (event) => {
+        // In-world visual: ley line glows, flickers, or emits sparks
+        if (event.data.leyLineId) {
+          this.triggerLeyLineVisualEffect(event.data.leyLineId, event.data.nodeId, event.data.severity);
+        }
+      });
+      this.eventBus.on('LEYLINE_SURGE', (event) => {
+        // No nodeId in LEYLINE_SURGE event, only leyLineId
+        this.triggerLeyLineVisualEffect(event.data.leyLineId, undefined, 'moderate');
+      });
+      this.eventBus.on('LEYLINE_DISRUPTION', (event) => {
+        this.triggerLeyLineVisualEffect(event.data.leyLineId, undefined, 'major');
+      });
+      this.eventBus.on('RIFT_FORMED', (event) => {
+        if (event.data.leyLineId) {
+          this.triggerLeyLineVisualEffect(event.data.leyLineId, event.data.nodeId, 'major', true);
+        }
+      });
+    }
   }
 
   private handleNPCInteraction(npcId: string) {
@@ -330,7 +440,99 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  private refreshLeyLineOverlay() {
+    this.leyLineOverlay.clear();
+    // Use canonical ley line state from WorldStateManager
+    const leyLines = this.worldStateManager.getState().leyLines;
+    const overlays = LeyLineVisualization.generateEventOverlays(this.leyLineEventHistory.slice(-5)); // last 5 events
+    const renderData = LeyLineVisualization.getRenderData(leyLines, overlays);
+    // Draw lines
+    this.leyLineOverlay.lineStyle(3, 0x00ffff, 0.5);
+    for (const line of renderData.lines) {
+      this.leyLineOverlay.strokeLineShape(new Phaser.Geom.Line(
+        line.from.x, line.from.y, line.to.x, line.to.y
+      ));
+    }
+    // Draw nodes
+    for (const node of renderData.nodes) {
+      this.leyLineOverlay.fillStyle(node.state === 'active' ? 0x00ffcc : 0x888888, 1);
+      this.leyLineOverlay.fillCircle(node.position.x, node.position.y, 8);
+    }
+    // Draw overlays (event highlights)
+    for (const overlay of renderData.overlays) {
+      if (overlay.affectedTiles) {
+        this.leyLineOverlay.fillStyle(overlay.color === 'cyan' ? 0x00ffff : overlay.color === 'red' ? 0xff4444 : 0xffff00, 0.4);
+        for (const tile of overlay.affectedTiles) {
+          this.leyLineOverlay.fillRect(tile.x * 32, tile.y * 32, 32, 32);
+        }
+      }
+    }
+    // Update minimap ley line overlay via UIManager
+    this.uiManager.setLeyLineMinimapData(leyLines, overlays);
+    this.uiManager.minimap?.updateMinimap();
+  }
+
+  private showLeyLineFeedback(eventData: any) {
+    // Simple player feedback: show a floating text or popup
+    const msg = eventData.narrativeContext || eventData.lore || eventData.eventType;
+    const text = this.add.text(this.scale.width / 2, 40, msg, {
+      font: '20px Arial', color: '#00ffff', backgroundColor: '#222', padding: { x: 8, y: 4 }
+    }).setOrigin(0.5, 0).setDepth(2000);
+    this.tweens.add({
+      targets: text,
+      alpha: 0,
+      y: 0,
+      duration: 2000,
+      onComplete: () => text.destroy()
+    });
+  }
+
+  /**
+   * Trigger a visual effect (glow, flicker, sparks) on the affected ley line/node.
+   * Artifact: leyline_instability_event_narrative_examples_2025-06-08.artifact
+   */
+  private triggerLeyLineVisualEffect(leyLineId: string, nodeId?: string, severity?: string, isRift?: boolean) {
+    // Find ley line and node in overlay, add a temporary effect (stub/placeholder)
+    // Example: flicker/glow effect on overlay canvas or add a sprite effect
+    // This is a stub; real implementation would use a particle system or shader
+    const color = isRift ? 0xaa00ff : severity === 'major' ? 0xff4444 : severity === 'moderate' ? 0xffff00 : 0x00ff88;
+    const overlay = this.leyLineOverlay || this.add.graphics();
+    overlay.lineStyle(6, color, 0.7);
+    // Example: draw a glowing circle at node or along ley line
+    if (nodeId) {
+      const leyLine = this.worldStateManager.getState().leyLines.find(l => l.id === leyLineId);
+      const node = leyLine?.nodes.find(n => n.id === nodeId);
+      if (node) {
+        overlay.strokeCircle(node.position.x, node.position.y, 32);
+        this.tweens.add({
+          targets: overlay,
+          alpha: 0,
+          duration: 900,
+          onComplete: () => overlay.clear()
+        });
+      }
+    } else {
+      // Highlight the whole ley line
+      const leyLine = this.worldStateManager.getState().leyLines.find(l => l.id === leyLineId);
+      if (leyLine) {
+        for (let i = 1; i < leyLine.nodes.length; i++) {
+          const a = leyLine.nodes[i - 1].position;
+          const b = leyLine.nodes[i].position;
+          overlay.strokeLineShape(new Phaser.Geom.Line(a.x, a.y, b.x, b.y));
+        }
+        this.tweens.add({
+          targets: overlay,
+          alpha: 0,
+          duration: 900,
+          onComplete: () => overlay.clear()
+        });
+      }
+    }
+  }
+
   update(_time: number, delta: number) {
     this.modularGameLoop.update(delta);
+    // Optionally, update ley line overlay if ley lines are dynamic
+    // this.refreshLeyLineOverlay();
   }
 }

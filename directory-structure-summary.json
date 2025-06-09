@@ -1,0 +1,16 @@
+{
+  "topLevelFiles": [
+    ".changelog",
+    ".dashboard",
+    ".datapack",
+    ".eslintrc.js",
+    ".feedback",
+    ".git",
+    ".gitignore",
+    ".husky",
+    ".init",
+    ".manifest"
+  ],
+  "topLevelDirs": {},
+  "note": "This summary is truncated for Copilot context window. Only top-level and a few sub-items are shown."
+}

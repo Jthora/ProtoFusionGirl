@@ -1,3 +1,6 @@
+import { LeyLineInstabilityEvent } from '../leyline/types';
+import { EventBus } from '../../core/EventBus';
+
 // CosmicEnvSimulation: Simulates ley lines, vortices, cosmic events, and environmental hazards per branch/timeline.
 // Integrates with WorldPersistence and MultiverseEventEngine.
 export interface CosmicEvent {
@@ -17,6 +20,11 @@ export interface CosmicState {
 
 export class CosmicEnvSimulation {
   private branchStates: Record<string, CosmicState> = {};
+  private eventBus?: EventBus;
+
+  constructor(eventBus?: EventBus) {
+    this.eventBus = eventBus;
+  }
 
   getBranchState(branchId: string): CosmicState {
     if (!this.branchStates[branchId]) {
@@ -31,8 +39,65 @@ export class CosmicEnvSimulation {
     state.events.push(fullEvent);
   }
 
+  // Artifact: leyline_instability_event_design_2025-06-08.artifact
+  // Simulate ley line instability, surge, disruption, and rift events
   simulateTick(branchId: string) {
-    // TODO: Simulate ley line/vortex/hazard changes, trigger events
+    // Simulate ley line/vortex/hazard changes, trigger events
+    const state = this.getBranchState(branchId);
+    // Example: randomly trigger a ley line instability event (simulation trigger)
+    if (state.leyLines.length > 0 && Math.random() < 0.1) {
+      const leyLine = state.leyLines[Math.floor(Math.random() * state.leyLines.length)];
+      // Check for existing instability event for this ley line
+      const lastEvent = state.events.filter(e => e.type.startsWith('LEYLINE_') && e.data.leyLineId === leyLine.id).sort((a, b) => b.timestamp - a.timestamp)[0];
+      let nextEvent: LeyLineInstabilityEvent | null = null;
+      if (!lastEvent || lastEvent.data.type === 'LEYLINE_INSTABILITY' && lastEvent.data.severity === 'minor') {
+        // Escalate to moderate instability
+        nextEvent = {
+          id: `instab_${leyLine.id}_${Date.now()}`,
+          type: 'LEYLINE_INSTABILITY',
+          leyLineId: leyLine.id,
+          severity: lastEvent ? 'moderate' : 'minor',
+          triggeredBy: 'simulation',
+          timestamp: Date.now(),
+          branchId,
+          data: { reason: lastEvent ? 'escalation' : 'random_tick' }
+        };
+      } else if (lastEvent.data.type === 'LEYLINE_INSTABILITY' && lastEvent.data.severity === 'moderate') {
+        // Escalate to disruption
+        nextEvent = {
+          id: `disrupt_${leyLine.id}_${Date.now()}`,
+          type: 'LEYLINE_DISRUPTION',
+          leyLineId: leyLine.id,
+          severity: 'major',
+          triggeredBy: 'simulation',
+          timestamp: Date.now(),
+          branchId,
+          data: { reason: 'escalation' }
+        };
+      } else if (lastEvent.data.type === 'LEYLINE_DISRUPTION' || (lastEvent.data.type === 'LEYLINE_INSTABILITY' && lastEvent.data.severity === 'major')) {
+        // Escalate to rift
+        nextEvent = {
+          id: `rift_${leyLine.id}_${Date.now()}`,
+          type: 'RIFT_FORMED',
+          leyLineId: leyLine.id,
+          severity: 'major',
+          triggeredBy: 'simulation',
+          timestamp: Date.now(),
+          branchId,
+          data: { reason: 'escalation' }
+        };
+      }
+      if (nextEvent) {
+        this.addCosmicEvent(branchId, {
+          id: nextEvent.id,
+          type: nextEvent.type,
+          data: nextEvent,
+        });
+        if (this.eventBus) {
+          this.eventBus.emit({ type: nextEvent.type, data: nextEvent });
+        }
+      }
+    }
     // For now, just log
     // Example: this.addCosmicEvent(branchId, { id: 'tick', type: 'tick', data: {} });
   }

@@ -1,0 +1,80 @@
+# Universal Language (UL) Onboarding & Reference Guide (Corrected)
+
+**Created:** 2025-06-05
+**Version:** 3.0.0
+**Author:** GitHub Copilot (corrected)
+
+---
+
+## Visual Flowchart
+
+![UL System Flowchart](images/ul_system_flowchart.png)
+
+- **UL Symbol/Movement Map** → **Formal Grammar (First-Order Logic)** → **Expression Examples (with Model Validation)** → **Animation Library (with Geometric/Logic Annotations)** → **Puzzle Templates (with Formal Logic)** → **API Contract (Formal Predicates, Model Checks)**
+- All artifacts are now grounded in the mathematical and logical structure from the UL whitepapers, including all core and extended symbols (curve, angle, spiral, zigzag, leap).
+
+---
+
+## Quickstart Checklist
+
+1. Review the symbol-movement map and formal grammar (first-order logic signature, axioms, deduction rules) for all symbols: point, line, circle, triangle, square, curve, angle, wave, spiral, zigzag, leap.
+2. Study example expressions with formal parsing and model-theoretic validation, including new symbols and edge cases.
+3. Use the animation library to preview gestures and their geometric/logic properties for all mapped symbols.
+4. Reference puzzle templates for designing new content, ensuring logic/model validity for all symbol types.
+5. Integrate with the UL API, which now encodes/decodes/validates using formal predicates for all symbols.
+6. Run validation scripts and model checks before committing changes.
+
+---
+
+## Troubleshooting
+
+- **Problem:** Sequence not recognized
+  - **Solution:** Check for well-formedness and validate against the formal grammar/axioms, including new symbol types.
+- **Problem:** Animation not playing
+  - **Solution:** Ensure the animation is mapped to a valid UL symbol and geometric property (including curve, angle, spiral, zigzag, leap).
+- **Problem:** API returns error code
+  - **Solution:** Refer to the API contract for error code meanings and model-theoretic edge cases.
+
+---
+
+## Resources
+
+- [Video Tutorial: UL Formal System](https://example.com/ul_tutorial)
+- [Code Samples](https://example.com/ul_code_samples)
+- [Community Forum](https://example.com/ul_forum)
+- [Full Documentation](https://example.com/ul_docs)
+
+---
+
+## FAQ
+
+- **Q:** How do I add a new symbol or move?
+  - **A:** Update the symbol-movement map with geometric/logical properties, add animations, and update the formal grammar/axioms for all new symbols.
+- **Q:** What if my sequence is invalid?
+  - **A:** Use the troubleshooting section and check for well-formedness and model validity, including edge cases for new symbols.
+- **Q:** Can I create custom puzzles?
+  - **A:** Yes, use the puzzle templates and ensure your logic is valid in the formal model for all symbol types.
+
+---
+
+## Glossary
+
+- **UL Symbol:** A geometric or movement-based unit of meaning, with formal logic/geometric definition. Includes point, line, circle, triangle, square, curve, angle, wave, spiral, zigzag, leap.
+- **Primitive:** A basic movement or gesture mapped to a UL symbol, with explicit geometric property.
+- **Grammar Rule:** Syntax for combining primitives, now defined as first-order logic axioms and deduction rules for all symbols.
+- **UL Expression:** A sequence of primitives, parsed as a conjunction of formal predicates.
+- **API Contract:** The interface for encoding, decoding, and validating UL expressions as formal logic objects.
+
+---
+
+## Contributing
+
+- Fork the repository and create a feature branch.
+- Add or update symbols, moves, or rules in the relevant artifact, ensuring formal logic/geometric consistency for all symbol types.
+- Run validation scripts and model checks.
+- Submit a pull request with a summary of your changes.
+- For major changes, discuss in the community forum first.
+
+---
+
+For questions, see the full documentation or contact the project maintainers.

@@ -3,6 +3,7 @@
 // Shows a list/tree of branches, allows switching, and displays parent/child relationships
 import Phaser from 'phaser';
 import { TilemapManager } from '../../world/tilemap/TilemapManager';
+import { EventBus } from '../../core/EventBus';
 
 interface BranchInfo {
   id: string;
@@ -14,15 +15,17 @@ interface BranchInfo {
 export class TimelinePanel extends Phaser.GameObjects.Container {
   private tilemapManager: TilemapManager;
   private branches: BranchInfo[] = [];
-  private width: number;
-  private height: number;
+  public width: number;
+  public height: number;
   private branchButtons: Phaser.GameObjects.Text[] = [];
+  private eventBus?: EventBus;
 
-  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, width = 320, height = 240) {
+  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, width = 320, height = 240, eventBus?: EventBus) {
     super(scene);
     this.tilemapManager = tilemapManager;
     this.width = width;
     this.height = height;
+    this.eventBus = eventBus;
     scene.add.existing(this);
     this.setScrollFactor(0);
     this.setDepth(1002);
@@ -35,6 +38,8 @@ export class TimelinePanel extends Phaser.GameObjects.Container {
       this.refreshBranches();
       this.drawPanel();
     });
+    // TODO: Listen for unified branch events from eventBus for real-time updates
+    // if (this.eventBus) this.eventBus.on('BRANCH_UPDATED', ...)
   }
 
   private refreshBranches() {
@@ -95,6 +100,8 @@ export class TimelinePanel extends Phaser.GameObjects.Container {
   private async switchBranch(branchId: string) {
     if (this.tilemapManager.switchBranch) {
       this.tilemapManager.switchBranch(branchId);
+      // TODO: Emit event to eventBus for state sync (type-safe)
+      // if (this.eventBus) this.eventBus.emit({ type: 'BRANCH_SWITCHED', data: { branchId } } as any);
       // UI feedback
       const toast = this.scene.add.text(10, this.height + 10, `Switched to branch: ${branchId}`, { color: '#00ffcc', fontSize: '12px' })
         .setDepth(2002).setScrollFactor(0).setAlpha(0.9).setInteractive();
@@ -107,6 +114,8 @@ export class TimelinePanel extends Phaser.GameObjects.Container {
     if (!confirm(`Delete branch ${branchId}? This cannot be undone.`)) return;
     if ((this.tilemapManager as any).deleteBranch) {
       (this.tilemapManager as any).deleteBranch(branchId);
+      // TODO: Emit event to eventBus for state sync (type-safe)
+      // if (this.eventBus) this.eventBus.emit({ type: 'BRANCH_PRUNED', data: { branchId } } as any);
       this.refreshBranches();
       this.drawPanel();
       const toast = this.scene.add.text(10, this.height + 40, `Pruned branch: ${branchId}`, { color: '#ff4444', fontSize: '12px' })
@@ -120,6 +129,8 @@ export class TimelinePanel extends Phaser.GameObjects.Container {
     if (!confirm(`Merge branch ${childId} into ${parentId}? This cannot be undone.`)) return;
     if ((this.tilemapManager as any).mergeBranch) {
       (this.tilemapManager as any).mergeBranch(childId, parentId);
+      // TODO: Emit event to eventBus for state sync (type-safe)
+      // if (this.eventBus) this.eventBus.emit({ type: 'BRANCH_MERGED', data: { childId, parentId } } as any);
       this.refreshBranches();
       this.drawPanel();
       const toast = this.scene.add.text(10, this.height + 60, `Merged ${childId} into ${parentId}`, { color: '#00ff99', fontSize: '12px' })

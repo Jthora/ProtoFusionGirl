@@ -1,0 +1,34 @@
+---
+artifact: phaser_chunk_loader_design_2025-06-08
+created: 2025-06-08
+purpose: Design and implementation plan for chunk-based loading in Phaser to support large modded worlds.
+type: design
+format: markdown
+tags: [phaser, chunk, loader, performance, modding, artifact]
+related: [hybrid_architecture_performance.artifact, src/scenes/, src/core/]
+---
+
+# Phaser Chunk Loader Design
+
+## Purpose
+Enable performant rendering and memory management for large tilemaps and modded worlds by loading only visible map sections (chunks) in Phaser.
+
+## Design Overview
+- **Chunk Size:** Configurable (e.g., 10x10 tiles).
+- **Dynamic Loading:** Load/unload chunks as the player moves.
+- **Integration:** Works with mod loader to fetch tilemaps from IPFS/CDN.
+- **Testing:** Include performance benchmarks for 1000x1000+ tilemaps.
+
+## Implementation Steps
+1. Define chunk data structure and loader interface in `src/core/`.
+2. Update scene logic in `src/scenes/` to use chunk loader.
+3. Integrate with mod loader for dynamic asset fetching.
+4. Add unit/integration tests for chunk loading and unloading.
+
+## Next Steps
+- Prototype chunk loader in a test scene.
+- Document performance results and update artifact.
+
+---
+
+(End of artifact)

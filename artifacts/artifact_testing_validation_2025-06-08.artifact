@@ -1,0 +1,34 @@
+---
+artifact: artifact_testing_validation_2025-06-08
+created: 2025-06-08
+purpose: Testing and validation strategy for all schemas, contracts, and automation artifacts.
+type: testplan
+format: markdown
+tags: [artifact, testing, validation, schema, contract, onboarding]
+related: [mod_schema_validation_2025-06-08.artifact, contracts/, scripts/]
+---
+
+# Artifact Testing & Validation Strategy
+
+## Purpose
+Ensure every schema, contract, and automation artifact includes test cases and validation scripts that Copilot/AI can run and update.
+
+## Strategy
+- **Schemas:**
+  - For each JSON schema, provide example data and Jest test cases.
+  - Automate validation in mod submission and onboarding scripts.
+- **Contracts:**
+  - For each smart contract, include unit tests (e.g., Hardhat/Foundry) and security checklists.
+  - Require human review for governance/security artifacts.
+- **Automation Scripts:**
+  - Add self-tests and output validation for all scripts.
+- **Reporting:**
+  - Output test/validation results to `artifacts/` for traceability.
+
+## Next Steps
+- Audit existing artifacts for missing tests/validation.
+- Add/expand test cases and validation scripts as needed.
+
+---
+
+(End of artifact)

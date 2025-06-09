@@ -199,5 +199,50 @@ export class TimestreamFramework {
     return out;
   }
 
+  // Artifact: leyline_instability_event_integration_points_2025-06-08.artifact
+  // Branch/timeline support for ley line instability events
+  // TODO: Ensure instability/disruption/rift events and state changes are branch-aware
+  // TODO: On timeline divergence, keep instability state isolated per branch
+  // TODO: On timeline merge, resolve conflicting instability states (e.g., prefer most severe or most recent)
+
+  // Example stub:
+  // function propagateInstabilityToBranch(event, targetBranchId) {
+  //   // Copy or escalate instability event/state to target branch
+  // }
+
+  // function resolveInstabilityOnMerge(branchA, branchB) {
+  //   // Decide which instability state to keep or how to merge
+  // }
+
+  /**
+   * Resolve ley line instability state on branch merge.
+   * Artifact: leyline_instability_event_integration_points_2025-06-08.artifact
+   * Prefers most severe, then most recent event for each ley line/node.
+   */
+  resolveInstabilityOnMerge(branchA: any, branchB: any) {
+    // Assume branchA and branchB have .leyLineEvents: LeyLineInstabilityEvent[]
+    const merged: Record<string, import('../leyline/types').LeyLineInstabilityEvent> = {};
+    const allEvents = [...(branchA.leyLineEvents || []), ...(branchB.leyLineEvents || [])];
+    for (const event of allEvents) {
+      const key = event.leyLineId + (event.nodeId ? `:${event.nodeId}` : '');
+      if (!merged[key]) {
+        merged[key] = event;
+      } else {
+        // Prefer most severe, then most recent
+        const sevOrder: Record<string, number> = { minor: 1, moderate: 2, major: 3 };
+        const prev = merged[key];
+        const currSev = sevOrder[String(event.severity)] || 0;
+        const prevSev = sevOrder[String(prev.severity)] || 0;
+        if (currSev > prevSev) {
+          merged[key] = event;
+        } else if (currSev === prevSev && event.timestamp > prev.timestamp) {
+          merged[key] = event;
+        }
+      }
+    }
+    // Return merged events as array or update branch state as needed
+    return Object.values(merged);
+  }
+
   // TODO: Serialization, diffing, multiplayer, and UI hooks
 }

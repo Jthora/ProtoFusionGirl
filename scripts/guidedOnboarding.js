@@ -66,6 +66,14 @@ for (const s of onboardingScripts) {
   }
 }
 
+// Add: Summarize directory structure for Copilot context
+const summarizeScript = path.join(__dirname, 'summarize-directory-structure.cjs');
+if (fs.existsSync(summarizeScript)) {
+  runScript(summarizeScript, 'Summarize Directory Structure');
+} else {
+  console.warn(`[WARN] Script missing: Summarize Directory Structure (${summarizeScript})`);
+}
+
 console.log('\n[ONBOARDING] All foundational onboarding/validation scripts have been run.');
 console.log('[ONBOARDING] This is the ONLY script Copilot/agents should use for onboarding, validation, and context sync.');
 console.log('[ONBOARDING] Run this script for EVERY file and context change. Do NOT use any other onboarding/validation scripts directly.');
@@ -357,11 +365,12 @@ async function main() {
     spawnSync('node', [path.join(__dirname, 'generateCopilotEssentialInfo.js')], { stdio: 'inherit' });
     // Print a Copilot onboarding summary for seamless UX
     const info = JSON.parse(fs.readFileSync(path.join(__dirname, '../artifacts/copilot_essential_info.json'), 'utf8'));
+    // Only print summary fields, never the full object
     console.log('\n[Copilot Onboarding Summary]');
-    console.log('- Artifacts:', Object.keys(info.artifacts).length);
-    console.log('- Essential Files:', Object.keys(info.essentialFiles).length);
-    console.log('- Scripts:', info.scripts.length);
-    console.log('- Project Files:', Object.keys(info.projectFiles).length);
+    console.log('- Artifacts:', info.artifacts ? Object.keys(info.artifacts).length : 0);
+    console.log('- Essential Files:', info.essentialFiles ? Object.keys(info.essentialFiles).length : 0);
+    console.log('- Scripts:', info.scripts ? info.scripts.length : 0);
+    console.log('- Project Files:', info.projectFiles ? Object.keys(info.projectFiles).length : 0);
     if (info.onboardingStatus && info.onboardingStatus.success !== undefined) {
       console.log('- Onboarding Status:', info.onboardingStatus.success ? 'PASS' : 'FAIL');
     }

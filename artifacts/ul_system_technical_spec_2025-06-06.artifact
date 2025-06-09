@@ -1,0 +1,29 @@
+# Universal Language (UL) System: Technical Specification
+
+## Purpose
+Defines the architecture, core components, and integration points for the Universal Language (UL) system in ProtoFusionGirl.
+
+## Scope
+- Covers UL engine, resource loading, event handling, validation, UI, and modding hooks.
+
+## Components
+- UL Engine: Core logic, parsing, evaluation, and state management
+- Resource Loader: Loads UL data from JSON, mods, or external sources
+- Event System: Standardized events for puzzle lifecycle, validation, and context sync
+- Validation: Context-aware, extensible validation pipeline
+- UI: Puzzle modal, feedback, and accessibility
+- Modding: Extension points for new puzzles, scripts, and resources
+
+## Integration Points
+- Game world scripting (via UniversalLanguageEngine)
+- UI components (modal, panels)
+- Modding API (src/mods/)
+- Data-driven resource loading (assets/lang/ul/)
+
+## Security & Safety
+- All script evaluation must be sandboxed (no unsafe eval)
+- Resource schemas must be validated before use
+
+## References
+- See `ul_integration_roadmap_2025-06-06.artifact` for goals and milestones.
+- See `ul_resource_schema_2025-06-06.artifact` for data format.

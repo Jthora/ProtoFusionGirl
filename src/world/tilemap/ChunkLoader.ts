@@ -1,5 +1,20 @@
-// ChunkLoader.ts
-// Handles logic for loading, unloading, and managing visible chunks in the world.
+/**
+ * ChunkLoader (Phaser)
+ * Handles logic for loading, unloading, and managing visible chunks in the world.
+ *
+ * Artifact-driven: See artifacts/phaser_chunk_loader_design_2025-06-08.artifact, artifact_codified_conventions_2025-06-08.artifact, artifact_testing_validation_2025-06-08.artifact
+ *
+ * - Modular: Sprite factory is static (can be swapped for tests/mocks).
+ * - Testable: All chunk load/unload logic is exposed and can be hooked.
+ * - Extensible: Use onChunkLoaded/onChunkUnloaded for modding or analytics.
+ * - Edge cases: Handles world wrapping, chunk radius, and empty chunk data.
+ *
+ * Extension points:
+ *   - onChunkLoaded?: (cx, cy, group) => void
+ *   - onChunkUnloaded?: (cx, cy) => void
+ *
+ * To test: See src/world/tilemap/ChunkLoader.test.ts
+ */
 import { TilemapManager } from './TilemapManager';
 import { TileSpriteFactory, TileType } from './TileSpriteFactory';
 import Phaser from 'phaser';
@@ -11,13 +26,32 @@ export class ChunkLoader {
   private groundGroup: Phaser.Physics.Arcade.StaticGroup;
   private chunkRadius: number;
 
-  constructor(scene: Phaser.Scene, tilemapManager: TilemapManager, groundGroup: Phaser.Physics.Arcade.StaticGroup, chunkRadius: number = 2) {
+  /**
+   * Optional: Called after a chunk is loaded and sprites are created.
+   * Can be set by mods, analytics, or tests.
+   */
+  public onChunkLoaded?: (cx: number, cy: number, group: Phaser.GameObjects.Group) => void;
+  /**
+   * Optional: Called after a chunk is unloaded and sprites are removed.
+   */
+  public onChunkUnloaded?: (cx: number, cy: number) => void;
+
+  constructor(
+    scene: Phaser.Scene,
+    tilemapManager: TilemapManager,
+    groundGroup: Phaser.Physics.Arcade.StaticGroup,
+    chunkRadius: number = 2
+  ) {
     this.scene = scene;
     this.tilemapManager = tilemapManager;
     this.groundGroup = groundGroup;
     this.chunkRadius = chunkRadius;
   }
 
+  /**
+   * Loads/unloads visible chunks based on player position.
+   * Calls onChunkLoaded/onChunkUnloaded if set.
+   */
   updateLoadedChunks(playerX: number, playerY: number) {
     const chunkSize = this.tilemapManager.chunkManager.chunkSize;
     const tileSize = 16;
@@ -50,6 +84,7 @@ export class ChunkLoader {
               }
             }
             this.loadedChunkSprites.set(key, group);
+            if (this.onChunkLoaded) this.onChunkLoaded(cx, cy, group);
           }
         }
       }
@@ -61,6 +96,7 @@ export class ChunkLoader {
         this.loadedChunkSprites.get(key)?.clear(true, true);
         this.loadedChunkSprites.delete(key);
         this.tilemapManager.chunkManager.unloadChunk(cx, cy);
+        if (this.onChunkUnloaded) this.onChunkUnloaded(cx, cy);
       }
     }
     // Remove all ground tiles not in loaded chunks
@@ -80,3 +116,4 @@ export class ChunkLoader {
     });
   }
 }
+// End of ChunkLoader

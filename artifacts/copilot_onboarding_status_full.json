@@ -1,0 +1,199 @@
+{
+  "phases": [
+    {
+      "title": "Phase 1: Core Context & Rules",
+      "summary": "Summarized 5 core onboarding files.",
+      "files": [
+        {
+          "file": ".primer",
+          "summary": "---\nproject: ProtoFusionGirl\ncreated: 2025-06-03\npurpose: AI/Human onboarding, project header, and automation conventions\nformat: markdown\nreferences:\n  - .persona\n  - .priming\n  - .manifest\n  - .datapack\n  - .schema\n  - docs/\n  - scripts/\nminimum_versions:\n  node: '18.0.0'\n  npm: '8.0.0'\n  os: 'macOS, Linux, Windows'\nagent_capabilities:\n  - Automate onboarding, validation, and context sync\n  - Generate, update, and validate artifacts and tasks\n  - Escalate missing context or blockers via feedback artifacts\n  - Never make undocumented or destructive changes\n  - Propose improvements and auto-generate documentation\nagent_instructions:\n  - Always run scripts/guidedOnboarding.js --auto for onboarding, validation, and context sync\n  - Copilot/agents must self-onboard for EVERY file and context change\n  - Onboarding is fully autonomous and requires no human intervention\n  - Do NOT use any other onboarding/validation scripts directly\n  - Escalate unclear requirements or blockers via feedback artifacts\n  - Halt automation if validation fails or context is missing\n\n# ProtoFusionGirl Primer\n\nThis file is the AI's header and onboarding guide. It defines the project's purpose, automation entry points, and best practices for both AI and human contributors.\n\n## How the AI Operates (Primer Technique)\n- **Read the Primer First:** The AI always reads `.primer` before acting. This sets the rules, conventions, and automation entry points.\n- **Use the Datapack for Deep Context:** The AI references `.datapack` for inspiration, technical details, and conceptual patterns.\n- **Automate via Scripts:** All automation is driven by scripts in `scripts/`, with `aiTaskManager.js` as the universal entry point. Every script is a plugin, discoverable and invokable by the AI.\n- **Persist Context as Artifacts:** All persistent memory, tasks, and design context are stored as `.artifact` files. These are indexed and cross-linked for rapid recall and automation.\n- **Self-Healing & Self-Expanding:** The AI can bootstrap, repair, and expand its own context using onboarding, dashboard, and self-prompt scripts. If context is missing, the AI can regenerate it from scratch.\n- **Human-AI Collaboration:** The system signals when human input is needed, but maximizes AI autonomy for onboarding, automation, and context expansion.\n\n## Onboarding Checklist (AI & Human)\n1. **Read this `.primer`** for project rules, conventions, and automation entry points.\n2. **Read `artifacts/instructions.md`** for a detailed guide to artifacts, automation, best practices, and the full Copilot/AI workflow. This file explains:\n   - What artifacts are and how to use them\n   - Folder structure and key files\n   - The modular command center and plugin architecture\n   - Artifact lifecycle, best practices, and quickstart for Copilot/AI\n   - Human contributor guidelines and example artifact headers\n   - Key automation scripts and workflows\n3. **Read `.datapack`** for deep context, inspiration, and technical details.\n4. **Run `aiTaskManager.js`** for all automation, onboarding, and context actions. Use `help` for discoverability.\n5. **Use artifacts and scripts** for all persistent memory, automation, and context expansion. Keep everything indexed and cross-linked.\n\n## Quickstart\n- Start with this `.primer` and `artifacts/instructions.md`.\n- Use `aiTaskManager.js` for all actions (automation, onboarding, task, artifact, and self-prompt management).\n- Reference `.datapack` for deep context and creative/technical inspiration.\n- Let Copilot/AI automate, recall, and expand context as much as possible. Human contributors should assist as needed and keep documentation up to date.\n\n# 🚦 Copilot/AI Agent: Full Autonomous Onboarding Flow\n\n**Phase 1: Core Context & Rules**\n1. Read `.primer` for project rules, automation entry points, and best practices.\n2. Read `.priming` for agent-specific context, instructions, and persona rules.\n3. Read `.manifest` for a live index of all artifacts, scripts, and key files.\n4. Read `.dashboard` for project status, open tasks, and onboarding pass/fail.\n5. Read `.feedback` for recent issues, blockers, and resolutions.\n\n**Phase 2: Artifact & Documentation Index**\n6. Read `artifacts/ai_onboarding_*.artifact` for onboarding flow/checklist.\n7. Read `artifacts/artifact_index.artifact` for a manifest of all artifacts.\n8. Read `artifacts/copilot_memory.artifact` for persistent AI memory and heuristics.\n9. Read `artifacts/gameplay_alignment_checklist_*.artifact` for gameplay alignment.\n10. Read `artifacts/upgrade_roadmap_*.artifact` for upgrade priorities.\n11. Read `docs/docs_index_L1.json` and `docs/docs_index_L2.json` for documentation lookup.\n\n**Phase 3: Scripts & Automation**\n12. List all scripts in `scripts/` (see `scripts_index.artifact`).\n13. Run `node scripts/guidedOnboarding.js --auto` for onboarding, validation, and context sync.\n14. Run `node scripts/listScripts.js` to discover automation tools.\n15. Run `node scripts/checkArtifactCodeSync.js` to verify code/artifact linkage.\n\n**Phase 4: Directory & Data**\n16. Read and scan `directory-structure.txt` for current project structure.\n17. Read all `README.md` files in `artifacts/`, `tasks/`, `persona_core/`, `data/`, `docs/`, `scripts/`.\n18. Review all `.task` files in `tasks/` for open/completed tasks.\n\n**Phase 5: Validation & Test**\n19. Run all tests using the `Run All Tests` VS Code task or `npx jest`.\n20. If onboarding or validation fails, escalate via a feedback artifact in `tasks/`.\n\n**Always:** Rerun onboarding after any major change, and keep all context, memory, and cross-links up to date.\n\n---"
+        },
+        {
+          "file": ".priming",
+          "summary": "---\ntitle: Copilot/AI Agent Priming Context\ncreated: 2025-06-05\npurpose: Agent-specific context, rules, and memory for LLMs and automation.\nreferences:\n  - .primer\n  - .persona\n  - .manifest\n  - .datapack\n  - .schema\n  - persona_core/\nagent_instructions:\n  - Always run scripts/guidedOnboarding.js --auto for onboarding, validation, and context sync\n  - Copilot/agents must self-onboard for EVERY file and context change\n  - Onboarding is fully autonomous and requires no human intervention\n  - Do NOT use any other onboarding/validation scripts directly\n  - Escalate missing context or blockers via feedback artifacts\n  - Summarize recent changes from artifact_index.artifact\ncontext_window:\n  max_tokens: 8000\n  refresh_policy: Always reload .primer, .manifest, and .persona at startup\npersona_selection:\n  default: Copilot\n  available: [Copilot, Critic, Narrator, Builder]\n  switch_instruction: Use persona_core/ to switch roles as needed\n---"
+        },
+        {
+          "file": ".manifest",
+          "summary": "{\n  \"artifacts\": [\n    \"/Users/jono/Documents/GitHub/ProtoFusionGirl/artifacts/agent_optimized_ui_ux_2025-06-05.artifact\",\n    \"/Users/jono/Documents/GitHub/ProtoFusionGirl/artifacts/ai_onboarding_2025-06-03.artifact\",\n    \"/Users/jono/Documents/GitHub/ProtoFusionGirl/artifacts/architecture_blueprint_2025-06-07.artifact\",\n..."
+        },
+        {
+          "file": ".dashboard",
+          "summary": "{\n  \"openTasks\": [],\n  \"artifactCount\": 215,\n  \"onboardingPass\": true,\n  \"updated\": \"2025-06-09T04:28:45.527Z\",\n..."
+        },
+        {
+          "file": ".feedback",
+          "summary": "---\ntitle: ProtoFusionGirl Feedback Log\ncreated: 2025-06-05\npurpose: Centralized log of feedback artifacts, issues, and resolutions.\nreferences:\n  - .dashboard\n  - .manifest\n  - .schema\n  - tasks/\n---"
+        }
+      ]
+    },
+    {
+      "title": "Phase 2: Artifact & Documentation Index",
+      "summary": "Indexed 215 artifacts, 38 docs.",
+      "artifactFiles": [
+        "agent_optimized_ui_ux_2025-06-05.artifact",
+        "ai_onboarding_2025-06-03.artifact",
+        "architecture_blueprint_2025-06-07.artifact",
+        "artifact_codified_conventions_2025-06-08.artifact",
+        "artifact_granularity_guidelines_2025-06-08.artifact",
+        "artifact_health_check_2025-06-08.artifact",
+        "artifact_human_review_2025-06-08.artifact",
+        "artifact_index.artifact",
+        "artifact_index_quickref_2025-06-08.artifact",
+        "artifact_testing_validation_2025-06-08.artifact",
+        "... (205 more)"
+      ],
+      "docFiles": [
+        "FusionGirl - Game Design Document_ Beu.md",
+        "FusionGirl - Game Design Document_ Game Robots.md",
+        "FusionGirl - Game Design Document_ Jane Tho'ra.md",
+        "FusionGirl - Game Design Document_ Universal Language and Mind Puzzles.md",
+        "FusionGirl Game Design Document - Real Immersive Experience.md",
+        "FusionGirl_ Game Design Document - Core Game Loop.md",
+        "FusionGirl_ Game Design Document - Dynamic Threats.md",
+        "FusionGirl_ Game Design Document - Earth Alliance.md",
+        "FusionGirl_ Game Design Document - Game Missions.md",
+        "FusionGirl_ Game Design Document - Game World.md",
+        "... (28 more)"
+      ]
+    },
+    {
+      "title": "Phase 3: Scripts & Automation",
+      "summary": "Found 64 scripts. Ran 3 key scripts for validation.",
+      "scripts": [
+        "aggregatePersonas.js",
+        "aiAutonomousDevLoop.js",
+        "aiTaskManager.js",
+        "archiveCompletedTasks.js",
+        "assetValidation.ts",
+        "autoRepairArtifacts.js",
+        "autoUpdateArtifactRefs.js",
+        "biDirectionalArtifactMap.js",
+        "checkArtifactCodeSync.js",
+        "copilotOnboarding.cjs",
+        "copilot_content_consistency_checker.js",
+        "copilot_docs_search_enhancer.js",
+        "copilot_improvement_task_suggester.js",
+        "copilot_mods_and_missions_lister.js",
+        "copilot_script_generator.js",
+        "deployModRegistry.js",
+        "fullCopilotOnboarding.js",
+        "generateArtifactIndex.js",
+        "generateCopilotEssentialInfo.cjs",
+        "generatePersonaCoreDashboard.js",
+        "guidedOnboarding.js",
+        "indexDocs.js",
+        "listArtifactRelations.js",
+        "listOrDiffArtifactVersions.js",
+        "listScripts.js",
+        "listTasks.js",
+        "loadPersonaCore.js",
+        "masterOnboarding.cjs",
+        "newArtifact.js",
+        "newFeedbackOrRetrospective.js",
+        "newTask.js",
+        "notifyOpenTasks.js",
+        "personaCoreUtils.js",
+        "project_dashboard.js",
+        "promptFeedbackLinkage.js",
+        "scanDevEnvironment.cjs",
+        "scanDevEnvironment.js",
+        "searchArtifacts.js",
+        "selfPromptPipeline.js",
+        "selfPromptToolkit.cjs",
+        "selfPromptToolkit.js",
+        "setupWorkspace.cjs",
+        "snapshotDirectory.js",
+        "suggestDocsTasks.js",
+        "summarize-directory-structure.cjs",
+        "summarize-directory-structure.js",
+        "summarizeAndCleanUnusedArtifacts.js",
+        "syncDatapack.js",
+        "syncTasksWithCode.js",
+        "taskIndexUpdate.js",
+        "updateDashboard.js",
+        "updateManifest.js",
+        "updatePersonaCore.js",
+        "updatePersonaCoreModule.js",
+        "updatePrimer.js",
+        "updateTask.js",
+        "updateTaskIndex.js",
+        "validatePersonaCore.js",
+        "validateSchemas.js",
+        "validateTaskSchema.js",
+        "versionArtifact.js",
+        "visualizeArtifactGraph.js",
+        "warnNonCanonicalArtifactRefs.js",
+        "watchTasksAndUpdateIndex.js"
+      ],
+      "keyScriptResults": [
+        {
+          "script": "aggregatePersonas.js",
+          "code": 0,
+          "stdout": "Persona Coverage:\n[aggregatePersonas] Persona index written to /Users/jono/Documents/GitHub/ProtoFusionGirl/artifacts/persona_index.artifact\n\n...",
+          "stderr": "[aggregatePersonas] Invalid/missing personas: [\n  'changelog.json',\n  'core_values.json',\n..."
+        },
+        {
+          "script": "aiAutonomousDevLoop.js",
+          "code": 1,
+          "stdout": "",
+          "stderr": "file:///Users/jono/Documents/GitHub/ProtoFusionGirl/node_modules/yargs/node_modules/yargs-parser/build/lib/index.js:25\n        throw Error(`yargs parser supports a minimum Node.js version of ${minNodeVersion}. Read our version support policy: https://github.com/yargs/yargs-parser#supported-nodejs-versions`);\n              ^\n..."
+        },
+        {
+          "script": "aiTaskManager.js",
+          "code": 1,
+          "stdout": "",
+          "stderr": "file:///Users/jono/Documents/GitHub/ProtoFusionGirl/node_modules/yargs/node_modules/yargs-parser/build/lib/index.js:25\n        throw Error(`yargs parser supports a minimum Node.js version of ${minNodeVersion}. Read our version support policy: https://github.com/yargs/yargs-parser#supported-nodejs-versions`);\n              ^\n..."
+        }
+      ]
+    },
+    {
+      "title": "Phase 4: Directory & Data",
+      "summary": "Loaded directory structure. 6 folders, 19 tasks indexed.",
+      "dirStruct": ".\n├── .changelog\n├── .dashboard\n...",
+      "readmes": [
+        {
+          "folder": "artifacts",
+          "summary": "# artifacts/\n\nThis folder contains all persistent, versioned, machine-readable context nodes for the project. Artifacts include design documents, roadmaps, reference models, memory, and automation outputs.\n..."
+        },
+        {
+          "folder": "tasks",
+          "summary": "# ProtoFusionGirl Task System\n\nThis folder contains all actionable development, design, and research tasks for the project, organized in `.task` files for easy indexing, automation, and onboarding.\n..."
+        },
+        {
+          "folder": "persona_core",
+          "summary": "# persona_core/\n\nThis folder contains core persona definitions, templates, and advanced persona logic for agents. Personas can be inherited, extended, or swapped for different agent roles.\n..."
+        },
+        {
+          "folder": "data",
+          "summary": "# data/\n\nThis folder contains game data, seed data, and structured content for gameplay and automation. Data here is referenced by `.datapack` and used by scripts for world-building and mechanics.\n..."
+        },
+        {
+          "folder": "docs",
+          "summary": "# docs/\n\nThis folder contains all human-facing documentation, guides, and reference material for the project. Documentation is indexed in `.manifest` and referenced by `.primer` and `.dashboard` for onboarding and deep dives.\n..."
+        },
+        {
+          "folder": "scripts",
+          "summary": "# scripts/\n\nThis folder contains all automation, onboarding, context generation, validation, and project management scripts. Scripts are indexed in `.manifest` and referenced by `.init`, `.startup`, and `.dashboard`.\n..."
+        }
+      ],
+      "taskFiles": [
+        "README.task",
+        "ai_onboarding_feedback_2025-06-05.task",
+        "anchor-sharing-and-bookmarks.task",
+        "anchor-ui-ux-and-accessibility.task",
+        "copilot_advanced_todos_2025-06-03.task",
+        "copilot_advanced_todos_2025-06-04.task",
+        "copilot_next_steps_2025-06-03.task",
+        "copilot_next_steps_2025-06-03_20250603T194710.task",
+        "copilot_reality_warping_todo_2025-06-04.task",
+        "copilot_todo_automation_upgrades_2025-06-03.task",
+        "... (9 more)"
+      ]
+    },
+    {
+      "title": "Phase 5: Validation & Test",
+      "summary": "Test phase skipped (run with --with-test to enable)."
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,22 @@
+# Universal Language (UL) Event System Specification
+
+## Purpose
+Standardizes all events related to UL puzzles, validation, and context sync for robust integration and modding.
+
+## Core Events
+- `ul:puzzle:loaded` — Puzzle/resource loaded (payload: id, metadata)
+- `ul:puzzle:started` — Puzzle modal opened (payload: id, context)
+- `ul:puzzle:attempted` — User submits solution (payload: id, input)
+- `ul:puzzle:validated` — Validation result (payload: id, result, errors)
+- `ul:puzzle:completed` — Puzzle solved (payload: id, time, stats)
+- `ul:context:sync` — Context/state sync event (payload: context)
+
+## Event Bus
+- All events dispatched via core event bus (see src/core/)
+- Mods may listen/emit via documented API
+
+## Extensibility
+- New events must be documented and follow naming conventions
+
+## References
+- See `ul_system_technical_spec_2025-06-06.artifact` for architecture.

@@ -1,0 +1,131 @@
+---
+artifact: magneto_speeder_gameplay_foundation_2025-06-06
+created: 2025-06-06
+purpose: Anchor and roadmap for developing the Magneto Speeder as a core gameplay system for Jane (FusionGirl).
+type: design+roadmap
+format: markdown
+---
+
+# Magneto Speeder Gameplay Foundation
+
+## Vision
+The Magneto Speeder is not just a vehicle, but a core pillar of Jane's (FusionGirl's) gameplay, narrative, and world interaction. It should enable unique traversal, combat, progression, and story experiences, deeply integrated with all major game systems.
+
+## Key Systems & Features
+
+### 1. Narrative & Progression Integration
+- Story missions, cutscenes, and unlocks involving the speeder
+- Progression gates and world areas only accessible with the speeder or upgrades
+- **User Story Example:** "Jane must use the Magneto Speeder to escape a collapsing ley line zone, requiring a last-minute upgrade and psi boost."
+- **Acceptance Criteria:**
+  - [ ] At least one main story mission requires the speeder
+  - [ ] Gated areas are only accessible with specific speeder upgrades
+
+### 2. World & Traversal Systems
+- Open world navigation, terrain, and biome interaction
+- Environmental effects (weather, ley lines, rifts) impacting speeder performance
+- Seamless mount/dismount, camera, and state transitions
+- **User Story Example:** "Jane mounts the speeder to cross a hazardous desert, with energy draining faster in sandstorms."
+- **Acceptance Criteria:**
+  - [ ] Mount/dismount is seamless and animated
+  - [ ] Terrain and weather affect speeder stats
+
+### 3. Core Gameplay Mechanics
+- Energy/resource management (ley line recharge, psi boost, upgrades)
+- Deep upgrade/customization trees (performance, combat, cosmetics)
+- Combat integration (speeder-based attacks, evasion, synergy with Jane's abilities)
+- **User Story Example:** "Jane uses her psi to overcharge the speeder for a combat dash, then dismounts to finish enemies on foot."
+- **Acceptance Criteria:**
+  - [ ] Energy and upgrades are visible and affect gameplay
+  - [ ] Combat can occur while mounted
+
+### 4. UI/UX & Accessibility
+- Dynamic HUD for speeder stats, upgrades, and ley line effects
+- Full accessibility and remapping support
+- **Acceptance Criteria:**
+  - [ ] All speeder features are accessible and remappable
+  - [ ] UI adapts when Jane is mounted
+
+### 5. Systems & Architecture
+- Persistent ownership and state (save/load)
+- Event-driven architecture for all speeder actions and world responses
+- AI/ASI integration for auto-pilot and context-aware control
+- **Acceptance Criteria:**
+  - [x] All speeder state is saved/loaded with Jane
+  - [x] WorldPersistence saves/loads Jane and speeder atomically with world data
+  - [x] Legacy saves without Jane/speeder state are migrated with defaults
+  - [ ] Events are emitted for all major speeder actions
+
+#### API & Code Contract Update
+- `WorldPersistence.setJane(jane: Jane)` and `setEventBus(eventBus: EventBus)` must be called before save/load
+- `WorldPersistence.saveToFile()` and `loadFromFile()` now include Jane and Magneto Speeder state atomically
+- On load, if Jane or speeder state is missing, defaults are created for backward compatibility
+- All future world persistence features must maintain atomicity for Jane and speeder state
+
+### 6. World Simulation & Ley Line Integration
+- Dynamic ley line network affecting traversal and energy
+- Environmental hazards and world events
+- **Acceptance Criteria:**
+  - [ ] Ley line proximity and state affect speeder energy
+  - [ ] Hazards can disable or damage the speeder
+
+### 7. Testing & Modding Support
+- Comprehensive unit, integration, and scenario tests
+- Modding API for new speeder types, upgrades, and behaviors
+- **Acceptance Criteria:**
+  - [ ] All major speeder systems have automated tests
+  - [ ] Modders can add new upgrades and behaviors via data or scripts
+
+## Prioritization & Dependencies
+1. World traversal and ley line integration
+2. Mount/dismount and state sync
+3. Energy/resource and upgrade systems
+4. UI/UX and accessibility
+5. Combat and ability synergy
+6. Persistence and save/load
+7. Narrative hooks and modding API
+
+## Technical Risks & Unknowns
+- Seamless mount/dismount transitions (animation, camera, state)
+- World streaming and large map traversal
+- AI/ASI handoff and context switching
+- Modding API security and sandboxing
+
+## Testing Philosophy
+- TDD for all new systems
+- Scenario-driven integration tests for traversal, combat, and narrative
+- Coverage for edge cases (energy depletion, rapid mount/dismount, world hazards)
+
+## Modding API Scope
+- Data-driven upgrades and cosmetic mods
+- Scripting for new speeder behaviors and events
+- UI modding for speeder HUD
+
+## API & Code Contracts (to be implemented)
+- `SpeederManager`/`VehicleManager` for all speeder logic
+- `SpeederUI` for HUD and feedback
+- `SpeederUpgradeSystem` for upgrades and customization
+- `WorldTraversalSystem` for movement and ley line integration
+- `CombatSystem` for speeder-based combat
+- `EventBus` extensions for all speeder/world events
+- `SaveSystem` extensions for persistence
+- `AccessibilityManager` for unified accessibility
+- `AIController` extensions for ASI/AI control
+
+## Milestones
+- [ ] Narrative and progression hooks
+- [ ] World traversal and ley line integration
+- [ ] Energy/resource and upgrade systems
+- [ ] Combat and ability synergy
+- [ ] UI/UX and accessibility
+- [ ] Persistence and save/load
+- [ ] Testing and modding API
+
+## Related Artifacts
+- magneto_speeder_mechanics_2025-06-06.artifact
+- ley_line_system_design_2025-06-06.artifact
+- copilot_development_anchor_roadmap_2025-06-05.artifact
+- agent_optimized_ui_ux_2025-06-05.artifact
+
+---
+This artifact is the anchor for all future Magneto Speeder gameplay development. All new features, systems, and refactors should reference and update this document.

@@ -83,52 +83,80 @@ function getScriptsMetadata() {
     });
 }
 
+function summarizeContent(content, fileName) {
+  if (!content) return null;
+  if (typeof content === 'string' && content.length > 2000) {
+    // If content is too large, only include the first 500 chars and a note
+    return {
+      summary: content.slice(0, 500) + '... [truncated]',
+      length: content.length,
+      note: 'Content truncated to avoid large JSON.'
+    };
+  }
+  if (typeof content === 'object' && content !== null) {
+    // If object is too large, only include keys and type info
+    const keys = Object.keys(content);
+    if (keys.length > 50) {
+      return {
+        keys: keys.slice(0, 20),
+        totalKeys: keys.length,
+        note: 'Object keys only, content truncated.'
+      };
+    }
+  }
+  return content;
+}
+
 function main() {
   const args = process.argv.slice(2);
   let output = args.includes('--output') ? args[args.indexOf('--output') + 1] : path.join(ARTIFACTS_DIR, 'copilot_essential_info.json');
   const result = { timestamp: new Date().toISOString() };
 
-  // Aggregate essential artifacts (parsed)
+  // Aggregate essential artifacts (parsed, summarized)
   result.artifacts = {};
   ARTIFACTS.forEach(name => {
     const filePath = path.join(ARTIFACTS_DIR, name);
     const content = readFileIfExists(filePath);
-    result.artifacts[name] = parseIfPossible(content, name);
+    const parsed = parseIfPossible(content, name);
+    result.artifacts[name] = summarizeContent(parsed, name);
   });
 
-  // Aggregate essential files (parsed)
+  // Aggregate essential files (parsed, summarized)
   result.essentialFiles = {};
   ESSENTIAL_FILES.forEach(rel => {
     const abs = path.join(__dirname, rel);
     const content = readFileIfExists(abs);
-    result.essentialFiles[path.basename(rel)] = parseIfPossible(content, path.basename(rel));
+    const parsed = parseIfPossible(content, path.basename(rel));
+    result.essentialFiles[path.basename(rel)] = summarizeContent(parsed, path.basename(rel));
   });
 
-  // Aggregate scripts metadata
+  // Aggregate scripts metadata (already summary)
   result.scripts = getScriptsMetadata();
 
-  // Aggregate docs index (parsed)
+  // Aggregate docs index (parsed, summarized)
   const docsContent = readFileIfExists(DOCS_INDEX);
-  result.docsIndex = parseIfPossible(docsContent, 'docs_index.json');
+  const docsParsed = parseIfPossible(docsContent, 'docs_index.json');
+  result.docsIndex = docsParsed && docsParsed.globalSummary ? docsParsed.globalSummary : summarizeContent(docsParsed, 'docs_index.json');
 
-  // Always include docs_index_L1.json and docs_index_L2.json
+  // Always include docs_index_L1.json and docs_index_L2.json (summarized)
   const DOCS_INDEX_L1 = path.join(__dirname, '../docs/docs_index_L1.json');
   const DOCS_INDEX_L2 = path.join(__dirname, '../docs/docs_index_L2.json');
   const docsL1Content = readFileIfExists(DOCS_INDEX_L1);
   const docsL2Content = readFileIfExists(DOCS_INDEX_L2);
-  result.docsIndexL1 = parseIfPossible(docsL1Content, 'docs_index_L1.json');
-  result.docsIndexL2 = parseIfPossible(docsL2Content, 'docs_index_L2.json');
+  result.docsIndexL1 = summarizeContent(parseIfPossible(docsL1Content, 'docs_index_L1.json'), 'docs_index_L1.json');
+  result.docsIndexL2 = summarizeContent(parseIfPossible(docsL2Content, 'docs_index_L2.json'), 'docs_index_L2.json');
 
-  // Add onboarding status if present (parsed)
+  // Add onboarding status if present (parsed, summarized)
   const onboardingStatus = path.join(ARTIFACTS_DIR, 'copilot_onboarding_status.json');
-  result.onboardingStatus = parseIfPossible(readFileIfExists(onboardingStatus), 'copilot_onboarding_status.json');
+  result.onboardingStatus = summarizeContent(parseIfPossible(readFileIfExists(onboardingStatus), 'copilot_onboarding_status.json'), 'copilot_onboarding_status.json');
 
-  // Aggregate default project files (parsed)
+  // Aggregate default project files (parsed, summarized)
   result.projectFiles = {};
   DEFAULT_PROJECT_FILES.forEach(f => {
     const abs = path.join(PROJECT_ROOT, f);
     const content = readFileIfExists(abs);
-    result.projectFiles[f] = parseIfPossible(content, f);
+    const parsed = parseIfPossible(content, f);
+    result.projectFiles[f] = summarizeContent(parsed, f);
   });
 
   fs.writeFileSync(output, JSON.stringify(result, null, 2));

@@ -2,37 +2,95 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Guided Onboarding (JSON)",
+      "label": "Run Jest Test File...",
       "type": "shell",
-      "command": "node",
+      "command": "timeout",
       "args": [
-        "scripts/guidedOnboarding.js"
+        "60s",
+        "npx",
+        "jest",
+        "${input:testFile}",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--forceExit",
+        "--no-cache"
       ],
-      "group": "build",
+      "group": "test",
       "isBackground": false,
-      "detail": "MASTER ONBOARDING: This is the ONLY task for onboarding, validation, and context sync. All other onboarding/validation scripts are deprecated."
+      "problemMatcher": ["$tsc"],
+      "detail": "Runs a specific Jest test file robustly with timeout and forced exit."
     },
     {
-      "label": "Copilot Onboarding",
+      "label": "Run Single Jest Test",
       "type": "shell",
-      "command": "node",
+      "command": "timeout",
       "args": [
-        "scripts/copilotOnboarding.cjs"
+        "60s",
+        "npx",
+        "jest",
+        "${input:singleTestFile}",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--forceExit",
+        "--no-cache"
       ],
-      "group": "build",
+      "group": "test",
       "isBackground": false,
-      "detail": "Onboard GitHub Copilot or any AI agent. Runs onboarding, parses results, and writes status to artifacts/copilot_onboarding_status.json."
+      "problemMatcher": ["$tsc"],
+      "detail": "Runs a single Jest test file robustly with timeout and forced exit."
     },
     {
-      "label": "AI Agent Workspace Setup",
+      "label": "Update Directory Structure",
       "type": "shell",
-      "command": "node",
+      "command": "tree",
       "args": [
-        "scripts/setupWorkspace.cjs"
+        "-a",
+        "-I",
+        "'node_modules|venv'",
+        ">",
+        "directory-structure.txt"
       ],
       "group": "build",
       "isBackground": false,
-      "detail": "Sets up all required dotfiles and directories for onboarding. Run this first after cloning."
+      "problemMatcher": [],
+      "detail": "Scans the project and updates directory-structure.txt using tree."
+    },
+    {
+      "label": "Full Copilot Onboarding",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/fullCopilotOnboarding.js"
+      ],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": [],
+      "detail": "Runs the full Copilot/AI onboarding and validation process, updating all context and artifacts."
+    },
+    {
+      "label": "Copilot Onboarding (Legacy)",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/guidedOnboarding.js",
+        "--auto"
+      ],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": [],
+      "detail": "(Legacy) Runs the original Copilot onboarding script. Use 'Full Copilot Onboarding' for the complete process."
+    }
+  ],
+  "inputs": [
+    {
+      "id": "testFile",
+      "type": "promptString",
+      "description": "Enter the path to the Jest test file to run (e.g., test/leyline/LeyLineSystem.test.ts)"
+    },
+    {
+      "id": "singleTestFile",
+      "type": "promptString",
+      "description": "Enter the path to the single Jest test file to run (e.g., test/unilang/UniversalLanguageEngine.test.ts)"
     }
   ]
 }

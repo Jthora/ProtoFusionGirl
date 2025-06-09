@@ -1,0 +1,29 @@
+# Refactor Task: Domain-Driven, Event-Oriented, Data-Driven Architecture
+
+## Overview
+This task tracks the migration and refactor of ProtoFusionGirl to the new architecture as defined in the artifacts created on 2025-06-07.
+
+## Artifacts Referenced
+- architecture_blueprint_2025-06-07.artifact
+- domain_module_spec_characters_2025-06-07.artifact
+- event_contracts_2025-06-07.artifact
+- data_schema_content_2025-06-07.artifact
+- testing_quality_2025-06-07.artifact
+- documentation_onboarding_2025-06-07.artifact
+- migration_refactor_roadmap_2025-06-07.artifact
+- modding_extensibility_2025-06-07.artifact
+
+## Phases
+1. Event Bus upgrade and event contract enforcement
+2. Extract domain modules (Characters, Combat, Narrative, World, Customization, UI)
+3. Migrate hardcoded logic to data-driven (JSON/config)
+4. Implement service locator/context for shared systems
+5. Add/upgrade barrel files and folder-level README.md
+6. Expand and enforce test coverage
+7. Document all modules and update onboarding
+
+## Next Steps
+- Scaffold new domain folders and documentation files
+- Add schema and event contract stubs
+- Mark code for migration and modularization
+- Track progress and blockers here

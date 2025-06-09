@@ -1,0 +1,16 @@
+[
+  {
+    "id": "zone_earth_hub",
+    "name": "Earth Hub",
+    "description": "Central zone for Earth Alliance operations.",
+    "type": "hub",
+    "connectedLeyLines": ["leyline_1"]
+  },
+  {
+    "id": "zone_neon_vault",
+    "name": "Neon Vault",
+    "description": "A hidden, high-tech vault filled with rare resources.",
+    "type": "dungeon",
+    "connectedLeyLines": ["leyline_2"]
+  }
+]

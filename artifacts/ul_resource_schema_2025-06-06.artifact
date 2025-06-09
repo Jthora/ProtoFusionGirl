@@ -1,0 +1,30 @@
+# Universal Language (UL) Resource Schema Definition
+
+## Purpose
+Defines the JSON schema for UL puzzles, scripts, and resources to ensure safe, extensible, and mod-friendly data loading.
+
+## Top-Level Structure
+- `id`: Unique string identifier
+- `type`: Puzzle, script, or resource type
+- `prompt`: User-facing puzzle prompt (string)
+- `solution`: Solution data (string, array, or object)
+- `script`: (optional) Sandboxed script for dynamic puzzles
+- `metadata`: (optional) Author, mod, tags, difficulty, etc.
+
+## Example
+{
+  "id": "ul_puzzle_001",
+  "type": "puzzle",
+  "prompt": "Translate the glyph sequence...",
+  "solution": ["A", "B", "C"],
+  "script": "function validate(input) { ... }",
+  "metadata": { "author": "modderX", "difficulty": 2 }
+}
+
+## Validation
+- All fields required unless marked optional
+- Scripts must pass sandboxed static analysis
+- Metadata is extensible for mods
+
+## References
+- See `ul_system_technical_spec_2025-06-06.artifact` for integration.

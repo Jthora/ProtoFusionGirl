@@ -1,0 +1,35 @@
+---
+artifact: artifact_granularity_guidelines_2025-06-08
+created: 2025-06-08
+purpose: Guidelines for breaking down large artifacts into smaller, actionable sub-artifacts for Copilot/AI workflows.
+type: guidelines
+format: markdown
+tags: [artifact, granularity, guidelines, onboarding, ai]
+related: [artifact_index.artifact, copilot_memory.artifact]
+---
+
+# Artifact Granularity Guidelines
+
+## Purpose
+Maximize Copilot/AI effectiveness by ensuring artifacts are focused, actionable, and machine-readable.
+
+## Guidelines
+- **One Purpose per Artifact:** Each artifact should address a single topic, workflow, or component.
+- **Cross-Linking:** Reference related artifacts for context, but avoid duplicating content.
+- **Actionable Content:** Include implementation steps, test cases, or code snippets where possible.
+- **Update Frequency:** Frequently updated or evolving topics should be split into versioned or modular artifacts.
+- **Escalation:** If an artifact becomes too broad, create sub-artifacts and link them.
+
+## Example
+- Instead of a single "Hybrid Architecture & Performance" artifact, create:
+  - `phaser_chunk_loader_design_2025-06-08.artifact`
+  - `ipfs_asset_fetcher_spec_2025-06-08.artifact`
+  - `performance_benchmarks_2025-06-08.artifact`
+
+## Next Steps
+- Review existing artifacts for granularity.
+- Refactor or split as needed, following these guidelines.
+
+---
+
+(End of artifact)

@@ -1,0 +1,119 @@
+{
+  "description": "Templates for puzzles/interactions using UL sequences, now referencing formal logic, model validation, and geometric constraints per the UL whitepapers.",
+  "created": "2025-06-05",
+  "version": "3.0.0",
+  "author": "GitHub Copilot (corrected)",
+  "templates": [
+    {
+      "type": "social",
+      "title": "Diplomatic Dance-Off",
+      "sequence_required": ["arm_wave", "spin"],
+      "ul_symbols": ["wave", "circle"],
+      "formal_logic": "wave(w) ∧ circle(c)",
+      "model_validation": "Valid if both predicates hold in the model; conjunction introduction.",
+      "required_skills": ["timing", "pattern recognition"],
+      "branching_outcomes": [
+        {"success": "Alliance formed; unlocks new trade routes."},
+        {"partial": "Respect gained, but no alliance."},
+        {"failure": "Diplomatic incident; future interactions harder."}
+      ],
+      "adaptive_hints": ["Watch the NPC's rhythm for clues.", "Try repeating the last move if you fail."],
+      "example_instantiation": "Player must match the NPC's dance sequence in a timed challenge.",
+      "related_ul_symbols": ["wave", "circle"],
+      "related_grammar_rules": ["conjunction introduction", "well-formed formula"],
+      "related_animations": ["wave_arm", "spin_360"]
+    },
+    {
+      "type": "combat",
+      "title": "Guardian's Challenge",
+      "sequence_required": ["box_step", "zigzag_dash"],
+      "ul_symbols": ["square", "zigzag"],
+      "formal_logic": "square(s) ∧ zigzag(z)",
+      "model_validation": "Valid if both predicates hold; context may restrict square(s) to order_guardians.",
+      "required_skills": ["reflexes", "memory"],
+      "branching_outcomes": [
+        {"success": "Defeat the guardian and gain access to the vault."},
+        {"failure": "Take damage and must retry."}
+      ],
+      "adaptive_hints": ["Use zigzag to dodge attacks.", "Box step to block heavy blows."],
+      "example_instantiation": "Player must alternate between defense and evasion moves to survive a boss attack pattern.",
+      "related_ul_symbols": ["square", "zigzag"],
+      "related_grammar_rules": ["conjunction introduction", "context restriction"],
+      "related_animations": ["box_step_anim", "zigzag_dash_anim"]
+    },
+    {
+      "type": "stealth",
+      "title": "Shadow Passage",
+      "sequence_required": ["step_sequence_triangle", "spiral_turn"],
+      "ul_symbols": ["triangle", "spiral"],
+      "formal_logic": "triangle(t) ∧ spiral(s)",
+      "model_validation": "Valid if both predicates hold; geometric constraints for spiral(s) apply.",
+      "required_skills": ["stealth", "timing"],
+      "branching_outcomes": [
+        {"success": "Slip past guards unnoticed."},
+        {"partial": "Alert level raised, but escape possible."},
+        {"failure": "Caught and must restart from checkpoint."}
+      ],
+      "adaptive_hints": ["Move when the spiral symbol glows.", "Triangle steps are quieter on stone floors."],
+      "example_instantiation": "Player must use specific movement patterns to avoid detection in a guarded corridor.",
+      "related_ul_symbols": ["triangle", "spiral"],
+      "related_grammar_rules": ["well-formed formula", "geometric constraint"],
+      "related_animations": ["triangle_footwork", "spiral_turn_anim"]
+    },
+    {
+      "type": "environmental",
+      "title": "Ley Line Resonance",
+      "sequence_required": ["spin", "arm_wave", "spiral_turn"],
+      "ul_symbols": ["circle", "wave", "spiral"],
+      "formal_logic": "circle(c) ∧ wave(w) ∧ spiral(s)",
+      "model_validation": "Valid if all predicates hold; closure and transformation axioms apply.",
+      "required_skills": ["pattern recognition", "timing"],
+      "branching_outcomes": [
+        {"success": "Ley line node activated; new area unlocked."},
+        {"failure": "Node remains dormant; hint provided."}
+      ],
+      "adaptive_hints": ["Listen for the resonance sound cue.", "Try different orders if the node doesn't activate."],
+      "example_instantiation": "Player must perform a sequence to tune a ley line and open a portal.",
+      "related_ul_symbols": ["circle", "wave", "spiral"],
+      "related_grammar_rules": ["closure axiom", "conjunction introduction"],
+      "related_animations": ["spin_360", "wave_arm", "spiral_turn_anim"]
+    },
+    {
+      "type": "navigation",
+      "title": "Serpentine Crossing",
+      "sequence_required": ["zigzag_dash", "arm_curve"],
+      "ul_symbols": ["zigzag", "curve"],
+      "formal_logic": "zigzag(z) ∧ curve(c)",
+      "model_validation": "Valid if both predicates hold; geometric constraints for curve(c) apply.",
+      "required_skills": ["timing", "path planning"],
+      "branching_outcomes": [
+        {"success": "Player crosses a hazardous area without triggering traps."},
+        {"failure": "Player is detected and must retry."}
+      ],
+      "adaptive_hints": ["Alternate direction with each dash.", "Use smooth curves to avoid detection."],
+      "example_instantiation": "Player must alternate zigzag dashes and curved movements to cross a field of sensors.",
+      "related_ul_symbols": ["zigzag", "curve"],
+      "related_grammar_rules": ["well-formed formula", "geometric constraint"],
+      "related_animations": ["zigzag_dash_anim", "curve_arm_anim"]
+    },
+    {
+      "type": "focus",
+      "title": "Angle of Insight",
+      "sequence_required": ["angle_pose_anim", "spin"],
+      "ul_symbols": ["angle", "circle"],
+      "formal_logic": "angle(a) ∧ circle(c)",
+      "model_validation": "Valid if both predicates hold; angle(a) must be within allowed range.",
+      "required_skills": ["focus", "timing"],
+      "branching_outcomes": [
+        {"success": "Puzzle reveals a hidden path."},
+        {"failure": "No effect; hint provided."}
+      ],
+      "adaptive_hints": ["Align the angle precisely before spinning.", "Try different angles for different effects."],
+      "example_instantiation": "Player must pose at a specific angle, then spin to unlock a secret door.",
+      "related_ul_symbols": ["angle", "circle"],
+      "related_grammar_rules": ["well-formed formula", "angle constraint"],
+      "related_animations": ["angle_pose_anim", "spin_360"]
+    }
+  ],
+  "notes": "Each template now references formal logic, model validation, and geometric constraints, as required by the UL whitepapers."
+}

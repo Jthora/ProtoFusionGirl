@@ -1,0 +1,37 @@
+---
+artifact: ui_ux_accessibility_2025-06-06
+created: 2025-06-06
+purpose: UI/UX and accessibility plan for ley line navigation, Magneto Speeder, and puzzle systems.
+type: design
+format: markdown
+---
+
+# UI/UX & Accessibility
+
+## Focus Areas
+- Ley line navigation overlays and feedback
+- Magneto Speeder controls and upgrades
+- Universal Language puzzle UI
+- Accessibility (colorblind, cognitive, remapping)
+
+## Wireframes & Diagrams
+- [ ] Add flowcharts for navigation overlays
+- [ ] UI mockups for Magneto Speeder upgrades
+- [ ] Puzzle UI wireframes
+
+## Acceptance Criteria
+- [ ] All UI elements are accessible and tested for colorblind/cognitive needs
+- [ ] Navigation overlays are clear and non-intrusive
+- [ ] UI is responsive and works on all supported platforms
+
+## Example User Story
+- "As a colorblind player, I want ley line overlays to use patterns as well as colors, so I can navigate effectively."
+
+## Required Tests
+- Accessibility audit scripts
+- Playtest feedback collection
+- UI responsiveness tests
+
+## Related Artifacts
+- magneto_speeder_mechanics_2025-06-06.artifact
+- universal_language_psionics_2025-06-06.artifact

@@ -488,4 +488,26 @@ export class TilemapManager {
     // TODO: Implement branch switching logic (update current branch, reload world state, etc.)
     // For now, this is a stub
   }
+
+  /**
+   * Returns true if the tile at (x, y) is walkable (not solid/impassable).
+   * @param x X coordinate (world)
+   * @param y Y coordinate (world)
+   */
+  isTileWalkable(x: number, y: number): boolean {
+    const tile = this.getTileAt(x, y);
+    // Assume tile.type is the tile ID, look up in registry
+    if (!tile || !tile.type) return false;
+    const def = this.tileRegistry.getTile(tile.type);
+    return def ? !def.solid : false;
+  }
+
+  // TODO: Add support for tilemap streaming and chunk-based loading for large worlds.
+  // TODO: Integrate with minimap and world event systems for real-time updates.
+  // TODO: Expose hooks for procedural generation mods and custom tile behaviors.
+
+  // Add this method for ModularGameLoop integration
+  update(dt: number, context?: any) {
+    // TODO: Implement tilemap streaming, overlays, or worldgen updates as needed
+  }
 }
