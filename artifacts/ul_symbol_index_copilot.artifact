@@ -1,0 +1,43 @@
+---
+schema: ul_symbol_index_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, symbol, index, canonical, migration, copilot]
+related_artifacts:
+  - ul_grammar_rules.artifact
+  - ul_cosmic_rules.artifact
+  - ul_phonetic_glyph_map.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Symbol Index (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all UL symbols and their properties. Used for code generation, validation, and artifact/doc auto-generation.
+
+## Format (JSON Array)
+```json
+[
+  {
+    "id": "point",
+    "name": "Point",
+    "meaning": "core, instance, origin",
+    "geometric": "zero-dimensional, P ∈ ℝⁿ, μ(P)=0",
+    "axiom": "point(x) ↔ x ∈ ℝⁿ ∧ μ(x)=0",
+    "movement": "tap",
+    "animation": "point_tap",
+    "usage": ["focus", "start", "anchor"],
+    "modality": "Core",
+    "element": null,
+    "cosmic_force": "Core",
+    "phonetic": "pɔɪnt",
+    "glyph": "•"
+  }
+  // ...more symbols
+]
+```
+
+## Update Instructions
+- Update this file only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical source.

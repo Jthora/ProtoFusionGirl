@@ -1,0 +1,110 @@
+# Holistic Testing System Solutions Artifact (Upgraded)
+
+## Summary
+By centralizing mocks/fixtures, enforcing event contracts, expanding scenario/integration tests, automating coverage, and improving documentation, the testing system will become more robust, maintainable, and aligned with artifact-driven development. This will also make it easier to fill in the TODOs and ensure high-quality, reliable code across all modules.
+
+---
+
+## Prioritization & Roadmap
+1. **Centralize Mocks & Test Utilities** (High Impact, Unblocks Others)
+2. **Centralize Test Data/Fixtures** (High Impact, Unblocks Others)
+3. **Event Bus Helpers & Contract Tests** (Critical for event-driven modules)
+4. **Automate Coverage Reporting** (Immediate feedback, CI integration)
+5. **Expand Scenario/Integration Tests** (Cross-system reliability)
+6. **Generate & Maintain Test Index** (Traceability, onboarding)
+7. **Automate Edge/Error Case Test Generation** (Completeness)
+8. **Update Documentation & Onboarding** (Sustains improvements)
+
+---
+
+## Key Solutions (with Ownership, Metrics, Next Steps)
+
+### 1. Centralized Mocking & Test Utilities
+- **Owner:** [Assign: Core Test Maintainer]
+- **Deadline:** 1 week
+- **Success Metric:** 80%+ of new/updated tests use shared utils
+- **Next Steps:**
+  - Create `test/utils/` directory
+  - Move/create reusable mocks (Phaser, EventBus, world state, etc.)
+  - Provide factory functions for common test objects
+
+### 2. Test Data & Fixture Centralization
+- **Owner:** [Assign: Test Data Lead]
+- **Deadline:** 1 week
+- **Success Metric:** 80%+ of tests reference fixtures
+- **Next Steps:**
+  - Create `test/fixtures/` directory
+  - Add canonical test data (world state, tilemaps, ley lines, etc.)
+  - Refactor tests to use fixtures
+
+### 3. Event Bus & Contract Testing
+- **Owner:** [Assign: Event System Lead]
+- **Deadline:** 2 weeks
+- **Success Metric:** 100% of event types have contract tests
+- **Next Steps:**
+  - Implement shared helpers to capture/assert event emissions
+  - Add contract tests for all major event types
+  - Use TS types and runtime checks for payloads
+
+### 4. Automated Coverage & Reporting
+- **Owner:** [Assign: CI/DevOps Lead]
+- **Deadline:** 1 week
+- **Success Metric:** Coverage reports generated on every CI run; <10% untested code flagged
+- **Next Steps:**
+  - Integrate Jest coverage into CI/pre-commit
+  - Output coverage reports to `artifacts/`
+  - Flag/report coverage gaps
+
+### 5. Scenario & Integration Test Expansion
+- **Owner:** [Assign: Integration Test Lead]
+- **Deadline:** 2-3 weeks
+- **Success Metric:** All major cross-system flows have scenario tests
+- **Next Steps:**
+  - Add integration tests for UI ↔ world, tilemap ↔ ley lines, etc.
+  - Use modular game loop to drive scenario tests
+  - Document scenario coverage in test index
+
+### 6. Test Index & Traceability
+- **Owner:** [Assign: Artifact/Traceability Lead]
+- **Deadline:** 2 weeks
+- **Success Metric:** All tests mapped in `test_index.artifact`
+- **Next Steps:**
+  - Generate/maintain `test_index.artifact` mapping tests to modules/scenarios/artifacts
+  - Use index for audits, onboarding, and coverage improvement
+
+### 7. Error & Edge Case Automation
+- **Owner:** [Assign: Edge Case Automation Lead]
+- **Deadline:** 3 weeks
+- **Success Metric:** 90%+ of modules have automated edge/error case tests
+- **Next Steps:**
+  - Define checklist of required edge/error cases for each module
+  - Automate generation of these tests where possible
+
+### 8. Documentation & Onboarding
+- **Owner:** [Assign: Docs/Onboarding Lead]
+- **Deadline:** 2 weeks
+- **Success Metric:** All new contributors can follow onboarding to add/expand tests
+- **Next Steps:**
+  - Update onboarding docs and `README.md` in `test/` and `artifacts/`
+  - Reference artifacts and test plans in all new/expanded test files
+
+---
+
+## Feedback Loop & Continuous Improvement
+- Schedule regular (monthly/quarterly) audits using the test index and coverage reports
+- Log gaps and improvement tasks as issues/artifacts
+- Review and update this artifact after each audit or major change
+- Solicit feedback from contributors and update onboarding as needed
+
+---
+
+## Next Steps
+- Assign owners and deadlines for each solution
+- Begin with test utils and fixture centralization
+- Expand scenario/integration tests and automate coverage reporting
+- Update onboarding and documentation to reflect new testing conventions
+- Track progress and iterate using the feedback loop
+
+---
+
+(Upgraded by GitHub Copilot, 2025-06-09)

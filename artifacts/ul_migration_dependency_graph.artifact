@@ -1,0 +1,50 @@
+---
+schema: ul_unification_dependency_graph_v1
+version: 2.0.0
+last_updated: 2025-06-11
+tags: [ul, unification, dependency, overlap, graph, copilot, actionable]
+related_artifacts:
+  - ul_unification_checklist.artifact
+  - ul_unification_progress_log.artifact
+  - ul_symbol_index_copilot.artifact
+  - ul_grammar_rules_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+  - ul_spell_recipes_copilot.artifact
+  - ul_puzzle_templates_copilot.artifact
+  - ul_test_cases_copilot.artifact
+changelog:
+  - 2025-06-11: Refactored for UL code unification (audit, catalog, unify, refactor, validate).
+
+# Universal Language Code Unification Dependency/Overlap Map (Copilot-Driven)
+
+## Purpose
+Maps all code, data, and artifact dependencies/overlaps for the UL code unification. Surfaces all prior, partial, or abandoned UL code attempts and guides unification, refactor, and cleanup.
+
+## Graph (Summary Table)
+- All nodes/edges must be validated as relevant to the unified UL system, or marked for deletion/replacement.
+- Include nodes for legacy/abandoned/partial UL code and their relationships.
+- Use this map to guide audit, unification, and refactor decisions.
+- See `artifact_graph.dot` for the latest Graphviz representation.
+
+## Graphviz Dependency/Overlap Graph Evidence (2025-06-11)
+- artifact_graph.dot now contains a comprehensive, auto-generated Graphviz map of all UL code, data, and artifact dependencies/overlaps.
+- All nodes/edges validated as relevant to the unified UL system. No legacy, abandoned, or ambiguous code detected.
+- No overlaps or redundancies requiring escalation at this stage.
+- See progress log for summary and next steps.
+
+## Overlap/Redundancy Notes
+- Highlight overlaps, redundancies, and ambiguous/abandoned code paths for review and resolution.
+
+## Next Steps
+- Update the map as new dependencies, overlaps, or legacy code are discovered or resolved.
+- Reference: `artifact_graph.dot` (evidence).
+
+## Pacing & Discipline Protocol
+- Work on only one dependency/overlap mapping sub-task at a time.
+- After each sub-task, pause and review for completeness and correctness.
+- If any ambiguity or error, repeat or escalate before moving on.
+- Re-read this protocol after every sub-task to re-anchor.
+- Never attempt to complete multiple sub-tasks in a single step.
+
+---
+_This artifact is auto-generated and should be updated as dependencies or overlaps change._

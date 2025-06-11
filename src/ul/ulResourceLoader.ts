@@ -62,8 +62,27 @@ function validateULPuzzle(puzzle: any): { valid: boolean; errors?: string[] } {
   return { valid: errors.length === 0, errors };
 };
 
-const RESOURCES_DIR = path.resolve(__dirname, '../../data/ul');
-const MODS_DIR = path.resolve(__dirname, '../mods');
+// Cross-platform dirname for ESM, CommonJS, and Jest
+function getDirname(): string {
+  // CommonJS
+  if (typeof __dirname !== 'undefined') return __dirname;
+  // Jest or fallback
+  if (typeof require !== 'undefined' && require.main && require.main.filename) {
+    return path.dirname(require.main.filename);
+  }
+  // ESM (may not work in all test runners)
+  try {
+    // @ts-ignore
+    return path.dirname(new URL(import.meta.url).pathname);
+  } catch (e) {
+    // Fallback to process.cwd()
+    return process.cwd();
+  }
+}
+
+const DIRNAME = getDirname();
+const RESOURCES_DIR = path.resolve(DIRNAME, '../../data/ul');
+const MODS_DIR = path.resolve(DIRNAME, '../mods');
 
 const RESOURCE_FILES = {
   symbolMap: 'ul_symbol_movement_map.json',

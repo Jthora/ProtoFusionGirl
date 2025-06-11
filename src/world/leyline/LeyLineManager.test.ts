@@ -2,7 +2,7 @@
 // Integration test for LeyLineManager, WorldStateManager, and EventBus
 
 import { WorldStateManager, WorldState } from '../WorldStateManager';
-import { EventBus } from '../EventBus';
+import { EventBus } from '../../core/EventBus';
 import { LeyLineManager } from './LeyLineManager';
 
 describe('LeyLineManager Integration', () => {
@@ -19,8 +19,8 @@ describe('LeyLineManager Integration', () => {
         {
           id: 'ley1',
           nodes: [
-            { id: 'n1', position: { x: 0, y: 0 }, type: 'node', active: false },
-            { id: 'n2', position: { x: 1, y: 0 }, type: 'anchor', active: false }
+            { id: 'n1', position: { x: 0, y: 0 }, state: 'inactive' },
+            { id: 'n2', position: { x: 1, y: 0 }, state: 'inactive' }
           ],
           energy: 100
         }
@@ -33,24 +33,24 @@ describe('LeyLineManager Integration', () => {
     };
     eventBus = new EventBus();
     manager = new WorldStateManager(worldState, eventBus);
-    leyLineManager = new LeyLineManager(manager.getState().leyLines, manager, eventBus);
+    leyLineManager = new LeyLineManager(manager, eventBus);
     eventFired = false;
-    eventBus.subscribe('LEYLINE_ACTIVATED', () => { eventFired = true; });
+    eventBus.on('LEYLINE_ACTIVATED', () => { eventFired = true; });
   });
 
   it('activates a ley line and emits event', () => {
-    leyLineManager.activateLeyLine('ley1', 'testUser');
+    leyLineManager.activateLeyLine('ley1');
     const state = manager.getState();
-    expect(state.leyLines[0].nodes.every(n => n.active)).toBe(true);
+    expect(state.leyLines[0].nodes.every(n => n.state === 'active')).toBe(true);
     expect(eventFired).toBe(true);
   });
 
   it('does not emit event if ley line already active', () => {
     // Activate once
-    leyLineManager.activateLeyLine('ley1', 'testUser');
+    leyLineManager.activateLeyLine('ley1');
     eventFired = false;
     // Try to activate again
-    leyLineManager.activateLeyLine('ley1', 'testUser');
+    leyLineManager.activateLeyLine('ley1');
     expect(eventFired).toBe(false);
   });
 });

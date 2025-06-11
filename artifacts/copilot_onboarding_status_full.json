@@ -18,7 +18,7 @@
         },
         {
           "file": ".dashboard",
-          "summary": "{\n  \"openTasks\": [],\n  \"artifactCount\": 215,\n  \"onboardingPass\": true,\n  \"updated\": \"2025-06-09T04:28:45.527Z\",\n..."
+          "summary": "{\n  \"openTasks\": [],\n  \"artifactCount\": 254,\n  \"onboardingPass\": true,\n  \"updated\": \"2025-06-11T05:50:33.531Z\",\n..."
         },
         {
           "file": ".feedback",
@@ -28,7 +28,7 @@
     },
     {
       "title": "Phase 2: Artifact & Documentation Index",
-      "summary": "Indexed 215 artifacts, 38 docs.",
+      "summary": "Indexed 254 artifacts, 39 docs.",
       "artifactFiles": [
         "agent_optimized_ui_ux_2025-06-05.artifact",
         "ai_onboarding_2025-06-03.artifact",
@@ -40,7 +40,7 @@
         "artifact_index.artifact",
         "artifact_index_quickref_2025-06-08.artifact",
         "artifact_testing_validation_2025-06-08.artifact",
-        "... (205 more)"
+        "... (244 more)"
       ],
       "docFiles": [
         "FusionGirl - Game Design Document_ Beu.md",
@@ -53,12 +53,12 @@
         "FusionGirl_ Game Design Document - Earth Alliance.md",
         "FusionGirl_ Game Design Document - Game Missions.md",
         "FusionGirl_ Game Design Document - Game World.md",
-        "... (28 more)"
+        "... (29 more)"
       ]
     },
     {
       "title": "Phase 3: Scripts & Automation",
-      "summary": "Found 64 scripts. Ran 3 key scripts for validation.",
+      "summary": "Found 67 scripts. Ran 3 key scripts for validation.",
       "scripts": [
         "aggregatePersonas.js",
         "aiAutonomousDevLoop.js",
@@ -110,6 +110,8 @@
         "syncDatapack.js",
         "syncTasksWithCode.js",
         "taskIndexUpdate.js",
+        "tech_level_modding_example.js",
+        "ul_migrate_legacy_data.ts",
         "updateDashboard.js",
         "updateManifest.js",
         "updatePersonaCore.js",
@@ -120,6 +122,7 @@
         "validatePersonaCore.js",
         "validateSchemas.js",
         "validateTaskSchema.js",
+        "validate_tech_levels.js",
         "versionArtifact.js",
         "visualizeArtifactGraph.js",
         "warnNonCanonicalArtifactRefs.js",

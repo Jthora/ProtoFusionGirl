@@ -1,0 +1,32 @@
+---
+schema: ul_phonetic_glyph_map_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, phonetic, glyph, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Phonetic & Glyph Map (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for symbol-to-phonetic and glyph mappings. Used for code/test generation and validation.
+
+## Format (JSON Array)
+```json
+[
+  {
+    "ul_symbol": "point",
+    "ipa": "pɔɪnt",
+    "glyph": "•",
+    "sound_group": "plosive"
+  }
+  // ...more mappings
+]
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical phonetic/glyph map.

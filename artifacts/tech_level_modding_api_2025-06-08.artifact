@@ -1,0 +1,18 @@
+---
+title: Tech Level Modding API
+date: 2025-06-08
+purpose: Define how modders can add or modify tech levels, unlocks, and related content.
+related_files:
+  - src/world/tech/tech_levels.json
+  - scripts/
+---
+
+## API Overview
+- Data-driven tech level definitions in JSON.
+- Modding hooks for adding new tech levels, unlocks, and progression triggers.
+- Guidelines for balancing and integrating new content.
+
+## Best Practices
+- Use unique IDs and clear advancement/regression triggers.
+- Provide narrative and gameplay context for new tech levels.
+- Ensure compatibility with world state and progression systems.

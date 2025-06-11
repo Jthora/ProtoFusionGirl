@@ -1,10 +1,13 @@
 // Triggers.ts - Advancement and regression triggers for Star Tech
-export const StarAdvancementTriggers = [
-  'Dyson swarm completion',
-  'Stellar-scale AI'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
 
-export const StarRegressionTriggers = [
-  'Stellar collapse',
-  'AI rebellion'
-];
+export const getStarAdvancementTriggers = () => {
+  const star = (techLevels as any[]).find((tl: any) => tl.id === 'star');
+  return star ? star.advancementTriggers : [];
+};
+
+export const getStarRegressionTriggers = () => {
+  const star = (techLevels as any[]).find((tl: any) => tl.id === 'star');
+  return star ? star.regressionTriggers : [];
+};

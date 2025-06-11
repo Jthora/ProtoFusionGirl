@@ -26,10 +26,10 @@ export class EditorHistory {
   }
 
   getUndoStack(): EditAction[] {
-    return this.undoStack;
+    return [...this.undoStack];
   }
 
   getRedoStack(): EditAction[] {
-    return this.redoStack;
+    return [...this.redoStack];
   }
 }

@@ -1,0 +1,20 @@
+---
+title: Tech Level Integration Points
+date: 2025-06-08
+purpose: Map all code and data integration points for tech level progression, especially Holo Tech.
+related_files:
+  - src/world/tech/tech_levels.json
+  - src/world/RealityWarpSystem.ts
+  - src/world/WorldStateManager.ts
+  - src/data/skills.json
+  - src/data/narrative.json
+  - src/data/zones.json
+---
+
+## Integration Points
+- WorldStateManager: Tech level state, unlock logic, event triggers.
+- RealityWarpSystem: Simulation and reality manipulation features.
+- Skill and ability gating by tech level.
+- Mission and zone unlocks based on tech progression.
+- UI/UX: Display of current tech level and unlocks.
+- Faction and community systems: Shared tech milestones.

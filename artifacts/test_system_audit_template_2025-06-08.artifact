@@ -1,0 +1,27 @@
+---
+artifact: test_system_audit_template_2025-06-08
+created: 2025-06-08
+purpose: Template for periodic test coverage and quality audits.
+type: template
+format: markdown
+tags: [test, audit, coverage, artifact]
+related: [test_system_overhaul_plan_2025-06-08.artifact]
+---
+
+# Test System Audit Template
+
+## Date:
+
+## Scope
+- Modules/areas covered:
+- Test types (unit, integration, scenario):
+
+## Coverage Summary
+- Overall coverage:
+- Critical path coverage:
+- Gaps identified:
+
+## Action Items
+- [ ] ...
+
+---

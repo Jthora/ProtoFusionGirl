@@ -44,6 +44,7 @@ export class WorldGenV2 {
     }
     const chunk = { x: chunkX, y: chunkY, tiles, dirty: false };
     if (worldMeta) {
+      if (!worldMeta.chunks) worldMeta.chunks = {};
       worldMeta.chunks[`${chunkX},${chunkY}`] = chunk;
     }
     return chunk;

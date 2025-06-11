@@ -1,0 +1,36 @@
+---
+schema: ul_cosmic_rules_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, cosmic, rules, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_grammar_rules_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Cosmic Rules (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all cosmic forces, relationships, cycles, and combinations. Used for code/test generation and validation.
+
+## Format (JSON Object)
+```json
+{
+  "forces": ["Core", "Void", "Order", "Chaos", "..."],
+  "modality_cycles": [["Cardinal", "Mutable", "Fixed", "Cardinal"]],
+  "elemental_cycles": [["Fire", "Air", "Water", "Earth", "Fire"]],
+  "relationships": [
+    {"beats": ["Core", "Chaos"]},
+    {"beats": ["Chaos", "Void"]}
+  ],
+  "combinations": [
+    {"elements": ["Fire", "Air"], "result": "Angle"}
+  ]
+}
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical cosmic rules source.

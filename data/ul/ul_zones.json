@@ -1,0 +1,36 @@
+[
+  {
+    "name": "zone_earth_hub",
+    "properties": {
+      "id": "zone_earth_hub",
+      "name": "Earth Hub",
+      "description": "Central zone for Earth Alliance operations.",
+      "type": "zone",
+      "connectedLeyLines": [
+        "leyline_1"
+      ]
+    }
+  },
+  {
+    "name": "zone_neon_vault",
+    "properties": {
+      "id": "zone_neon_vault",
+      "name": "Neon Vault",
+      "description": "A hidden, high-tech vault filled with rare resources.",
+      "type": "zone",
+      "connectedLeyLines": [
+        "leyline_2"
+      ]
+    }
+  },
+  {
+    "name": "zone_holo_simulation",
+    "properties": {
+      "id": "zone_holo_simulation",
+      "name": "Holo Simulation Chamber",
+      "description": "A high-tech chamber where advanced simulation missions take place. Accessible only at Holo Tech or higher.",
+      "type": "zone",
+      "connectedLeyLines": []
+    }
+  }
+]

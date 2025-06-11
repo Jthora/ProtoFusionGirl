@@ -3,6 +3,7 @@
 
 import { TilemapManager } from './tilemap/TilemapManager';
 import { WorldGen } from './tilemap/WorldGen';
+import { WorldStateManager, TechLevelId } from './WorldStateManager';
 
 export interface RealityWarpEvent {
   initiator: 'jane' | 'anchor' | 'portal' | 'narrative';
@@ -22,13 +23,22 @@ export class RealityWarpSystem {
   private static worldStateMap: Map<string, any> = new Map();
   private tilemapManager: TilemapManager;
   private worldGen: WorldGen;
+  private worldStateManager?: WorldStateManager;
 
-  constructor(tilemapManager: TilemapManager) {
+  constructor(tilemapManager: TilemapManager, worldStateManager?: WorldStateManager) {
     this.tilemapManager = tilemapManager;
     this.worldGen = tilemapManager.worldGen;
+    this.worldStateManager = worldStateManager;
   }
 
   warpToReality(seed: string, options: Partial<RealityWarpEvent> = {}): void {
+    // Only allow advanced simulation if Holo Tech is unlocked
+    if (this.worldStateManager &&
+        this.worldStateManager.state.techLevelState?.playerTechLevel === 'holo') {
+      // Enable simulation mission types, reality manipulation, etc.
+      // TODO: Implement full feature set per artifact
+      console.log('[Holo Tech] Advanced simulation features enabled.');
+    }
     // Regenerate the world using the new seed
     // @ts-expect-error: partial is an internal extension for warp options
     if (options.gridCenter && options.gridSize && options.partial) {

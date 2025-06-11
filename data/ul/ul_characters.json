@@ -1,0 +1,21 @@
+[
+  {
+    "id": "jane",
+    "name": "Jane Tho'ra",
+    "description": "Level 1, HP 100",
+    "properties": {
+      "health": 100,
+      "maxHealth": 100,
+      "psi": 50,
+      "maxPsi": 50,
+      "level": 1,
+      "experience": 0,
+      "skills": {},
+      "factionId": "earth_alliance",
+      "cosmeticIds": [
+        "outfit_angelic",
+        "wings_cyber"
+      ]
+    }
+  }
+]

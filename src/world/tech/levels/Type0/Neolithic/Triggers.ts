@@ -1,11 +1,13 @@
 // Triggers.ts - Advancement and regression triggers for Neolithic Tech
-export const NeolithicAdvancementTriggers = [
-  'Discovery of bronze/iron',
-  'Formation of city-states'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
 
-export const NeolithicRegressionTriggers = [
-  'Famine',
-  'Plague',
-  'War'
-];
+export const getNeolithicAdvancementTriggers = () => {
+  const neolithic = (techLevels as any[]).find((tl: any) => tl.id === 'neolithic');
+  return neolithic ? neolithic.advancementTriggers : [];
+};
+
+export const getNeolithicRegressionTriggers = () => {
+  const neolithic = (techLevels as any[]).find((tl: any) => tl.id === 'neolithic');
+  return neolithic ? neolithic.regressionTriggers : [];
+};

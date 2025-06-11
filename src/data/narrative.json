@@ -8,5 +8,10 @@
     "id": "angelic_trial_complete",
     "trigger": "quest_completed:angelic_trial",
     "actions": ["unlock_cosmetic:outfit_angelic", "award_xp:100"]
+  },
+  {
+    "id": "holo_tech_unlocked",
+    "trigger": "tech_level_advanced:holo",
+    "actions": ["show_holo_tech_cinematic", "unlock_holo_gear", "unlock_simulation_missions"]
   }
 ]

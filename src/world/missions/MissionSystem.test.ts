@@ -1,16 +1,17 @@
 // MissionSystem.test.ts
 // Basic test for event-driven MissionSystem integration with WorldStateManager and EventBus
-
+// See: artifacts/test_system_traceability_2025-06-08.artifact
 import { WorldStateManager, WorldState, PlayerState } from '../WorldStateManager';
-import { EventBus, WorldEvent } from '../EventBus';
+import { EventBus } from '../../core/EventBus';
+import { GameEvent } from '../../core/EventTypes';
 import { MissionSystem, Mission } from './MissionSystem';
 
 describe('MissionSystem Integration', () => {
   let eventBus: EventBus;
-  let worldStateManager: WorldStateManager;
   let missionSystem: MissionSystem;
   let player: PlayerState;
-  let events: WorldEvent[] = [];
+  let worldStateManager: WorldStateManager;
+  let events: GameEvent[] = [];
 
   beforeEach(() => {
     eventBus = new EventBus();
@@ -33,7 +34,7 @@ describe('MissionSystem Integration', () => {
     };
     worldStateManager = new WorldStateManager(initialState, eventBus);
     missionSystem = new MissionSystem(worldStateManager, eventBus, player.id);
-    eventBus.subscribe('MISSION_COMPLETED', e => events.push(e));
+    eventBus.on('MISSION_COMPLETED', (e: GameEvent<'MISSION_COMPLETED'>) => events.push(e));
   });
 
   it('should progress and complete a mission via events', () => {
@@ -48,19 +49,13 @@ describe('MissionSystem Integration', () => {
     };
     missionSystem.startMission(mission);
     // Simulate defeating two slimes
-    eventBus.publish({
-      id: 'evt1',
+    eventBus.emit({
       type: 'ENEMY_DEFEATED',
-      data: { enemyType: 'slime' },
-      timestamp: Date.now(),
-      version: 1
+      data: { enemyId: 'slime1' }
     });
-    eventBus.publish({
-      id: 'evt2',
+    eventBus.emit({
       type: 'ENEMY_DEFEATED',
-      data: { enemyType: 'slime' },
-      timestamp: Date.now(),
-      version: 1
+      data: { enemyId: 'slime2' }
     });
     // Check that the mission is completed
     expect(events.length).toBe(1);

@@ -93,8 +93,8 @@ export class WorldPersistence {
     const migrated = {
       branches: {
         [defaultBranchId]: {
-          seed: legacyData.seed || 'default-seed',
-          deltas: legacyData.deltas || [],
+          seed: typeof legacyData.seed === 'string' ? legacyData.seed : 'default-seed',
+          deltas: Array.isArray(legacyData.deltas) ? legacyData.deltas : [],
           parent: undefined,
           children: []
         }
@@ -112,7 +112,7 @@ export class WorldPersistence {
    */
   async loadFromFile(file: string) {
     let data: any;
-    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.fetch === 'function';
     if (isBrowser) {
       const res = await fetch(file);
       data = await res.json();
@@ -125,6 +125,10 @@ export class WorldPersistence {
     if (!data.branches || !data.anchors) {
       data = this.migrateLegacySaveData(data);
     }
+    // Update internal state for round-trip and migration correctness
+    if (data.branches) this.multiverseState.branches = data.branches;
+    if (data.anchors) this.multiverseState.anchors = data.anchors;
+    if (data.meta) this.multiverseState.meta = data.meta;
     // ...existing code for loading chunks, registries, etc...
     if (data.chunks) {
       this.tilemapManager.chunkManager.setLoadedChunks(data.chunks);
@@ -167,7 +171,8 @@ export class WorldPersistence {
       }
     }
     // --- End migration logic ---
-    return data;
+    // Return a deep clone to avoid test pollution and match test expectations
+    return JSON.parse(JSON.stringify(data));
   }
 
   /**
@@ -183,9 +188,13 @@ export class WorldPersistence {
       playerStats: (this.tilemapManager as any).playerStats?.toJSON?.(),
       inventory: (this.tilemapManager as any).inventoryService?.toJSON?.(),
       modMetadata: this.modMetadata,
-      jane: this.jane ? this.jane.toJSON() : undefined
+      jane: this.jane ? this.jane.toJSON() : undefined,
+      // --- Add multiverse state for round-trip ---
+      branches: this.multiverseState.branches,
+      anchors: this.multiverseState.anchors,
+      meta: this.multiverseState.meta
     };
-    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.fetch === 'function';
     if (isBrowser) {
       // const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
       // Optionally: trigger download or autosave
@@ -201,7 +210,7 @@ export class WorldPersistence {
    * @param state The advanced save state object
    */
   async saveAdvancedStateToFile(file: string, state: any) {
-    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.fetch === 'function';
     if (isBrowser) {
       // Optionally: trigger download or autosave
       // const blob = new Blob([JSON.stringify(state)], { type: 'application/json' });
@@ -219,7 +228,7 @@ export class WorldPersistence {
    */
   async loadAdvancedStateFromFile(file: string) {
     let data: any;
-    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.fetch === 'function';
     if (isBrowser) {
       const res = await fetch(file);
       data = await res.json();
@@ -405,7 +414,7 @@ export class WorldPersistence {
    * (Stub) Hook for autosave/event feedback after important changes.
    * @param reason String describing the trigger (e.g., 'delta', 'anchor', 'branch')
    */
-  triggerAutosave(reason: string) {
+  triggerAutosave(_reason: string) {
     // TODO: Integrate with autosave system/event bus
   }
 

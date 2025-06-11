@@ -71,7 +71,7 @@
       "formal_axiom": "angle(x) ↔ ∃P, Q, R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R",
       "movement_primitive": "angle_pose",
       "animation_ref": "angle_pose_anim",
-      "example_equation": "θ = arccos((\vec{PQ}·\vec{PR})/(|PQ||PR|))",
+      "example_equation": "θ = arccos((\\vec{PQ}·\\vec{PR})/(|PQ||PR|))",
       "usage": "focus, divergence, direction"
     },
     {

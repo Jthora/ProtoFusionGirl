@@ -1,0 +1,16 @@
+---
+title: Tech Level Test Plan
+date: 2025-06-08
+purpose: Define test cases and validation steps for tech level progression and Holo Tech features.
+related_files:
+  - src/world/tech/tech_levels.json
+  - src/world/WorldStateManager.ts
+  - src/world/RealityWarpSystem.ts
+---
+
+## Test Cases
+- Advancing from Cyber Tech to Holo Tech unlocks correct features.
+- Holo Tech gear and missions are accessible only at the correct tech level.
+- Regression and branching logic function as intended.
+- Narrative and world state updates trigger on tech level change.
+- Multiplayer and faction tech progression syncs correctly.

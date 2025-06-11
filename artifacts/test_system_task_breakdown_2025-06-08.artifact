@@ -1,0 +1,24 @@
+---
+artifact: test_system_task_breakdown_2025-06-08
+created: 2025-06-08
+purpose: Actionable task breakdown for implementing the new test system.
+type: tasklist
+format: markdown
+tags: [test, automation, coverage, ci, artifact, task]
+related: [test_system_overhaul_plan_2025-06-08.artifact]
+---
+
+# Test System Overhaul: Task Breakdown
+
+- [ ] Audit all existing test files and generate a coverage report
+- [ ] Map `src/` modules to corresponding test files; create missing tests
+- [ ] Expand scenario and edge case tests using `TestPlan.ts` files
+- [ ] Centralize and document test fixtures and mocks
+- [ ] Update and enforce Jest config for ESM, TypeScript, and browser mocks
+- [ ] Integrate coverage and test reporting into CI and pre-commit
+- [ ] Reference related artifacts in test code comments
+- [ ] Generate and maintain a test index artifact
+- [ ] Schedule regular test coverage audits and log gaps as tasks
+- [ ] Document the new test strategy in `docs/` and as an artifact
+
+---

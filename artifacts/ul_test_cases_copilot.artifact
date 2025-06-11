@@ -1,0 +1,39 @@
+---
+schema: ul_test_cases_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, test, case, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_grammar_rules_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+  - ul_puzzle_templates_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Test Cases (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all UL test cases (encoding, grammar, cosmic, puzzle). Used for auto-generating and validating tests.
+
+## Format (JSON Array)
+```json
+[
+  {
+    "test_type": "encoding",
+    "input": ["spin", "arm_wave"],
+    "expected_output": {
+      "predicates": ["circle(c)", "wave(w)"],
+      "valid": true
+    },
+    "description": "Encodes a valid sequence to ULExpression.",
+    "target_file": "src/ul/__tests__/ulEngine.test.ts"
+  }
+  // ...more test cases
+]
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical test case source.

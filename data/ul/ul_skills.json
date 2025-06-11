@@ -1,0 +1,49 @@
+[
+  {
+    "name": "psi_burst",
+    "properties": {
+      "id": "psi_burst",
+      "name": "Psi Burst",
+      "description": "A powerful psionic attack that stuns enemies.",
+      "effects": [
+        "stun",
+        "damage"
+      ],
+      "requirements": [
+        "Jane:level>=2"
+      ],
+      "type": "skill"
+    }
+  },
+  {
+    "name": "telekinetic_push",
+    "properties": {
+      "id": "telekinetic_push",
+      "name": "Telekinetic Push",
+      "description": "Pushes enemies away with a burst of force.",
+      "effects": [
+        "knockback"
+      ],
+      "requirements": [
+        "Jane:level>=1"
+      ],
+      "type": "skill"
+    }
+  },
+  {
+    "name": "holo_shield",
+    "properties": {
+      "id": "holo_shield",
+      "name": "Holo Shield",
+      "description": "Deploys a holographic shield that absorbs damage and blocks projectiles.",
+      "effects": [
+        "block",
+        "absorb"
+      ],
+      "requirements": [
+        "tech:holo"
+      ],
+      "type": "skill"
+    }
+  }
+]

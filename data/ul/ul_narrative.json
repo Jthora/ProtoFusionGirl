@@ -1,0 +1,14 @@
+[
+  {
+    "rule": "game_start => [show_intro_cinematic, unlock_basic_skills]",
+    "description": "intro_event"
+  },
+  {
+    "rule": "quest_completed:angelic_trial => [unlock_cosmetic:outfit_angelic, award_xp:100]",
+    "description": "angelic_trial_complete"
+  },
+  {
+    "rule": "tech_level_advanced:holo => [show_holo_tech_cinematic, unlock_holo_gear, unlock_simulation_missions]",
+    "description": "holo_tech_unlocked"
+  }
+]

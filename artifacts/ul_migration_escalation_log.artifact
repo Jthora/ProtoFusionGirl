@@ -1,0 +1,34 @@
+---
+schema: ul_unification_escalation_log_v1
+version: 2.0.0
+last_updated: 2025-06-11
+tags: [ul, unification, escalation, blockers, copilot, actionable]
+related_artifacts:
+  - ul_unification_checklist.artifact
+  - ul_unification_progress_log.artifact
+changelog:
+  - 2025-06-11: Refactored for UL code unification (audit, catalog, unify, refactor, validate).
+
+# Universal Language Code Unification Escalation Log (Copilot-Driven)
+
+## Purpose
+Tracks blockers, ambiguities, and questions that require human review or decision during the UL code unification. Includes escalations for ambiguous, abandoned, or unclear UL code, and requires explicit resolution or human review.
+
+## Escalation Entry Types
+- Legacy Code Ambiguity: Unclear, partial, or abandoned UL code path.
+- Unification Blocker: Any issue preventing unification or refactor.
+- Audit Discrepancy: Mismatch or uncertainty in audit/catalog phase.
+
+## Escalation Entries
+- Add date, context, details, and attach or reference evidence (logs, code, audit summaries, etc.) for each blocker or question. Mark as resolved when addressed.
+- Include a summary of the issue, attempted resolutions, and current status for each entry.
+
+## Pacing & Discipline Protocol
+- Work on only one escalation entry or sub-task at a time.
+- After each entry, pause and review for completeness and correctness.
+- If any ambiguity or error, repeat or escalate before moving on.
+- Re-read this protocol after every entry to re-anchor.
+- Never attempt to escalate or resolve multiple issues in a single step.
+
+---
+_This artifact is living and should be updated by Copilot or human agents as work progresses._

@@ -1,7 +1,8 @@
 // Unlocks.ts - Star Tech unlock handlers
-export const StarUnlocks = [
-  'Stellar megastructures',
-  'Star lifting',
-  'Stellar-scale energy networks',
-  'Advanced interstellar logistics'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
+
+export const getStarUnlocks = () => {
+  const star = (techLevels as any[]).find((tl: any) => tl.id === 'star');
+  return star ? star.gameplayUnlocks : [];
+};

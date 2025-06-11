@@ -19,6 +19,8 @@ import { Equipment } from '../equipment/Equipment';
 import { EquipmentService } from '../equipment/EquipmentService';
 import { PlayerStats } from '../player/PlayerStats';
 import { EquipmentPanel } from '../../ui/components/EquipmentPanel';
+import { WorldStateManager } from '../WorldStateManager';
+import { EventBus } from '../../core/EventBus';
 
 export class TilemapManager {
   chunkManager: ChunkManager;
@@ -42,7 +44,9 @@ export class TilemapManager {
 
   constructor() {
     this.chunkManager = new ChunkManager(this);
-    this.editService = new WorldEditService(this);
+    // Provide a minimal valid WorldStateManager for WorldEditService
+    const minimalState = { version: 1, leyLines: [], rifts: [], players: [], economy: { resources: {}, marketPrices: {}, scarcity: {} }, events: [], meta: { online: false, aiAgents: [], mods: [] } };
+    this.editService = new WorldEditService(this, new WorldStateManager(minimalState, new EventBus()));
     this.tileRegistry = new TileRegistry();
     this.persistence = new WorldPersistence(this);
     this.worldGen = new WorldGen(this);
@@ -358,7 +362,7 @@ export class TilemapManager {
    * @param chunkX The wrapped chunk X coordinate
    * @param chunkY The chunk Y coordinate
    */
-  refreshAfterChunkReplacement(chunkX: number, chunkY: number) {
+  refreshAfterChunkReplacement(_chunkX: number, _chunkY: number) {
     // Update minimap if present
     if ((this as any).scene && (this as any).scene.minimap) {
       (this as any).scene.minimap.updateMinimap();
@@ -413,7 +417,6 @@ export class TilemapManager {
 
   // --- Delta/Branch Logic Prototype ---
   private branchDeltas: Record<string, Array<{x: number, y: number, prevTile: string, newTile: string, timestamp: number}>> = {};
-  private currentBranch: string = 'main';
 
   /**
    * Record a tile edit as a delta for the current branch.
@@ -478,13 +481,13 @@ export class TilemapManager {
     return [];
   }
 
-  async applyDeltasToWorld(deltas: any[]) {
+  async applyDeltasToWorld(_deltas: any[]) {
     // TODO: Implement delta application logic (replay tile edits, warps, etc.)
     // For now, this is a stub
     // Example: for (const delta of deltas) { ...apply delta... }
   }
 
-  switchBranch(branchId: string) {
+  switchBranch(_branchId: string) {
     // TODO: Implement branch switching logic (update current branch, reload world state, etc.)
     // For now, this is a stub
   }
@@ -507,7 +510,7 @@ export class TilemapManager {
   // TODO: Expose hooks for procedural generation mods and custom tile behaviors.
 
   // Add this method for ModularGameLoop integration
-  update(dt: number, context?: any) {
+  update(_dt: number, _context?: any) {
     // TODO: Implement tilemap streaming, overlays, or worldgen updates as needed
   }
 }

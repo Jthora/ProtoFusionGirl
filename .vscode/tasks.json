@@ -28,7 +28,7 @@
         "60s",
         "npx",
         "jest",
-        "${input:singleTestFile}",
+        "${file}",
         "--runInBand",
         "--detectOpenHandles",
         "--forceExit",
@@ -37,7 +37,23 @@
       "group": "test",
       "isBackground": false,
       "problemMatcher": ["$tsc"],
-      "detail": "Runs a single Jest test file robustly with timeout and forced exit."
+      "detail": "Runs the currently open Jest test file robustly with timeout and forced exit. Make sure the test file is open and focused in the editor."
+    },
+    {
+      "label": "Run All Jest Tests",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "jest",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--forceExit",
+        "--no-cache"
+      ],
+      "group": "test",
+      "isBackground": false,
+      "problemMatcher": ["$tsc"],
+      "detail": "Runs all Jest tests without any prompts."
     },
     {
       "label": "Update Directory Structure",

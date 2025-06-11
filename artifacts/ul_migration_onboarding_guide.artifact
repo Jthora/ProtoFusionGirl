@@ -1,0 +1,51 @@
+---
+schema: ul_unification_onboarding_guide_v1
+version: 2.0.0
+last_updated: 2025-06-11
+tags: [ul, unification, onboarding, guide, copilot, actionable]
+related_artifacts:
+  - ul_unification_checklist.artifact
+  - ul_unification_progress_log.artifact
+  - ul_unification_escalation_log.artifact
+changelog:
+  - 2025-06-11: Refactored for UL code unification (audit, catalog, unify, refactor, validate).
+
+# Universal Language Code Unification Onboarding Guide (Copilot-Driven)
+
+## Purpose
+Quickly orients any agent (AI or human) to the current state, objectives, and workflow for the UL code unification and refactor. Emphasizes audit, catalog, and evidence-based unification of all prior UL code attempts.
+
+## Overview
+- **Objective:** Unify all Universal Language code, data, and logic into a single, modular, maintainable system. Audit and resolve all prior, partial, or abandoned UL code attempts.
+- **Artifacts:** Use the unification checklist, progress log, and escalation log to track and coordinate all work.
+- **Workflow:**
+  1. Audit and catalog all prior UL code attempts (including abandoned/partial/experimental code).
+  2. For each, record location, status, summary, and decision (keep, delete, rewrite, merge).
+  3. Review the unification checklist for current phase and actionable steps. For each completed step, attach or reference evidence (code, logs, summaries, PRs, etc.) and provide a summary of the method, scope, and results.
+  4. Update the progress log as you complete or attempt steps, including evidence or references and a summary of the action, rationale, and outcome.
+  5. Log any blockers or questions in the escalation log, attaching evidence or references and a summary of the issue, attempted resolutions, and status.
+  6. Use this guide for onboarding and handoff.
+
+## Key Conventions
+- Update artifacts as you work.
+- Escalate blockers early.
+- Document decisions and handoffs.
+- Validate with tests at every phase.
+- All actions must be evidence-based and reference explicit audit findings or decisions.
+
+## Handoff Protocol
+- Before pausing or handing off, update:
+  - Progress log (what’s done, what’s next)
+  - Escalation log (open issues)
+  - Checklist (checked steps)
+- Leave clear instructions for the next agent/human.
+
+## Pacing & Discipline Protocol
+- Work on only one onboarding or handoff sub-task at a time.
+- After each onboarding step, pause and review for completeness and correctness.
+- If any ambiguity or error, repeat or escalate before moving on.
+- Re-read this protocol after every onboarding step to re-anchor.
+- Never attempt to onboard or hand off multiple steps in a single action.
+
+---
+_This artifact is living and should be updated by Copilot or human agents as work progresses._

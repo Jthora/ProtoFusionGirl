@@ -1,0 +1,40 @@
+---
+artifact: test_system_initial_audit_2025-06-08
+created: 2025-06-08
+purpose: Initial audit of test system based on Jest run and artifact-driven plan.
+type: audit
+format: markdown
+tags: [test, audit, coverage, artifact]
+related: [test_system_overhaul_plan_2025-06-08.artifact, test_system_audit_template_2025-06-08.artifact]
+---
+
+# Test System Audit (Initial)
+
+## Date:
+2025-06-08
+
+## Scope
+- All test files in `src/` and `test/` directories
+- Unit, integration, and scenario tests
+
+## Coverage Summary
+- 39 test suites run: 15 passed, 24 failed
+- Many failures are due to TypeScript type errors, missing exports, argument mismatches, and test data issues
+- Some tests are missing or incomplete (e.g., test/customization/Cosmetics.test.ts)
+- Critical path systems (leyline, world, tilemap, event, modding, narrative) have failing or incomplete tests
+
+## Gaps Identified
+- Type errors and API mismatches between tests and implementation
+- Incomplete or missing test data/fixtures
+- Outdated or missing exports in modules (e.g., LeyLine)
+- Some tests reference non-existent or private properties
+- Some integration tests are not aligned with current codebase
+
+## Action Items
+- [ ] Fix TypeScript type errors and update test imports/exports
+- [ ] Update or add missing test data and fixtures
+- [ ] Align integration tests with current APIs and module structure
+- [ ] Ensure all test suites contain at least one valid test
+- [ ] Re-run audit after fixes and document progress
+
+---

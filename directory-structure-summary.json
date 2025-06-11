@@ -12,5 +12,62 @@
     ".manifest"
   ],
   "topLevelDirs": {},
-  "note": "This summary is truncated for Copilot context window. Only top-level and a few sub-items are shown."
+  "note": "This summary is truncated for Copilot context window. Only top-level and a few sub-items are shown.",
+  "ulCode": {
+    "src/ul": [
+      "ulEngine.ts",
+      "grammarRules.ts",
+      "symbolIndex.ts",
+      "cosmicRules.ts",
+      "phoneticGlyphMap.ts",
+      "spellRecipes.ts",
+      "puzzleTemplates.ts",
+      "ulEventBus.ts",
+      "ulResourceLoader.ts",
+      "ulCanonicalSchemas.ts",
+      "ulCanonicalTypes.ts",
+      "ulTypes.ts",
+      "__tests__/ulEngine.test.ts",
+      "__tests__/ulSpellRecipes.test.ts",
+      "__tests__/ulPhoneticGlyphMap.test.ts",
+      "__tests__/ULSymbolIndex.test.ts",
+      "__tests__/ulPuzzle.test.ts",
+      "__tests__/ulResourceLoader.test.ts",
+      "__tests__/ulCosmicRules.test.ts"
+    ],
+    "src/unilang": [
+      "UniversalLanguageEngine.ts"
+    ],
+    "scripts": [
+      "ul_migrate_legacy_data.ts"
+    ]
+  },
+  "ulData": {
+    "data/ul": [
+      "ul_grammar_rules.json",
+      "ul_symbol_movement_map.json",
+      "ul_puzzle_templates.json",
+      "ul_api_contract.json",
+      "ul_expression_examples.json",
+      "ul_onboarding_guide.json",
+      "ul_skills.json",
+      "ul_leylines.json",
+      "ul_characters.json",
+      "ul_factions.json",
+      "ul_zones.json",
+      "ul_attacks.json",
+      "ul_cosmetics.json",
+      "ul_animation_library.json",
+      "ul_narrative.json"
+    ]
+  },
+  "ulArtifacts": {
+    "artifacts": [
+      "ul_*.artifact (all)",
+      "copilot_universal_language_engine_2025-06-05.artifact",
+      "copilot_universal_language_puzzles_2025-06-04.artifact"
+    ]
+  },
+  "missingFilesCheck": "All expected files cataloged in the audit and progress log are present. No missing or abandoned files detected.",
+  "evidence": "Inventory and mapping completed on 2025-06-11. See progress log and audit for cross-reference."
 }

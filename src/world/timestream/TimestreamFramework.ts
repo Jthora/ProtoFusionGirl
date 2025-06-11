@@ -123,18 +123,6 @@ export class TimestreamFramework {
   onBranchChange(listener: (branch: TimestreamBranch) => void) {
     this.branchChangeListeners.push(listener);
   }
-  private notifyBranchChange(branch: TimestreamBranch) {
-    for (const listener of this.branchChangeListeners) {
-      listener(branch);
-    }
-  }
-
-  // Call this after changing currentBranchId
-  private setCurrentBranch(branchId: string) {
-    this.currentBranchId = branchId;
-    const branch = this.branches.get(branchId);
-    if (branch) this.notifyBranchChange(branch);
-  }
 
   // Prune orphaned or abandoned branches (utility)
   pruneBranches(predicate: (branch: TimestreamBranch) => boolean) {

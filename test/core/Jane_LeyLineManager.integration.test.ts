@@ -5,7 +5,7 @@
 import { Jane } from '../../src/core/Jane';
 import { LeyLineManager } from '../../src/world/leyline/LeyLineManager';
 import { EventBus } from '../../src/core/EventBus';
-import { LeyLine } from '../../src/world/WorldStateManager';
+import { LeyLine } from '../../src/world/leyline/types';
 
 describe('Jane + MagnetoSpeeder + LeyLineManager integration', () => {
   let leyLines: LeyLine[];
@@ -18,8 +18,8 @@ describe('Jane + MagnetoSpeeder + LeyLineManager integration', () => {
       {
         id: 'ley1',
         nodes: [
-          { id: 'n1', position: { x: 0, y: 0 }, type: 'node', active: true },
-          { id: 'n2', position: { x: 10, y: 0 }, type: 'node', active: true }
+          { id: 'n1', position: { x: 0, y: 0 }, state: 'active' },
+          { id: 'n2', position: { x: 10, y: 0 }, state: 'active' }
         ],
         energy: 100
       }

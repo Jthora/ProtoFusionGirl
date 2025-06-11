@@ -1,10 +1,10 @@
 // MissionSystem.ts
 // Event-driven mission/quest system using WorldStateManager and EventBus
-// See: world_state_system_design_2025-06-04.artifact
-
-import { WorldStateManager } from '../WorldStateManager';
-import { EventBus, WorldEvent } from '../EventBus';
+// See: artifacts/test_system_traceability_2025-06-08.artifact
+import { EventBus } from '../../core/EventBus';
+import { GameEvent } from '../../core/EventTypes';
 import { ulEventBus } from '../../ul/ulEventBus';
+import { WorldStateManager } from '../WorldStateManager';
 
 export interface MissionObjective {
   id: string;
@@ -50,15 +50,40 @@ export class MissionSystem {
     this.worldStateManager = worldStateManager;
     this.eventBus = eventBus;
     this.playerId = playerId;
-    this.eventBus.subscribe('ENEMY_DEFEATED', this.onEnemyDefeated);
-    this.eventBus.subscribe('ITEM_COLLECTED', this.onItemCollected);
-    this.eventBus.subscribe('PLAYER_USED_ABILITY', this.onPlayerUsedAbility);
-    // Artifact: leyline_instability_event_api_reference_2025-06-08.artifact
-    // Listen for all ley line instability event types
-    this.eventBus.subscribe('LEYLINE_INSTABILITY', (e) => this.onLeyLineInstability(e.data));
-    this.eventBus.subscribe('LEYLINE_SURGE', (e) => this.onLeyLineInstability(e.data));
-    this.eventBus.subscribe('LEYLINE_DISRUPTION', (e) => this.onLeyLineInstability(e.data));
-    this.eventBus.subscribe('RIFT_FORMED', (e) => this.onLeyLineInstability(e.data));
+    this.eventBus.on('ENEMY_DEFEATED', (e: GameEvent<'ENEMY_DEFEATED'>) => this.onEnemyDefeated(e));
+    this.eventBus.on('ITEM_COLLECTED', (e: GameEvent<'ITEM_COLLECTED'>) => this.onItemCollected(e));
+    this.eventBus.on('PLAYER_USED_ABILITY', (e: GameEvent<'PLAYER_USED_ABILITY'>) => this.onPlayerUsedAbility(e));
+    this.eventBus.on('LEYLINE_INSTABILITY', (e: GameEvent<'LEYLINE_INSTABILITY'>) => this.onLeyLineInstability(e.data));
+    this.eventBus.on('LEYLINE_SURGE', (e: GameEvent<'LEYLINE_SURGE'>) => this.onLeyLineInstability({
+      id: 'auto',
+      type: 'LEYLINE_SURGE',
+      leyLineId: e.data.leyLineId,
+      severity: 'moderate',
+      triggeredBy: (e.data.triggeredBy as 'simulation' | 'player' | 'environment' | 'narrative') || 'simulation',
+      timestamp: Date.now(),
+      branchId: undefined,
+      data: e.data
+    }));
+    this.eventBus.on('LEYLINE_DISRUPTION', (e: GameEvent<'LEYLINE_DISRUPTION'>) => this.onLeyLineInstability({
+      id: 'auto',
+      type: 'LEYLINE_DISRUPTION',
+      leyLineId: e.data.leyLineId,
+      severity: 'major',
+      triggeredBy: (e.data.triggeredBy as 'simulation' | 'player' | 'environment' | 'narrative') || 'simulation',
+      timestamp: Date.now(),
+      branchId: undefined,
+      data: e.data
+    }));
+    this.eventBus.on('RIFT_FORMED', (e: GameEvent<'RIFT_FORMED'>) => this.onLeyLineInstability({
+      id: 'auto',
+      type: 'RIFT_FORMED',
+      leyLineId: e.data.leyLineId,
+      severity: e.data.severity,
+      triggeredBy: 'simulation',
+      timestamp: e.data.timestamp,
+      branchId: undefined,
+      data: e.data
+    }));
     // Cross-system integration: Listen for UL puzzle completion/validation
     ulEventBus.on('ul:puzzle:completed', (payload) => {
       // Example: advance mission, unlock branch, or trigger special outcome
@@ -84,25 +109,19 @@ export class MissionSystem {
       if (!('missions' in player)) (player as any).missions = [];
       (player as any).missions.push(mission);
       this.worldStateManager.updateState({ players: state.players });
-      this.eventBus.publish({
-        id: `mission_started_${mission.id}`,
-        type: 'MISSION_STARTED',
-        data: { missionId: mission.id, playerId: this.playerId },
-        timestamp: Date.now(),
-        version: state.version
-      });
+      this.eventBus.emit({ type: 'MISSION_STARTED', data: { missionId: mission.id } });
     }
   }
 
-  private onEnemyDefeated = (event: WorldEvent) => {
-    this.updateObjectives('defeat', event.data.enemyType);
+  private onEnemyDefeated = (event: GameEvent<'ENEMY_DEFEATED'>) => {
+    this.updateObjectives('defeat', event.data.enemyId);
   };
 
-  private onItemCollected = (event: WorldEvent) => {
-    this.updateObjectives('collect', event.data.itemType);
+  private onItemCollected = (event: GameEvent<'ITEM_COLLECTED'>) => {
+    this.updateObjectives('collect', event.data.itemId);
   };
 
-  private onPlayerUsedAbility = (event: { type: string; data: { playerId: string; abilityId: string } }) => {
+  private onPlayerUsedAbility = (event: GameEvent<'PLAYER_USED_ABILITY'>) => {
     // Example: update mission objectives for ability use
     // Extend MissionObjective type as needed for 'use_ability' objectives
     this.updateObjectives('use_ability', event.data.abilityId);
@@ -121,13 +140,7 @@ export class MissionSystem {
           updated = true;
           if (obj.progress >= obj.count) {
             obj.completed = true;
-            this.eventBus.publish({
-              id: `objective_completed_${obj.id}`,
-              type: 'MISSION_OBJECTIVE_COMPLETED',
-              data: { missionId: mission.id, objectiveId: obj.id, playerId: this.playerId },
-              timestamp: Date.now(),
-              version: state.version
-            });
+            this.eventBus.emit({ type: 'MISSION_OBJECTIVE_COMPLETED', data: { missionId: mission.id, objectiveId: obj.id } });
           }
         }
       }
@@ -135,13 +148,7 @@ export class MissionSystem {
       if (mission.objectives.every(o => o.completed) && mission.status === 'active') {
         mission.status = 'completed';
         this.handleMissionOutcome(mission, 'victory_by_defeat');
-        this.eventBus.publish({
-          id: `mission_completed_${mission.id}`,
-          type: 'MISSION_COMPLETED',
-          data: { missionId: mission.id, playerId: this.playerId },
-          timestamp: Date.now(),
-          version: state.version
-        });
+        this.eventBus.emit({ type: 'MISSION_COMPLETED', data: { missionId: mission.id } });
       }
     }
     if (updated) {
@@ -152,13 +159,7 @@ export class MissionSystem {
   private handleMissionOutcome(mission: Mission, outcome: MissionOutcomeType) {
     mission.outcome = outcome;
     // Publish a generic outcome event for other systems to react
-    this.eventBus.publish({
-      id: `mission_outcome_${mission.id}`,
-      type: 'MISSION_OUTCOME',
-      data: { missionId: mission.id, playerId: this.playerId, outcome },
-      timestamp: Date.now(),
-      version: this.worldStateManager.getState().version
-    });
+    this.eventBus.emit({ type: 'MISSION_OUTCOME', data: { missionId: mission.id, outcome } });
 
     // --- Outcome-specific logic (branching, rewards, world state, narrative, etc.) ---
     switch (outcome) {

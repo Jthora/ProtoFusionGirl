@@ -1,0 +1,79 @@
+---
+schema: ul_phonetic_glyph_map_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, phonetic, glyph, ipa, unicode, sound, symbol]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_spell_recipes.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, canonical mapping, reverse lookup, and changelog.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language Phonetic & Glyph Mapping Artifact
+
+## Purpose
+Maps UL symbols to phonetic (IPA) and glyph (SVG/Unicode) representations for the Universal Writing System.
+
+## Canonical Mapping (YAML)
+```yaml
+mappings:
+  - ul_symbol: point
+    ipa: pɔɪnt
+    glyph: "•"
+    sound_group: plosive
+  - ul_symbol: line
+    ipa: laɪn
+    glyph: "―"
+    sound_group: liquid
+  - ul_symbol: circle
+    ipa: sɜːrkəl
+    glyph: "○"
+    sound_group: fricative
+  - ul_symbol: triangle
+    ipa: traɪæŋɡəl
+    glyph: "△"
+    sound_group: nasal
+  - ul_symbol: square
+    ipa: skwɛər
+    glyph: "□"
+    sound_group: plosive
+  - ul_symbol: curve
+    ipa: kɜːrv
+    glyph: "〰"
+    sound_group: approximant
+  - ul_symbol: angle
+    ipa: æŋɡəl
+    glyph: "∠"
+    sound_group: nasal
+  - ul_symbol: wave
+    ipa: weɪv
+    glyph: "~"
+    sound_group: fricative
+  - ul_symbol: spiral
+    ipa: spaɪrəl
+    glyph: "🌀"
+    sound_group: trill
+  - ul_symbol: zigzag
+    ipa: zɪɡzæɡ
+    glyph: "〽"
+    sound_group: affricate
+  - ul_symbol: leap
+    ipa: liːp
+    glyph: "⤴"
+    sound_group: plosive
+reverse_lookup:
+  - ipa: pɔɪnt
+    ul_symbol: point
+  - ipa: laɪn
+    ul_symbol: line
+  # ...etc.
+```
+
+## Cross-References
+- See `ul_symbol_index.artifact` for symbol definitions.
+- See `ul_spell_recipes.artifact` for spell phonetic/glyph usage.
+
+## Update Instructions
+Update this artifact whenever symbol phonetics or glyphs change. Use as the canonical reference for all writing/speech system mappings.

@@ -1,0 +1,79 @@
+---
+schema: ul_cosmic_rules_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, cosmic, rules, force, modality, element, combination, balance]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_grammar_rules.artifact
+  - ul_puzzle_templates.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, canonical YAML tables, code snippets, and cross-references.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language Cosmic Force & Relationship Rules Artifact
+
+## Purpose
+Encodes all cosmic force relationships, balance rules, and combinatorics for gameplay and logic.
+
+## Canonical Cosmic Rules (YAML)
+```yaml
+forces:
+  - Core
+  - Void
+  - Order
+  - Chaos
+  - Alpha
+  - Omega
+  - Omni
+  - Power
+  - Flux
+modality_cycles:
+  - Cardinal > Mutable > Fixed > Cardinal
+  - Mutable > Fixed > Cardinal > Mutable
+  - Fixed > Cardinal > Mutable > Fixed
+# Elemental cycles (clockwise)
+elemental_cycles:
+  - Fire > Air > Water > Earth > Fire
+  - Air > Water > Earth > Fire > Air
+  - Water > Earth > Fire > Air > Water
+  - Earth > Fire > Air > Water > Earth
+relationships:
+  - Core beats Chaos
+  - Chaos beats Void
+  - Void beats Order
+  - Order beats Core
+  - Cardinal beats Mutable
+  - Mutable beats Fixed
+  - Fixed beats Cardinal
+combinations:
+  - Fire + Air: Angle
+  - Water + Earth: Curve
+  - Earth + Air: Line
+  - Fire + Water: Wave
+  - Water + Air: Circle
+  - Earth + Fire: Point
+```
+
+## Example Rule Enforcement (TypeScript)
+```typescript
+// Example: Check if forceA beats forceB
+const beats = {
+  Core: 'Chaos',
+  Chaos: 'Void',
+  Void: 'Order',
+  Order: 'Core',
+};
+function doesBeat(forceA: string, forceB: string): boolean {
+  return beats[forceA] === forceB;
+}
+```
+
+## Cross-References
+- See `ul_symbol_index.artifact` for symbol cosmic_force and modality mapping.
+- See `ul_grammar_rules.artifact` for logic and validation rules.
+- See `ul_puzzle_templates.artifact` for puzzle logic using cosmic rules.
+
+## Update Instructions
+Update this artifact whenever cosmic rules, relationships, or combinatorics change. Use as the canonical reference for all cosmic logic and balance.

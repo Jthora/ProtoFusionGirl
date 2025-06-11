@@ -1,0 +1,41 @@
+---
+schema: ul_artifact_index_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, artifact, index, reference, onboarding, test]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_cosmic_rules.artifact
+  - ul_grammar_rules.artifact
+  - ul_puzzle_templates.artifact
+  - ul_spell_recipes.artifact
+  - ul_phonetic_glyph_map.artifact
+  - ul_test_cases.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, changelog, and cross-links for all artifacts.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language (UL) Artifact Index
+
+## Purpose
+Summarizes all key UL artifacts, their schemas, usage, and test file locations for developers and agents.
+
+## Artifacts
+- ul_symbol_index.artifact: Master index of all UL symbols, meanings, properties, and formal definitions.
+- ul_cosmic_rules.artifact: Cosmic force relationships, balance rules, and combinatorics.
+- ul_grammar_rules.artifact: Syntax, grammar, and edge case rules.
+- ul_puzzle_templates.artifact: Repository of UL puzzles for gameplay and onboarding.
+- ul_spell_recipes.artifact: Spell recipes for Universal Magic.
+- ul_phonetic_glyph_map.artifact: IPA and glyph mapping for symbols.
+- ul_test_cases.artifact: Test cases referencing all distributed test files.
+
+## Test File Locations
+- src/ul/__tests__/ulEngine.test.ts
+- src/ul/__tests__/ulResourceLoader.test.ts
+- test/core/UniversalMagic.test.ts
+- src/tests/
+- src/world/tilemap/, src/world/timestream/, etc. (various .test.ts files)
+
+## Update Instructions
+Update this index and all artifacts after any major change to UL logic, symbol set, or rules. Use the onboarding flow and validation scripts to ensure all artifacts and tests are in sync.

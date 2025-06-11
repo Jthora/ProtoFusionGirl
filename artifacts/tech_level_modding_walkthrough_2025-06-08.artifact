@@ -1,0 +1,51 @@
+---
+title: Tech Level Modding Walkthrough
+date: 2025-06-08
+purpose: Step-by-step guide for modders to add or modify tech levels, unlocks, and progression triggers in ProtoFusionGirl.
+related_files:
+  - src/world/tech/tech_levels.json
+  - scripts/tech_level_modding_example.js
+  - scripts/validate_tech_levels.js
+  - tech_level_modding_api_2025-06-08.artifact
+---
+
+## Step-by-Step Modding Guide
+
+1. **Create Your Tech Level**
+   - Copy the structure of an existing entry in `src/world/tech/tech_levels.json`.
+   - Use a unique `id` and provide a clear `name`, `description`, and lists for `gameplayUnlocks`, `advancementTriggers`, and `regressionTriggers`.
+   - Example:
+```json
+{
+  "id": "quantum",
+  "name": "Quantum Tech",
+  "type": "Type II",
+  "era": "Early",
+  "sphere": "Quantum",
+  "age": "Quantum Age",
+  "description": "Mastery of quantum computation and entanglement. Unlocks quantum gear and missions.",
+  "gameplayUnlocks": ["Quantum Gear", "Quantum Missions"],
+  "advancementTriggers": ["Quantum Research Complete"],
+  "regressionTriggers": ["Quantum Collapse"]
+}
+```
+
+2. **Add Your Tech Level**
+   - Use the script: `node scripts/tech_level_modding_example.js <id> <name> <description>`
+   - Or manually add your entry to `tech_levels.json`.
+
+3. **Validate Your Changes**
+   - Run: `node scripts/validate_tech_levels.js`
+   - Ensure there are no errors and your tech level is artifact-compliant.
+
+4. **Integrate Unlocks and Triggers**
+   - Add new skills, missions, or zones to the appropriate data files (`skills.json`, `narrative.json`, `zones.json`).
+   - Reference your tech level in requirements (e.g., `"requirements": ["tech:quantum"]`).
+
+5. **Test In-Game**
+   - Use the game’s progression or debug tools to advance to your new tech level and verify unlocks.
+
+## Tips
+- Follow best practices in `tech_level_modding_api_2025-06-08.artifact`.
+- Provide narrative and gameplay context for your tech level.
+- Validate and test thoroughly to ensure compatibility.

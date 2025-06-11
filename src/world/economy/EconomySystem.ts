@@ -1,9 +1,11 @@
 // EconomySystem.ts
 // Event-driven economy system using WorldStateManager and EventBus
-// See: world_state_system_design_2025-06-04.artifact
-
-import { WorldStateManager, EconomyState } from '../WorldStateManager';
-import { EventBus, WorldEvent } from '../EventBus';
+// See: artifacts/test_system_traceability_2025-06-08.artifact
+// Remove usages of event.data.playerId, event.id, and custom event types not in EventName
+// Only use canonical event types and payloads
+import { EventBus } from '../../core/EventBus';
+import { GameEvent } from '../../core/EventTypes';
+import { WorldStateManager } from '../WorldStateManager';
 
 export class EconomySystem {
   private worldStateManager: WorldStateManager;
@@ -12,38 +14,23 @@ export class EconomySystem {
   constructor(worldStateManager: WorldStateManager, eventBus: EventBus) {
     this.worldStateManager = worldStateManager;
     this.eventBus = eventBus;
-    this.eventBus.subscribe('MISSION_COMPLETED', this.onMissionCompleted);
-    this.eventBus.subscribe('RESOURCE_COLLECTED', this.onResourceCollected);
+    this.eventBus.on('MISSION_COMPLETED', (e: GameEvent<'MISSION_COMPLETED'>) => this.onMissionCompleted(e));
+    this.eventBus.on('RESOURCE_COLLECTED', (e: GameEvent<'RESOURCE_COLLECTED'>) => this.onResourceCollected(e));
   }
 
-  private onMissionCompleted = (event: WorldEvent) => {
+  private onMissionCompleted = (event: GameEvent<'MISSION_COMPLETED'>) => {
     // Example: reward player with resources for completing a mission
-    const { playerId } = event.data;
     const state = this.worldStateManager.getState();
     // For demo, reward 100 credits for any mission completion
     state.economy.resources['credits'] = (state.economy.resources['credits'] || 0) + 100;
     this.worldStateManager.updateState({ economy: state.economy });
-    this.eventBus.publish({
-      id: `economy_reward_${event.id}`,
-      type: 'ECONOMY_REWARD_GRANTED',
-      data: { playerId, amount: 100, resource: 'credits' },
-      timestamp: Date.now(),
-      version: state.version
-    });
   };
 
-  private onResourceCollected = (event: WorldEvent) => {
+  private onResourceCollected = (event: GameEvent<'RESOURCE_COLLECTED'>) => {
     // Example: update resource count in economy state
-    const { resourceType, amount } = event.data;
+    const { resourceId, amount } = event.data;
     const state = this.worldStateManager.getState();
-    state.economy.resources[resourceType] = (state.economy.resources[resourceType] || 0) + amount;
+    state.economy.resources[resourceId] = (state.economy.resources[resourceId] || 0) + amount;
     this.worldStateManager.updateState({ economy: state.economy });
-    this.eventBus.publish({
-      id: `resource_collected_${event.id}`,
-      type: 'ECONOMY_RESOURCE_UPDATED',
-      data: { resourceType, amount },
-      timestamp: Date.now(),
-      version: state.version
-    });
   };
 }

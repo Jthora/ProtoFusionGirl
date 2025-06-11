@@ -1,5 +1,6 @@
 // EventTypes.ts
 // Defines all event names and payload types for the event-driven architecture.
+// Artifact-driven extension for test system overhaul (see artifacts/test_system_traceability_2025-06-08.artifact)
 
 export type EventName =
   | 'JANE_LEVEL_UP'
@@ -43,7 +44,17 @@ export type EventName =
   | 'MINIMAP_OVERLAY_TOGGLE'
   | 'GAMELOOP_POST_UPDATE'
   | 'LEYLINE_INSTABILITY'
-  | 'RIFT_FORMED';
+  | 'RIFT_FORMED'
+  | 'MISSION_STARTED'
+  | 'MISSION_OBJECTIVE_COMPLETED'
+  | 'MISSION_COMPLETED'
+  | 'MISSION_OUTCOME'
+  | 'PLAYER_USED_ABILITY'
+  | 'RESOURCE_COLLECTED'
+  | 'STATE_UPDATED'
+  | 'NARRATIVE_EVENT'
+  | 'TECH_LEVEL_ADVANCED'
+  | 'TECH_LEVEL_REGRESSED';
 
 export interface EventPayloads {
   JANE_LEVEL_UP: { level: number };
@@ -88,6 +99,16 @@ export interface EventPayloads {
   GAMELOOP_POST_UPDATE: { dt: number };
   LEYLINE_INSTABILITY: import('../world/leyline/types').LeyLineInstabilityEvent;
   RIFT_FORMED: { leyLineId: string; nodeId?: string; severity: 'minor' | 'moderate' | 'major'; timestamp: number; narrativeContext?: string };
+  MISSION_STARTED: { missionId: string };
+  MISSION_OBJECTIVE_COMPLETED: { missionId: string; objectiveId: string };
+  MISSION_COMPLETED: { missionId: string };
+  MISSION_OUTCOME: { missionId: string; outcome: string };
+  PLAYER_USED_ABILITY: { abilityId: string; playerId: string };
+  RESOURCE_COLLECTED: { resourceId: string; amount: number };
+  STATE_UPDATED: { state: any };
+  NARRATIVE_EVENT: { eventId: string; data?: any };
+  TECH_LEVEL_ADVANCED: { techLevel: string; branchId?: string };
+  TECH_LEVEL_REGRESSED: { techLevel: string; branchId?: string };
 }
 
 export type GameEvent<T extends EventName = EventName> = {

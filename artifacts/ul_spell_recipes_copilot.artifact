@@ -1,0 +1,37 @@
+---
+schema: ul_spell_recipes_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, spell, recipe, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Spell Recipes (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all spell recipes, symbol sequences, and requirements. Used for code/test generation and validation.
+
+## Format (JSON Array)
+```json
+[
+  {
+    "id": "spell_001",
+    "name": "Shield of Order",
+    "symbol_sequence": ["line", "square", "circle"],
+    "effect": "Creates a protective barrier.",
+    "requirements": ["Order", "Fixed"],
+    "related_symbols": ["line", "square", "circle"],
+    "related_phonetics": ["laɪn", "skwɛər", "sɜːrkəl"],
+    "glyphs": ["―", "□", "○"]
+  }
+  // ...more spells
+]
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical spell recipe source.

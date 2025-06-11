@@ -1,0 +1,47 @@
+---
+schema: ul_puzzle_templates_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, puzzle, template, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_grammar_rules_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Puzzle Templates (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all puzzle templates, logic, and validation. Used for code/test generation and validation.
+
+## Format (JSON Array)
+```json
+[
+  {
+    "type": "social",
+    "title": "Diplomatic Dance-Off",
+    "sequence_required": ["arm_wave", "spin"],
+    "ul_symbols": ["wave", "circle"],
+    "formal_logic": "wave(w) ∧ circle(c)",
+    "model_validation": "Valid if both predicates hold in the model; conjunction introduction.",
+    "required_skills": ["timing", "pattern recognition"],
+    "branching_outcomes": [
+      {"success": "Alliance formed; unlocks new trade routes."},
+      {"partial": "Respect gained, but no alliance."},
+      {"failure": "Diplomatic incident; future interactions harder."}
+    ],
+    "adaptive_hints": ["Watch the NPC's rhythm for clues.", "Try repeating the last move if you fail."],
+    "example_instantiation": "Player must match the NPC's dance sequence in a timed challenge.",
+    "related_ul_symbols": ["wave", "circle"],
+    "related_grammar_rules": ["conjunction introduction", "well-formed formula"],
+    "related_animations": ["wave_arm", "spin_360"]
+  }
+  // ...more templates
+]
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical puzzle template source.

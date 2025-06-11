@@ -4,7 +4,7 @@
 
 import { Minimap } from '../../src/ui/components/Minimap';
 import { LeyLineVisualization } from '../../src/world/leyline/visualization/LeyLineVisualization';
-import { LeyLine } from '../../src/world/WorldStateManager';
+import { LeyLine } from '../../src/world/leyline/types';
 import Phaser from 'phaser';
 
 // Mock Phaser and its Graphics class to avoid jsdom/canvas errors
@@ -59,8 +59,8 @@ describe('Minimap ley line overlay integration', () => {
       {
         id: 'ley1',
         nodes: [
-          { id: 'n1', position: { x: 32, y: 32 }, type: 'node', active: true },
-          { id: 'n2', position: { x: 96, y: 32 }, type: 'node', active: true }
+          { id: 'n1', position: { x: 32, y: 32 }, state: 'active' },
+          { id: 'n2', position: { x: 96, y: 32 }, state: 'active' }
         ],
         energy: 100
       }

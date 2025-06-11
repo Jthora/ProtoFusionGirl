@@ -1,0 +1,27 @@
+---
+artifact: test_system_overhaul_plan_2025-06-08
+created: 2025-06-08
+purpose: High-level plan for overhauling and upgrading the ProtoFusionGirl test system.
+type: plan
+format: markdown
+tags: [test, automation, coverage, ci, artifact]
+related: [artifact_testing_validation_2025-06-08.artifact, testing_quality_2025-06-07.artifact]
+---
+
+# Test System Overhaul Plan
+
+## Goals
+- Achieve 80%+ code coverage for all core systems
+- Automate and enforce testing at every stage (pre-commit, CI, onboarding)
+- Mirror `src/` structure in `test/` for clarity and maintainability
+- Integrate artifact-driven, scenario-based, and edge case testing
+- Improve reporting, traceability, and feedback loops
+
+## Phases
+1. Audit current test coverage and structure
+2. Expand and unify test suites (unit, integration, scenario)
+3. Automate coverage reporting and enforce in CI/pre-commit
+4. Link tests to artifacts for traceability
+5. Regularly audit and improve test quality
+
+---

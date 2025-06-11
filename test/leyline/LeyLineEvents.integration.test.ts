@@ -1,6 +1,7 @@
 // LeyLineEvents.integration.test.ts
 // Integration tests for bidirectional ley line <-> world/tile event propagation
 // References: copilot_leyline_tilemap_traversal_integration_2025-06-07.artifact
+// See: artifacts/test_system_traceability_2025-06-08.artifact
 
 import { LeyLineEvents } from '../../src/world/leyline/events/LeyLineEvents';
 
@@ -28,10 +29,10 @@ describe('LeyLineEvents <-> World Event Integration', () => {
   beforeEach(() => {
     eventBus = {
       handlers: {},
-      subscribe(type: string, handler: any) {
+      on(type: string, handler: any) {
         this.handlers[type] = handler;
       },
-      publish(event: any) {
+      emit(event: any) {
         if (this.handlers[event.type]) this.handlers[event.type](event);
       }
     };
@@ -66,7 +67,7 @@ describe('LeyLineEvents <-> World Event Integration', () => {
 
   it('propagates world event to ley line disruption', () => {
     let disruptionFired = false;
-    eventBus.subscribe('LEYLINE_DISRUPTION', (event: any) => {
+    eventBus.on('LEYLINE_DISRUPTION', (event: any) => {
       if (event.data.leyLineId === 'ley3') disruptionFired = true;
     });
     worldEngine.simulateWorldEvent('ENVIRONMENTAL_SHIFT', {

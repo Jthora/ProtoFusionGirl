@@ -1,0 +1,19 @@
+---
+artifact: test_system_reporting_2025-06-08
+created: 2025-06-08
+purpose: Plan for automated test reporting, coverage, and feedback integration.
+type: plan
+format: markdown
+tags: [test, reporting, coverage, ci, artifact]
+related: [test_system_overhaul_plan_2025-06-08.artifact]
+---
+
+# Test System Reporting & Feedback Plan
+
+- Automate Jest coverage and test result output to `coverage/` and artifact files
+- Integrate test status and coverage into onboarding and dashboard artifacts
+- Output test failures and gaps as tasks or feedback artifacts
+- Schedule regular reporting and audits
+- Make reports accessible to both AI agents and human contributors
+
+---

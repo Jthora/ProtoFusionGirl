@@ -1,0 +1,49 @@
+---
+schema: ul_spell_recipes_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, spell, recipe, magic, symbol, phonetic, glyph]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_phonetic_glyph_map.artifact
+  - ul_cosmic_rules.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, canonical YAML spell list, symbol/phonetic links, and changelog.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language Spell Recipes Artifact
+
+## Purpose
+Repository of spell recipes for the Universal Magic system.
+
+## Canonical Spell List (YAML)
+```yaml
+spells:
+  - id: spell_001
+    name: Shield of Order
+    symbol_sequence: [line, square, circle]
+    effect: Creates a protective barrier.
+    requirements: [Order, Fixed]
+    related_symbols:
+      - line
+      - square
+      - circle
+    related_phonetics:
+      - laɪn
+      - skwɛər
+      - sɜːrkəl
+    glyphs:
+      - "―"
+      - "□"
+      - "○"
+  # ...add more spells as needed
+```
+
+## Cross-References
+- See `ul_symbol_index.artifact` for symbol definitions.
+- See `ul_phonetic_glyph_map.artifact` for phonetic/glyph mapping.
+- See `ul_cosmic_rules.artifact` for requirements and cosmic logic.
+
+## Update Instructions
+Update this artifact whenever new spells are added or existing ones change. Use as the canonical reference for all Universal Magic spell content.

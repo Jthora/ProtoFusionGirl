@@ -1,10 +1,13 @@
 // Triggers.ts - Advancement and regression triggers for Fusion Tech
-export const FusionAdvancementTriggers = [
-  'Dyson sphere construction',
-  'Interstellar colonization'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
 
-export const FusionRegressionTriggers = [
-  'Stellar disasters',
-  'Rogue AI'
-];
+export const getFusionAdvancementTriggers = () => {
+  const fusion = (techLevels as any[]).find((tl: any) => tl.id === 'fusion');
+  return fusion ? fusion.advancementTriggers : [];
+};
+
+export const getFusionRegressionTriggers = () => {
+  const fusion = (techLevels as any[]).find((tl: any) => tl.id === 'fusion');
+  return fusion ? fusion.regressionTriggers : [];
+};

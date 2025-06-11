@@ -1,10 +1,13 @@
 // Triggers.ts - Advancement and regression triggers for Warp Tech
-export const WarpAdvancementTriggers = [
-  'Stable wormhole creation',
-  'First contact with extragalactic life'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
 
-export const WarpRegressionTriggers = [
-  'Wormhole collapse',
-  'FTL drive failure'
-];
+export const getWarpAdvancementTriggers = () => {
+  const warp = (techLevels as any[]).find((tl: any) => tl.id === 'warp');
+  return warp ? warp.advancementTriggers : [];
+};
+
+export const getWarpRegressionTriggers = () => {
+  const warp = (techLevels as any[]).find((tl: any) => tl.id === 'warp');
+  return warp ? warp.regressionTriggers : [];
+};

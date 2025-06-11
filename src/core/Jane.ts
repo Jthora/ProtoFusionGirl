@@ -6,7 +6,6 @@
 import { EventBus } from './EventBus';
 import { MagnetoSpeeder } from '../magneto/MagnetoSpeeder';
 import { LeyLineManager } from '../world/leyline/LeyLineManager';
-import { EventName, GameEvent } from './EventTypes';
 
 export interface JaneStats {
   health: number;
@@ -76,7 +75,7 @@ export class Jane {
       this.stats.maxPsi += 5;
       this.stats.health = this.stats.maxHealth;
       this.stats.psi = this.stats.maxPsi;
-      this.eventBus.emit({ type: 'JANE_LEVEL_UP', data: { level: this.stats.level } } as GameEvent<'JANE_LEVEL_UP'>);
+      this.eventBus.emit({ type: 'JANE_LEVEL_UP', data: { level: this.stats.level } });
     }
   }
 
@@ -162,10 +161,10 @@ export class Jane {
     if (this.isMounted && this.speeder) {
       this.speeder.setPosition(x, y);
       this.position = { x, y };
-      this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } } as GameEvent<'CHARACTER_MOVED'>);
+      this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } });
     } else {
       this.position = { x, y };
-      this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } } as GameEvent<'CHARACTER_MOVED'>);
+      this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } });
     }
   }
 

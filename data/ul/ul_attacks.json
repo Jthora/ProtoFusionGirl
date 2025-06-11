@@ -1,0 +1,23 @@
+[
+  {
+    "id": "basic_punch",
+    "name": "Punch",
+    "symbolSequence": [],
+    "effectDescription": ""
+  },
+  {
+    "id": "slime_bounce",
+    "name": "Slime Bounce",
+    "symbolSequence": [],
+    "effectDescription": ""
+  },
+  {
+    "id": "psi_burst",
+    "name": "Psi Burst",
+    "symbolSequence": [],
+    "effectDescription": "",
+    "requirements": [
+      "stun"
+    ]
+  }
+]

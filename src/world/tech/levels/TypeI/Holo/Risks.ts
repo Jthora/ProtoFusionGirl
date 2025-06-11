@@ -1,6 +1,8 @@
 // Risks.ts - Risks and consequences for Holo Tech
-export const HoloRisks = [
-  'Loss of reality anchor',
-  'AI existential risk',
-  'Social fragmentation'
-];
+// @ts-ignore
+import techLevels from '../../tech/tech_levels.json';
+
+export const getHoloRisks = () => {
+  const holo = (techLevels as any[]).find((tl: any) => tl.id === 'holo');
+  return holo ? holo.risks : [];
+};

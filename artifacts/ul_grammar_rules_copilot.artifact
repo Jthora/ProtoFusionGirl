@@ -1,0 +1,43 @@
+---
+schema: ul_grammar_rules_v3
+version: 4.0.0
+last_updated: 2025-06-10
+tags: [ul, grammar, rules, canonical, copilot, migration]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+changelog:
+  - 2025-06-10: Created for Copilot-driven migration and unification.
+---
+
+# Canonical Universal Language Grammar Rules (Copilot Migration)
+
+## Purpose
+Single, machine-readable source of truth for all UL grammar, axioms, deduction rules, and validation patterns. Used for code/test generation and validation.
+
+## Format (JSON Object)
+```json
+{
+  "symbols": ["point(x)", "line(x)", "circle(x)", "..."],
+  "predicates": ["contains(x, y)", "adjacent(x, y)", "..."],
+  "functions": ["transform(T, x)", "intersection(x, y)"],
+  "constants": ["O"],
+  "axioms": [
+    "∀x (point(x) ∨ line(x) ∨ ...)",
+    "∀x ¬(point(x) ∧ line(x))"
+  ],
+  "deduction_rules": [
+    "Conjunction Introduction: from φ, ψ infer φ ∧ ψ"
+  ],
+  "validation_patterns": {
+    "well_formed_formula": "First-order logic syntax with allowed predicates, functions, and quantifiers."
+  },
+  "edge_cases": [
+    "Degenerate: circle(x) ∧ radius(x,0) → point(x)"
+  ]
+}
+```
+
+## Update Instructions
+- Update only via migration scripts or Copilot-driven refactor.
+- All code, tests, and docs must reference this as the canonical grammar source.

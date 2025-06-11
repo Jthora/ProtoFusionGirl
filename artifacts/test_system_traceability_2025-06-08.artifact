@@ -1,0 +1,19 @@
+---
+artifact: test_system_traceability_2025-06-08
+created: 2025-06-08
+purpose: Guidelines for linking tests to artifacts and code for traceability.
+type: guideline
+format: markdown
+tags: [test, traceability, artifact, documentation]
+related: [test_system_overhaul_plan_2025-06-08.artifact]
+---
+
+# Test System Traceability Guidelines
+
+- Reference related artifacts in test file headers and comments
+- Use artifact IDs in test descriptions for scenario and requirement mapping
+- Document test coverage and gaps in dedicated audit artifacts
+- Link scenario/edge case tests to their `TestPlan.ts` or artifact source
+- Update traceability as code and artifacts evolve
+
+---

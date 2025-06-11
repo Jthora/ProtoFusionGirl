@@ -1,0 +1,174 @@
+---
+schema: ul_unification_checklist_v1
+version: 2.0.0
+last_updated: 2025-06-11
+tags: [ul, unification, checklist, copilot, progress, actionable]
+related_artifacts:
+  - ul_symbol_index_copilot.artifact
+  - ul_grammar_rules_copilot.artifact
+  - ul_cosmic_rules_copilot.artifact
+  - ul_spell_recipes_copilot.artifact
+  - ul_puzzle_templates_copilot.artifact
+  - ul_test_cases_copilot.artifact
+changelog:
+  - 2025-06-11: Refactored for UL code unification (audit, catalog, unify, refactor, validate).
+
+# Universal Language Code Unification Checklist (Copilot-Driven)
+
+## Purpose
+Tracks actionable steps, progress, blockers, and handoffs for the Universal Language (UL) code unification and refactor. Focuses on auditing, cataloging, and unifying all UL-related code, including abandoned or partial attempts, with evidence-based decisions for each code path.
+
+## Pacing & Discipline Protocol
+- Work on only one checklist sub-task at a time.
+- After each sub-task, pause and review for completeness and correctness.
+- If any ambiguity or error, repeat or escalate before moving on.
+- Re-read this protocol after every sub-task to re-anchor.
+- Never attempt to complete multiple sub-tasks in a single step.
+
+## Phases & Steps
+
+- [ ] **Phase 0: Audit & Catalog All UL Code Attempts**
+  - [ ] Locate all code, data, and artifacts related to UL, including incomplete, abandoned, or experimental attempts.
+    - [ ] Pause and review this sub-task for completeness and correctness.
+    - [ ] If not fully correct, repeat or escalate before proceeding.
+  - [ ] For each, record:
+    - [ ] File/directory path
+      - [ ] Pause and review this sub-task for completeness and correctness.
+    - [ ] Author (if known)
+      - [ ] Pause and review this sub-task for completeness and correctness.
+    - [ ] Status (active, abandoned, partial, experimental)
+      - [ ] Pause and review this sub-task for completeness and correctness.
+    - [ ] Short summary of intent/content
+      - [ ] Pause and review this sub-task for completeness and correctness.
+  - [ ] For each, decide: keep, delete, rewrite, or merge (with rationale).
+    - [ ] Pause and review this sub-task for completeness and correctness.
+  - [ ] Attach evidence (file lists, code refs, summaries) to artifact.
+    - [ ] Pause and review this sub-task for completeness and correctness.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 1: Inventory & Mapping (Unified Scope)**
+  - [ ] Auto-scan all validated UL-related code, data, and artifacts
+    - [ ] Identify all directories containing UL code
+    - [ ] Identify all data files related to UL
+    - [ ] Identify all artifact files related to UL
+    - [ ] Run 'tree' or equivalent to generate a file list
+    - [ ] Store output in directory-structure.txt
+    - [ ] Summarize findings in directory-structure-summary.json
+    - [ ] Check for missing expected files (compare against audit)
+    - [ ] Attach evidence to artifact
+  - [ ] Generate dependency/overlap graph (UL only)
+    - [ ] Collect all code and data references
+    - [ ] Map dependencies between modules
+    - [ ] Identify overlaps between artifacts and code
+    - [ ] Generate Graphviz .dot file
+    - [ ] Store graph as artifact_graph.dot
+    - [ ] Summarize graph structure and findings
+    - [ ] Attach evidence to artifact
+
+- [ ] **Phase 2: Redundancy & Conflict Analysis**
+  - [ ] Identify redundant/conflicting files and logic (UL only)
+    - [ ] Compare file lists for duplicates
+    - [ ] Check for conflicting logic in code
+    - [ ] Check for redundant data in artifacts
+    - [ ] Document findings in redundancy report
+    - [ ] Summarize method and results
+    - [ ] Attach evidence to artifact
+
+- [ ] **Phase 3: Canonical Data Model**
+  - [ ] Define/validate TypeScript interfaces for all core UL data
+  - [ ] Implement schema validation scripts
+  - [ ] Explicitly validate and list all UL data files before unification/refactor. Escalate any ambiguity.
+
+- [ ] **Phase 4: Code Unification & Refactor**
+  - [ ] Collapse all valid UL logic into a single, modular, maintainable system
+    - [ ] Pause and review for completeness, correctness, and unintended side effects.
+    - [ ] Attach before/after code, test results, and written rationale for all changes.
+    - [ ] If any ambiguity, risk, or uncertainty, escalate for human review before proceeding.
+    - [ ] Submit proposed changes for human sign-off before applying.
+  - [ ] Delete or archive abandoned/obsolete/duplicate code
+    - [ ] Pause and review for completeness, correctness, and unintended side effects.
+    - [ ] Attach evidence and rationale for each deletion/archive.
+    - [ ] Submit for human sign-off before proceeding.
+  - [ ] Integrate resource loader if needed
+    - [ ] Pause and review for necessity and correctness.
+    - [ ] Attach evidence and rationale.
+    - [ ] Submit for human sign-off before proceeding.
+  - [ ] Summarize refactor scope and modularization
+    - [ ] Pause and review summary for clarity and accuracy.
+    - [ ] Attach evidence.
+  - [ ] Attach evidence (refactored code, PR, or test refs)
+    - [ ] Pause and review evidence for sufficiency.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 5: Test Synchronization**
+  - [ ] Centralize and auto-generate tests from canonical data
+    - [ ] Pause and review generated tests for coverage and relevance.
+    - [ ] Attach test code and rationale.
+    - [ ] If any ambiguity or gaps, escalate for human review.
+  - [ ] Run/validate all tests after each unification/refactor step
+    - [ ] Pause and review all test results for failures or regressions.
+    - [ ] Attach test logs and analysis.
+    - [ ] Do not proceed until all issues are resolved or escalated.
+  - [ ] Summarize test execution and validation
+    - [ ] Pause and review summary for clarity and accuracy.
+    - [ ] Attach evidence.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 6: UI/Event Refactor**
+  - [ ] Refactor UI to use unified engine/event bus
+    - [ ] Pause and review for completeness, correctness, and user impact.
+    - [ ] Attach before/after UI code and rationale.
+    - [ ] Submit for human sign-off before proceeding.
+  - [ ] Standardize event names/payloads
+    - [ ] Pause and review for consistency and completeness.
+    - [ ] Attach evidence and rationale.
+    - [ ] Submit for human sign-off before proceeding.
+  - [ ] Summarize refactor scope and standardization
+    - [ ] Pause and review summary for clarity and accuracy.
+    - [ ] Attach evidence.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 7: Artifact/Doc Generation**
+  - [ ] Auto-generate artifacts/docs from unified code/data
+    - [ ] Pause and review generated docs for completeness and correctness.
+    - [ ] Attach docs and rationale.
+    - [ ] If any ambiguity or errors, escalate for human review.
+  - [ ] Auto-insert cross-references
+    - [ ] Pause and review for correctness and utility.
+    - [ ] Attach evidence.
+  - [ ] Summarize doc generation and cross-referencing
+    - [ ] Pause and review summary for clarity and accuracy.
+    - [ ] Attach evidence.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 8: Deprecation & Cleanup**
+  - [ ] Mark/archive legacy files
+    - [ ] Pause and review for completeness and correctness.
+    - [ ] Attach evidence and rationale for each action.
+    - [ ] Submit for human sign-off before proceeding.
+  - [ ] Summarize deprecation/archive process
+    - [ ] Pause and review summary for clarity and accuracy.
+    - [ ] Attach evidence.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+- [ ] **Phase 9: Iterative Validation**
+  - [ ] Validate each phase before proceeding
+    - [ ] Pause and review all validation results for completeness and correctness.
+    - [ ] Attach validation logs and rationale.
+    - [ ] Do not proceed until all issues are resolved or escalated.
+  - [ ] Log blockers, escalate as needed
+    - [ ] Pause and review blockers/escalations for clarity and completeness.
+    - [ ] Attach evidence.
+- Re-anchor: Re-read the Pacing & Discipline Protocol before starting the next phase.
+
+## Progress Log
+- Use the progress log artifact to record all audit findings, unification decisions, and refactor actions with evidence.
+
+## Blockers & Escalation
+- Log blockers, ambiguities, or questions for human review in the escalation log.
+
+## Handoff Notes
+- Leave clear instructions for the next agent/human if pausing or handing off.
+
+---
+_This artifact is living and should be updated by Copilot or human agents as work progresses._

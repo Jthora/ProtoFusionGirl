@@ -7,7 +7,7 @@ export class WorldPhysics {
     scene.physics.world.gravity.y = gravityY;
   }
 
-  static setupPlayerCollision(player: Phaser.Physics.Arcade.Sprite, groundGroup: Phaser.Physics.Arcade.StaticGroup) {
+  static setupPlayerCollision(scene: Phaser.Scene, player: Phaser.Physics.Arcade.Sprite, groundGroup: Phaser.Physics.Arcade.StaticGroup) {
     scene.physics.add.collider(player, groundGroup);
   }
 }

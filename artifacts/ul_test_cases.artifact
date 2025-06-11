@@ -1,0 +1,67 @@
+---
+schema: ul_test_cases_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, test, case, validation, encoding, grammar, integration]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_grammar_rules.artifact
+  - ul_cosmic_rules.artifact
+  - ul_puzzle_templates.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, expanded canonical test cases, and cross-references.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language Test Cases Artifact
+
+## Purpose
+Defines test cases for symbol encoding/decoding, grammar, cosmic rules, and puzzles. References distributed test files.
+
+## Canonical Test Cases (YAML)
+```yaml
+test_cases:
+  - test_type: encoding
+    input: [spin, arm_wave]
+    expected_output:
+      predicates: [circle(c), wave(w)]
+      valid: true
+    description: Encodes a valid sequence to ULExpression.
+    target_file: src/ul/__tests__/ulEngine.test.ts
+  - test_type: grammar_validation
+    input: [triangle, square]
+    expected_output:
+      valid: false
+      error: "triangle and square cannot be directly adjacent per grammar rules"
+    description: Invalid adjacency per grammar.
+    target_file: src/ul/__tests__/ulEngine.test.ts
+  - test_type: cosmic_rule
+    input: [Core, Chaos]
+    expected_output:
+      result: true
+    description: Core beats Chaos in cosmic rules.
+    target_file: src/ul/__tests__/ulResourceLoader.test.ts
+  - test_type: puzzle
+    input: [arm_wave, spin]
+    expected_output:
+      outcome: success
+    description: Puzzle solved with correct sequence.
+    target_file: src/ui/components/UniversalLanguagePuzzleModal.ts
+# ...add more test cases and edge cases as needed
+```
+
+## Cross-References
+- See `ul_symbol_index.artifact` for symbol definitions.
+- See `ul_grammar_rules.artifact` for grammar validation logic.
+- See `ul_cosmic_rules.artifact` for cosmic rule logic.
+- See `ul_puzzle_templates.artifact` for puzzle instantiations.
+
+## Test File Locations
+- src/ul/__tests__/ulEngine.test.ts
+- src/ul/__tests__/ulResourceLoader.test.ts
+- test/core/UniversalMagic.test.ts
+- src/tests/
+- src/world/tilemap/, src/world/timestream/, etc. (various .test.ts files)
+
+## Update Instructions
+Update this artifact whenever new tests are added or test locations change. Use as a reference for onboarding, validation, and future test consolidation.

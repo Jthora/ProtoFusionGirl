@@ -1,0 +1,22 @@
+---
+title: Tech Level Progression Flow
+date: 2025-06-08
+purpose: Visual and narrative flow for advancing through tech levels, with a focus on Holo Tech.
+related_files:
+  - src/world/tech/tech_levels.json
+  - docs/FusionGirl_ Game Design Document - Tech Levels.md
+---
+
+## Progression Flow
+1. Start at Neolithic Tech (basic crafting, survival).
+2. Advance through Industrial, Cyber, Spacer Tech via missions, resources, and narrative milestones.
+3. Unlock Holo Tech:
+   - Complete simulation mastery questline.
+   - Gather rare resources and faction support.
+   - Trigger narrative event for simulation breakthrough.
+4. Gain access to holo-gear, simulation missions, and new realities.
+5. Continue progression to Fusion, Star, and higher tech levels.
+
+## Branching/Regression
+- Regression possible via catastrophic events (e.g., simulation collapse).
+- Branching paths for faction-aligned or solo tech advancement.

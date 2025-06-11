@@ -1,0 +1,24 @@
+[
+  {
+    "name": "leyline_1",
+    "properties": {
+      "id": "leyline_1",
+      "fromZone": "zone_earth_hub",
+      "toZone": "zone_neon_vault",
+      "energy": 100,
+      "status": "stable",
+      "type": "leyline"
+    }
+  },
+  {
+    "name": "leyline_2",
+    "properties": {
+      "id": "leyline_2",
+      "fromZone": "zone_neon_vault",
+      "toZone": "zone_earth_hub",
+      "energy": 80,
+      "status": "unstable",
+      "type": "leyline"
+    }
+  }
+]

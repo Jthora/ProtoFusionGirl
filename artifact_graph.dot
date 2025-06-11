@@ -1,25 +1,64 @@
-digraph ArtifactGraph {
-  "ai_onboarding_2025-06-03.artifact" [style=filled, fillcolor=green];
-  "artifact_index.artifact" [style=filled, fillcolor=blue];
-  "combat_mechanics.artifact" [style=filled, fillcolor=orange];
-  "copilot_advanced_todos_2025-06-03.artifact" [style=filled, fillcolor=red];
-  "copilot_build_instructions_2025-06-03.artifact" [style=filled, fillcolor=orange];
-  "copilot_memory.artifact" [style=filled, fillcolor=purple];
-  "copilot_next_steps_2025-06-03.artifact" [style=filled, fillcolor=red];
-  "copilot_next_steps_2025-06-03_20250603T194710.artifact" [style=filled, fillcolor=red];
-  "copilot_todos_2025-06-03.artifact" [style=filled, fillcolor=red];
-  "directory_structure_2025-06-03.artifact" [style=filled, fillcolor=blue];
-  "feedback_2025-06-03.artifact" [style=filled, fillcolor=gray];
-  "phase1_brainstorm.artifact" [style=filled, fillcolor=orange];
-  "project_state_2025-06-03.artifact" [style=filled, fillcolor=blue];
-  "retrospective_tilemap_2025-06-03.artifact" [style=filled, fillcolor=gray];
-  "test_artifact_2025-06-03.artifact" [style=filled, fillcolor=orange];
-  "test_results_2025-06-03.artifact" [style=filled, fillcolor=orange];
-  "tilemap_system_design.artifact" [style=filled, fillcolor=orange];
-  "ai_onboarding_2025-06-03.artifact" -> "copilot_memory.artifact";
-  "ai_onboarding_2025-06-03.artifact" -> "artifact_index.artifact";
-  "copilot_advanced_todos_2025-06-03.artifact" -> "copilot_memory.artifact";
-  "copilot_advanced_todos_2025-06-03.artifact" -> "artifact_index.artifact";
-  "copilot_build_instructions_2025-06-03.artifact" -> "artifact_index.artifact";
-  "copilot_memory.artifact" -> "artifact_index.artifact";
+// Universal Language Code Unification Dependency/Overlap Graph (auto-generated)
+digraph UL_Unification {
+  // Artifact nodes
+  ul_grammar_rules_copilot [label="ul_grammar_rules_copilot.artifact"];
+  ul_test_cases_copilot [label="ul_test_cases_copilot.artifact"];
+  ul_puzzle_templates_copilot [label="ul_puzzle_templates_copilot.artifact"];
+  ul_symbol_index_copilot [label="ul_symbol_index_copilot.artifact"];
+  ul_spell_recipes_copilot [label="ul_spell_recipes_copilot.artifact"];
+  ul_phonetic_glyph_map_copilot [label="ul_phonetic_glyph_map_copilot.artifact"];
+  ul_cosmic_rules_copilot [label="ul_cosmic_rules_copilot.artifact"];
+
+  // Code nodes
+  src_ul_grammarRules [label="src/ul/grammarRules.ts"];
+  src_ul_spellRecipes [label="src/ul/spellRecipes.ts"];
+  src_ul_puzzleTemplates [label="src/ul/puzzleTemplates.ts"];
+  src_ul_symbolIndex [label="src/ul/symbolIndex.ts"];
+  src_ul_phoneticGlyphMap [label="src/ul/phoneticGlyphMap.ts"];
+  src_ul_cosmicRules [label="src/ul/cosmicRules.ts"];
+  src_ul_ULSymbolIndex [label="src/ul/ULSymbolIndex.ts"];
+  src_ul_ulEngine [label="src/ul/ulEngine.ts"];
+  src_ul_ulEventBus [label="src/ul/ulEventBus.ts"];
+  src_ul_ulResourceLoader [label="src/ul/ulResourceLoader.ts"];
+  src_unilang_UniversalLanguageEngine [label="src/unilang/UniversalLanguageEngine.ts"];
+  scripts_ul_migrate_legacy_data [label="scripts/ul_migrate_legacy_data.ts"];
+
+  // Data nodes
+  data_ul_grammar_rules [label="data/ul/ul_grammar_rules.json"];
+  data_ul_puzzle_templates [label="data/ul/ul_puzzle_templates.json"];
+  data_ul_symbol_movement_map [label="data/ul/ul_symbol_movement_map.json"];
+  data_ul_phonetic_glyph_map [label="data/ul/ul_phonetic_glyph_map.json"];
+  data_ul_cosmic_rules [label="data/ul/ul_cosmic_rules.json"];
+
+  // Example dependencies (edges)
+  src_ul_grammarRules -> ul_grammar_rules_copilot;
+  src_ul_grammarRules -> data_ul_grammar_rules;
+  src_ul_spellRecipes -> ul_spell_recipes_copilot;
+  src_ul_spellRecipes -> data_ul_grammar_rules;
+  src_ul_puzzleTemplates -> ul_puzzle_templates_copilot;
+  src_ul_puzzleTemplates -> data_ul_puzzle_templates;
+  src_ul_symbolIndex -> ul_symbol_index_copilot;
+  src_ul_symbolIndex -> data_ul_symbol_movement_map;
+  src_ul_phoneticGlyphMap -> ul_phonetic_glyph_map_copilot;
+  src_ul_phoneticGlyphMap -> data_ul_phonetic_glyph_map;
+  src_ul_cosmicRules -> ul_cosmic_rules_copilot;
+  src_ul_cosmicRules -> data_ul_cosmic_rules;
+  src_ul_ULSymbolIndex -> ul_symbol_index_copilot;
+  src_ul_ulEngine -> src_ul_grammarRules;
+  src_ul_ulEngine -> src_ul_spellRecipes;
+  src_ul_ulEngine -> src_ul_puzzleTemplates;
+  src_ul_ulEngine -> src_ul_symbolIndex;
+  src_ul_ulEngine -> src_ul_phoneticGlyphMap;
+  src_ul_ulEngine -> src_ul_cosmicRules;
+  src_ul_ulEngine -> src_ul_ULSymbolIndex;
+  src_ul_ulEngine -> ul_test_cases_copilot;
+  src_ul_ulEventBus -> src_ul_ulEngine;
+  src_ul_ulResourceLoader -> src_ul_ulEngine;
+  src_unilang_UniversalLanguageEngine -> src_ul_ulEngine;
+  scripts_ul_migrate_legacy_data -> src_ul_ulEngine;
+  scripts_ul_migrate_legacy_data -> data_ul_grammar_rules;
+  scripts_ul_migrate_legacy_data -> data_ul_puzzle_templates;
+  scripts_ul_migrate_legacy_data -> data_ul_symbol_movement_map;
+  scripts_ul_migrate_legacy_data -> data_ul_phonetic_glyph_map;
+  scripts_ul_migrate_legacy_data -> data_ul_cosmic_rules;
 }

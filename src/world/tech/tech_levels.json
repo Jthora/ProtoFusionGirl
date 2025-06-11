@@ -26,5 +26,19 @@
     "regressionTriggers": ["Cyberwar", "Infrastructure collapse"],
     "risks": ["Surveillance", "Loss of privacy", "AI threats"],
     "relatedArtifacts": ["timeline_cyber.artifact", "zone_datacenter.artifact"]
+  },
+  {
+    "id": "holo",
+    "name": "Holo Tech",
+    "type": "Type I",
+    "era": "Late",
+    "sphere": "Magnetospheric",
+    "age": "Holographic Age",
+    "description": "Mastery of holographic technology and simulation. Unlocks holo-gear, simulation-based missions, and reality manipulation.",
+    "gameplayUnlocks": ["Holo Gear", "Simulation Missions", "Reality Manipulation"],
+    "advancementTriggers": ["Complete Simulation Mastery Questline", "Gather Rare Resources", "Faction Support"],
+    "regressionTriggers": ["Simulation Collapse"],
+    "risks": ["Simulation Instability", "Holo Hazards"],
+    "relatedArtifacts": ["tech_level_feature_spec_2025-06-08.artifact", "tech_level_progression_flow_2025-06-08.artifact"]
   }
 ]

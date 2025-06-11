@@ -4,7 +4,6 @@ import { EditorHistory } from './EditorHistory';
 import type { EditAction } from './EditorHistory';
 import { EventBus } from '../../core/EventBus';
 import { WorldStateManager } from '../WorldStateManager';
-import { EventName, GameEvent } from '../../core/EventTypes';
 
 export class WorldEditService {
   private tilemapManager: TilemapManager;
@@ -40,12 +39,7 @@ export class WorldEditService {
     const prevTile = this.getTile(x, y);
     if (prevTile === tileId) return;
     // Update world state via WorldStateManager
-    const state = this.worldStateManager.getState();
-    // Assume state has a tilemap or similar structure; update accordingly
-    // (If not, adapt this logic to your actual world state model)
-    // Example: state.tilemap[x][y] = tileId;
-    // For now, emit an event and rely on a reducer/subscriber to update state
-    const event: GameEvent<'TILE_EDITED'> = {
+    const event: import('../../core/EventTypes').GameEvent<'TILE_EDITED'> = {
       type: 'TILE_EDITED',
       data: { x, y, prevTile, newTile: tileId }
     };
@@ -107,7 +101,10 @@ export class WorldEditService {
       // Delta is already recorded in setTile
     });
     this.history?.push({ type: 'brushPaint', data: { positions: prevTiles, newTile: tileId } });
-    this.events?.emit({ type: 'tileEdit', data: { positions: prevTiles, newTile: tileId } });
+    // Emit TILE_EDITED for each position
+    prevTiles.forEach(pos => {
+      this.events?.emit({ type: 'TILE_EDITED', data: { x: pos.x, y: pos.y, prevTile: pos.prevTile, newTile: tileId } });
+    });
   }
 
   // Fill tool: fill area with undo/redo and event support
@@ -122,22 +119,14 @@ export class WorldEditService {
       }
     }
     this.history?.push({ type: 'fillArea', data: { area: { x, y, w, h }, prevTiles, newTile: tileId } });
-    this.events?.emit({ type: 'tileEdit', data: { area: { x, y, w, h }, prevTiles, newTile: tileId } });
-  }
-
-  // Rectangle select: returns all tile positions in a rectangle
-  getRectPositions(x: number, y: number, w: number, h: number): Array<{x: number, y: number}> {
-    const positions: Array<{x: number, y: number}> = [];
-    for (let dx = 0; dx < w; dx++) {
-      for (let dy = 0; dy < h; dy++) {
-        positions.push({ x: x + dx, y: y + dy });
-      }
-    }
-    return positions;
+    // Emit TILE_EDITED for each position
+    prevTiles.forEach(pos => {
+      this.events?.emit({ type: 'TILE_EDITED', data: { x: pos.x, y: pos.y, prevTile: pos.prevTile, newTile: tileId } });
+    });
   }
 
   // For modding/extensibility: generic edit event
-  emitEditEvent(type: 'tileEdit' | 'chunkLoad' | 'chunkUnload' | 'worldSave' | 'worldLoad', data: any) {
+  emitEditEvent(type: 'TILE_EDITED', data: { x: number, y: number, prevTile: string, newTile: string }) {
     this.events?.emit({ type, data });
   }
 }

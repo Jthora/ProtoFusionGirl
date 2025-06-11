@@ -33,3 +33,6 @@ export interface LeyLineInstabilityEvent {
   branchId?: string;
   data?: Record<string, any>;
 }
+
+// Re-export interfaces for compatibility with import { LeyLine } from ...
+export { LeyLine, LeyLineNode, LeyLineInstabilityEvent, Vector2 };

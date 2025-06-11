@@ -5,6 +5,7 @@
 
 import { ULExpression, ULFeedback } from "./ulTypes";
 import { ULResourceLoader } from './ulResourceLoader';
+import grammarRules from './grammarRules';
 
 // Load all UL resources at runtime (stub: returns empty data for now)
 const ulResources = ULResourceLoader.loadAll();
@@ -45,6 +46,7 @@ export function encodeULExpression(sequence: string[]): ULExpression {
   let valid = true;
   let error: string | undefined = undefined;
   const repetitionCount: Record<string, number> = {};
+  const usedSymbols: string[] = [];
 
   for (const primitive of sequence) {
     const symbol = primitiveToSymbol[primitive];
@@ -60,7 +62,20 @@ export function encodeULExpression(sequence: string[]): ULExpression {
       error = "EXCEEDS_REPETITION_LIMIT";
       break;
     }
+    usedSymbols.push(symbol);
     predicates.push(`${symbol}(${symbol[0]})`); // e.g., circle(c)
+  }
+
+  // Type exclusivity check (artifact-driven)
+  if (valid && !grammarRules.isTypeExclusive(usedSymbols as import('./grammarRules').ULSymbol[])) {
+    valid = false;
+    error = "TYPE_EXCLUSIVITY_VIOLATION";
+  }
+
+  // Well-formed formula check (artifact-driven)
+  if (valid && !grammarRules.isWellFormedFormula(predicates.join(' ∧ '))) {
+    valid = false;
+    error = "NOT_WELL_FORMED";
   }
 
   return { predicates, valid, error };
@@ -78,10 +93,10 @@ export function decodeULExpression(ulExpression: ULExpression): string[] {
 
 // --- Validation: sequence of primitives ---
 export function validateULSequence(sequence: string[]): { valid: boolean; error?: string } {
-  // Well-formedness: all primitives must be known, repetition, context, etc.
   let valid = true;
   let error: string | undefined = undefined;
   const repetitionCount: Record<string, number> = {};
+  const usedSymbols: string[] = [];
 
   for (const primitive of sequence) {
     const symbol = primitiveToSymbol[primitive];
@@ -96,8 +111,25 @@ export function validateULSequence(sequence: string[]): { valid: boolean; error?
       error = "EXCEEDS_REPETITION_LIMIT";
       break;
     }
+    usedSymbols.push(symbol);
     // TODO: Add context checks (e.g., square only for order_guardians)
   }
+
+  // Type exclusivity check (artifact-driven)
+  if (valid && !grammarRules.isTypeExclusive(usedSymbols as import('./grammarRules').ULSymbol[])) {
+    valid = false;
+    error = "TYPE_EXCLUSIVITY_VIOLATION";
+  }
+
+  // Well-formed formula check (artifact-driven)
+  if (valid) {
+    const predicates = usedSymbols.map(s => `${s}(${s[0]})`).join(' ∧ ');
+    if (!grammarRules.isWellFormedFormula(predicates)) {
+      valid = false;
+      error = "NOT_WELL_FORMED";
+    }
+  }
+
   return { valid, error };
 }
 

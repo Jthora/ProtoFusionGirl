@@ -25,7 +25,7 @@ export class TimestreamUtils {
   }
 
   // Diff two branches (placeholder)
-  static diffBranches(a: TimestreamBranch, b: TimestreamBranch): any {
+  static diffBranches(_a: TimestreamBranch, _b: TimestreamBranch): any {
     // TODO: Implement world state diffing
     return {};
   }

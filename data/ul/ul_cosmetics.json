@@ -1,0 +1,20 @@
+[
+  {
+    "name": "outfit_angelic",
+    "properties": {
+      "id": "outfit_angelic",
+      "type": "cosmetic",
+      "name": "Angelic Robes",
+      "unlockCondition": "Complete the Angelic Trial"
+    }
+  },
+  {
+    "name": "wings_cyber",
+    "properties": {
+      "id": "wings_cyber",
+      "type": "cosmetic",
+      "name": "Cyber Wings",
+      "unlockCondition": "Find in the Neon Vault"
+    }
+  }
+]

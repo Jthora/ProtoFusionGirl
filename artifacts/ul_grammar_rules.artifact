@@ -1,50 +1,92 @@
-{
-  "description": "Defines Universal Language (UL) grammar and syntax as a formal first-order theory, including signature, axioms, deduction rules, and validation patterns, per UL WhitePaper Parts 1–3.",
-  "created": "2025-06-05",
-  "version": "3.0.0",
-  "author": "GitHub Copilot (corrected)",
-  "formal_signature": {
-    "symbols": [
-      "point(x)", "line(x)", "circle(x)", "triangle(x)", "square(x)", "curve(x)", "angle(x)", "wave(x)", "spiral(x)", "zigzag(x)", "leap(x)"
-    ],
-    "predicates": [
-      "contains(x, y)", "adjacent(x, y)", "intersects(x, y)", "parallel(x, y)", "perpendicular(x, y)", "center(x, h, k)", "on(p, l, q)"
-    ],
-    "functions": [
-      "transform(T, x)", "intersection(x, y)"
-    ],
-    "constants": ["O"]
-  },
-  "axioms": [
-    "∀x (point(x) ∨ line(x) ∨ circle(x) ∨ triangle(x) ∨ square(x) ∨ curve(x) ∨ angle(x) ∨ wave(x) ∨ spiral(x) ∨ zigzag(x) ∨ leap(x))",
-    "∀x ¬(point(x) ∧ line(x)) (and all type exclusivity)",
-    "∀x (circle(x) → ∃h,k,r (center(x,h,k) ∧ radius(x,r) ∧ r>0))",
-    "∀x (line(x) → ∃a,b,c (equation(x,a,b,c) ∧ (a≠0 ∨ b≠0)))",
-    "∀x (curve(x) → ∃f: ℝ→ℝ², x = { f(t) | t ∈ (a, b) }, f twice differentiable, curvature κ ≠ 0)",
-    "∀x (angle(x) → ∃P,Q,R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R)",
-    "∀x (spiral(x) → ∃a,b, x = { (r cos θ, r sin θ) | r = a + bθ, θ ∈ ℝ })",
-    "∀x (zigzag(x) → x is a sequence of line segments with alternating slopes)",
-    "∀x (leap(x) → x is a parabolic trajectory in ℝ²)",
-    "∀x,y (contains(x,y) → (circle(x) ∧ (point(y) ∨ line(y) ∨ ...)))",
-    "∀x,y,z (contains(x,y) ∧ contains(y,z) → contains(x,z))",
-    "∀l1,l2 (line(l1) ∧ line(l2) ∧ parallel(l1,l2) → ¬intersects(l1,l2))",
-    "∀x (point(x) ↔ point(transform(T,x)))",
-    "∀x,y (contains(x,y) ↔ contains(transform(T,x), transform(T,y)))"
-  ],
-  "deduction_rules": [
-    "Conjunction Introduction: from φ, ψ infer φ ∧ ψ",
-    "Modus Ponens: from φ, φ→ψ infer ψ",
-    "Universal Elimination: from ∀x φ(x) infer φ(t)",
-    "Transformation Invariance: from φ(x) infer φ(transform(T,x))",
-    "Containment Transitivity: from contains(x,y), contains(y,z) infer contains(x,z)",
-    "Intersection Existence: from line(l1), line(l2), ¬parallel(l1,l2) infer ∃p (point(p) ∧ on(p,l1) ∧ on(p,l2))",
-    "Type Preservation: from circle(x) infer circle(transform(T,x))",
-    "Closure/Identity: from repeated application of a symbol, check for idempotence or repetition limits (e.g., circle(x) ∧ circle(x) ...)",
-    "Context Restriction: from context(f), restrict validity of certain predicates (e.g., square(x) only valid if context(faction=order_guardians))"
-  ],
-  "validation_patterns": {
-    "well_formed_formula": "First-order logic syntax with allowed predicates, functions, and quantifiers.",
-    "example": "∀x (circle(x) → ∃h,k,r (center(x,h,k) ∧ radius(x,r) ∧ r>0))"
-  },
-  "notes": "This artifact encodes the full formal logic and mathematical structure of UL as required by the whitepapers. All grammar and syntax rules are now grounded in first-order logic, with explicit axioms and deduction rules for all core and extended symbols."
-}
+---
+schema: ul_grammar_rules_v2
+version: 3.1.0
+last_updated: 2025-06-10
+tags: [ul, grammar, rules, logic, axiom, deduction, validation]
+related_artifacts:
+  - ul_symbol_index.artifact
+  - ul_cosmic_rules.artifact
+  - ul_puzzle_templates.artifact
+changelog:
+  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, canonical YAML blocks, edge cases, and cross-references.
+  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+---
+
+# Universal Language Grammar & Syntax Rules Artifact
+
+## Purpose
+Defines Universal Language (UL) grammar and syntax as a formal first-order theory, including signature, axioms, deduction rules, and validation patterns.
+
+## Canonical Grammar Rules (YAML)
+```yaml
+description: |
+  Defines Universal Language (UL) grammar and syntax as a formal first-order theory, including signature, axioms, deduction rules, and validation patterns, per UL WhitePaper Parts 1–3.
+formal_signature:
+  symbols:
+    - point(x)
+    - line(x)
+    - circle(x)
+    - triangle(x)
+    - square(x)
+    - curve(x)
+    - angle(x)
+    - wave(x)
+    - spiral(x)
+    - zigzag(x)
+    - leap(x)
+  predicates:
+    - contains(x, y)
+    - adjacent(x, y)
+    - intersects(x, y)
+    - parallel(x, y)
+    - perpendicular(x, y)
+    - center(x, h, k)
+    - on(p, l, q)
+  functions:
+    - transform(T, x)
+    - intersection(x, y)
+  constants:
+    - O
+axioms:
+  - "∀x (point(x) ∨ line(x) ∨ circle(x) ∨ triangle(x) ∨ square(x) ∨ curve(x) ∨ angle(x) ∨ wave(x) ∨ spiral(x) ∨ zigzag(x) ∨ leap(x))"
+  - "∀x ¬(point(x) ∧ line(x)) (and all type exclusivity)"
+  - "∀x (circle(x) → ∃h,k,r (center(x,h,k) ∧ radius(x,r) ∧ r>0))"
+  - "∀x (line(x) → ∃a,b,c (equation(x,a,b,c) ∧ (a≠0 ∨ b≠0)))"
+  - "∀x (curve(x) → ∃f: ℝ→ℝ², x = { f(t) | t ∈ (a, b) }, f twice differentiable, curvature κ ≠ 0)"
+  - "∀x (angle(x) → ∃P,Q,R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R)"
+  - "∀x (spiral(x) → ∃a,b, x = { (r cos θ, r sin θ) | r = a + bθ, θ ∈ ℝ })"
+  - "∀x (zigzag(x) → x is a sequence of line segments with alternating slopes)"
+  - "∀x (leap(x) → x is a parabolic trajectory in ℝ²)"
+  - "∀x,y (contains(x,y) → (circle(x) ∧ (point(y) ∨ line(y) ∨ ...)))"
+  - "∀x,y,z (contains(x,y) ∧ contains(y,z) → contains(x,z))"
+  - "∀l1,l2 (line(l1) ∧ line(l2) ∧ parallel(l1,l2) → ¬intersects(l1,l2))"
+  - "∀x (point(x) ↔ point(transform(T,x)))"
+  - "∀x,y (contains(x,y) ↔ contains(transform(T,x), transform(T,y)))"
+deduction_rules:
+  - "Conjunction Introduction: from φ, ψ infer φ ∧ ψ"
+  - "Modus Ponens: from φ, φ→ψ infer ψ"
+  - "Universal Elimination: from ∀x φ(x) infer φ(t)"
+  - "Transformation Invariance: from φ(x) infer φ(transform(T,x))"
+  - "Containment Transitivity: from contains(x,y), contains(y,z) infer contains(x,z)"
+  - "Intersection Existence: from line(l1), line(l2), ¬parallel(l1,l2) infer ∃p (point(p) ∧ on(p,l1) ∧ on(p,l2))"
+  - "Type Preservation: from circle(x) infer circle(transform(T,x))"
+  - "Closure/Identity: from repeated application of a symbol, check for idempotence or repetition limits (e.g., circle(x) ∧ circle(x) ...)"
+  - "Context Restriction: from context(f), restrict validity of certain predicates (e.g., square(x) only valid if context(faction=order_guardians))"
+validation_patterns:
+  well_formed_formula: "First-order logic syntax with allowed predicates, functions, and quantifiers."
+  example: "∀x (circle(x) → ∃h,k,r (center(x,h,k) ∧ radius(x,r) ∧ r>0))"
+edge_cases:
+  - "Degenerate: circle(x) ∧ radius(x,0) → point(x)"
+  - "Infinite: line(x) is infinite in ℝ²"
+  - "Type exclusivity: ¬(point(x) ∧ line(x))"
+notes: |
+  This artifact encodes the full formal logic and mathematical structure of UL as required by the whitepapers. All grammar and syntax rules are now grounded in first-order logic, with explicit axioms and deduction rules for all core and extended symbols.
+```
+
+## Cross-References
+- See `ul_symbol_index.artifact` for symbol definitions and properties.
+- See `ul_cosmic_rules.artifact` for cosmic and modality cycles.
+- See `ul_puzzle_templates.artifact` for puzzle logic using grammar rules.
+
+## Update Instructions
+Update this artifact whenever grammar, syntax, or logic rules change. Use as the canonical reference for all UL grammar and validation logic.

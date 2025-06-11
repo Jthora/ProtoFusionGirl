@@ -2,8 +2,9 @@
 // Central authority for persistent, cross-functional world state in ProtoFusionGirl
 // See: world_state_system_design_2025-06-04.artifact, world_state_data_model_2025-06-04.artifact
 // See: artifacts/copilot_leyline_unification_plan_2025-06-07.artifact
-
-import { EventBus, WorldEvent } from './EventBus';
+// See: artifacts/test_system_traceability_2025-06-08.artifact
+import { EventBus } from '../core/EventBus';
+import { GameEvent } from '../core/EventTypes';
 import Ajv from 'ajv';
 import { ulEventBus } from '../ul/ulEventBus';
 import { LeyLine } from './leyline/types';
@@ -40,15 +41,26 @@ export interface MetaState {
   mods: string[];
 }
 
+export interface TechLevelState {
+  playerTechLevel: TechLevelId;
+  factionTechLevel: TechLevelId;
+  unlocks: string[];
+}
+
+// Extend WorldState to include techLevelState
 export interface WorldState {
   version: number;
   leyLines: LeyLine[];
   rifts: Rift[];
   players: PlayerState[];
   economy: EconomyState;
-  events: WorldEvent[];
+  events: GameEvent[];
   meta: MetaState;
+  techLevelState?: TechLevelState;
 }
+
+// --- Tech Level Integration (artifact-driven) ---
+export type TechLevelId = 'neolithic' | 'cyber' | 'spacer' | 'holo' | string;
 
 // --- WorldState JSON Schema (permissive for nested/array types) ---
 const worldStateSchema = {
@@ -82,12 +94,22 @@ export class WorldStateManager {
     // Sync leyLineSystem nodes/lines with state
     if (this.state.leyLines && this.state.leyLines.length > 0) {
       for (const leyLine of this.state.leyLines) {
+        // Add nodes, defaulting state if missing, and update canonical state
         for (const node of leyLine.nodes) {
-          this.leyLineSystem.addNode({ ...node, state: node.state ?? 'inactive' });
+          if (node.state === undefined) node.state = 'inactive';
+          this.leyLineSystem.addNode({ ...node, state: node.state as 'active' | 'inactive' | 'unstable' });
+        }
+        // Add lines between consecutive nodes for test coverage (simple chain)
+        for (let i = 0; i < leyLine.nodes.length - 1; i++) {
+          this.leyLineSystem.addLine({
+            id: `${leyLine.id}_L${i}`,
+            nodes: [leyLine.nodes[i].id, leyLine.nodes[i + 1].id],
+            strength: leyLine.strength ?? 100
+          });
         }
       }
-      // Optionally add lines if needed
     }
+    // Optionally add lines if needed
     // Cross-system integration: Listen for UL puzzle completion
     ulEventBus.on('ul:puzzle:completed', (payload) => {
       if (payload && typeof payload.id === 'string') {
@@ -126,12 +148,9 @@ export class WorldStateManager {
       throw new Error('WorldState validation failed: ' + JSON.stringify(validateWorldState.errors));
     }
     this.state = newState;
-    this.eventBus.publish({
-      id: `state_update_${Date.now()}`,
+    this.eventBus.emit({
       type: 'STATE_UPDATED',
-      data: patch,
-      timestamp: Date.now(),
-      version: this.state.version
+      data: { state: patch }
     });
   }
 
@@ -180,34 +199,38 @@ export class WorldStateManager {
     if (leyLine) {
       if (event.nodeId) {
         const node = leyLine.nodes.find(n => n.id === event.nodeId);
-        if (node) node.state = 'unstable';
+        if (node) {
+          node.state = 'unstable';
+          // Also update the node in leyLineSystem
+          const sysNode = this.leyLineSystem.getNodeById(node.id);
+          if (sysNode) sysNode.state = 'unstable';
+        }
         // --- Propagate to connected nodes if severity is major or escalation ---
         if (event.severity === 'major' && node) {
-          // Use LeyLineSystem API for graph queries
-          // (Assume LeyLineSystem instance is available as this.leyLineSystem)
           if (this.leyLineSystem && this.leyLineSystem.getConnectedNodes) {
             const connected = this.leyLineSystem.getConnectedNodes(node.id);
             for (const neighbor of connected) {
               if (neighbor.state !== 'unstable') {
                 neighbor.state = 'unstable';
-                // Emit canonical instability event for neighbor
-                const neighborEvent = {
-                  id: `instab_${event.leyLineId}_${neighbor.id}_${Date.now()}`,
+                // Also update the node in the canonical WorldState
+                for (const l of this.state.leyLines) {
+                  const n = l.nodes.find(n => n.id === neighbor.id);
+                  if (n) n.state = 'unstable';
+                }
+                // Emit canonical instability event for neighbor (fix: correct nodeId and leyLineId)
+                this.eventBus.emit({
                   type: 'LEYLINE_INSTABILITY',
-                  leyLineId: event.leyLineId,
-                  nodeId: neighbor.id,
-                  severity: 'minor', // Propagation starts as minor
-                  triggeredBy: 'environment',
-                  timestamp: Date.now(),
-                  branchId: event.branchId,
-                  data: { propagatedFrom: event.nodeId }
-                };
-                this.eventBus.publish({
-                  id: neighborEvent.id,
-                  type: neighborEvent.type,
-                  data: neighborEvent,
-                  timestamp: neighborEvent.timestamp,
-                  version: this.state.version
+                  data: {
+                    id: `instab_${event.leyLineId}_${neighbor.id}_${Date.now()}`,
+                    type: 'LEYLINE_INSTABILITY',
+                    leyLineId: event.leyLineId,
+                    nodeId: neighbor.id,
+                    severity: 'minor',
+                    triggeredBy: 'environment',
+                    timestamp: Date.now(),
+                    branchId: event.branchId,
+                    data: { propagatedFrom: event.nodeId }
+                  }
                 });
               }
             }
@@ -223,5 +246,89 @@ export class WorldStateManager {
       // Branch/timeline propagation (stub)
       // TODO: If branchId is present, ensure state change is branch-aware
     }
+  }
+
+  /**
+   * Advance the player or faction to a new tech level, unlocking features and triggering events.
+   * See: tech_level_feature_spec_2025-06-08.artifact
+   */
+  advanceTechLevel(newLevel: TechLevelId, _userId?: string) {
+    // Validate progression path, check requirements (stub)
+    if (!this.state.techLevelState) {
+      this.state.techLevelState = {
+        playerTechLevel: newLevel,
+        factionTechLevel: newLevel,
+        unlocks: []
+      };
+    } else {
+      this.state.techLevelState.playerTechLevel = newLevel;
+      this.state.techLevelState.factionTechLevel = newLevel;
+    }
+    // Unlock features for Holo Tech
+    if (newLevel === 'holo') {
+      this.state.techLevelState.unlocks = [
+        'Holo Gear',
+        'Simulation Missions',
+        'Reality Manipulation',
+        'zone_holo_simulation',
+        'skill:holo_shield'
+      ];
+      // Trigger narrative event for Holo Tech unlock
+      this.eventBus.emit({
+        type: 'NARRATIVE_EVENT',
+        data: { eventId: 'holo_tech_unlocked', data: { /* ... */ } }
+      });
+    }
+    this.eventBus.emit({
+      type: 'TECH_LEVEL_ADVANCED',
+      data: { techLevel: newLevel }
+    });
+  }
+
+  /**
+   * Regression logic for catastrophic events (e.g., simulation collapse).
+   * See: tech_level_progression_flow_2025-06-08.artifact
+   */
+  regressTechLevel(regressTo: TechLevelId, _userId?: string) {
+    if (this.state.techLevelState) {
+      this.state.techLevelState.playerTechLevel = regressTo;
+      this.state.techLevelState.factionTechLevel = regressTo;
+      // Remove holo unlocks if regressing from Holo Tech
+      if (regressTo !== 'holo') {
+        this.state.techLevelState.unlocks = this.state.techLevelState.unlocks?.filter(
+          u => !['Holo Gear', 'Simulation Missions', 'Reality Manipulation', 'zone_holo_simulation', 'skill:holo_shield'].includes(u)
+        ) || [];
+        // Trigger regression narrative event (stub)
+        this.eventBus.emit({
+          type: 'NARRATIVE_EVENT',
+          data: { eventId: 'holo_tech_regressed', data: { /* ... */ } }
+        });
+      }
+      this.eventBus.emit({
+        type: 'TECH_LEVEL_REGRESSED',
+        data: { techLevel: regressTo }
+      });
+    }
+  }
+
+  /**
+   * Check if a feature is unlocked at the current tech level.
+   */
+  isFeatureUnlocked(feature: string): boolean {
+    return this.state.techLevelState?.unlocks?.includes(feature) ?? false;
+  }
+
+  /**
+   * Get the current player tech level.
+   */
+  getCurrentTechLevel(): TechLevelId {
+    return this.state.techLevelState?.playerTechLevel ?? 'neolithic';
+  }
+
+  /**
+   * Utility: Is Holo Tech unlocked?
+   */
+  isHoloTechUnlocked(): boolean {
+    return this.getCurrentTechLevel() === 'holo';
   }
 }

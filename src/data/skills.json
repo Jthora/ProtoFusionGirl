@@ -12,5 +12,12 @@
     "description": "Pushes enemies away with a burst of force.",
     "effects": ["knockback"],
     "requirements": ["Jane:level>=1"]
+  },
+  {
+    "id": "holo_shield",
+    "name": "Holo Shield",
+    "description": "Deploys a holographic shield that absorbs damage and blocks projectiles.",
+    "effects": ["block", "absorb"],
+    "requirements": ["tech:holo"]
   }
 ]
