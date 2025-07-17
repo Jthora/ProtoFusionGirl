@@ -1,56 +1,113 @@
-# Node
+# Node and Package Managers
 node_modules/
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.yarn/
+.pnpm-debug.log*
 
-# Build outputs
+# Build outputs and artifacts
 dist/
 build/
 coverage/
+.nyc_output/
+*.tsbuildinfo
 
-# Environment/config
+# Environment and config files
 .env
 .env.*
+!.env.example
 
-# OS/Editor/IDE
+# Vercel deployment
+.vercel
+
+# OS and Editor files
 .DS_Store
 .vscode/
 .idea/
 *.swp
 *.swo
 Thumbs.db
+*~
 
-# Test/coverage
-coverage/
-.nyc_output/
-
-# Misc
+# Logs
 *.log
-*.tgz
-*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# Artifacts (keep tracked artifacts, ignore temp/generated if any)
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+.tmp/
+.temp/
+*.tmp
+*.temp
+
+# Archives and compressed files
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+
+# Hardhat specific (if using blockchain features)
+cache/
+artifacts/cache/
+artifacts/build-info/
+artifacts/contracts/
+typechain-types/
+
+# Keep essential artifacts but ignore build artifacts
+!artifacts/*.artifact
+!artifacts/*.md
 artifacts/*.tmp
 artifacts/*.bak
 artifacts/*~
 
-# Ignore Hardhat cache and artifacts (if not needed)
-cache/
-artifacts/cache/
-artifacts/build-info/
+# Jest and testing
+coverage/
+.nyc_output/
+*.lcov
 
-# Keep main artifacts, but ignore temp files in artifacts/
-!artifacts/*.artifact
-!artifacts/*.md
-
-# Ignore VS Code launch configs
+# IDEs and editors
 .vscode/launch.json
+.vscode/settings.json
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/datasources.xml
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
 
-# Ignore local test output
+# Local development files
 *.local.js
+*.local.ts
+.eslintcache
 
-# Ignore backup files
-*~
+# macOS specific
+.AppleDouble
+.LSOverride
+Icon?
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
-# Ignore lockfiles only if you do NOT want to track them (usually you DO want to track package-lock.json)
-# package-lock.json
-# yarn.lock
+# Windows specific
+Desktop.ini
+ehthumbs.db
+ehthumbs_vista.db
