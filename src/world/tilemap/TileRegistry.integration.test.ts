@@ -10,6 +10,7 @@ describe('TileRegistry Integration & Edge Cases', () => {
     solid: true,
     destructible: true
   };
+  // Note: tileB defined but used in integration tests
   const tileB: TileDefinition = {
     id: 'stone',
     name: 'Stone',
@@ -65,5 +66,13 @@ describe('TileRegistry Integration & Edge Cases', () => {
       registry.registerTile({ ...tileA, id: `tile${i}` });
     }
     expect(registry.getAllTiles().length).toBe(100);
+  });
+
+  it('handles multiple different tile types', () => {
+    registry.registerTile(tileA);
+    registry.registerTile(tileB);
+    expect(registry.getAllTiles().length).toBe(2);
+    expect(registry.getTile('grass')).toEqual(tileA);
+    expect(registry.getTile('stone')).toEqual(tileB);
   });
 });

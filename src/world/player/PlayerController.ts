@@ -3,7 +3,7 @@ import { HealthBar } from '../../ui/components';
 import { InputManager } from '../../core/controls/InputManager';
 import { PlayerStats } from './PlayerStats';
 
-export type PlayerState = 'idle' | 'running' | 'jumping' | 'falling';
+export type PlayerState = 'idle' | 'run' | 'jump' | 'fall';
 
 export interface PlayerControllerConfig {
   scene: Phaser.Scene;
@@ -47,6 +47,7 @@ export class PlayerController {
   }
 
   private createAnimations(anims: Array<{ key: string; frames: { start: number; end: number }; frameRate: number; repeat: number }>) {
+    console.log('🎬 Creating player animations...');
     for (const anim of anims) {
       if (!this.scene.anims.exists(anim.key)) {
         this.scene.anims.create({
@@ -55,8 +56,12 @@ export class PlayerController {
           frameRate: anim.frameRate,
           repeat: anim.repeat
         });
+        console.log(`✅ Created animation: ${anim.key} (frames ${anim.frames.start}-${anim.frames.end})`);
+      } else {
+        console.log(`ℹ️ Animation already exists: ${anim.key}`);
       }
     }
+    console.log('🎬 Animation creation complete');
   }
 
   public update() {
@@ -70,22 +75,31 @@ export class PlayerController {
     if (onGround) {
       if (isJumpPressed && this.canJump()) {
         this.sprite.setVelocityY(-this.jumpForce);
-        this.state = 'jumping';
+        this.state = 'jump';
       } else if (isMoving) {
-        this.state = 'running';
+        this.state = 'run';
       } else {
         this.state = 'idle';
       }
     } else {
       if (body && body.velocity.y < 0) {
-        this.state = 'jumping';
+        this.state = 'jump';
       } else {
-        this.state = 'falling';
+        this.state = 'fall';
       }
     }
 
     if (this.state !== this.lastState) {
-      this.sprite.play(this.state, true);
+      console.log(`🎮 Playing animation: ${this.state} (previous: ${this.lastState})`);
+      
+      // Check if animation exists before playing
+      if (this.scene.anims.exists(this.state)) {
+        this.sprite.play(this.state, true);
+        console.log(`✅ Animation '${this.state}' started successfully`);
+      } else {
+        console.error(`❌ Animation '${this.state}' does not exist!`);
+      }
+      
       this.lastState = this.state;
     }
 

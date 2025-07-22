@@ -5,7 +5,6 @@
 // See: artifacts/test_system_traceability_2025-06-08.artifact
 import { EventBus } from '../core/EventBus';
 import { GameEvent } from '../core/EventTypes';
-import Ajv from 'ajv';
 import { ulEventBus } from '../ul/ulEventBus';
 import { LeyLine } from './leyline/types';
 import { LeyLineSystem } from '../leyline/LeyLineSystem';
@@ -62,24 +61,19 @@ export interface WorldState {
 // --- Tech Level Integration (artifact-driven) ---
 export type TechLevelId = 'neolithic' | 'cyber' | 'spacer' | 'holo' | string;
 
-// --- WorldState JSON Schema (permissive for nested/array types) ---
-const worldStateSchema = {
-  type: 'object',
-  properties: {
-    version: { type: 'number' },
-    leyLines: { type: 'array', items: { type: 'object' } },
-    rifts: { type: 'array', items: { type: 'object' } },
-    players: { type: 'array', items: { type: 'object' } },
-    economy: { type: 'object' },
-    events: { type: 'array', items: { type: 'object' } },
-    meta: { type: 'object' }
-  },
-  required: ['version', 'leyLines', 'rifts', 'players', 'economy', 'events', 'meta'],
-  additionalProperties: false
-};
-
-const ajv = new Ajv();
-const validateWorldState = ajv.compile(worldStateSchema);
+// Simple validation function to replace ajv
+function validateWorldState(state: any): boolean {
+  return (
+    typeof state === 'object' &&
+    typeof state.version === 'number' &&
+    Array.isArray(state.leyLines) &&
+    Array.isArray(state.rifts) &&
+    Array.isArray(state.players) &&
+    typeof state.economy === 'object' &&
+    Array.isArray(state.events) &&
+    typeof state.meta === 'object'
+  );
+}
 
 // --- WorldStateManager ---
 export class WorldStateManager {
@@ -145,7 +139,7 @@ export class WorldStateManager {
     }
     const newState = { ...this.state, ...patch };
     if (!validateWorldState(newState)) {
-      throw new Error('WorldState validation failed: ' + JSON.stringify(validateWorldState.errors));
+      throw new Error('WorldState validation failed: Invalid state structure');
     }
     this.state = newState;
     this.eventBus.emit({
@@ -184,7 +178,7 @@ export class WorldStateManager {
       }));
     }
     if (!validateWorldState(loaded)) {
-      throw new Error('Loaded WorldState validation failed: ' + JSON.stringify(validateWorldState.errors));
+      throw new Error('Loaded WorldState validation failed: Invalid state structure');
     }
     this.state = loaded as unknown as WorldState;
   }

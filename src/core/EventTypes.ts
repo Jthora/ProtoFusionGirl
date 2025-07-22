@@ -48,13 +48,24 @@ export type EventName =
   | 'MISSION_STARTED'
   | 'MISSION_OBJECTIVE_COMPLETED'
   | 'MISSION_COMPLETED'
+  | 'STARTING_LOCATION_SET'
   | 'MISSION_OUTCOME'
   | 'PLAYER_USED_ABILITY'
   | 'RESOURCE_COLLECTED'
   | 'STATE_UPDATED'
   | 'NARRATIVE_EVENT'
   | 'TECH_LEVEL_ADVANCED'
-  | 'TECH_LEVEL_REGRESSED';
+  | 'TECH_LEVEL_REGRESSED'
+  | 'ASI_GUIDANCE_GIVEN'
+  | 'JANE_RESPONSE'
+  | 'TRUST_CHANGED'
+  | 'THREAT_DETECTED'
+  | 'THREAT_RESOLVED'
+  | 'MAGIC_CAST'
+  | 'GUIDANCE_SELECTED'
+  | 'COMMAND_CENTER_ACTIVATED'
+  | 'COMMAND_CENTER_DEACTIVATED'
+  | 'ASI_MODE_CHANGED';
 
 export interface EventPayloads {
   JANE_LEVEL_UP: { level: number };
@@ -102,6 +113,7 @@ export interface EventPayloads {
   MISSION_STARTED: { missionId: string };
   MISSION_OBJECTIVE_COMPLETED: { missionId: string; objectiveId: string };
   MISSION_COMPLETED: { missionId: string };
+  STARTING_LOCATION_SET: { location: any; timestamp: number };
   MISSION_OUTCOME: { missionId: string; outcome: string };
   PLAYER_USED_ABILITY: { abilityId: string; playerId: string };
   RESOURCE_COLLECTED: { resourceId: string; amount: number };
@@ -109,9 +121,20 @@ export interface EventPayloads {
   NARRATIVE_EVENT: { eventId: string; data?: any };
   TECH_LEVEL_ADVANCED: { techLevel: string; branchId?: string };
   TECH_LEVEL_REGRESSED: { techLevel: string; branchId?: string };
+  // ASI Control Interface Events
+  ASI_GUIDANCE_GIVEN: { suggestion: any; context: any };
+  JANE_RESPONSE: { guidanceId: string; followed: boolean; responseTime: number; trustChange: number };
+  TRUST_CHANGED: { previousLevel: number; currentLevel: number; change: number; trend: 'increasing' | 'decreasing' | 'stable' };
+  THREAT_DETECTED: { threat: any };
+  THREAT_RESOLVED: { threatId: string; resolution: 'avoided' | 'handled' | 'ignored' };
+  MAGIC_CAST: { symbolId: string; combination?: string[]; targetPosition: { x: number; y: number }; success: boolean; trustLevel: number };
+  GUIDANCE_SELECTED: { suggestion: any; timestamp: number };
+  COMMAND_CENTER_ACTIVATED: { timestamp: number; mode: 'full' | 'minimal' };
+  COMMAND_CENTER_DEACTIVATED: { timestamp: number; duration: number };
+  ASI_MODE_CHANGED: { previousMode: string; newMode: string; timestamp: number };
 }
 
 export type GameEvent<T extends EventName = EventName> = {
   type: T;
-  data: EventPayloads[T];
+  data: T extends keyof EventPayloads ? EventPayloads[T] : any;
 };

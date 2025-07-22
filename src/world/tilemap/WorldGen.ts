@@ -75,21 +75,50 @@ export class WorldGen {
     // --- Improved World Generation ---
     // Default terrain height (surfaceY) can be varied for more interesting terrain
     const baseSurfaceY = 16; // Default ground height
-    // Simple pseudo-random height variation per chunk (replace with noise for more realism)
-    const surfaceY = baseSurfaceY + Math.floor(Math.sin(chunkX * 0.5 + chunkY * 0.3) * 2);
+    // Enhanced Earth-based terrain generation using geographic coordinates
+    // Convert chunk coordinates to approximate Earth longitude/latitude
+    const earthLongitude = (wrappedChunkX * chunkSize * 16) / TilemapManager.WORLD_WIDTH * 360 - 180; // -180 to +180
+    const earthLatitude = (chunkY * chunkSize * 16) / TilemapManager.WORLD_HEIGHT * 180 - 90; // -90 to +90
+    
+    // Simulate realistic terrain height based on Earth geography
+    // Use multiple sine waves to simulate continental/oceanic patterns
+    const continentalElevation = Math.sin(earthLongitude * 0.03) * Math.cos(earthLatitude * 0.02) * 8;
+    const mountainRange = Math.sin(earthLongitude * 0.1) * Math.sin(earthLatitude * 0.15) * 6;
+    const localVariation = Math.sin(chunkX * 0.5 + chunkY * 0.3) * 2;
+    
+    const surfaceY = baseSurfaceY + Math.floor(continentalElevation + mountainRange + localVariation);
+    
     for (let x = 0; x < chunkSize; x++) {
       tiles[x] = [];
       for (let y = 0; y < chunkSize; y++) {
         const worldY = chunkY * chunkSize + y;
-        // --- Terrain logic ---
+        
+        // Determine biome based on latitude and terrain features
+        let biome = 'temperate';
+        if (Math.abs(earthLatitude) > 60) biome = 'polar';
+        else if (Math.abs(earthLatitude) < 23.5) biome = 'tropical';
+        else if (Math.abs(continentalElevation) < -4) biome = 'oceanic';
+        else if (mountainRange > 3) biome = 'mountain';
+        
+        // --- Enhanced terrain logic with biomes ---
         if (worldY === surfaceY) {
-          tiles[x][y] = 'grass'; // Surface
+          // Surface tile based on biome
+          switch (biome) {
+            case 'polar': tiles[x][y] = 'ice'; break;
+            case 'tropical': tiles[x][y] = 'sand'; break;
+            case 'oceanic': tiles[x][y] = 'water'; break;
+            case 'mountain': tiles[x][y] = 'stone'; break;
+            default: tiles[x][y] = 'grass';
+          }
         } else if (worldY < surfaceY) {
           tiles[x][y] = 'air'; // Above ground
         } else if (worldY < surfaceY + 3) {
-          tiles[x][y] = 'dirt'; // Shallow dirt
+          // Subsurface based on biome
+          if (biome === 'oceanic') tiles[x][y] = 'water';
+          else if (biome === 'polar') tiles[x][y] = 'ice';
+          else tiles[x][y] = 'dirt';
         } else {
-          tiles[x][y] = 'stone'; // Deeper underground
+          tiles[x][y] = 'stone'; // Deep underground
         }
       }
     }

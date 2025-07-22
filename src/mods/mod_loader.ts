@@ -70,7 +70,7 @@ async function loadModFromIPFS(cid) {
   }
 }
 
-import sampleMod from './sample_mod.json';
+import sampleMod from './sample_mod';
 
 export function loadSampleMod() {
   if (!validateMod(sampleMod)) {

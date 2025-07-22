@@ -30,15 +30,25 @@ export class EnemyManager {
     const enemy = this.enemyRegistry.createEnemy(type, x, y);
     if (enemy) {
       this.enemies.push(enemy);
-      const sprite = this.scene.physics.add.sprite(x, y, enemy.texture);
+      
+      // Check if sprite texture exists, use fallback if not
+      let spriteTexture = enemy.definition.sprite;
+      if (!this.scene.textures.exists(spriteTexture)) {
+        console.warn(`Texture "${spriteTexture}" not found, using player texture as fallback`);
+        spriteTexture = 'player';
+      }
+      
+      const sprite = this.scene.physics.add.sprite(x, y, spriteTexture);
       sprite.setOrigin(0.5, 1);
       sprite.setCollideWorldBounds(true);
       sprite.setBounce(0.2);
+      sprite.setTint(0x88ff88); // Green tint to distinguish enemies
       this.enemySprites.set(enemy, sprite);
 
       // Create and position health bar
-      const healthBar = new EnemyHealthBar(this.scene, enemy.health, enemy.definition.maxHealth);
-      healthBar.setPosition(sprite.x - 20, sprite.y - 32);
+      const healthBar = new EnemyHealthBar(this.scene, sprite.x - 20, sprite.y - 32, 40, 6);
+      healthBar.updateHealth(enemy.health, enemy.definition.maxHealth);
+      this.scene.add.existing(healthBar); // Add to scene
       this.enemyHealthBars.set(enemy, healthBar);
 
       // Basic enemy AI (demo)

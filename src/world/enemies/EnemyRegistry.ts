@@ -1,5 +1,6 @@
 // EnemyRegistry: Central registry for all enemy types, mod support
 import { EnemyDefinition } from './EnemyDefinition';
+import { EnemyInstance } from './EnemyInstance';
 
 export class EnemyRegistry {
   private enemies: Map<string, EnemyDefinition> = new Map();
@@ -11,6 +12,15 @@ export class EnemyRegistry {
       if (!this.modEnemySources[modId]) this.modEnemySources[modId] = [];
       this.modEnemySources[modId].push(enemy.id);
     }
+  }
+
+  createEnemy(type: string, x: number, y: number): EnemyInstance | null {
+    const definition = this.enemies.get(type);
+    if (!definition) {
+      console.warn(`Enemy type "${type}" not found in registry`);
+      return null;
+    }
+    return new EnemyInstance(definition, x, y);
   }
 
   registerEnemiesFromMod(mod: { id: string, enemies: EnemyDefinition[] }) {

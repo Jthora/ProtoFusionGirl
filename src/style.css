@@ -24,22 +24,23 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  overflow: hidden;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000;
 }
 
 .logo {
@@ -80,6 +81,222 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* ==============================================
+   PROTOFUSIONGIRL LOADING EXPERIENCE
+   ============================================== */
+
+/* Preloader Container */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #000011 0%, #001122 50%, #000033 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.8s ease-out;
+}
+
+.preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  padding: 2rem;
+}
+
+/* FusionGirl Icon with Energy Effects */
+.fusion-icon {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(65, 105, 225, 0.8);
+  animation: pulse-glow 2s ease-in-out infinite;
+  z-index: 2;
+  position: relative;
+}
+
+.energy-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(0, 255, 204, 0.6);
+  border-radius: 50%;
+  animation: rotate 3s linear infinite;
+}
+
+.energy-ring-2 {
+  width: 120%;
+  height: 120%;
+  border-color: rgba(255, 105, 180, 0.4);
+  animation: rotate 4s linear infinite reverse;
+}
+
+/* Loading Text */
+.loading-container {
+  margin-bottom: 3rem;
+}
+
+.loading-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(65, 105, 225, 0.8);
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+.loading-subtitle {
+  font-size: 1.2rem;
+  color: #00ffcc;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  animation: fade-pulse 3s ease-in-out infinite;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 300px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin: 1rem auto;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4169E1, #00ffcc, #ff69b4);
+  background-size: 200% 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  animation: shimmer 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(65, 105, 225, 0.8);
+}
+
+.loading-status {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+}
+
+/* Ley Line Background Animation */
+.leyline-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.leyline {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #00ffcc, transparent);
+  opacity: 0.3;
+  animation: leyline-flow 4s ease-in-out infinite;
+}
+
+.leyline-1 {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.leyline-2 {
+  left: 50%;
+  animation-delay: 1.5s;
+}
+
+.leyline-3 {
+  left: 80%;
+  animation-delay: 3s;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(65, 105, 225, 0.8);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(65, 105, 225, 1), 0 0 80px rgba(0, 255, 204, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes text-glow {
+  from {
+    text-shadow: 0 0 10px rgba(65, 105, 225, 0.8);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(65, 105, 225, 1), 0 0 30px rgba(0, 255, 204, 0.8);
+  }
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes leyline-flow {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Game Container */
+#app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* Hide app initially */
+#app.loading {
+  display: none;
 }
 
 @media (prefers-color-scheme: light) {

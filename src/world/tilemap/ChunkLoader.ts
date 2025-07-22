@@ -25,6 +25,14 @@ export class ChunkLoader {
   private loadedChunkSprites: Map<string, Phaser.GameObjects.Group> = new Map();
   private groundGroup: Phaser.Physics.Arcade.StaticGroup;
   private chunkRadius: number;
+  
+  // Throttling to prevent infinite loops
+  private lastUpdateTime: number = 0;
+  private updateThrottle: number = 100; // ms
+  private errorCount: number = 0;
+  private maxErrors: number = 50; // Stop after 50 errors to prevent spam
+  private chunksLoadedThisSession: number = 0;
+  private maxChunksPerSession: number = 25; // Limit total chunks loaded
 
   /**
    * Optional: Called after a chunk is loaded and sprites are created.
@@ -51,15 +59,48 @@ export class ChunkLoader {
   /**
    * Loads/unloads visible chunks based on player position.
    * Calls onChunkLoaded/onChunkUnloaded if set.
+   * @param playerX Player X position
+   * @param playerY Player Y position  
+   * @param speedKmh Optional speed in km/h for adaptive chunk loading
    */
-  updateLoadedChunks(playerX: number, playerY: number) {
+  updateLoadedChunks(playerX: number, playerY: number, speedKmh: number = 0) {
+    // Throttle updates to prevent infinite loops
+    const now = Date.now();
+    if (now - this.lastUpdateTime < this.updateThrottle) {
+      return;
+    }
+    this.lastUpdateTime = now;
+    
+    // Stop if too many errors have occurred
+    if (this.errorCount > this.maxErrors) {
+      console.error(`ChunkLoader: Too many errors (${this.errorCount}), stopping tile generation to prevent infinite loop`);
+      return;
+    }
+
+    // Stop if too many chunks loaded this session
+    if (this.chunksLoadedThisSession > this.maxChunksPerSession) {
+      console.warn(`ChunkLoader: Chunk limit reached (${this.chunksLoadedThisSession}), throttling chunk generation`);
+      return;
+    }
+
+    // Speed-adaptive chunk loading radius
+    let dynamicRadius = this.chunkRadius;
+    
+    if (speedKmh > 12000) { // Hypersonic (Mach 35+)
+      dynamicRadius = Math.min(12, this.chunkRadius * 6);
+    } else if (speedKmh > 1200) { // Supersonic
+      dynamicRadius = Math.min(8, this.chunkRadius * 4);
+    } else if (speedKmh > 200) { // Aircraft
+      dynamicRadius = Math.min(6, this.chunkRadius * 2);
+    }
+    
     const chunkSize = this.tilemapManager.chunkManager.chunkSize;
     const tileSize = 16;
     const playerChunkX = Math.floor(TilemapManager.wrapX(playerX) / (chunkSize * tileSize));
     const playerChunkY = Math.floor(playerY / (chunkSize * tileSize));
-    // Load/generate visible chunks
-    for (let dx = -this.chunkRadius; dx <= this.chunkRadius; dx++) {
-      for (let dy = -this.chunkRadius; dy <= this.chunkRadius; dy++) {
+    // Load/generate visible chunks using dynamic radius
+    for (let dx = -dynamicRadius; dx <= dynamicRadius; dx++) {
+      for (let dy = -dynamicRadius; dy <= dynamicRadius; dy++) {
         // Use wrapChunkX for horizontal chunk wrapping
         const cx = TilemapManager.wrapChunkX(playerChunkX + dx, chunkSize);
         const cy = playerChunkY + dy;
@@ -75,31 +116,43 @@ export class ChunkLoader {
                   // Wrap world X for seamless rendering
                   const wx = TilemapManager.wrapX((cx * chunkSize + x) * tileSize);
                   const wy = (cy * chunkSize + y) * tileSize;
-                  const sprite = TileSpriteFactory.createTileSprite(this.scene, wx, wy, tileType);
-                  group.add(sprite);
-                  if (["grass", "dirt", "stone"].includes(tileType)) {
-                    this.groundGroup.add(this.scene.physics.add.existing(sprite, true));
+                  
+                  try {
+                    const sprite = TileSpriteFactory.createTileSprite(this.scene, wx, wy, tileType);
+                    group.add(sprite);
+                    if (["grass", "dirt", "stone"].includes(tileType)) {
+                      this.groundGroup.add(this.scene.physics.add.existing(sprite, true));
+                    }
+                  } catch (error) {
+                    this.errorCount++;
+                    console.warn(`Error creating tile sprite for ${tileType} at (${wx}, ${wy}):`, error);
+                    if (this.errorCount > this.maxErrors) {
+                      console.error('Too many tile sprite errors, stopping chunk generation');
+                      return;
+                    }
                   }
                 }
               }
             }
             this.loadedChunkSprites.set(key, group);
+            this.chunksLoadedThisSession++; // Track chunk loading
+            console.log(`📦 Loaded chunk (${cx}, ${cy}) - Session total: ${this.chunksLoadedThisSession}`);
             if (this.onChunkLoaded) this.onChunkLoaded(cx, cy, group);
           }
         }
       }
     }
-    // Unload distant chunks
+    // Unload distant chunks using dynamic radius
     for (const key of Array.from(this.loadedChunkSprites.keys())) {
       const [cx, cy] = key.split(',').map(Number);
-      if (Math.abs(cx - playerChunkX) > this.chunkRadius || Math.abs(cy - playerChunkY) > this.chunkRadius) {
+      if (Math.abs(cx - playerChunkX) > dynamicRadius || Math.abs(cy - playerChunkY) > dynamicRadius) {
         this.loadedChunkSprites.get(key)?.clear(true, true);
         this.loadedChunkSprites.delete(key);
         this.tilemapManager.chunkManager.unloadChunk(cx, cy);
         if (this.onChunkUnloaded) this.onChunkUnloaded(cx, cy);
       }
     }
-    // Remove all ground tiles not in loaded chunks
+    // Remove all ground tiles not in loaded chunks using dynamic radius
     this.groundGroup.children.iterate((child: Phaser.GameObjects.GameObject) => {
       if (child && child.active) {
         const sprite = child as Phaser.GameObjects.Sprite;
@@ -107,7 +160,7 @@ export class ChunkLoader {
         const wy = sprite.y;
         const cx = Math.floor(wx / (chunkSize * tileSize));
         const cy = Math.floor(wy / (chunkSize * tileSize));
-        if (Math.abs(cx - playerChunkX) > this.chunkRadius || Math.abs(cy - playerChunkY) > this.chunkRadius) {
+        if (Math.abs(cx - playerChunkX) > dynamicRadius || Math.abs(cy - playerChunkY) > dynamicRadius) {
           this.groundGroup.remove(sprite, true, true);
           return false;
         }

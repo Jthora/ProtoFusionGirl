@@ -1,7 +1,7 @@
 // src/ul/__tests__/ulSpellRecipes.test.ts
 // Tests for artifact-driven spell recipe logic and phonetic/glyph mapping
 
-import spells, { getSpellById, getSpellByName, getPhoneticsForSpell, getGlyphsForSpell } from '../spellRecipes';
+import { getSpellById, getSpellByName, getPhoneticsForSpell, getGlyphsForSpell } from '../spellRecipes';
 
 describe('UL Spell Recipes', () => {
   it('retrieves a spell by ID', () => {

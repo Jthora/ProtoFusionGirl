@@ -37,13 +37,13 @@ export function extractWarpZone(
     for (let dx = 0; dx < width; dx++) {
       const x = TilemapManager.wrapX(originX + dx);
       const y = originY + dy; // No vertical wrap for now
-      const tile = tilemapManager.editService.getTile(x, y);
+      const tileCode = tilemapManager.editService.getTile(x, y);
       row.push({
         x,
         y,
-        code: tile?.code || '',
-        state: tile?.state || null,
-        metadata: tile?.metadata || null
+        code: tileCode || 'air',
+        state: null, // TODO: Add API to get tile state
+        metadata: null // TODO: Add API to get tile metadata
       });
     }
     tiles.push(row);
@@ -77,7 +77,8 @@ export function restoreWarpZone(
       const tile = zone.tiles[dy][dx];
       const x = TilemapManager.wrapX(zone.originX + dx);
       const y = zone.originY + dy;
-      tilemapManager.editService.setTile(x, y, tile.code, tile.state, tile.metadata);
+      tilemapManager.editService.setTile(x, y, tile.code);
+      // TODO: Add API to restore tile state and metadata if needed
     }
   }
 }

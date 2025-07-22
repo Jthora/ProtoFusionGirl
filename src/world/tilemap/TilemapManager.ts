@@ -21,6 +21,7 @@ import { PlayerStats } from '../player/PlayerStats';
 import { EquipmentPanel } from '../../ui/components/EquipmentPanel';
 import { WorldStateManager } from '../WorldStateManager';
 import { EventBus } from '../../core/EventBus';
+import { TileSpriteFactory } from './TileSpriteFactory';
 
 export class TilemapManager {
   chunkManager: ChunkManager;
@@ -48,6 +49,10 @@ export class TilemapManager {
     const minimalState = { version: 1, leyLines: [], rifts: [], players: [], economy: { resources: {}, marketPrices: {}, scarcity: {} }, events: [], meta: { online: false, aiAgents: [], mods: [] } };
     this.editService = new WorldEditService(this, new WorldStateManager(minimalState, new EventBus()));
     this.tileRegistry = new TileRegistry();
+    
+    // Set up the TileSpriteFactory with our tile registry
+    TileSpriteFactory.setTileRegistry(this.tileRegistry);
+    
     this.persistence = new WorldPersistence(this);
     this.worldGen = new WorldGen(this);
     this.craftingRegistry = new CraftingRegistry();

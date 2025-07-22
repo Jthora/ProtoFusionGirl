@@ -1,0 +1,17 @@
+// Sample Mod Data
+// Converted from JSON to TypeScript for better Vite compatibility
+
+export const sampleMod = {
+  "name": "Sample Enemy Mod",
+  "version": "1.0.0", 
+  "entry": "enemy_mod.js",
+  "assets": [
+    {
+      "key": "enemySprite",
+      "cid": "bafybeibwzif2w3k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2k3n2"
+    }
+  ],
+  "description": "Adds a new enemy sprite loaded from IPFS and spawns it in the level."
+} as const;
+
+export default sampleMod;

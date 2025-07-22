@@ -1,7 +1,7 @@
 // src/ul/__tests__/ulPuzzle.test.ts
 // Tests for artifact-driven puzzle template logic
 
-import puzzleTemplates, { getPuzzleTemplateByTitle, validatePuzzleSequence } from '../puzzleTemplates';
+import { getPuzzleTemplateByTitle, validatePuzzleSequence } from '../puzzleTemplates';
 
 describe('UL Puzzle Templates', () => {
   it('retrieves a puzzle template by title', () => {

@@ -1,5 +1,5 @@
 // CraftingService: Handles crafting actions, inventory checks, and recipe validation
-import type { CraftingRegistry, CraftingRecipe } from './CraftingRegistry';
+import type { CraftingRegistry } from './CraftingRegistry';
 
 export class CraftingService {
   private registry: CraftingRegistry;

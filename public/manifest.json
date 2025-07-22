@@ -1,0 +1,33 @@
+{
+  "name": "ProtoFusionGirl",
+  "short_name": "PFG",
+  "description": "ASI Control Interface - Experience superior AI-mediated gameplay",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#4169E1",
+  "orientation": "landscape-primary",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

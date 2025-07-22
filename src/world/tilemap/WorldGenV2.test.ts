@@ -63,6 +63,6 @@ describe('WorldGenV2', () => {
     // No hooks, so falls back to default
     const chunk = gen.generateChunk(0, 0, {});
     expect(Array.isArray(chunk.tiles)).toBe(true);
-    expect(chunk.tiles.length).toBe(3);
+    expect(chunk.tiles.length).toBe(4); // Should match the mock chunkSize
   });
 });

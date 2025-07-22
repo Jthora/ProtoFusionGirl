@@ -5,6 +5,7 @@ export interface EnemyDefinition {
   sprite: string;
   maxHealth: number;
   attack: number;
+  damage: number; // Added damage property
   defense: number;
   speed: number;
   aiType: string; // e.g., 'patrol', 'chase', 'ranged', etc.
