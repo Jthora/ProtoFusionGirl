@@ -4,7 +4,6 @@ import { PlayerManager } from '../core/PlayerManager';
 import { TrustManager } from '../asiControl/systems/TrustManager';
 import { ThreatDetector } from '../asiControl/systems/ThreatDetector';
 import { GuidanceEngine } from '../asiControl/systems/GuidanceEngine';
-import { CommandCenterUI } from '../asiControl/ui/components/CommandCenterUI';
 import { ASIOverlay } from '../ui/components/ASIOverlay';
 import { GuidanceViz } from '../asiControl/visuals/GuidanceViz';
 import { UILayoutManager } from '../ui/layout/UILayoutManager';
@@ -34,7 +33,6 @@ export class ASISceneIntegration {
   trustManager: TrustManager;
   private threatDetector: ThreatDetector;
   private guidanceEngine: GuidanceEngine;
-  private commandCenterUI: CommandCenterUI;
   private asiOverlay: ASIOverlay;
 
   // Guidance tracking
@@ -78,17 +76,6 @@ export class ASISceneIntegration {
       simulateResponses: false
     });
 
-    this.commandCenterUI = new CommandCenterUI({
-      scene: this.scene,
-      width: this.scene.scale.width,
-      height: this.scene.scale.height,
-      eventBus: this.eventBus,
-      playerManager: this.playerManager,
-      trustManager: this.trustManager,
-      threatDetector: this.threatDetector,
-      guidanceEngine: this.guidanceEngine
-    });
-
     // ASI Overlay
     this.asiOverlay = new ASIOverlay({
       scene: this.scene,
@@ -104,7 +91,6 @@ export class ASISceneIntegration {
 
     // Register with layout manager
     this.uiLayoutManager.registerComponent('asiOverlay', this.asiOverlay, 'overlays', 'contextual');
-    this.uiLayoutManager.registerComponent('commandCenterUI', this.commandCenterUI, 'overlays', 'contextual');
 
     // Wire events
     this.wireStateEvents();
@@ -199,11 +185,6 @@ export class ASISceneIntegration {
       const current = this.playerManager.isJaneASIControlled();
       this.playerManager.setJaneASIOverride(!current);
       this.uiLayoutManager.toggleComponent('asiOverlay');
-    });
-
-    // C: Toggle Command Center
-    this.scene.input.keyboard?.on('keydown-C', () => {
-      this.uiLayoutManager.toggleComponent('commandCenterUI');
     });
 
     // M: Cycle UI mode

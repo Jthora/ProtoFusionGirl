@@ -311,13 +311,6 @@ const asiDemo = new ASIIntegrationDemo();
 // Expose globally for console access
 (window as any).asiDemo = asiDemo;
 
-// Auto-start demo in development mode
-if (process.env.NODE_ENV === 'development') {
-  // Wait for game initialization, then start demo
-  setTimeout(() => {
-    console.log('🤖 Starting ASI Integration Demo (Development Mode)');
-    asiDemo.startDemo();
-  }, 5000);
-}
+// Auto-start disabled — call asiDemo.startDemo() from console if needed
 
 export { asiDemo };
