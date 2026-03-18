@@ -12,15 +12,14 @@ export interface JonoDialogueLine {
 }
 
 const MENTOR_DIALOGUES: JonoDialogueLine[] = [
-  { id: 'welcome', context: 'first_visit', text: "Welcome, Operator. I am Jono — or what remains of me in the PsiNet. I'll guide you when I can.", priority: 10 },
   { id: 'ley_intro', context: 'first_visit', text: "The ley lines are the nervous system of this world. Keep them stable, and everything else follows.", priority: 9 },
   { id: 'ul_hint', context: 'no_ul_used', text: "The Universal Language isn't magic — it's geometry. Start with Point and Line. The rest follows.", priority: 8 },
-  { id: 'terra_hint', context: 'no_companion', text: "There are damaged robots out there. If you can speak their language, they might join you.", priority: 7 },
-  { id: 'rift_warning', context: 'rift_active', text: "I sense a dimensional rift forming. Angle-Line-Point — the banishment sequence. Remember it.", priority: 9 },
-  { id: 'encourage', context: 'low_stability', text: "The network is weakening. Focus on stabilizing the critical nodes before exploring further.", priority: 6 },
-  { id: 'cosmic_fire', context: 'phase_Fire', text: "Fire phase. Tensions run high — expect more conflict, but also more opportunities for decisive action.", priority: 4 },
-  { id: 'cosmic_water', context: 'phase_Water', text: "Water phase. A time for healing and diplomacy. The ley lines resonate with restoration.", priority: 4 },
-  { id: 'trust_reminder', context: 'low_trust', text: "Jane needs to trust you. Guide gently — don't override her instincts.", priority: 5 },
+  { id: 'terra_hint', context: 'no_companion', text: "There are damaged robots out there. If Jane can speak their language, they'll stop being a problem and start being an asset.", priority: 7 },
+  { id: 'rift_warning', context: 'rift_active', text: "A rift is opening. The UL sequence is Angle, then Line, then Point — in that order. It matters.", priority: 9 },
+  { id: 'encourage', context: 'low_stability', text: "The network is bleeding. The compromised nodes need attention before this cascades.", priority: 6 },
+  { id: 'cosmic_fire', context: 'phase_Fire', text: "Fire phase. The ley lines are running hot — the Nefarium will push harder during this window. Jane's output is also elevated. Use both.", priority: 4 },
+  { id: 'cosmic_water', context: 'phase_Water', text: "Water phase. Nether signatures pull back during Water — the ley lines run clean. Best window for node restoration.", priority: 4 },
+  { id: 'trust_reminder', context: 'low_trust', text: "The guidance channels are degrading. Heavy-handed interventions do that — the HoloDeck reads resistance and attenuates the signal. Ease off.", priority: 5 },
   { id: 'farewell', context: 'revisit', text: "You're getting better at this. The timeline is responding to your care.", priority: 3 },
 ];
 

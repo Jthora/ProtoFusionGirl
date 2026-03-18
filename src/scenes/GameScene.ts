@@ -1148,7 +1148,7 @@ export class GameScene extends Phaser.Scene {
           speed: { min: 60, max: 180 },
           lifespan: 600,
           scale: { start: 0.6, end: 0 },
-          tint: 0x00e5ff,
+          tint: 0xFF8C00,
           quantity: 12,
           emitting: false,
         });
@@ -1179,9 +1179,9 @@ export class GameScene extends Phaser.Scene {
       // Draw waypoint marker
       if (this.waypointMarker) this.waypointMarker.destroy();
       this.waypointMarker = this.add.graphics();
-      this.waypointMarker.lineStyle(2, 0x00ffff, 1);
+      this.waypointMarker.lineStyle(2, 0xFF8C00, 0.9);
       this.waypointMarker.strokeCircle(worldX, worldY, 12);
-      this.waypointMarker.fillStyle(0x00ffff, 0.3);
+      this.waypointMarker.fillStyle(0xFF8C00, 0.2);
       this.waypointMarker.fillCircle(worldX, worldY, 12);
       this.waypointMarker.setDepth(1000);
 
@@ -1189,7 +1189,7 @@ export class GameScene extends Phaser.Scene {
         type: 'ASI_WAYPOINT_PLACED',
         data: { x: worldX, y: worldY, id }
       });
-      this.uiManager?.showFeedback('WAYPOINT SET \u2014 Jane navigating');
+      this.uiManager?.showFeedback('DESTINATION MARKED \u2014 Jane navigating');
     });
 
     // Clear marker when waypoint cleared
@@ -1216,7 +1216,7 @@ export class GameScene extends Phaser.Scene {
       _firstSurgeFired = true;
       this.time.delayedCall(1200, () => {
         this.showJonoLine(
-          "That node — the Nefarium is here.\nThey siphon Nether from the ley lines and tear reality at the seams.\nGet Jane to it."
+          "That node — Nefarium signature.\nThey're siphoning Nether into the ley line feed.\nIf that node drops, it takes this sector with it."
         );
       });
     });
@@ -1831,17 +1831,20 @@ export class GameScene extends Phaser.Scene {
     const beats = isFirstVisit
       ? [
           // Beat 1 — WHO JONO IS
+          // fromMainSite path: user arrived via fusiongirl.app "Enter Simulation" CTA —
+          // they were already inside the PsiSys Kernel, so the HoloDeck loaded from within
+          // an active PsiNet session. Acknowledge that continuity instead of re-establishing it.
           fromMainSite
-            ? 'Operator. Your Earth Alliance clearance is confirmed.\nI\'m Jono Tho\'ra — architect of this network.\nMy body didn\'t survive the last timeline incursion. My Timesight did.\nI\'ve seen every version of what happens next.'
-            : 'Operator. I\'m Jono Tho\'ra — architect of this network.\nMy body didn\'t survive the last timeline incursion. My Timesight did.\nI\'ve seen every version of what happens next.',
+            ? 'Operator. Your PsiNet link was already live when the HoloDeck came online.\nI\'ve been waiting.\nI\'m Jono Tho\'ra — what the PsiNet kept after the last incursion.\nI have Timesight. I\'ve watched this go wrong enough times to know exactly where it starts.'
+            : 'Operator. I\'m Jono Tho\'ra — architect of this network, voice in the static.\nMy body didn\'t make it through the last timeline incursion.\nTimesight did.\nI\'ve watched this go wrong enough times to know exactly where it starts.',
           // Beat 2 — WHO JANE IS
-          "That's Jane. My protégé. Ancient bloodline — psionic gifts she hasn't discovered yet.\nShe thinks this is a routine training simulation.\nShe's wrong.",
+          "That's Jane Tho'ra. My line.\nShe volunteered for what she thinks is a solo training scenario — standard HoloDeck extraction run.\nShe has no idea the simulation went live.\nThe Nefarium made sure of that.",
           // Beat 3 — THE STAKES
-          "The Nefarium has breached the ley lines beneath this simulation.\nThose nodes aren't training targets.\nIf they collapse, this timeline collapses with them.",
-          // Beat 4 — THE RELATIONSHIP (no waypoint instruction)
-          "She'll survive without you.\nThe timeline won't.\nGuide her — but know this: force her hand too often,\nand she'll stop trusting the voice in her head.\nEvery choice you make shapes who she becomes.",
+          "They routed Nether through the HoloDeck's ley line feeds.\nThose nodes aren't training props — they're carrying real planetary load.\nIf they drop inside the sim, they drop outside it.\nThis stopped being a training run the moment you connected.",
+          // Beat 4 — THE RELATIONSHIP
+          "She'll find a way through. She always does.\nThe question is what she becomes on the other side — and whether the timeline holds.\nDon't take the wheel. Leave the right door open.\nShe chooses. You arrange the doors.\nEvery choice you make shapes who she becomes.",
         ]
-      : ["Operator reconnected. The Nefarium doesn't sleep between sessions.\nJane's still in the field."];
+      : ["Operator. The Nefarium doesn't stand down between sessions.\nJane's still in it."];
 
     // Block waypoint clicks during intro
     let introActive = true;
@@ -1853,24 +1856,24 @@ export class GameScene extends Phaser.Scene {
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,10,20,0.97) 60%, transparent);
+      background: linear-gradient(to top, rgba(0,4,0,0.97) 60%, transparent);
       padding: 32px 48px 40px;
       z-index: 88888;
-      font-family: monospace;
-      color: #00ffcc;
+      font-family: 'Aldrich', monospace;
+      color: #ffffff;
       cursor: pointer;
       user-select: none;
     `;
 
     const speaker = document.createElement('div');
-    speaker.style.cssText = 'font-size: 12px; letter-spacing: 3px; color: #006666; margin-bottom: 8px;';
-    speaker.textContent = 'JONO \u2502 THO\u02beRA CLAN \u2502 PSINET FRAGMENT';
+    speaker.style.cssText = 'font-size: 11px; letter-spacing: 3px; color: rgba(255,140,0,0.6); margin-bottom: 10px;';
+    speaker.textContent = 'JONO \u2502 THO\u02beRA CLAN \u2502 PSINET FRAGMENT \u2502 TIMESIGHT ACTIVE';
 
     const textEl = document.createElement('div');
-    textEl.style.cssText = 'font-size: 18px; line-height: 1.6; white-space: pre-line; max-width: 700px;';
+    textEl.style.cssText = 'font-size: 17px; line-height: 1.65; white-space: pre-line; max-width: 700px; color: rgba(255,255,255,0.92);';
 
     const hint = document.createElement('div');
-    hint.style.cssText = 'font-size: 11px; color: #004444; margin-top: 14px; letter-spacing: 1px;';
+    hint.style.cssText = 'font-size: 11px; color: rgba(255,140,0,0.45); margin-top: 16px; letter-spacing: 2px;';
     hint.textContent = 'CLICK TO CONTINUE';
 
     overlay.appendChild(speaker);
@@ -1888,7 +1891,7 @@ export class GameScene extends Phaser.Scene {
       setTimeout(() => overlay.remove(), 650);
 
       // Waypoint HUD tooltip — separate from narrative beats
-      this.time.delayedCall(800, () => this.showHudTooltip('Click anywhere in the world to leave Jane a waypoint.'));
+      this.time.delayedCall(800, () => this.showHudTooltip('Click anywhere in the world to mark a destination. Jane will find her own path there.'));
 
       // FE-5: ethical spectrum wiring
       if (isFirstVisit) this.wireEthicsIntroResponse();
@@ -1906,8 +1909,8 @@ export class GameScene extends Phaser.Scene {
         hint.textContent = 'CLICK TO CONTINUE';
         hint.style.opacity = '1';
         if (isLast) {
-          hint.textContent = 'CLICK TO BEGIN';
-          setTimeout(closeIntro, 2500);
+          hint.textContent = 'CLICK TO ENTER THE SIMULATION';
+          setTimeout(closeIntro, 3000);
         }
       }, holdMs);
     };

@@ -24,17 +24,23 @@ export class SplashScreenManager {
     return SplashScreenManager.instance;
   }
 
-  public async showSplash(config: SplashConfig = {
+  public async showSplash(_config: SplashConfig = {
     showLogo: true,
     showSubtitle: true,
     showASIIntro: true,
     duration: 4000,
     skipable: true
   }): Promise<void> {
+    // Splash removed — the HoloDeck preloader and Jono's first-contact sequence
+    // together form the complete entry experience. A third layer of interstitial
+    // copy adds delay without adding meaning.
+    return Promise.resolve();
+
+    // Dead code below preserved for reference if ever needed
     if (this.isShowing) return;
-    
+
     this.isShowing = true;
-    this.createSplashScreen(config);
+    this.createSplashScreen(_config);
     
     return new Promise(resolve => {
       const cleanup = () => {

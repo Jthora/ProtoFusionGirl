@@ -15,19 +15,17 @@ export class PreloaderManager {
   private currentProgress = 0;
   private isComplete = false;
 
-  // Loading steps — each step is 150ms so messages are readable
+  // Loading steps — HoloDeck instance booting from within PsiNet
   private loadingSteps: LoadingStep[] = [
-    { name: 'init', duration: 150, message: 'Initializing ASI Control Interface...' },
-    { name: 'assets', duration: 150, message: 'Loading FusionGirl assets...' },
-    { name: 'leylines', duration: 150, message: 'Calibrating ley line network...' },
-    { name: 'asi_systems', duration: 150, message: 'Activating ASI systems...' },
-    { name: 'trust_protocols', duration: 150, message: 'Establishing trust protocols...' },
-    { name: 'threat_detection', duration: 150, message: 'Initializing threat detection...' },
-    { name: 'guidance_engine', duration: 150, message: 'Loading guidance algorithms...' },
-    { name: 'world_generation', duration: 150, message: 'Generating world chunks...' },
-    { name: 'final_checks', duration: 150, message: 'Running final diagnostics...' },
-    { name: 'locate_jane', duration: 150, message: "Locating Jane Tho\u02bera... FOUND" },
-    { name: 'ready', duration: 150, message: 'Connection established.' }
+    { name: 'holoboot',    duration: 180, message: 'HoloDeck instance initializing...' },
+    { name: 'leylines',    duration: 180, message: 'Synchronizing ley line telemetry...' },
+    { name: 'terrain',     duration: 160, message: 'Loading terrain manifold...' },
+    { name: 'beu',         duration: 160, message: 'Beu relay nodes coming online...' },
+    { name: 'psi_scan',    duration: 200, message: 'Psionic signature scan — ACTIVE' },
+    { name: 'timeline',    duration: 160, message: 'Timeline anchors verified...' },
+    { name: 'integrity',   duration: 220, message: 'Simulation integrity check... \u2588\u2588\u2591\u2591\u2591\u2591 WARNING' },
+    { name: 'locate_jane', duration: 200, message: 'Locating Jane Tho\u02bera... CONFIRMED' },
+    { name: 'ready',       duration: 180, message: 'PsiNet handshake \u2014 CONNECTED' }
   ];
 
   private constructor() {
@@ -78,7 +76,7 @@ export class PreloaderManager {
 
     // Mark as complete
     this.isComplete = true;
-    this.updateProgress(100, 'Complete!');
+    this.updateProgress(100, 'Observer connection live.');
     
     // Wait a moment before hiding
     await this.delay(100);
