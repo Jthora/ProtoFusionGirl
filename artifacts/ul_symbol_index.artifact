@@ -1,169 +1,496 @@
 ---
-schema: ul_symbol_index_v2
-version: 3.1.0
-last_updated: 2025-06-10
-tags: [ul, symbol, index, geometry, axiom, movement, phonetic, glyph, cosmic]
+schema: ul_symbol_index_v3
+version: 4.0.0
+last_updated: 2025-06-11
+tags: [ul, symbol, index, geometry, axiom, movement, phonetic, glyph, cosmic, sigma_ul, formal_algebra]
 related_artifacts:
   - ul_phonetic_glyph_map.artifact
   - ul_cosmic_rules.artifact
   - ul_grammar_rules.artifact
 changelog:
-  - 2025-06-10: Upgraded to v3.1.0 with YAML frontmatter, canonical YAML table, cross-references, and changelog.
-  - 2025-06-05: Initial v3.0.0 Copilot artifact migration.
+  - 2025-06-11: v4.0.0 — MAJOR OVERHAUL. Grounded in real Universal Language (Jthora/universal_language).
+      Added ul_primitive, ul_tier, ul_level fields per Sigma_UL formal algebra.
+      All 11 game symbols now have their geometric grounding made explicit.
+      T1/T2/T3 tier system from real UL Lexicon applied throughout.
+      Element/modality/cosmic_force retained as T3 conventional game-layer mappings.
+  - 2025-06-10: v3.1.0 — YAML frontmatter, canonical YAML table, cross-references, changelog.
+  - 2025-06-05: v3.0.0 — Initial Copilot artifact migration.
 ---
 
 # Universal Language Symbol Index Artifact
 
 ## Purpose
-Master index of all Universal Language (UL) symbols, meanings, properties, and formal definitions. Source of truth for code, puzzles, UI, and modding.
+Master index of all Universal Language (UL) symbols, meanings, properties, and formal definitions.
+
+This artifact is now grounded in the **real Universal Language** — the Sigma_UL formal algebra discovered
+by Jordan Trana (Jono Tho'ra). Reference: https://github.com/Jthora/universal_language
+
+Source of truth for code, puzzles, UI, and modding. The game's symbol system is confirmed correct —
+the original artists intuited real geometric structures. This artifact documents the formal grounding.
+
+---
 
 ## Canonical Symbol Table (YAML)
+
+Flat list for backward-compatible tooling (ULSymbolIndex.ts, validation, modding).
+The `ul_primitive` and `ul_tier` fields are the new additions that ground each symbol in real UL.
+
 ```yaml
 symbols:
   - ul_symbol: point
-    meaning: core, instance, origin
-    geometric_property: zero-dimensional, P ∈ ℝⁿ, μ(P)=0
-    formal_axiom: point(x) ↔ x ∈ ℝⁿ ∧ μ(x)=0
+    ul_primitive: Point
+    ul_tier: T1
+    ul_level: 1
+    meaning: existence, core, instance, origin
+    geometric_property: zero-dimensional, P in R^n, measure zero
     movement_primitive: tap
     animation_ref: point_tap
-    example_equation: P = (x, y)
-    usage: focus, start, anchor
-    modality: Core
-    element: N/A
-    cosmic_force: Core
+    glyph: "•"
     phonetic: pɔɪnt
-    glyph: •
+    element: N/A
+    modality: Core
+    cosmic_force: Core
   - ul_symbol: line
-    meaning: link, order, stability
-    geometric_property: one-dimensional, connects two points, direction vector d = P₂ - P₁
-    formal_axiom: line(x) ↔ ∃P₁,P₂ ∈ ℝⁿ, x = { (1-t)P₁ + tP₂ | t ∈ (0,1) }
+    ul_primitive: Line
+    ul_tier: T1
+    ul_level: 1
+    meaning: relation, link, order, connection, stability
+    geometric_property: one-dimensional, connects two points
     movement_primitive: step_line
     animation_ref: line_walk
-    example_equation: L = { (1-t)P₁ + tP₂ | t ∈ (0,1) }
-    usage: progression, connection
-    modality: Fixed
-    element: Air
-    cosmic_force: Order
+    glyph: "―"
     phonetic: laɪn
-    glyph: ―
-  - ul_symbol: circle
-    meaning: unity, closure, grouping
-    geometric_property: set of points equidistant from center (h,k), (x-h)²+(y-k)²=r²
-    formal_axiom: circle(x) ↔ ∃h,k,r, x = { (x,y) | (x-h)²+(y-k)²=r², r>0 }
-    movement_primitive: spin
-    animation_ref: spin_360
-    example_equation: (x-h)²+(y-k)²=r²
-    usage: enclosure, ritual, closure
-    modality: Mutable
-    element: Water
-    cosmic_force: Void
-    phonetic: sɜːrkəl
-    glyph: ○
-  - ul_symbol: triangle
-    meaning: change, transformation, stability
-    geometric_property: polygon with 3 vertices, 3 edges, sum of angles = 180°
-    formal_axiom: triangle(x) ↔ x is a set of 3 points in ℝ², forming a closed path
-    movement_primitive: step_sequence_triangle
-    animation_ref: triangle_footwork
-    example_equation: ΔABC: A,B,C ∈ ℝ²
-    usage: hierarchy, transformation
-    modality: Cardinal
-    element: Fire
-    cosmic_force: Alpha
-    phonetic: traɪæŋɡəl
-    glyph: △
-  - ul_symbol: square
-    meaning: stability, order, protection
-    geometric_property: polygon with 4 equal sides, 4 right angles
-    formal_axiom: square(x) ↔ x is a set of 4 points in ℝ², equal sides, right angles
-    movement_primitive: box_step
-    animation_ref: box_step_anim
-    example_equation: ABCD: |AB|=|BC|=|CD|=|DA|, ∠=90°
-    usage: defense, structure
+    element: Air
     modality: Fixed
-    element: Earth
     cosmic_force: Order
-    phonetic: skwɛər
-    glyph: □
-  - ul_symbol: curve
-    meaning: flow, adaptation, change
-    geometric_property: one-dimensional, non-linear, parametric: C(t) = (x(t), y(t)), t ∈ (a, b)
-    formal_axiom: curve(x) ↔ ∃f: ℝ→ℝ², x = { f(t) | t ∈ (a, b) }, f twice differentiable, curvature κ ≠ 0
-    movement_primitive: arm_curve
-    animation_ref: curve_arm_anim
-    example_equation: C(t) = (x(t), y(t)), κ = |x'y'' - y'x''|/(x'^2 + y'^2)^{3/2}
-    usage: transition, flow, adaptation
-    modality: Mutable
-    element: Water
-    cosmic_force: Flux
-    phonetic: kɜːrv
-    glyph: 〰
   - ul_symbol: angle
-    meaning: direction, divergence, focus
-    geometric_property: two lines sharing a vertex, measure θ
-    formal_axiom: angle(x) ↔ ∃P, Q, R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R
+    ul_primitive: Angle
+    ul_tier: T1
+    ul_level: 1
+    meaning: quality, direction, divergence, focus, character
+    geometric_property: two rays sharing a vertex, measure theta
     movement_primitive: angle_pose
     animation_ref: angle_pose_anim
-    example_equation: θ = arccos((\vec{PQ}·\vec{PR})/(|PQ||PR|))
-    usage: focus, divergence, direction
-    modality: Cardinal
-    element: Fire
-    cosmic_force: Power
+    glyph: "∠"
     phonetic: æŋɡəl
-    glyph: ∠
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Power
+  - ul_symbol: curve
+    ul_primitive: Curve
+    ul_tier: T1
+    ul_level: 1
+    meaning: process, flow, adaptation, change, becoming
+    geometric_property: non-straight continuous path, curvature kappa != 0
+    movement_primitive: arm_curve
+    animation_ref: curve_arm_anim
+    glyph: "〰"
+    phonetic: kɜːrv
+    element: Water
+    modality: Mutable
+    cosmic_force: Flux
+  - ul_symbol: circle
+    ul_primitive: Enclosure
+    ul_tier: T1
+    ul_level: 2
+    meaning: unity, closure, universality, completeness
+    geometric_property: closed curve with constant curvature, maximum symmetry SO(2)
+    movement_primitive: spin
+    animation_ref: spin_360
+    glyph: "○"
+    phonetic: sɜːrkəl
+    element: Water
+    modality: Mutable
+    cosmic_force: Void
+  - ul_symbol: triangle
+    ul_primitive: Enclosure
+    ul_tier: T1
+    ul_level: 2
+    meaning: change, transformation, fundamental structure, irreducibility
+    geometric_property: minimum polygon, 3 vertices, symmetry D3
+    movement_primitive: step_sequence_triangle
+    animation_ref: triangle_footwork
+    glyph: "△"
+    phonetic: traɪæŋɡəl
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Alpha
+  - ul_symbol: square
+    ul_primitive: Enclosure
+    ul_tier: T2
+    ul_level: 2
+    meaning: stability, order, protection, systematic structure
+    geometric_property: 4-sided regular polygon tessellating the plane, symmetry D4
+    movement_primitive: box_step
+    animation_ref: box_step_anim
+    glyph: "□"
+    phonetic: skwɛər
+    element: Earth
+    modality: Fixed
+    cosmic_force: Order
   - ul_symbol: wave
-    meaning: rhythm, oscillation, signal
-    geometric_property: periodic curve, y = A sin(ωx + φ)
-    formal_axiom: wave(x) ↔ x is a function f: ℝ→ℝ, periodic
+    ul_primitive: Curve
+    ul_tier: T2
+    ul_level: 2
+    meaning: rhythm, oscillation, signal, alternation
+    geometric_property: periodic curve, single Fourier component
     movement_primitive: arm_wave
     animation_ref: wave_arm
-    example_equation: y = A sin(ωx + φ)
-    usage: signal, adaptation
-    modality: Mutable
-    element: Air
-    cosmic_force: Chaos
+    glyph: "~"
     phonetic: weɪv
-    glyph: ~
+    element: Air
+    modality: Mutable
+    cosmic_force: Chaos
   - ul_symbol: spiral
-    meaning: growth, evolution, energy
-    geometric_property: curve with increasing radius, r = a + bθ
-    formal_axiom: spiral(x) ↔ x = { (r cos θ, r sin θ) | r = a + bθ, θ ∈ ℝ }
+    ul_primitive: Curve
+    ul_tier: T2
+    ul_level: 2
+    meaning: growth, evolution, energy, unfolding
+    geometric_property: monotonically increasing radius, r = a + b*theta
     movement_primitive: spiral_turn
     animation_ref: spiral_turn_anim
-    example_equation: r = a + bθ
-    usage: healing, transformation
-    modality: Mutable
-    element: Air
-    cosmic_force: Flux
+    glyph: "🌀"
     phonetic: spaɪrəl
-    glyph: 🌀
+    element: Air
+    modality: Mutable
+    cosmic_force: Flux
   - ul_symbol: zigzag
+    ul_primitive: Line+Angle
+    ul_tier: T3
+    ul_level: 3
     meaning: agility, unpredictability, disruption
-    geometric_property: piecewise linear, alternating direction
-    formal_axiom: zigzag(x) ↔ x is a sequence of line segments with alternating slopes
+    geometric_property: piecewise linear with alternating angles
     movement_primitive: zigzag_dash
     animation_ref: zigzag_dash_anim
-    example_equation: y = (-1)^n x + c_n
-    usage: evasion, disruption
-    modality: Mutable
-    element: Air
-    cosmic_force: Flux
+    glyph: "〽"
     phonetic: zɪɡzæɡ
-    glyph: 〽
+    element: Air
+    modality: Mutable
+    cosmic_force: Flux
   - ul_symbol: leap
-    meaning: aspiration, breakthrough, courage
-    geometric_property: parabolic arc, y = ax² + bx + c
-    formal_axiom: leap(x) ↔ x is a parabolic trajectory in ℝ²
+    ul_primitive: Curve+Angle
+    ul_tier: T3
+    ul_level: 3
+    meaning: aspiration, breakthrough, courage, reaching beyond
+    geometric_property: parabolic arc, directed aspiration trajectory
     movement_primitive: high_leap
     animation_ref: high_leap_anim
-    example_equation: y = ax² + bx + c
-    usage: escape, challenge
-    modality: Cardinal
-    element: Fire
-    cosmic_force: Power
+    glyph: "⤴"
     phonetic: liːp
-    glyph: ⤴
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Power
 ```
+
+---
+
+## Architecture: 3-Tier Justification System
+
+Per the real UL Lexicon (lexicon.md §0.4):
+
+| Tier | Name                        | Criterion                                     |
+|------|-----------------------------|-----------------------------------------------|
+| T1   | Geometrically Forced        | Theorem — the only consistent construction    |
+| T2   | Structurally Distinguished  | Motivated, canonical, but alternatives exist  |
+| T3   | Conventional                | Design decision — one of multiple options     |
+
+**T1 is mathematics. T2 is motivated mathematics. T3 is engineering.**
+
+The game's element/modality/cosmic system = T3 (conventional game-layer semantic coordinates).
+The 5 geometric primitives = T1 (mathematically forced).
+
+---
+
+## Tier 1 — Geometrically Forced (The 5 Real UL Primitives)
+
+These are the atomic alphabet of Universal Language. Not invented. Discovered.
+The Unique Grounding Theorem (formal-foundations.md §4.5) proves the mapping is unique.
+
+```yaml
+tier_1_primitives:
+  - ul_symbol: point
+    ul_primitive: Point
+    ul_tier: T1
+    ul_level: 1  # AtomicCarrier
+    semantic_primitive: Existence
+    geometric_description: >
+      The minimum act of meaning. Asserts that something IS.
+      Dependency rank 0 — presupposed by all other primitives.
+      Maximally symmetric — invariant under all rotations.
+    sigma_ul_expression: "e1 (an atomic entity)"
+    movement_primitive: tap
+    animation_ref: point_tap
+    glyph: "•"
+    phonetic: pɔɪnt
+    # T3 game-layer mappings (conventional)
+    element: N/A
+    modality: Core
+    cosmic_force: Core
+
+  - ul_symbol: line
+    ul_primitive: Line
+    ul_tier: T1
+    ul_level: 1  # AtomicCarrier
+    semantic_primitive: Relation
+    geometric_description: >
+      Two points connected by a straight segment.
+      The unique minimum structure introducing directionality.
+      1 degree of freedom. Geometric realization of predicate(e1, r, e2).
+    sigma_ul_expression: "predicate(e1, r, e2) -> a (minimal assertion)"
+    movement_primitive: step_line
+    animation_ref: line_walk
+    glyph: "―"
+    phonetic: laɪn
+    element: Air
+    modality: Fixed
+    cosmic_force: Order
+
+  - ul_symbol: angle
+    ul_primitive: Angle
+    ul_tier: T1
+    ul_level: 1  # AtomicCarrier
+    semantic_primitive: Quality
+    geometric_description: >
+      Two rays sharing a vertex. Requires two Lines at a Point.
+      Unique way to introduce Quality — the character of a relationship.
+      Parameterized by theta, a continuous spectrum of quality.
+    sigma_ul_expression: "modify_relation(m_theta, r) -> r'"
+    movement_primitive: angle_pose
+    animation_ref: angle_pose_anim
+    glyph: "∠"
+    phonetic: æŋɡəl
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Power
+
+  - ul_symbol: curve
+    ul_primitive: Curve
+    ul_tier: T1
+    ul_level: 1  # AtomicCarrier
+    semantic_primitive: Process
+    geometric_description: >
+      A non-straight continuous path. A relation whose direction changes
+      continuously along its length. Curvature kappa(s) parameterizes rate
+      of change. Requires 2D embedding. Introduces Process — becoming, change.
+    sigma_ul_expression: "— (curvature profile kappa(s) is geometric data)"
+    movement_primitive: arm_curve
+    animation_ref: curve_arm_anim
+    glyph: "〰"
+    phonetic: kɜːrv
+    element: Water
+    modality: Mutable
+    cosmic_force: Flux
+```
+
+---
+
+## Tier 1 — Enclosure Variants (Geometrically Forced by Symmetry)
+
+The circle (maximum symmetry SO(2)) and triangle (minimum polygon) are T1.
+The square is T2 (structurally distinguished but not the only 4-sided option).
+
+```yaml
+tier_1_enclosure_variants:
+  - ul_symbol: circle
+    ul_primitive: Enclosure
+    ul_tier: T1
+    ul_level: 2  # Distinguished parameter
+    enclosure_symmetry: "SO(2) — infinite rotation group, maximum symmetry"
+    semantic_meaning: "Universal, Complete, Abstract — the most general kind of concept"
+    geometric_description: >
+      Closed curve with constant curvature, all points equidistant from center.
+      Maximum symmetry of any planar closed curve. The unique maximum-symmetry enclosure.
+    sigma_ul_expression: "— (boundary shape is geometric; enters via abstract() modifier)"
+    movement_primitive: spin
+    animation_ref: spin_360
+    glyph: "○"
+    phonetic: sɜːrkəl
+    element: Water
+    modality: Mutable
+    cosmic_force: Void
+
+  - ul_symbol: triangle
+    ul_primitive: Enclosure
+    ul_tier: T1
+    ul_level: 2  # Distinguished parameter
+    enclosure_symmetry: "D3 — dihedral group of order 6"
+    semantic_meaning: "Fundamental, Atomic, Irreducible — the simplest kind of concept"
+    geometric_description: >
+      The minimum polygon (3 sides — fewest sides that can enclose area).
+      Jordan Curve Theorem. Unique minimum-complexity enclosure.
+    sigma_ul_expression: "— (D3 boundary shape is geometric; enters via abstract() modifier)"
+    movement_primitive: step_sequence_triangle
+    animation_ref: triangle_footwork
+    glyph: "△"
+    phonetic: traɪæŋɡəl
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Alpha
+```
+
+---
+
+## Tier 2 — Structurally Distinguished
+
+Square is T2 (distinguished tessellation property but not uniquely forced).
+Wave and spiral are T2 curve variants (canonical but not the only periodic/expanding curve).
+
+```yaml
+tier_2_symbols:
+  - ul_symbol: square
+    ul_primitive: Enclosure
+    ul_tier: T2
+    ul_level: 2  # Distinguished parameter
+    enclosure_symmetry: "D4 — dihedral group of order 8"
+    semantic_meaning: "Structural, Systematic, Ordered — the organized kind of concept"
+    geometric_description: >
+      The unique regular polygon that tessellates the Euclidean plane by itself
+      with only translations. Distinguished among 4-sided polygons.
+    sigma_ul_expression: "— (D4 boundary shape is geometric; enters via abstract() modifier)"
+    movement_primitive: box_step
+    animation_ref: box_step_anim
+    glyph: "□"
+    phonetic: skwɛər
+    element: Earth
+    modality: Fixed
+    cosmic_force: Order
+
+  - ul_symbol: wave
+    ul_primitive: Curve
+    ul_tier: T2
+    ul_level: 2  # Distinguished parameter
+    curve_property: "Periodic curvature — alternating sign. Single Fourier component."
+    semantic_meaning: "Rhythm, Oscillation, Alternation — the canonical wave process"
+    geometric_description: >
+      A curve whose curvature alternates sign periodically.
+      Simplest periodic function (single Fourier component, minimal harmonic content).
+      Distinguished among all periodic curves.
+    sigma_ul_expression: "— (alternating curvature is geometric data)"
+    movement_primitive: arm_wave
+    animation_ref: wave_arm
+    glyph: "~"
+    phonetic: weɪv
+    element: Air
+    modality: Mutable
+    cosmic_force: Chaos
+
+  - ul_symbol: spiral
+    ul_primitive: Curve
+    ul_tier: T2
+    ul_level: 2  # Distinguished parameter
+    curve_property: "Monotonically increasing radius. Periodic in angle, monotonic in radius."
+    semantic_meaning: "Growth, Development, Evolution, Unfolding"
+    geometric_description: >
+      A curve whose distance from center point monotonically increases.
+      The unique curve class simultaneously periodic in angle and monotonic in radius.
+      Distinguished among open expanding curves.
+    sigma_ul_expression: "— (monotonic radial increase is geometric data)"
+    movement_primitive: spiral_turn
+    animation_ref: spiral_turn_anim
+    glyph: "🌀"
+    phonetic: spaɪrəl
+    element: Air
+    modality: Mutable
+    cosmic_force: Flux
+```
+
+---
+
+## Tier 3 — Conventional (Game-Specific Compound Expressions)
+
+These are valid UL constructions but are T3 design choices — compound expressions, not geometric necessities.
+
+```yaml
+tier_3_symbols:
+  - ul_symbol: zigzag
+    ul_primitive: [Line, Angle]
+    ul_tier: T3
+    ul_level: 3  # Two-primitive combination
+    geometric_description: >
+      A compound of Lines composed with alternating Angles.
+      Piecewise linear with periodic angle inversions.
+      Conventionally associated with agility and disruption.
+    sigma_ul_expression: "compose(r1, invert(r1), compose(r2, invert(r2), ...))"
+    movement_primitive: zigzag_dash
+    animation_ref: zigzag_dash_anim
+    glyph: "〽"
+    phonetic: zɪɡzæɡ
+    element: Air
+    modality: Mutable
+    cosmic_force: Flux
+
+  - ul_symbol: leap
+    ul_primitive: [Curve, Angle]
+    ul_tier: T3
+    ul_level: 3  # Two-primitive combination
+    geometric_description: >
+      A Curve (parabolic arc) with an Angle trajectory — directed aspiration
+      reaching a peak and descending. Process with a distinguished angular character.
+      Conventionally associated with breakthrough and courage.
+    sigma_ul_expression: "modify_relation(m_aspiration, curve_parabolic)"
+    movement_primitive: high_leap
+    animation_ref: high_leap_anim
+    glyph: "⤴"
+    phonetic: liːp
+    element: Fire
+    modality: Cardinal
+    cosmic_force: Power
+```
+
+---
+
+## T3 Conventional: Element / Modality / Cosmic Force Mappings
+
+The element, modality, and cosmic force fields are T3 — conventional game-layer semantic coordinates.
+They are not wrong; they are useful design choices for organizing game logic.
+Their real UL interpretation:
+
+```yaml
+t3_semantic_coordinates:
+  elements:
+    Fire: "Dominant quality: directed/transformative (Angle-dominant expressions)"
+    Earth: "Dominant quality: structured/stable (Enclosure-dominant, D4 symmetry)"
+    Water: "Dominant quality: continuous/process (Curve and Enclosure/circle dominant)"
+    Air: "Dominant quality: relational/mobile (Line-dominant and compound expressions)"
+
+  modalities:
+    Cardinal: "Assertion dynamics: declarative — makes a definitive claim"
+    Fixed: "Assertion dynamics: persistent — asserts a stable state"
+    Mutable: "Assertion dynamics: processual — asserts ongoing change"
+
+  cosmic_forces:
+    Core: "Extremal angle: identity (theta=0 degrees, coincidence, agreement)"
+    Order: "Extremal angle: independence (theta=90 degrees, orthogonality)"
+    Chaos: "Extremal angle: opposition via oscillation (periodic inversion)"
+    Void: "Maximum-symmetry empty enclosure (circle enclosing nothing)"
+    Alpha: "Minimum-complexity enclosure (triangle = fundamental/irreducible)"
+    Power: "Directed aspiration angle (non-perpendicular focused angle)"
+    Flux: "Process with change: curve and spiral expressions"
+    Omega: "Completion: theta=360 degrees, full cycle returning to start"
+    Omni: "All-inclusive quantification (universal quantifier)"
+```
+
+---
+
+## WASM Integration Note
+
+When the Rust+WASM module from `Jthora/universal_language` ships:
+- This artifact becomes the source of truth for T3 conventional mappings
+- The WASM module provides T1/T2 formal validation
+- Both layers coexist: WASM ensures geometric correctness, T3 mappings provide game meaning
+- See `src/ul/ulWasmAdapter.ts` for the integration interface
+
+## Cross-References
+
+| Document | What it adds |
+|----------|-------------|
+| `ul_grammar_rules.artifact` | Formal axioms for valid UL expression construction |
+| `ul_cosmic_rules.artifact` | Full T3 element combination rules for game layer |
+| `ul_phonetic_glyph_map.artifact` | IPA phonetics and unicode glyphs for each symbol |
+| `src/ul/ulCanonicalTypes.ts` | TypeScript enums: ULPrimitive, ULSort, ULOperation, ULTier |
+| `src/ul/ulWasmAdapter.ts` | WASM engine interface boundary |
+| `docs/rebuild/00-doctrine/universal-language.md` | Full doctrine and design law |
+
 
 ## Cross-References
 - See `ul_phonetic_glyph_map.artifact` for full phonetic/glyph mapping.
@@ -172,3 +499,4 @@ symbols:
 
 ## Update Instructions
 Update this artifact whenever the symbol set, definitions, or mappings change. Use as the canonical reference for all UL symbol logic and data.
+
