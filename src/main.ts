@@ -133,54 +133,35 @@ function initializePhaserGame() {
     errorLogger.logError(createStartupError('PHASER_INITIALIZATION_FAILED', { error }));
     console.error('🚨 CRITICAL: Game initialization failed!', error);
   
-    // Show user-friendly error message
     if (appDiv) {
       appDiv.innerHTML = `
         <div style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          font-family: Arial, sans-serif;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          text-align: center;
-          padding: 20px;
+          display:flex; flex-direction:column; align-items:center; justify-content:center;
+          height:100vh; font-family:'Courier New',Courier,monospace;
+          background:#0d0e10; color:#f0ede8; text-align:left; padding:40px;
         ">
-          <h1 style="font-size: 2.5em; margin-bottom: 20px;">🚨 Game Initialization Error</h1>
-          <p style="font-size: 1.2em; margin-bottom: 30px; max-width: 600px;">
-            ProtoFusionGirl encountered an error during startup. This may be due to browser compatibility issues or missing resources.
-          </p>
-          <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-            <h3>🔧 Troubleshooting Steps:</h3>
-            <ul style="text-align: left; margin: 0; padding-left: 20px;">
-              <li>Refresh the page and try again</li>
-              <li>Ensure you're using a modern browser (Chrome, Firefox, Safari, Edge)</li>
-              <li>Check that WebGL is enabled in your browser</li>
-              <li>Disable browser extensions that might interfere</li>
-              <li>Clear browser cache and cookies</li>
+          <div style="max-width:560px; border:1px solid rgba(255,140,0,0.25); border-left:2px solid #FF8C00; padding:28px 32px; background:#0a0b0d;">
+            <div style="color:#ff5c5c; font-size:12px; letter-spacing:1.5px; margin-bottom:12px;">[PSISYS] CRITICAL FAULT — HoloDeck init failed</div>
+            <div style="color:#FF8C00; font-size:13px; letter-spacing:1.2px; margin-bottom:18px;">Simulation engine could not start.</div>
+            <div style="color:#5a5e66; font-size:11px; letter-spacing:1px; margin-bottom:4px;">Possible causes:</div>
+            <ul style="color:#a0a4ac; font-size:11px; letter-spacing:0.8px; margin:0 0 20px 16px; padding:0; line-height:1.9;">
+              <li>WebGL unavailable or disabled in this browser</li>
+              <li>Browser extension interfering with canvas</li>
+              <li>Missing or blocked resources — try clearing cache</li>
             </ul>
+            <div style="display:flex; gap:12px; margin-top:4px;">
+              <button onclick="location.reload()" style="
+                background:#1a1200; color:#FF8C00; border:1px solid rgba(255,140,0,0.4);
+                padding:9px 20px; font-family:'Courier New',monospace; font-size:12px;
+                letter-spacing:1.2px; cursor:pointer;
+              ">[ RETRY ]</button>
+              <button onclick="console.log(window.errorLogger?.exportErrorReport?.())" style="
+                background:#0d0e10; color:#5a5e66; border:1px solid rgba(90,94,102,0.3);
+                padding:9px 20px; font-family:'Courier New',monospace; font-size:12px;
+                letter-spacing:1.2px; cursor:pointer;
+              ">[ EXPORT REPORT ]</button>
+            </div>
           </div>
-          <button onclick="location.reload()" style="
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-          ">🔄 Retry</button>
-          <button onclick="console.log(window.errorLogger.exportErrorReport())" style="
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-          ">📋 Export Error Report</button>
         </div>
       `;
     }

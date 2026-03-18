@@ -79,6 +79,12 @@ export class UIManager {
   private leyLineStabilizationModal?: LeyLineStabilizationModal;
   private options: UIManagerOptions;
   private modalManager: ModalManager;
+  /**
+   * Startup guard — ley line modals are suppressed until markStartupComplete() is called.
+   * Prevents the LeyLineStabilizationModal from firing during world initialization
+   * before the player has had a chance to see the game.
+   */
+  private _startupComplete = false;
   
   constructor(
     scene: Phaser.Scene,
@@ -193,35 +199,33 @@ export class UIManager {
         ];
         this.setLeyLineMinimapData(this.lastLeyLines, overlays);
       }
-      // Show stabilization modal for player interaction
-      this.showLeyLineStabilization(
-        event.data,
-        () => {
-          // On stabilize: emit LEYLINE_MANIPULATION event (status: 'stable')
-          this.eventBus.emit({
-            type: 'LEYLINE_MANIPULATION',
-            data: {
-              leyLineId: event.data.leyLineId,
-              status: 'stable',
-              narrativeContext: 'Ley line stabilized by player/AI.'
-            }
-          });
-        },
-        () => {
-          // On escalate: emit LEYLINE_INSTABILITY event with increased severity (handled by LeyLineManager)
-          this.eventBus.emit({
-            type: 'LEYLINE_INSTABILITY',
-            data: {
-              ...event.data,
-              severity: event.data.severity === 'minor' ? 'moderate' : event.data.severity === 'moderate' ? 'major' : 'major',
+      // Only show the interactive stabilization modal once the game is fully loaded.
+      // Events fired during world initialization are silently discarded here.
+      if (this._startupComplete) {
+        this.showLeyLineStabilization(
+          event.data,
+          () => {
+            this.eventBus.emit({
+              type: 'LEYLINE_MANIPULATION',
               data: {
-                ...(event.data.data || {}),
-                escalation: true
+                leyLineId: event.data.leyLineId,
+                status: 'stable',
+                narrativeContext: 'Ley line stabilized by player/AI.'
               }
-            }
-          });
-        }
-      );
+            });
+          },
+          () => {
+            this.eventBus.emit({
+              type: 'LEYLINE_INSTABILITY',
+              data: {
+                ...event.data,
+                severity: event.data.severity === 'minor' ? 'moderate' : event.data.severity === 'moderate' ? 'major' : 'major',
+                data: { ...(event.data.data || {}), escalation: true }
+              }
+            });
+          }
+        );
+      }
     });
   this.eventBus.on('LEYLINE_DISRUPTION', () => {
       // Play disruption audio cue
@@ -294,6 +298,16 @@ export class UIManager {
     );
     // Queue and show via ModalManager to avoid stacking
     this.modalManager.showContainer(this.leyLineStabilizationModal, { id: `leyline:${event.leyLineId}` });
+  }
+
+  // ── Startup lifecycle ────────────────────────────────────────────────────
+  /**
+   * Call once the game world is fully initialized and the player is in control.
+   * Unlocks ley-line stabilization modals and other interruptive UI that should
+   * not appear during the initial world-generation phase.
+   */
+  markStartupComplete(): void {
+    this._startupComplete = true;
   }
 
   // ── Component visibility shortcuts ───────────────────────────────────────

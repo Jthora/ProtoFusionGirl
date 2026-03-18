@@ -46,6 +46,8 @@ export class PreloaderManager {
   }
 
   public async startLoading(): Promise<void> {
+    // Guard: auto-started from index.html DOMContentLoaded — skip if already ran.
+    if (this.isComplete) return;
     console.log('🎮 ProtoFusionGirl - Starting loading sequence');
     
     // Show initial state

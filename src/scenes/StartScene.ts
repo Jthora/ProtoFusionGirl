@@ -48,9 +48,9 @@ export class StartScene extends Phaser.Scene {
     // --- Title ---
     this.add.text(width / 2, height / 2 - 110, 'ProtoFusionGirl', {
       fontSize: '52px',
-      color: '#00ffff',
+      color: '#FF8C00',
       fontStyle: 'bold',
-      fontFamily: 'monospace'
+      fontFamily: 'Courier New, monospace'
     }).setOrigin(0.5);
 
     // --- Hook lines ---
@@ -68,15 +68,15 @@ export class StartScene extends Phaser.Scene {
 
     // --- ENTER SIMULATION button ---
     const btn = this.add.text(width / 2, height / 2 + 60, '[ ENTER SIMULATION ]', {
-      fontSize: '28px',
-      color: '#00ff88',
-      backgroundColor: '#001a0d',
+      fontSize: '24px',
+      color: '#FF8C00',
+      backgroundColor: '#0d0e10',
       padding: { x: 24, y: 12 },
-      fontFamily: 'monospace'
+      fontFamily: 'Courier New, monospace'
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
-    btn.on('pointerover', () => btn.setStyle({ backgroundColor: '#003320', color: '#00ffaa' }));
-    btn.on('pointerout', () => btn.setStyle({ backgroundColor: '#001a0d', color: '#00ff88' }));
+    btn.on('pointerover', () => btn.setStyle({ backgroundColor: '#1a1200', color: '#FFD700' }));
+    btn.on('pointerout', () => btn.setStyle({ backgroundColor: '#0d0e10', color: '#FF8C00' }));
     btn.on('pointerdown', () => this.enterSimulation());
 
     this.input.keyboard?.on('keydown-ENTER', () => this.enterSimulation());
@@ -86,15 +86,15 @@ export class StartScene extends Phaser.Scene {
     const footerLeft = this.add.text(24, footerY,
       'PSINET // HOLO DECK v2032.1 // OPERATOR AUTHENTICATED', {
       fontSize: '11px',
-      color: '#006666',
-      fontFamily: 'monospace'
+      color: 'rgba(255,140,0,0.35)',
+      fontFamily: 'Courier New, monospace'
     }).setOrigin(0, 0.5);
 
     this.cursorText = this.add.text(
       footerLeft.x + footerLeft.width + 4, footerY, '\u258c', {
       fontSize: '11px',
-      color: '#006666',
-      fontFamily: 'monospace'
+      color: 'rgba(255,140,0,0.35)',
+      fontFamily: 'Courier New, monospace'
     }).setOrigin(0, 0.5);
 
     // Blinking cursor
@@ -122,7 +122,7 @@ export class StartScene extends Phaser.Scene {
 
   private drawLeylineGrid(width: number, height: number): void {
     const g = this.add.graphics();
-    g.lineStyle(1, 0x00ffff, 0.06);
+    g.lineStyle(1, 0xFF8C00, 0.06);
 
     // Three diagonal lines spanning full screen
     const offsets = [width * 0.2, width * 0.5, width * 0.8];
@@ -148,110 +148,8 @@ export class StartScene extends Phaser.Scene {
     // Prevent double-trigger
     this.input.keyboard?.removeAllListeners();
     this.input.removeAllListeners();
-
-    this.showConnectingOverlay(() => {
-      this.scene.start('GameScene');
-    });
-  }
-
-  private showConnectingOverlay(onComplete: () => void): void {
-    const overlay = document.createElement('div');
-    overlay.id = 'pfg-connect-overlay';
-    overlay.style.cssText = `
-      position: fixed;
-      inset: 0;
-      background: #080810;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-      font-family: monospace;
-      color: #00ffcc;
-      opacity: 0;
-      transition: opacity 120ms ease-in;
-    `;
-
-    // Auth lines — appear sequentially before the progress bar
-    const authLines: { text: string; color: string; dim?: boolean }[] = [
-      { text: 'PSINET HANDSHAKE INITIATED...', color: '#00ffcc' },
-      { text: '\u00a0', color: '#00ffcc' }, // spacer
-      { text: 'OPERATOR CLEARANCE: ASI-7 \u2502 ARCHANGEL AGENCY', color: '#00ccaa' },
-      { text: 'TIMELINE DESIGNATION: ALPHA-PRIMARY', color: '#00ccaa' },
-      { text: 'SIMULATION: HOLO DECK ALPHA-7', color: '#00ccaa' },
-      { text: 'SUBJECT: JANE THO\u02beRA  [ PSIOPS RECRUIT \u2014 CONNECTION UNDETECTED ]', color: '#00ccaa' },
-      { text: '\u00a0', color: '#00ffcc' }, // spacer
-      { text: 'LEYLINE NETWORK STATUS: DEGRADED', color: '#ff8800' },
-      { text: 'NEFARIUM ACTIVITY: DETECTED', color: '#ff4444' },
-      { text: 'WARNING: DEFAULT TIMELINE PROJECTION \u2014 CRITICAL', color: '#ff4444' },
-      { text: '\u00a0', color: '#00ffcc' }, // spacer
-      { text: 'ESTABLISHING COVERT OBSERVATION LINK...', color: '#00ffcc' },
-    ];
-
-    const linesContainer = document.createElement('div');
-    linesContainer.style.cssText = `
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-bottom: 22px;
-      min-width: 520px;
-    `;
-
-    const lineEls: HTMLDivElement[] = authLines.map(({ text, color }) => {
-      const el = document.createElement('div');
-      el.style.cssText = `font-size: 13px; letter-spacing: 1.5px; color: ${color}; opacity: 0; transition: opacity 80ms ease-in;`;
-      el.textContent = text;
-      linesContainer.appendChild(el);
-      return el;
-    });
-
-    const barWrap = document.createElement('div');
-    barWrap.style.cssText = 'font-size: 15px; letter-spacing: 1px; margin-bottom: 14px; opacity: 0; transition: opacity 80ms ease-in;';
-    barWrap.textContent = '\u2591'.repeat(20) + '  0%';
-
-    const statusLine = document.createElement('div');
-    statusLine.style.cssText = 'font-size: 15px; color: #004444; letter-spacing: 2px;';
-    statusLine.textContent = 'CONNECTION ESTABLISHED';
-
-    overlay.appendChild(linesContainer);
-    overlay.appendChild(barWrap);
-    overlay.appendChild(statusLine);
-    document.body.appendChild(overlay);
-
-    // Fade overlay in
-    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
-
-    // Stagger each auth line appearing
-    const LINE_STAGGER = 120; // ms between each line
-    lineEls.forEach((el, i) => {
-      setTimeout(() => { el.style.opacity = '1'; }, 80 + i * LINE_STAGGER);
-    });
-
-    // After all lines shown, animate progress bar
-    const allLinesMs = 80 + authLines.length * LINE_STAGGER;
-    setTimeout(() => {
-      barWrap.style.opacity = '1';
-
-      let pct = 0;
-      const filled = '\u2593';
-      const empty = '\u2591';
-      const total = 20;
-
-      const interval = setInterval(() => {
-        pct = Math.min(pct + 5, 100);
-        const done = Math.round((pct / 100) * total);
-        barWrap.textContent = filled.repeat(done) + empty.repeat(total - done) + `  ${pct}%`;
-
-        if (pct >= 100) {
-          clearInterval(interval);
-          statusLine.style.color = '#00ffcc';
-          setTimeout(() => {
-            overlay.style.transition = 'opacity 300ms ease-out';
-            overlay.style.opacity = '0';
-            setTimeout(() => { overlay.remove(); onComplete(); }, 320);
-          }, 320);
-        }
-      }, 38);
-    }, allLinesMs);
+    // PsiSysKernel + ProjectionTransit already handled the full entry experience
+    // in the DOM layer before Phaser started. Go straight to GameScene.
+    this.scene.start('GameScene');
   }
 }

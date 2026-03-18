@@ -21,7 +21,7 @@ export class AppIconManager {
   }
   
   private setPageTitle(): void {
-    document.title = 'ProtoFusionGirl - ASI Control Interface';
+    document.title = 'ProtoFusionGirl — HoloDeck Observer Protocol';
   }
   
   private setMetaTags(): void {
@@ -68,8 +68,7 @@ export class AppIconManager {
     // Set theme color dynamically based on game state
     const themeColorMeta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
     if (themeColorMeta) {
-      // Use FusionGirl's signature blue color
-      themeColorMeta.content = '#4169E1';
+      themeColorMeta.content = '#FF8C00';
     }
     
     // Update manifest theme on the fly if needed

@@ -1441,6 +1441,12 @@ export class GameScene extends Phaser.Scene {
 
     this.wireStage4Events();
 
+    // Unlock ley-line modals and other interruptive UI after world init settles.
+    // Small delay so any events fired synchronously during create() are ignored.
+    this.time.delayedCall(2000, () => {
+      this.uiManager?.markStartupComplete();
+    });
+
     _DEV && console.log('✅ GameScene create() completed successfully');
     } catch (error) {
       console.error('❌ CRITICAL ERROR in GameScene.create():', error);
