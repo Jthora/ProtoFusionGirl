@@ -46,22 +46,23 @@ export class SpeedControlUI {
   }
 
   private createUI(): void {
-    // Speed display (top-left corner)
-    this.speedDisplay = this.scene.add.text(20, 20, 'Speed: 0 km/h', {
-      ...this.UI_STYLE,
-      fontSize: '18px'
-    }).setScrollFactor(0).setDepth(1000);
+    const W = this.scene.scale.width;
 
-    // Mode display (below speed)
-    this.modeDisplay = this.scene.add.text(20, 50, 'Mode: Normal', {
+    // Speed display — bottom-right, away from MissionHUD (top-left)
+    this.speedDisplay = this.scene.add.text(W - 16, 20, 'Speed: 0 km/h', {
       ...this.UI_STYLE,
-      fontSize: '14px'
-    }).setScrollFactor(0).setDepth(1000);
+      fontSize: '15px'
+    }).setOrigin(1, 0).setScrollFactor(0).setDepth(1000);
+
+    // Mode display (below speed, same right-anchor)
+    this.modeDisplay = this.scene.add.text(W - 16, 44, 'Normal', {
+      ...this.UI_STYLE,
+      fontSize: '12px',
+      color: '#448866',
+    }).setOrigin(1, 0).setScrollFactor(0).setDepth(1000);
 
     // Help panel (initially hidden)
     this.createHelpPanel();
-    
-    console.log('🎮 SpeedControlUI initialized');
   }
 
   private createHelpPanel(): void {
@@ -177,21 +178,13 @@ The system automatically adjusts terrain loading based on speed:
   }
 
   private setupInputHandlers(): void {
-    if (!this.scene.input || !this.scene.input.keyboard) {
-      console.warn('⚠️ Keyboard input not available for SpeedControlUI');
-      return;
-    }
+    if (!this.scene.input || !this.scene.input.keyboard) return;
 
     try {
-      // F1 key to toggle help
       const f1Key = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F1);
-      f1Key.on('down', () => {
-        this.toggleHelp();
-      });
-
-      console.log('🎮 SpeedControlUI input handlers set up');
-    } catch (error) {
-      console.error('❌ Failed to set up SpeedControlUI input handlers:', error);
+      f1Key.on('down', () => { this.toggleHelp(); });
+    } catch {
+      // keyboard unavailable in some environments — silently skip
     }
   }
 

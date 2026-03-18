@@ -1,0 +1,6 @@
+[submodule "iOS_content_port/protofusiongirl_ios"]
+	path = iOS_content_port/protofusiongirl_ios
+	url = https://github.com/Jthora/protofusiongirl_ios.git
+[submodule "universal_language"]
+	path = universal_language
+	url = https://github.com/Jthora/universal_language

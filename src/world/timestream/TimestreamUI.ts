@@ -1,6 +1,5 @@
 // TimestreamUI.ts
 // UI logic for visualizing and interacting with the Timestream Framework
-default
 import { TimestreamFramework, TimestreamBranch, AnchorEvent } from './TimestreamFramework';
 
 export class TimestreamUI {

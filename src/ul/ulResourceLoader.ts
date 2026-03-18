@@ -3,8 +3,8 @@
 // Loads and parses UL resources (not .artifact files) to auto-generate symbol maps, animation maps, grammar rules, and validation schemas.
 // Resources: ul_symbol_movement_map.json, ul_animation_library.json, ul_grammar_rules.json, ul_api_contract.json, ul_expression_examples.json, ul_puzzle_templates.json
 
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { ulEventBus } from './ulEventBus';
 
 export interface ULSymbol {
@@ -70,14 +70,11 @@ function getDirname(): string {
   if (typeof require !== 'undefined' && require.main && require.main.filename) {
     return path.dirname(require.main.filename);
   }
-  // ESM (may not work in all test runners)
-  try {
-    // @ts-ignore
-    return path.dirname(new URL(import.meta.url).pathname);
-  } catch (e) {
-    // Fallback to process.cwd()
-    return process.cwd();
+  // CJS fallback (__filename is available in Node.js CJS modules)
+  if (typeof __filename !== 'undefined') {
+    return path.dirname(__filename);
   }
+  return process.cwd();
 }
 
 const DIRNAME = getDirname();

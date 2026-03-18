@@ -4,44 +4,53 @@
 
 import { EventBus } from '../../../core/EventBus';
 import { CommandCenterUIConfig, PanelConfig, Vector2 } from '../../types';
+import { ASI_COLORS, ASI_LAYOUT } from '../theme';
 import { TrustManager } from '../../systems/TrustManager';
 import { ThreatDetector } from '../../systems/ThreatDetector';
 import { GuidanceEngine } from '../../systems/GuidanceEngine';
+import { UIDepths } from '../../../ui/UIDepths';
 
 export class CommandCenterUI extends Phaser.GameObjects.Container {
-  private scene: Phaser.Scene;
   private eventBus: EventBus;
   private trustManager: TrustManager;
-  private threatDetector: ThreatDetector;
+  private _threatDetector: ThreatDetector;
   private guidanceEngine: GuidanceEngine;
+  private subscriptions: Array<() => void> = [];
   
   // UI Components
-  private mainPanel: Phaser.GameObjects.Container;
-  private statusPanel: Phaser.GameObjects.Container;
-  private guidancePanel: Phaser.GameObjects.Container;
-  private trustMeter: Phaser.GameObjects.Container;
-  private threatOverlay: Phaser.GameObjects.Container;
-  private magicPalette: Phaser.GameObjects.Container;
+  private mainPanel!: Phaser.GameObjects.Container;
+  private statusPanel!: Phaser.GameObjects.Container;
+  private guidancePanel!: Phaser.GameObjects.Container;
+  private trustMeter!: Phaser.GameObjects.Container;
+  private threatOverlay!: Phaser.GameObjects.Container;
+  private opportunityOverlay!: Phaser.GameObjects.Container;
+  private emotionalOverlay!: Phaser.GameObjects.Container;
+  private magicPalette!: Phaser.GameObjects.Container;
   
   // UI Elements
-  private background: Phaser.GameObjects.Graphics;
+  private background!: Phaser.GameObjects.Graphics;
   private panelBackgrounds: Map<string, Phaser.GameObjects.Graphics> = new Map();
-  private trustVisual: Phaser.GameObjects.Graphics;
-  private guidanceButtons: Phaser.GameObjects.Group;
-  private threatIndicators: Phaser.GameObjects.Group;
+  private trustVisual!: Phaser.GameObjects.Graphics;
+  private guidanceButtons!: Phaser.GameObjects.Group;
+  private threatIndicators!: Phaser.GameObjects.Group;
+  private threatIndicatorById: Map<string, Phaser.GameObjects.Graphics> = new Map();
+  private shieldChip?: Phaser.GameObjects.Text;
   
   // State
   private isActive = false;
   private currentMode: 'full' | 'minimal' = 'full';
+  private overlaysVisible = { threat: true, opportunity: true, emotional: true };
   private panelConfigs: Map<string, PanelConfig> = new Map();
+  private threatBadge!: Phaser.GameObjects.Text;
+  private hoverCrosshair!: Phaser.GameObjects.Graphics;
+  private trustText!: Phaser.GameObjects.Text;
+  private closeButton!: Phaser.GameObjects.Text;
 
   constructor(config: CommandCenterUIConfig) {
     super(config.scene, 0, 0);
-    
-    this.scene = config.scene;
     this.eventBus = config.eventBus;
     this.trustManager = config.trustManager;
-    this.threatDetector = config.threatDetector;
+    this._threatDetector = config.threatDetector;
     this.guidanceEngine = config.guidanceEngine;
     
     this.setupPanelConfigs(config.width, config.height);
@@ -50,7 +59,9 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     this.setupInteractions();
     
     this.scene.add.existing(this);
-    this.setDepth(1000); // Ensure UI is on top
+    this.setDepth(UIDepths.DASHBOARD);
+    this.createShieldChip();
+    this.createCloseButton();
   }
 
   private setupPanelConfigs(width: number, height: number): void {
@@ -109,8 +120,8 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
 
   private createUIComponents(): void {
     // Create background
-    this.background = this.scene.add.graphics();
-    this.background.fillStyle(0x000000, 0.3);
+  this.background = this.scene.add.graphics();
+  this.background.fillStyle(ASI_COLORS.primary, 0.3);
     this.background.fillRect(0, 0, this.scene.scale.width, this.scene.scale.height);
     this.add(this.background);
     
@@ -131,8 +142,12 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     this.add(this.trustMeter);
     
     // Create threat overlay
-    this.threatOverlay = this.scene.add.container(0, 0);
+  this.threatOverlay = this.scene.add.container(0, 0);
     this.add(this.threatOverlay);
+  this.opportunityOverlay = this.scene.add.container(0, 0);
+  this.add(this.opportunityOverlay);
+  this.emotionalOverlay = this.scene.add.container(0, 0);
+  this.add(this.emotionalOverlay);
     
     // Create magic palette
     this.magicPalette = this.scene.add.container(0, 0);
@@ -141,6 +156,13 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     // Create interactive elements
     this.guidanceButtons = this.scene.add.group();
     this.threatIndicators = this.scene.add.group();
+  // Hover crosshair
+  this.hoverCrosshair = this.scene.add.graphics();
+  this.hoverCrosshair.lineStyle(1, ASI_COLORS.accent, 0.9);
+  this.hoverCrosshair.strokeLineShape(new Phaser.Geom.Line(-6, 0, 6, 0));
+  this.hoverCrosshair.strokeLineShape(new Phaser.Geom.Line(0, -6, 0, 6));
+  this.hoverCrosshair.setVisible(false);
+  this.add(this.hoverCrosshair);
     
     // Initialize content
     this.initializeStatusPanel();
@@ -156,12 +178,12 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     
     const panel = this.scene.add.container(config.x, config.y);
     
-    // Create panel background
-    const background = this.scene.add.graphics();
-    background.fillStyle(config.backgroundColor, config.alpha);
-    background.lineStyle(config.borderWidth, config.borderColor, 1);
-    background.fillRoundedRect(0, 0, config.width, config.height, config.borderRadius);
-    background.strokeRoundedRect(0, 0, config.width, config.height, config.borderRadius);
+  // Create panel background
+  const background = this.scene.add.graphics();
+  background.fillStyle(config.backgroundColor ?? ASI_COLORS.secondary, config.alpha ?? 0.9);
+  background.lineStyle(config.borderWidth ?? 2, config.borderColor ?? ASI_COLORS.accent, 1);
+  background.fillRoundedRect(0, 0, config.width, config.height, config.borderRadius ?? ASI_LAYOUT.borderRadius);
+  background.strokeRoundedRect(0, 0, config.width, config.height, config.borderRadius ?? ASI_LAYOUT.borderRadius);
     
     panel.add(background);
     this.panelBackgrounds.set(panelId, background);
@@ -171,29 +193,84 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
 
   private setupEventHandlers(): void {
     // Listen for trust changes
-    this.eventBus.on('TRUST_CHANGED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('TRUST_CHANGED', (event: any) => {
       this.updateTrustVisual(event.data);
-    });
+  }));
+
+    // Shield Window status chip
+  this.subscriptions.push(this.eventBus.on('SHIELD_WINDOW_STARTED', (event: any) => {
+      const until = event.data?.cooldownUntil as number | undefined;
+      this.updateShieldChip(true, until);
+  }));
+  this.subscriptions.push(this.eventBus.on('SHIELD_WINDOW_ENDED', (event: any) => {
+      const until = event.data?.cooldownUntil as number | undefined;
+      this.updateShieldChip(false, until);
+  }));
     
     // Listen for threat detection
-    this.eventBus.on('THREAT_DETECTED', (event: any) => {
-      this.addThreatIndicator(event.data.threat);
-    });
+  this.subscriptions.push(this.eventBus.on('THREAT_DETECTED', (event: any) => {
+      const threat = event?.data?.threat ?? event?.data;
+      if (threat) this.addOrUpdateThreatIndicator(threat);
+  }));
     
     // Listen for threat resolution
-    this.eventBus.on('THREAT_RESOLVED', (event: any) => {
-      this.removeThreatIndicator(event.data.threatId);
-    });
+  this.subscriptions.push(this.eventBus.on('THREAT_RESOLVED', (event: any) => {
+      const id = event?.data?.threatId ?? event?.threatId;
+      this.removeThreatIndicator(id);
+  }));
     
     // Listen for Jane's state changes
-    this.eventBus.on('JANE_MOVED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('JANE_MOVED', (event: any) => {
       this.updateJanePosition(event.data);
-    });
+  }));
     
     // Listen for guidance updates
-    this.eventBus.on('ASI_GUIDANCE_GIVEN', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('ASI_GUIDANCE_GIVEN', (event: any) => {
       this.updateGuidanceDisplay(event.data);
+  }));
+  }
+
+  private createShieldChip(): void {
+    const config = this.panelConfigs.get('status')!;
+    const x = config.x + config.width - 140;
+    const y = config.y + 10;
+    this.shieldChip = this.scene.add.text(x, y, 'Shield: Ready', {
+      fontSize: '12px',
+      color: '#00ffcc',
+      fontFamily: 'monospace',
+      fontStyle: 'bold'
     });
+    this.shieldChip.setDepth(UIDepths.HUD_NOTIFICATION);
+    this.add(this.shieldChip);
+  }
+
+  private createCloseButton(): void {
+    const W = this.scene.scale.width;
+    this.closeButton = this.scene.add.text(W - 16, 14, '✕', {
+      fontSize: '18px',
+      fontFamily: 'monospace',
+      color: '#ff4488',
+      backgroundColor: '#220011',
+      padding: { x: 8, y: 4 },
+    }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+
+    this.closeButton.on('pointerover', () => this.closeButton.setStyle({ color: '#ffffff', backgroundColor: '#440022' }));
+    this.closeButton.on('pointerout',  () => this.closeButton.setStyle({ color: '#ff4488', backgroundColor: '#220011' }));
+    this.closeButton.on('pointerdown', () => this.deactivate());
+
+    this.add(this.closeButton);
+  }
+
+  private updateShieldChip(active: boolean, cooldownUntil?: number): void {
+    if (!this.shieldChip) return;
+    const trustLevel = this.trustManager.getTrustLevel();
+    const now = Date.now();
+    const onCooldown = cooldownUntil ? cooldownUntil > now : false;
+    let text = active ? 'Shield: ACTIVE' : (onCooldown ? 'Shield: Cooldown' : 'Shield: Ready');
+    if (trustLevel < 70) text += ' (Trust Low)';
+    const color = active ? '#00ffff' : onCooldown ? '#ffaa00' : trustLevel >= 70 ? '#00ff88' : '#888888';
+    this.shieldChip.setText(text);
+    this.shieldChip.setColor(color);
   }
 
   private setupInteractions(): void {
@@ -278,8 +355,6 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
   }
 
   private initializeTrustMeter(): void {
-    const config = this.panelConfigs.get('trust')!;
-    
     // Trust meter background
     this.trustVisual = this.scene.add.graphics();
     this.trustVisual.setPosition(20, 20);
@@ -297,7 +372,11 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
   }
 
   private initializeThreatOverlay(): void {
-    // This will be populated dynamically as threats are detected
+    // Minimal HUD indicator shown when panel is active
+    this.threatBadge = this.scene.add.text(12, this.scene.scale.height - 24, 'THREATS: 0', {
+      fontSize: '12px', color: '#ff4444', fontFamily: 'monospace'
+    }).setScrollFactor(0).setDepth(UIDepths.HUD_NOTIFICATION);
+    this.threatOverlay.add(this.threatBadge);
   }
 
   private initializeMagicPalette(): void {
@@ -355,18 +434,14 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     this.trustVisual.fillStyle(trustColor, 0.9);
     this.trustVisual.fillRect(100, 10, (barWidth * trustLevel) / 100, barHeight);
     
-    // Trust level text
-    if (this.trustMeter.list.length > 2) {
-      this.trustMeter.list[2].destroy();
+    // Trust level text — update in-place to avoid recreating
+    if (!this.trustText) {
+      this.trustText = this.scene.add.text(100 + barWidth + 10, 20, '', {
+        fontSize: '12px', color: '#ffffff', fontFamily: 'monospace',
+      }).setOrigin(0, 0.5);
+      this.trustMeter.add(this.trustText);
     }
-    
-    const trustText = this.scene.add.text(100 + barWidth + 10, 20, `${Math.round(trustLevel)}%`, {
-      fontSize: '12px',
-      color: '#ffffff',
-      fontFamily: 'monospace'
-    });
-    trustText.setOrigin(0, 0.5);
-    this.trustMeter.add(trustText);
+    this.trustText.setText(`${Math.round(trustLevel)}%`);
     
     // Trend indicator
     const trendColor = trustData.trend === 'increasing' ? 0x00ff00 : 
@@ -383,7 +458,7 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     return 0xff4444;
   }
 
-  private updateGuidanceDisplay(guidanceData?: any): void {
+  private updateGuidanceDisplay(_guidanceData?: any): void {
     // Clear existing guidance buttons
     this.guidanceButtons.clear(true, true);
     
@@ -471,68 +546,78 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
 
   private getUrgencyColor(urgency: string): number {
     switch (urgency) {
-      case 'critical': return 0xff0000;
-      case 'high': return 0xff6600;
-      case 'medium': return 0xffaa00;
-      case 'low': return 0x00aaff;
+      case 'critical': return ASI_COLORS.threatCritical;
+      case 'high': return ASI_COLORS.threatHigh;
+      case 'medium': return ASI_COLORS.threatMedium;
+      case 'low': return ASI_COLORS.infoASIOnly;
       default: return 0x888888;
     }
   }
 
-  private addThreatIndicator(threat: any): void {
-    const indicator = this.scene.add.graphics();
+  private addOrUpdateThreatIndicator(threat: any): void {
+    const id = threat?.id as string | undefined;
+    if (!id) return;
     const color = this.getUrgencyColor(threat.severity);
-    
-    indicator.fillStyle(color, 0.8);
-    indicator.fillCircle(threat.position.x, threat.position.y, 10);
+    let indicator = this.threatIndicatorById.get(id);
+    if (!indicator) {
+      indicator = this.scene.add.graphics();
+      this.threatOverlay.add(indicator);
+      this.threatIndicators.add(indicator);
+      this.threatIndicatorById.set(id, indicator);
+      this.scene.tweens.add({ targets: indicator, alpha: 0.4, duration: 600, yoyo: true, repeat: -1 });
+    }
+    const x = threat.position?.x ?? 0;
+    const y = threat.position?.y ?? 0;
+    const baseRadius = 14;
+    const outerRadius = 20;
+    const tti = typeof threat.timeToImpact === 'number' ? threat.timeToImpact : -1;
+    const maxTti = 5000; // 5s
+    const progress = tti < 0 ? 1 : Math.max(0, Math.min(1, tti / maxTti));
+    indicator.clear();
+    indicator.fillStyle(color, 0.7);
+    indicator.fillCircle(x, y, 8);
     indicator.lineStyle(2, color, 1);
-    indicator.strokeCircle(threat.position.x, threat.position.y, 15);
-    
-    // Add pulsing animation
-    this.scene.tweens.add({
-      targets: indicator,
-      alpha: 0.3,
-      duration: 500,
-      yoyo: true,
-      repeat: -1
-    });
-    
-    this.threatOverlay.add(indicator);
-    this.threatIndicators.add(indicator);
+    indicator.strokeCircle(x, y, baseRadius);
+    const startAngle = -Math.PI / 2;
+    const endAngle = startAngle + (Math.PI * 2 * progress);
+    indicator.lineStyle(3, color, 0.9);
+    indicator.beginPath();
+    indicator.arc(x, y, outerRadius, startAngle, endAngle, false);
+    indicator.strokePath();
+    this.updateThreatBadge();
   }
 
-  private removeThreatIndicator(threatId: string): void {
-    // Find and remove threat indicator
-    // This would need threat ID tracking in the actual implementation
+  private removeThreatIndicator(threatId?: string): void {
+    if (!threatId) return;
+    const indicator = this.threatIndicatorById.get(threatId);
+    if (indicator) {
+      indicator.destroy();
+      this.threatIndicators.remove(indicator, true);
+      this.threatIndicatorById.delete(threatId);
+    }
+    this.updateThreatBadge();
   }
 
   private handleMainPanelClick(pointer: Phaser.Input.Pointer): void {
-    const localPoint = this.mainPanel.getLocalPoint(pointer.x, pointer.y);
-    
-    // Emit guidance click event
-    this.eventBus.emit({
-      type: 'ASI_GUIDANCE_GIVEN',
-      data: {
-        suggestion: {
-          id: 'click_guidance',
-          type: 'movement',
-          title: 'Move to position',
-          description: 'Move Jane to clicked location',
-          urgency: 'medium',
-          confidence: 70,
-          expectedOutcome: 'Jane moves to location',
-          trustImpact: 1,
-          position: { x: localPoint.x, y: localPoint.y }
-        },
-        context: { type: 'click', position: localPoint }
-      }
-    });
+    const worldPoint = { x: pointer.worldX, y: pointer.worldY } as Vector2;
+    const suggestion = {
+      id: 'click_guidance',
+      type: 'movement' as const,
+      title: 'Move to position',
+      description: 'Move Jane to clicked location',
+      urgency: 'medium' as const,
+      confidence: 70,
+      expectedOutcome: 'Jane moves to location',
+      trustImpact: 1,
+      position: worldPoint
+    };
+    this.eventBus.emit({ type: 'GUIDANCE_SELECTED', data: { suggestion, timestamp: Date.now() } });
+    this.eventBus.emit({ type: 'ASI_GUIDANCE_GIVEN', data: { suggestion, context: { type: 'click', position: worldPoint } } });
   }
 
   private handleMainPanelHover(pointer: Phaser.Input.Pointer): void {
     // Show contextual information on hover
-    const localPoint = this.mainPanel.getLocalPoint(pointer.x, pointer.y);
-    
+  this.mainPanel.getLocalPoint(pointer.x, pointer.y);
     // This would show threat information, environmental data, etc.
   }
 
@@ -591,9 +676,15 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     });
   }
 
-  private updateJanePosition(positionData: any): void {
+  private updateJanePosition(_positionData: any): void {
     // Update Jane's position indicator in the main panel
     // This would be implemented with the actual game view integration
+  }
+
+  private updateThreatBadge(): void {
+    if (!this.threatBadge || !this._threatDetector) return;
+    const count = this._threatDetector.getActiveThreats().length;
+    this.threatBadge.setText(`THREATS: ${count}`);
   }
 
   public activate(): void {
@@ -664,10 +755,14 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
       // Hide less critical panels
       this.statusPanel.setVisible(false);
       this.magicPalette.setVisible(false);
+      // Reduce overlay noise
+      this.mainPanel.setAlpha(0.9);
+      this.guidancePanel.setVisible(false);
     } else {
       // Show all panels
       this.statusPanel.setVisible(true);
       this.magicPalette.setVisible(true);
+      this.guidancePanel.setVisible(true);
     }
     
     this.eventBus.emit({
@@ -680,10 +775,29 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     });
   }
 
+  // Overlay visibility toggles for keyboard shortcuts or buttons
+  public toggleThreatOverlay(): void {
+    this.overlaysVisible.threat = !this.overlaysVisible.threat;
+    this.threatOverlay.setVisible(this.overlaysVisible.threat);
+  }
+  public toggleOpportunityOverlay(): void {
+    this.overlaysVisible.opportunity = !this.overlaysVisible.opportunity;
+    this.opportunityOverlay.setVisible(this.overlaysVisible.opportunity);
+  }
+  public toggleEmotionalOverlay(): void {
+    this.overlaysVisible.emotional = !this.overlaysVisible.emotional;
+    this.emotionalOverlay.setVisible(this.overlaysVisible.emotional);
+  }
+
   public destroy(): void {
     this.guidanceButtons.clear(true, true);
     this.threatIndicators.clear(true, true);
     this.panelBackgrounds.clear();
+    // Unsubscribe event handlers
+    this.subscriptions.forEach(unsub => {
+      try { unsub(); } catch {}
+    });
+    this.subscriptions = [];
     
     super.destroy();
   }
