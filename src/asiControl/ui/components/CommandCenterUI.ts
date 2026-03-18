@@ -62,6 +62,8 @@ export class CommandCenterUI extends Phaser.GameObjects.Container {
     this.setDepth(UIDepths.DASHBOARD);
     this.createShieldChip();
     this.createCloseButton();
+    // Hidden by default — shown only when C key activates Command Center
+    this.setVisible(false);
   }
 
   private setupPanelConfigs(width: number, height: number): void {

@@ -40,7 +40,7 @@ export class MissionHUD {
 
     this.titleText = this.scene.add.text(this.PANEL_X + this.PAD, this.PANEL_Y + this.PAD, '', {
       fontSize: '11px',
-      color: '#00e5ff',
+      color: '#FF8C00',
       fontStyle: 'bold',
       fontFamily: 'monospace',
     }).setScrollFactor(0).setDepth(UIDepths.HUD_OVERLAY);
@@ -57,11 +57,11 @@ export class MissionHUD {
 
   private drawBg(completed: boolean): void {
     this.bg.clear();
-    const alpha = completed ? 0.5 : 0.7;
-    const borderColor = completed ? 0x00ff88 : 0x00e5ff;
-    this.bg.fillStyle(0x000011, alpha);
+    const alpha = completed ? 0.4 : 0.6;
+    const borderColor = completed ? 0xFFD700 : 0xFF8C00;
+    this.bg.fillStyle(0x0a0500, alpha);
     this.bg.fillRoundedRect(this.PANEL_X, this.PANEL_Y, this.PANEL_W, this.PANEL_H, 4);
-    this.bg.lineStyle(1, borderColor, 0.8);
+    this.bg.lineStyle(1, borderColor, 0.6);
     this.bg.strokeRoundedRect(this.PANEL_X, this.PANEL_Y, this.PANEL_W, this.PANEL_H, 4);
   }
 

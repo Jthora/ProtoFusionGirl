@@ -29,15 +29,16 @@ export class ASIDashboard {
       top: 12px;
       left: 12px;
       z-index: 5000;
-      background: rgba(0, 8, 16, 0.85);
-      border: 1px solid #003333;
+      background: rgba(0, 0, 0, 0.88);
+      border: 1px solid rgba(255, 140, 0, 0.35);
       padding: 10px 14px;
-      font-family: monospace;
+      font-family: 'Aldrich', monospace;
       font-size: 11px;
-      color: #006666;
+      color: rgba(255, 255, 255, 0.5);
       line-height: 1.7;
       pointer-events: none;
       min-width: 210px;
+      display: none;
     `;
 
     this.build();
@@ -48,13 +49,13 @@ export class ASIDashboard {
   private build(): void {
     // Recording indicator
     const rec = document.createElement('div');
-    rec.style.cssText = 'font-size: 10px; color: #003333; margin-bottom: 6px; letter-spacing: 1px;';
-    rec.innerHTML = '<span style="color:#330000">&#9679;</span> TIMELINE RECORDING';
+    rec.style.cssText = 'font-size: 10px; color: rgba(255,140,0,0.4); margin-bottom: 6px; letter-spacing: 1px;';
+    rec.innerHTML = '<span style="color:rgba(255,140,0,0.7)">&#9679;</span> TIMELINE RECORDING';
     this.el.appendChild(rec);
 
     // Jane status line
     this.statusEl = document.createElement('div');
-    this.statusEl.style.cssText = 'color: #00ffcc; font-size: 12px; margin-bottom: 4px;';
+    this.statusEl.style.cssText = 'color: #FF8C00; font-size: 12px; margin-bottom: 4px;';
     this.el.appendChild(this.statusEl);
 
     // Trust level
@@ -64,7 +65,7 @@ export class ASIDashboard {
 
     // Divider
     const divider = document.createElement('div');
-    divider.style.cssText = 'border-top: 1px solid #002222; margin-bottom: 6px;';
+    divider.style.cssText = 'border-top: 1px solid rgba(255,140,0,0.2); margin-bottom: 6px;';
     this.el.appendChild(divider);
 
     // Node stability panel
@@ -84,9 +85,9 @@ export class ASIDashboard {
 
   private renderTrust(): void {
     const arrow = this.trustLevel >= 50 ? '\u25b2' : '\u25bc';
-    const color = this.trustLevel >= 60 ? '#00cc66' : this.trustLevel >= 30 ? '#cccc00' : '#cc3300';
+    const color = this.trustLevel >= 60 ? '#FFD700' : this.trustLevel >= 30 ? '#FF8C00' : '#cc3300';
     this.trustEl.innerHTML =
-      `<span style="color:#004444">TRUST </span>` +
+      `<span style="color:rgba(255,255,255,0.4)">TRUST </span>` +
       `<span style="color:${color}">${this.trustLevel}% ${arrow}</span>`;
   }
 
@@ -98,8 +99,8 @@ export class ASIDashboard {
     this.nodesEl.innerHTML = this.nodes
       .map(n => {
         const pct = Math.round((n.stability / n.maxStability) * 100);
-        const warn = pct <= 35 ? ' <span style="color:#cc2200">\u26a0</span>' : '';
-        const color = pct > 60 ? '#004444' : pct > 30 ? '#664400' : '#660000';
+        const warn = pct <= 35 ? ' <span style="color:#cc3300">\u26a0</span>' : '';
+        const color = pct > 60 ? 'rgba(255,215,0,0.6)' : pct > 30 ? 'rgba(255,140,0,0.6)' : 'rgba(204,51,0,0.8)';
         return `<div style="color:${color}">${n.name.toUpperCase()} ${pct}%${warn}</div>`;
       })
       .join('');
@@ -126,6 +127,13 @@ export class ASIDashboard {
   }
 
   private wireEvents(): void {
+    // Show dashboard when ASI mode is active, hide when inactive
+    this.unsubscribers.push(
+      this.eventBus.on('JANE_ASI_OVERRIDE', (event: any) => {
+        if (event.data?.enabled) this.show(); else this.hide();
+      })
+    );
+
     this.unsubscribers.push(
       this.eventBus.on('NODE_STABILITY_CHANGED', (event) => {
         const existing = this.nodes.find(n => n.id === event.data.nodeId);
@@ -181,6 +189,14 @@ export class ASIDashboard {
     (alertEl as any)._clearTimer = setTimeout(() => {
       if (alertEl) alertEl.textContent = '';
     }, durationMs);
+  }
+
+  show(): void {
+    this.el.style.display = '';
+  }
+
+  hide(): void {
+    this.el.style.display = 'none';
   }
 
   destroy(): void {

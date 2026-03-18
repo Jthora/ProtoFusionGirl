@@ -26,6 +26,8 @@ export class ASIOverlay {
     this.eventBus = config.eventBus;
     this.container = this.scene.add.container(0, 0).setDepth(2000);
     this.createBasePanels(config.width, config.height);
+    // Hidden by default — shown only when ASI mode is active (Q key)
+    this.container.setVisible(false);
     // Subscribe to ASI/Jane state changes
     this.eventBus.on('JANE_ASI_OVERRIDE', (event: any) => {
       this.setASIState(event.data.enabled);
@@ -81,5 +83,9 @@ export class ASIOverlay {
 
   show() {
     this.container.setVisible(true);
+  }
+
+  setVisible(v: boolean) {
+    this.container.setVisible(v);
   }
 }

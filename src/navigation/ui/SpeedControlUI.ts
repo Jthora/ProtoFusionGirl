@@ -16,21 +16,21 @@ export class SpeedControlUI {
   private helpText: Phaser.GameObjects.Text | null = null;
   private helpVisible: boolean = false;
   
-  // Style configuration
+  // Style configuration — orange/gold on black matching fusiongirl.app
   private readonly UI_STYLE = {
-    fontSize: '16px',
+    fontSize: '13px',
     fontFamily: 'monospace',
-    color: '#00ff88',
-    backgroundColor: '#001122',
-    padding: { x: 8, y: 4 },
+    color: '#FF8C00',
+    backgroundColor: 'rgba(0,0,0,0)',
+    padding: { x: 6, y: 3 },
     alpha: 0.9
   };
 
   private readonly HELP_STYLE = {
-    fontSize: '14px',
+    fontSize: '13px',
     fontFamily: 'monospace',
-    color: '#88ffcc',
-    backgroundColor: '#001133',
+    color: '#FFD700',
+    backgroundColor: 'rgba(0,0,0,0.9)',
     padding: { x: 16, y: 12 },
     alpha: 0.95
   };
@@ -48,18 +48,12 @@ export class SpeedControlUI {
   private createUI(): void {
     const W = this.scene.scale.width;
 
-    // Speed display — bottom-right, away from MissionHUD (top-left)
-    this.speedDisplay = this.scene.add.text(W - 16, 20, 'Speed: 0 km/h', {
+    // Speed display — bottom-right, only shown at non-trivial speeds
+    this.speedDisplay = this.scene.add.text(W - 16, 20, '', {
       ...this.UI_STYLE,
-      fontSize: '15px'
     }).setOrigin(1, 0).setScrollFactor(0).setDepth(1000);
 
-    // Mode display (below speed, same right-anchor)
-    this.modeDisplay = this.scene.add.text(W - 16, 44, 'Normal', {
-      ...this.UI_STYLE,
-      fontSize: '12px',
-      color: '#448866',
-    }).setOrigin(1, 0).setScrollFactor(0).setDepth(1000);
+    // modeDisplay intentionally omitted — redundant noise at default speed
 
     // Help panel (initially hidden)
     this.createHelpPanel();
@@ -73,8 +67,8 @@ export class SpeedControlUI {
     this.helpPanel = this.scene.add.container(centerX, centerY).setDepth(2000).setScrollFactor(0);
     
     // Background
-    const bg = this.scene.add.rectangle(0, 0, 600, 400, 0x001133, 0.95);
-    bg.setStrokeStyle(2, 0x00ff88);
+    const bg = this.scene.add.rectangle(0, 0, 600, 400, 0x0a0500, 0.95);
+    bg.setStrokeStyle(1, 0xFF8C00);
     
     // Help text
     this.helpText = this.scene.add.text(0, -160, this.getHelpContent(), {
@@ -85,18 +79,18 @@ export class SpeedControlUI {
     }).setOrigin(0.5, 0);
 
     // Title
-    const title = this.scene.add.text(0, -180, '🚀 HYPERSONIC NAVIGATION CONTROLS', {
-      fontSize: '16px',
+    const title = this.scene.add.text(0, -180, 'HYPERSONIC NAVIGATION CONTROLS', {
+      fontSize: '15px',
       fontFamily: 'monospace',
-      color: '#00ff88',
+      color: '#FF8C00',
       align: 'center'
     }).setOrigin(0.5);
 
     // Close instruction
-    const closeText = this.scene.add.text(0, 180, 'Press F1 to close', {
-      fontSize: '12px',
+    const closeText = this.scene.add.text(0, 180, 'F1 to close', {
+      fontSize: '11px',
       fontFamily: 'monospace',
-      color: '#ffff88',
+      color: 'rgba(255,255,255,0.4)',
       align: 'center'
     }).setOrigin(0.5);
 
@@ -192,79 +186,57 @@ The system automatically adjusts terrain loading based on speed:
     if (!this.speedDisplay) return;
 
     const speedKmh = Math.round(data.currentSpeedKmh);
-    const targetSpeed = Math.round(data.targetSpeedKmh);
-    
-    let speedText = `Speed: ${speedKmh.toLocaleString()} km/h`;
-    if (speedKmh !== targetSpeed) {
-      speedText += ` → ${targetSpeed.toLocaleString()}`;
+    // Hide display at walking speeds — not interesting info
+    if (speedKmh < 200) {
+      this.speedDisplay.setText('');
+      return;
     }
 
-    // Add Mach number for high speeds
-    if (speedKmh >= 1200) {
-      const machNumber = (speedKmh / 1235).toFixed(1); // Approximate Mach conversion
-      speedText += ` (Mach ${machNumber})`;
-    }
+    const targetSpeed = Math.round(data.targetSpeedKmh);
+    let speedText = `${speedKmh.toLocaleString()} km/h`;
+    if (speedKmh !== targetSpeed) speedText += ` → ${targetSpeed.toLocaleString()}`;
+    if (speedKmh >= 1200) speedText += ` (M${(speedKmh / 1235).toFixed(1)})`;
 
     this.speedDisplay.setText(speedText);
 
-    // Color coding based on speed category
+    // Speed-tier color coding using orange palette
     if (speedKmh >= 12000) {
-      this.speedDisplay.setColor('#ff4444'); // Red for hypersonic
+      this.speedDisplay.setColor('#ff4444');
     } else if (speedKmh >= 1200) {
-      this.speedDisplay.setColor('#ff8844'); // Orange for supersonic
-    } else if (speedKmh >= 200) {
-      this.speedDisplay.setColor('#ffff44'); // Yellow for aircraft
+      this.speedDisplay.setColor('#FF8C00');
     } else {
-      this.speedDisplay.setColor('#00ff88'); // Green for ground speeds
+      this.speedDisplay.setColor('#FFD700');
     }
   }
 
-  private updateModeDisplay(mode: string): void {
-    if (!this.modeDisplay) return;
-
-    const modeText = `Mode: ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
-    this.modeDisplay.setText(modeText);
-
-    // Color coding for modes
-    switch (mode) {
-      case 'hypersonic':
-        this.modeDisplay.setColor('#ff4444');
-        break;
-      case 'boost':
-        this.modeDisplay.setColor('#ff8844');
-        break;
-      default:
-        this.modeDisplay.setColor('#00ff88');
-    }
+  private updateModeDisplay(_mode: string): void {
+    // modeDisplay removed — noise reduction
   }
 
   private showHypersonicNotification(enabled: boolean): void {
-    const message = enabled ? 
-      '⚡ HYPERSONIC MODE ENABLED ⚡' : 
-      '🛑 HYPERSONIC MODE DISABLED';
-    
-    this.showNotification(message, enabled ? '#ff4444' : '#00ff88', 2000);
+    const message = enabled ? 'HYPERSONIC' : 'NORMAL SPEED';
+    this.showNotification(message, enabled ? '#ff4444' : '#FF8C00', 2000);
   }
 
   private showCategoryTransition(data: any): void {
-    const message = `Speed Category: ${data.from.toUpperCase()} → ${data.to.toUpperCase()}`;
-    this.showNotification(message, '#ffff44', 1500);
+    const message = `${data.from.toUpperCase()} → ${data.to.toUpperCase()}`;
+    this.showNotification(message, '#FFD700', 1200);
   }
 
   private showEmergencyStopNotification(): void {
-    this.showNotification('🛑 EMERGENCY STOP ACTIVATED 🛑', '#ff0000', 3000);
+    this.showNotification('STOP', '#ff4444', 2000);
   }
 
   private showNotification(text: string, color: string, duration: number): void {
     const centerX = this.scene.cameras.main.width / 2;
-    const notificationY = 100;
+    const notificationY = 80;
 
     const notification = this.scene.add.text(centerX, notificationY, text, {
-      fontSize: '20px',
+      fontSize: '16px',
       fontFamily: 'monospace',
       color: color,
-      backgroundColor: '#001122',
-      padding: { x: 16, y: 8 },
+      backgroundColor: 'rgba(0,0,0,0.75)',
+      padding: { x: 14, y: 6 },
       align: 'center'
     }).setOrigin(0.5).setDepth(1500).setScrollFactor(0);
 

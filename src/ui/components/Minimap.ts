@@ -125,16 +125,16 @@ export class Minimap extends Phaser.GameObjects.Container {
     this.chunkDots = [];
     this.leyLineOverlay.clear();
     // Draw background and border
-    this.minimapBg.fillStyle(0x222244, 0.7);
+    this.minimapBg.fillStyle(0x0a0500, 0.85);
     this.minimapBg.fillRect(0, 0, w, h);
-    this.minimapBg.lineStyle(2, 0xffffff, 0.8);
+    this.minimapBg.lineStyle(1, 0xFF8C00, 0.4);
     this.minimapBg.strokeRect(0, 0, w, h);
     // Draw chunk grid overlay (optional, for clarity)
     const chunkSize = this.tilemapManager.chunkManager.chunkSize;
     const numChunks = Math.ceil(worldW / (chunkSize * 16));
     for (let i = 0; i < numChunks; i++) {
       const x = (i * chunkSize * 16) / worldW * w;
-      this.minimapBg.lineStyle(1, 0x444488, 0.3);
+      this.minimapBg.lineStyle(1, 0x332200, 0.3);
       this.minimapBg.beginPath();
       this.minimapBg.moveTo(x, 0);
       this.minimapBg.lineTo(x, h);
@@ -147,7 +147,7 @@ export class Minimap extends Phaser.GameObjects.Container {
         const chunkX = TilemapManager.wrapX(chunk.x * chunk.size) / worldW * w;
         const chunkY = chunk.y / worldH * h;
         const dot = this.scene.add.graphics();
-        dot.fillStyle(0x8888ff, 0.5);
+        dot.fillStyle(0x443300, 0.5);
         dot.fillRect(chunkX, chunkY, 4, 4);
         this.add(dot);
         this.chunkDots.push(dot);
@@ -156,7 +156,7 @@ export class Minimap extends Phaser.GameObjects.Container {
     // Draw player (with seam-edge rendering)
     const px = TilemapManager.wrapX(this.player.x) / worldW * w;
     const py = this.player.y / worldH * h;
-    this.playerDot.fillStyle(0x00ff00, 1);
+    this.playerDot.fillStyle(0xFFD700, 1);
     this.playerDot.fillCircle(px, py, 4);
     // If player is near left/right edge, also draw on opposite edge
     if (px < 8) this.playerDot.fillCircle(px + w, py, 4);
@@ -166,7 +166,7 @@ export class Minimap extends Phaser.GameObjects.Container {
       const ex = TilemapManager.wrapX(enemy.x) / worldW * w;
       const ey = enemy.y / worldH * h;
       const dot = this.scene.add.graphics();
-      dot.fillStyle(0xff4444, 1);
+      dot.fillStyle(0xff3300, 1);
       dot.fillCircle(ex, ey, 3);
       // If enemy is near left/right edge, also draw on opposite edge
       if (ex < 8) dot.fillCircle(ex + w, ey, 3);
@@ -180,7 +180,7 @@ export class Minimap extends Phaser.GameObjects.Container {
     if (this.leyLineOverlayVisible && this.leyLines.length > 0) {
       const renderData = LeyLineVisualization.getRenderData(this.leyLines, this.leyLineEventOverlays);
       // Draw ley line segments
-      this.leyLineOverlay.lineStyle(2, 0x00ffff, 0.7);
+      this.leyLineOverlay.lineStyle(1, 0xFF8C00, 0.5);
       for (const line of renderData.lines) {
         this.leyLineOverlay.strokeLineShape(new Phaser.Geom.Line(
           line.from.x / TilemapManager.WORLD_WIDTH * this.width,
@@ -191,7 +191,7 @@ export class Minimap extends Phaser.GameObjects.Container {
       }
       // Draw ley line nodes
       for (const node of renderData.nodes) {
-        this.leyLineOverlay.fillStyle(node.state === 'active' ? 0x00ffcc : 0x888888, 1);
+        this.leyLineOverlay.fillStyle(node.state === 'active' ? 0xFFD700 : 0x555544, 1);
         this.leyLineOverlay.fillCircle(
           node.position.x / TilemapManager.WORLD_WIDTH * this.width,
           node.position.y / TilemapManager.WORLD_HEIGHT * this.height,

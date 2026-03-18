@@ -1,29 +1,29 @@
-// ASI UI Theme constants, aligned with docs/asiControl/mvp/UI_UX_Specifications.md
+// ASI UI Theme constants — orange/gold on black matching fusiongirl.app aesthetic
 
 export const ASI_COLORS = {
-  primary: 0x1a1a2e,
-  secondary: 0x16213e,
-  accent: 0x0f3460,
+  primary: 0x0a0500,      // Near-black with warm undertone
+  secondary: 0x150b00,    // Slightly lighter warm dark
+  accent: 0xFF8C00,       // Orange — dominant fusiongirl.app brand color
 
-  trustHigh: 0x00ff88,
-  trustMedium: 0xffaa00,
-  trustLow: 0xff4444,
+  trustHigh: 0xFFD700,    // Gold — high trust
+  trustMedium: 0xFF8C00,  // Orange — medium trust
+  trustLow: 0xff4444,     // Red — low trust
 
-  threatCritical: 0xff0000,
+  threatCritical: 0xff3300,
   threatHigh: 0xff6600,
-  threatMedium: 0xffaa00,
-  threatLow: 0xffff00,
+  threatMedium: 0xFF8C00,
+  threatLow: 0xFFD700,
 
-  infoASIOnly: 0x00aaff,
-  infoJaneAware: 0x888888,
+  infoASIOnly: 0xFF8C00,
+  infoJaneAware: 0x888880,
   infoShared: 0xffffff,
 
-  magicAvailable: 0xaa00ff,
-  magicCooldown: 0x666666,
-  magicActive: 0xff00aa,
+  magicAvailable: 0xFFD700,
+  magicCooldown: 0x555544,
+  magicActive: 0xFF8C00,
 } as const;
 
 export const ASI_LAYOUT = {
   padding: 10,
-  borderRadius: 8,
+  borderRadius: 6,
 } as const;
