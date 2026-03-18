@@ -74,11 +74,13 @@ export class EnemyManager {
       sprite.setTint(0x88ff88); // Green tint to distinguish enemies
       this.enemySprites.set(enemy, sprite);
 
-      // Create and position health bar
-      const healthBar = new EnemyHealthBar(this.scene, sprite.x - 20, sprite.y - 32, 40, 6);
-      healthBar.updateHealth(enemy.health, enemy.definition.maxHealth);
-      this.scene.add.existing(healthBar); // Add to scene
-      this.enemyHealthBars.set(enemy, healthBar);
+      // EnemyHealthBar suppressed — floating health overlays conflict with PsiSys HUD aesthetic.
+      // Enemy health state is tracked internally; SectorScanRadar radar dot indicates threat presence.
+      // Un-comment to re-enable floating bars per enemy:
+      // const healthBar = new EnemyHealthBar(this.scene, sprite.x - 20, sprite.y - 32, 40, 6);
+      // healthBar.updateHealth(enemy.health, enemy.definition.maxHealth);
+      // this.scene.add.existing(healthBar);
+      // this.enemyHealthBars.set(enemy, healthBar);
 
       // Initialize AI state
       this.enemyAI.set(enemy, {
@@ -97,11 +99,7 @@ export class EnemyManager {
   damageEnemy(enemy: EnemyInstance, amount: number): void {
     if (!enemy.isAlive) return;
     enemy.takeDamage(amount);
-    const bar = this.enemyHealthBars.get(enemy);
-    const sprite = this.enemySprites.get(enemy);
-    if (bar && sprite) {
-      bar.updateHealth(enemy.health, enemy.definition.maxHealth);
-    }
+    // Health bar update omitted (bars suppressed — see spawnEnemy)
   }
 
   update() {
@@ -204,12 +202,7 @@ export class EnemyManager {
         }
       }
 
-      // Update health bar position
-      const bar = this.enemyHealthBars.get(enemy);
-      if (bar) {
-        bar.updateHealth(enemy.health, enemy.definition.maxHealth);
-        bar.setPosition(sprite.x - 20, sprite.y - 32);
-      }
+      // Health bar position update omitted (bars suppressed)
     }
   }
 }

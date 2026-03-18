@@ -3,6 +3,10 @@
 
 import { PreloaderManager } from './preloader';
 import { SplashScreenManager } from './SplashScreenManager';
+import { PsiSysKernel } from '../ui/PsiSysKernel';
+import { ProjectionTransit } from '../ui/ProjectionTransit';
+import { LeyLineDive } from '../ui/LeyLineDive';
+import { SessionPersistence } from '../save/SaveSystem';
 
 export interface LoadingOptions {
   showPreloader: boolean;
@@ -48,19 +52,33 @@ export class LoadingCoordinator {
       console.log('🎯 Phase 2: Game initialization');
       await this.initializeGame();
 
-      // Phase 3: Splash screen
+      // Phase 3: PsiSys Kernel (callsign + return status diff)
       if (options.showSplash && !options.skipSplashOnQuickLoad) {
-        console.log('✨ Phase 3: Splash screen');
-        await this.splashScreen.showSplash({
-          showLogo: true,
-          showSubtitle: true,
-          showASIIntro: true,
-          duration: options.developmentMode ? 500 : 1000, // Much faster for development
-          skipable: true
-        });
+        console.log('🖥️ Phase 3: PsiSys Kernel');
+        const kernel = new PsiSysKernel();
+        const callsign = await kernel.run();
+        console.log(`🖥️ PsiSys Kernel complete — operator: ${callsign}`);
+        SessionPersistence.startSession();
+
+        // Phase 3b: Projection Transit — Frequency Lock (default) or Ley Line Dive (alternate)
+        // Toggle via localStorage key 'pfg_transit_mode' = 'leyline' to activate Concept C.
+        const transitMode = localStorage.getItem('pfg_transit_mode');
+        if (transitMode === 'leyline') {
+          console.log('🌐 Phase 3b: Ley Line Dive transit');
+          await new Promise<void>(resolve => {
+            const dive = new LeyLineDive();
+            dive.onComplete = resolve;
+            dive.mount();
+          });
+          console.log('🌐 Ley Line Dive complete — entering HoloDeck');
+        } else {
+          console.log('📡 Phase 3b: Projection Transit');
+          await ProjectionTransit.show();
+          console.log('📡 Projection Transit complete — entering HoloDeck');
+        }
       }
 
-      // Phase 4: Launch game
+      // Phase 4: Launch game (Phaser init)
       console.log('🚀 Phase 4: Launching game');
       this.launchGame();
 

@@ -75,6 +75,16 @@ import { ULPuzzleManager } from '../ul/ULPuzzleManager';
 import { MissionSystem, Mission as SysMission } from '../world/missions/MissionSystem';
 import { sampleMissions } from '../world/missions/sampleMissions';
 import { MissionHUD } from '../ui/MissionHUD';
+import { HoloDeckGrid } from '../ui/HoloDeckGrid';
+import { PsiNetLog, LogCategory } from '../ui/PsiNetLog';
+import { JonoTransmission } from '../ui/JonoTransmission';
+import { VisionDegradation, VisionState } from '../ui/VisionDegradation';
+import { ChannelSaturation } from '../ui/ChannelSaturation';
+import { WorldMaterialization } from '../ui/WorldMaterialization';
+import { SectorScanRadar, RadarEntity } from '../ui/SectorScanRadar';
+import { BeuSignatureRenderer, BeuLifecycleStage } from '../ui/BeuSignatureRenderer';
+import { BeuDataPanel } from '../ui/BeuDataPanel';
+import { BeuTransmission } from '../ui/BeuTransmission';
 
 // Asset validation is dev-only — not needed at runtime
 // process.env.NODE_ENV works in both Vite (replaces at build time) and Jest (Node.js)
@@ -146,12 +156,29 @@ export class GameScene extends Phaser.Scene {
   private asiDashboard!: ASIDashboard;
   private audioManager!: AudioManager;
 
+  // World materialization overlay (Stage 2.2 — immersion system)
+  private worldMaterialization?: WorldMaterialization;
+  // Sector scan radar (Stage 6.3 — cinematic)
+  private sectorScanRadar?: SectorScanRadar;
+  // HoloDeck grid overlay (Stage 2.3 — immersion system)
+  private holoDeckGrid!: HoloDeckGrid;
+  // PsiNet ambient log (Stage 3.2 — living console)
+  private psiNetLog!: PsiNetLog;
+  // Vision degradation overlay (Stage 4.2)
+  private visionDegradation!: VisionDegradation;
+  // ASI channel saturation tracker (Stage 4.3)
+  private channelSaturation!: ChannelSaturation;
+  // Jane psionic aura (Stage 4.1.3)
+  private janeAura?: Phaser.GameObjects.Graphics;
+
   // P3: Content wiring (5511-5514)
   private terra!: Terra;
   private riftManager!: RiftManager;
   private ulPuzzleManager!: ULPuzzleManager;
   private harmonicEngine!: HarmonicEngine;
   private beuGlow?: Phaser.GameObjects.Graphics;
+  // Beu data signature (Stage 6.2)
+  private beuSig?: BeuSignatureRenderer;
 
   // NPC variables
   private npcManager!: NPCManager;
@@ -666,9 +693,9 @@ export class GameScene extends Phaser.Scene {
         createLoreTerminal: false
       }
     );
-    if (this.uiManager.minimap) {
-      this.uiLayoutManager.registerComponent('minimap', this.uiManager.minimap as any, 'topBar', 'essential');
-    }
+    // Minimap suppressed — SectorScanRadar (circular DOM overlay, bottom-right) supersedes it.
+    // To re-enable: pass createMinimap: true to UIManager and un-comment the line below.
+    // if (this.uiManager.minimap) { this.uiLayoutManager.registerComponent('minimap', this.uiManager.minimap as any, 'topBar', 'essential'); }
     (this as any).uiManager = this.uiManager;
     this.narrativeManager = new NarrativeManager(
       this,
@@ -1176,20 +1203,14 @@ export class GameScene extends Phaser.Scene {
       const worldY = pointer.worldY;
       const id = 'wp_' + Date.now();
 
-      // Draw waypoint marker
-      if (this.waypointMarker) this.waypointMarker.destroy();
-      this.waypointMarker = this.add.graphics();
-      this.waypointMarker.lineStyle(2, 0xFF8C00, 0.9);
-      this.waypointMarker.strokeCircle(worldX, worldY, 12);
-      this.waypointMarker.fillStyle(0xFF8C00, 0.2);
-      this.waypointMarker.fillCircle(worldX, worldY, 12);
-      this.waypointMarker.setDepth(1000);
+      // Psionic pulse animation (Stage 3.3)
+      this.spawnWaypointPulse(worldX, worldY);
 
       this.eventBus.emit({
         type: 'ASI_WAYPOINT_PLACED',
         data: { x: worldX, y: worldY, id }
       });
-      this.uiManager?.showFeedback('DESTINATION MARKED \u2014 Jane navigating');
+      this.psiNetLog?.add('PSINET', 'Guidance pulse — DELIVERED');
     });
 
     // Clear marker when waypoint cleared
@@ -1198,6 +1219,21 @@ export class GameScene extends Phaser.Scene {
         this.waypointMarker.destroy();
         this.waypointMarker = undefined;
       }
+      this.psiNetLog?.add('PSINET', 'Guidance pulse — waypoint resolved');
+    });
+
+    // Pulse aura at Jane on waypoint arrival (Stage 3.3.3)
+    this.eventBus.on('JANE_ARRIVED_AT_WAYPOINT', () => {
+      const jS = this.playerManager?.getJaneSprite();
+      if (!jS) return;
+      const aura = this.add.graphics().setDepth(999);
+      aura.lineStyle(1.5, 0xFF8C00, 0.7);
+      aura.strokeCircle(jS.x, jS.y, 18);
+      this.tweens.add({
+        targets: aura, alpha: { from: 0.7, to: 0 }, scaleX: { from: 1, to: 1.8 },
+        scaleY: { from: 1, to: 1.8 }, duration: 600, ease: 'Sine.easeOut',
+        onComplete: () => aura.destroy(),
+      });
     });
 
     // Trust feedback: Jane arrives at ASI waypoint → guidance was followed
@@ -1358,19 +1394,69 @@ export class GameScene extends Phaser.Scene {
 
     // FE-6: Wire the first UL moment (fires ~60s in, debuts UL+Beu+HarmonicEngine)
     this.wireULFirstMoment();
-    
+
+    // ── World materialization reveal (Stage 2.2) ─────────────────────────────
+    // Focal point: Jane's projected screen position, or viewport centre as fallback
+    {
+      const jS = this.playerManager.getJaneSprite();
+      let focalX = window.innerWidth  * 0.5;
+      let focalY = window.innerHeight * 0.5;
+      if (jS) {
+        const cam = this.cameras.main;
+        focalX = (jS.x - cam.scrollX) * cam.zoom;
+        focalY = (jS.y - cam.scrollY) * cam.zoom;
+        // Clamp to viewport so the ring never starts off-screen
+        focalX = Math.max(64, Math.min(window.innerWidth  - 64, focalX));
+        focalY = Math.max(64, Math.min(window.innerHeight - 64, focalY));
+      }
+      this.worldMaterialization = new WorldMaterialization(focalX, focalY);
+      this.worldMaterialization.mount();
+    }
+
+    // ── HoloDeck grid overlay (immersion system Stage 2.3) ──────────────────
+    this.holoDeckGrid = new HoloDeckGrid(32);
+    this.holoDeckGrid.mount();
+    this.wireHoloDeckGridEvents();
+
+    // ── PsiNet ambient log (Stage 3.2 — living console) ─────────────────────
+    this.psiNetLog = new PsiNetLog();
+    this.psiNetLog.mount();
+    this.wirePsiNetLogEvents();
+    JonoTransmission.resetSession();
+
+    // ── Vision degradation overlay (Stage 4.2) ────────────────────────────────
+    const phaserCanvas = this.game.canvas;
+    this.visionDegradation = new VisionDegradation(phaserCanvas);
+    this.visionDegradation.mount();
+
+    // ── ASI channel saturation tracker (Stage 4.3) ───────────────────────────
+    this.channelSaturation = new ChannelSaturation();
+
+    // ── Jane psionic aura (Stage 4.1.3) ─────────────────────────────────────
+    this.janeAura = this.add.graphics().setDepth(55).setAlpha(0.22);
+
+    // ── Sector scan radar (Stage 6.3 — cinematic) ────────────────────────────
+    this.sectorScanRadar = new SectorScanRadar(160, 800);
+    this.sectorScanRadar.mount();
+
+    this.wireStage4Events();
+
     _DEV && console.log('✅ GameScene create() completed successfully');
     } catch (error) {
       console.error('❌ CRITICAL ERROR in GameScene.create():', error);
       console.error('❌ Stack trace:', (error as Error)?.stack || 'No stack trace available');
       
-      this.add.text(400, 300, 'GAME INITIALIZATION ERROR\nCheck console for details', {
-        fontSize: '24px',
-        color: '#ff0000',
-        backgroundColor: '#000000',
-        padding: { x: 20, y: 10 },
-        align: 'center'
-      }).setOrigin(0.5).setDepth(10000);
+      this.add.text(400, 300,
+        '[PSISYS] CRITICAL FAULT\nHoloDeck initialization failed\nSee operator console for details',
+        {
+          fontSize: '13px',
+          color: '#FF8C00',
+          backgroundColor: '#0d0e10',
+          fontFamily: 'Courier New, monospace',
+          padding: { x: 18, y: 12 },
+          align: 'left',
+        }
+      ).setOrigin(0.5).setDepth(10000);
       
       throw error;
     }
@@ -1550,6 +1636,392 @@ export class GameScene extends Phaser.Scene {
   }
 
   /**
+   * Stage 3.3 — Psionic pulse animation for waypoint placement.
+   *
+   * Phase A (0–300ms):   Amber ripple expands at click point.
+   * Phase B (100–550ms): Travelling dot moves from Jane → destination.
+   * Phase C (ongoing):   Pulsing destination ring until waypoint cleared.
+   */
+  private spawnWaypointPulse(worldX: number, worldY: number): void {
+    // Destroy any previous destination ring
+    if (this.waypointMarker) {
+      this.tweens.killTweensOf(this.waypointMarker);
+      this.waypointMarker.destroy();
+      this.waypointMarker = undefined;
+    }
+
+    // ── Phase A: Ripple at click point ────────────────────────────────────────
+    const ripple = this.add.graphics().setDepth(1002);
+    ripple.lineStyle(1.5, 0xFF8C00, 0.9);
+    ripple.strokeCircle(worldX, worldY, 10);
+    this.tweens.add({
+      targets: ripple,
+      scaleX: { from: 0.1, to: 2.5 }, scaleY: { from: 0.1, to: 2.5 },
+      alpha:  { from: 0.9, to: 0 },
+      duration: 320, ease: 'Sine.easeOut',
+      onComplete: () => ripple.destroy(),
+    });
+
+    // ── Phase B: Travelling dot (Jane → destination) ─────────────────────────
+    const jS = this.playerManager?.getJaneSprite();
+    const startX = jS?.x ?? worldX;
+    const startY = jS?.y ?? worldY;
+
+    const dot = this.add.graphics().setDepth(1001);
+    dot.fillStyle(0xFF8C00, 1);
+    dot.fillCircle(0, 0, 3);
+    dot.setPosition(startX, startY);
+
+    this.tweens.add({
+      targets: dot,
+      x: worldX, y: worldY,
+      duration: 420,
+      delay: 100,
+      ease: 'Sine.easeIn',
+      onComplete: () => {
+        dot.destroy();
+        // Small impact ripple at destination
+        const impact = this.add.graphics().setDepth(1002);
+        impact.lineStyle(1, 0xFF8C00, 0.8);
+        impact.strokeCircle(worldX, worldY, 6);
+        this.tweens.add({
+          targets: impact,
+          scaleX: { from: 1, to: 2 }, scaleY: { from: 1, to: 2 },
+          alpha: { from: 0.8, to: 0 },
+          duration: 200, ease: 'Sine.easeOut',
+          onComplete: () => impact.destroy(),
+        });
+      },
+    });
+
+    // ── Phase C: Persistent pulsing ring at destination ───────────────────────
+    const ring = this.add.graphics().setDepth(1000);
+    ring.lineStyle(1.5, 0xFF8C00, 0.7);
+    ring.strokeCircle(worldX, worldY, 10);
+    ring.fillStyle(0xFF8C00, 0.08);
+    ring.fillCircle(worldX, worldY, 10);
+    this.waypointMarker = ring;
+
+    this.tweens.add({
+      targets: ring,
+      alpha: { from: 0.7, to: 0.2 },
+      duration: 900,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+    });
+  }
+
+  /**
+   * Stage 2.3 — Wire game events to HoloDeckGrid state transitions.
+   * Maps threat/stability events → grid opacity/drift/flicker changes.
+   */
+  private wireHoloDeckGridEvents(): void {
+    // Ley line disruption → disrupted grid + resonance flicker
+    this.eventBus.on('LEYLINE_DISRUPTION', () => {
+      this.holoDeckGrid.setState('disrupted');
+      this.uiBarSystem?.setLeylineDisrupted(true);
+    });
+    this.eventBus.on('LEYLINE_INSTABILITY', () => {
+      this.holoDeckGrid.setState('disrupted');
+      this.uiBarSystem?.setLeylineDisrupted(true);
+    });
+
+    // Rift / Nefarium presence → nefarium grid (horizontal drift)
+    this.eventBus.on('RIFT_FORMED', () => {
+      this.holoDeckGrid.setState('nefarium');
+    });
+    this.eventBus.on('RIFT_SPAWNED', () => {
+      this.holoDeckGrid.setState('nefarium');
+    });
+
+    // Nefarium threat resolved → back to active
+    this.eventBus.on('RIFT_SEALED', () => {
+      this.holoDeckGrid.setState('active');
+    });
+    this.eventBus.on('UL_RIFT_SEALED', () => {
+      this.holoDeckGrid.setState('active');
+    });
+
+    // Node collapse / Jane critical → critical grid (scan-line flicker)
+    this.eventBus.on('NODE_COLLAPSED', () => {
+      this.holoDeckGrid.setState('critical');
+    });
+    this.eventBus.on('JANE_DEFEATED', () => {
+      this.holoDeckGrid.setState('failure');
+    });
+
+    // General threat detection → active
+    this.eventBus.on('THREAT_DETECTED', () => {
+      this.holoDeckGrid.setState('active');
+    });
+    this.eventBus.on('THREAT_RESOLVED', () => {
+      this.holoDeckGrid.setState('stable');
+    });
+
+    // Ley line restored/activated → step down toward stable, clear disruption
+    this.eventBus.on('LEYLINE_ACTIVATED', () => {
+      this.holoDeckGrid.setState('active');
+      this.uiBarSystem?.setLeylineDisrupted(false);
+    });
+    this.eventBus.on('LEYLINE_MANIPULATION', (ev) => {
+      const stable = ev.data?.status === 'stable';
+      this.holoDeckGrid.setState(stable ? 'stable' : 'disrupted');
+      this.uiBarSystem?.setLeylineDisrupted(!stable);
+    });
+
+    // Jane respawn → return to active after failure
+    this.eventBus.on('JANE_RESPAWN', () => {
+      this.holoDeckGrid.setState('active');
+    });
+
+    // Destroy grid canvas when this scene shuts down
+    this.events.on('shutdown', () => {
+      this.holoDeckGrid?.destroy();
+      this.psiNetLog?.destroy();
+      this.worldMaterialization?.destroy();
+      this.sectorScanRadar?.destroy();
+      this.beuSig?.destroy();
+    });
+    this.events.on('destroy', () => {
+      this.holoDeckGrid?.destroy();
+      this.psiNetLog?.destroy();
+      this.worldMaterialization?.destroy();
+      this.sectorScanRadar?.destroy();
+      this.beuSig?.destroy();
+    });
+  }
+
+  /**
+   * Stage 3.2 — Wire game events to PsiNet ambient log.
+   * Each event produces a brief, in-world log line (no UI language).
+   */
+  private wirePsiNetLogEvents(): void {
+    const log = this.psiNetLog;
+    const callsign = SessionPersistence.load()?.callsign ?? 'OBSERVER';
+
+    // Bridge established on session start
+    log.add('BRIDGE', `Observer bridge — ESTABLISHED — ${callsign}`, true);
+
+    // Leyline events
+    this.eventBus.on('LEYLINE_DISRUPTION', (ev) => {
+      log.add('PSINET', `Ley line disruption detected${ev.data?.leyLineId ? ` — ${ev.data.leyLineId}` : ''}`);
+    });
+    this.eventBus.on('LEYLINE_INSTABILITY', () => {
+      log.add('PSINET', 'Ley line instability — monitoring');
+    });
+    this.eventBus.on('LEYLINE_ACTIVATED', () => {
+      log.add('PSINET', 'Ley line signal restored');
+    });
+    this.eventBus.on('LEYLINE_SURGE', (ev) => {
+      const ctx = ev.data?.narrativeContext;
+      log.add('PSINET', ctx ?? 'Ley line surge detected');
+    });
+
+    // Rift / Nefarium events
+    this.eventBus.on('RIFT_FORMED', (ev) => {
+      log.add('NEFARIUM', `Rift formation — severity: ${ev.data?.severity ?? 'unknown'}`);
+    });
+    this.eventBus.on('RIFT_SPAWNED', () => {
+      log.add('NEFARIUM', 'Nefarium rift active in sector');
+    });
+    this.eventBus.on('RIFT_SEALED', () => {
+      log.add('PSINET', 'Rift sealed — resonance normalising');
+    });
+    this.eventBus.on('UL_RIFT_SEALED', (ev) => {
+      log.add('ANCHOR', `Rift sealed via UL — symbol: ${ev.data?.symbolUsed ?? '?'}`);
+    });
+
+    // Node events
+    this.eventBus.on('NODE_COLLAPSED', (ev) => {
+      log.add('PSINET', `Node ${ev.data?.nodeId ?? '?'} — collapsed`);
+    });
+    this.eventBus.on('NODE_STABILITY_CHANGED', (ev) => {
+      const s = ev.data?.newStability;
+      if (s !== undefined && s < 40) {
+        log.add('PSINET', `Node ${ev.data.nodeId} stability critical — ${Math.round(s)}%`);
+      }
+    });
+
+    // Jane coherence events
+    this.eventBus.on('JANE_DAMAGED', (ev) => {
+      const hp = Math.round(ev.data?.health ?? 0);
+      if (hp < 30) log.add('JANE', `Coherence dropping — ${hp}% remaining`);
+    });
+    this.eventBus.on('JANE_DEFEATED', () => {
+      log.add('JANE', 'Coherence collapse — initiating kernel rollback');
+    });
+    this.eventBus.on('JANE_RESPAWN', () => {
+      log.add('BRIDGE', 'Anchor recovery complete — observer link restored');
+    });
+    this.eventBus.on('JANE_HEALED', (ev) => {
+      const hp = Math.round(ev.data?.health ?? 100);
+      if (hp > 80) log.add('JANE', `Coherence stabilised — ${hp}%`);
+    });
+
+    // Beu events
+    this.eventBus.on('BEU_SEED_APPEAR', () => {
+      log.add('BEU', 'Beu signal detected — entity nearby', true);
+      // Advance Beu signature to sprout stage
+      if (this.beuSig) this.beuSig.setStage('sprout');
+    });
+    this.eventBus.on('BEU_STAGE_CHANGED', (ev) => {
+      const stage = (ev.data?.stage ?? 'sprout') as BeuLifecycleStage;
+      log.add('BEU', `Beu stage transition — ${stage}`, true);
+      if (this.beuSig) this.beuSig.setStage(stage);
+      // Show Beu data panel on significant stage transitions
+      if (stage === 'bloom' || stage === 'bond') {
+        const beuGlowPos = this.beuGlow?.getTopLeft();
+        BeuDataPanel.show({
+          name: 'ORION',
+          stage,
+          bondStatus: stage === 'bond' ? 'bonded' : 'proximity',
+          associatedEntity: "Jane.Tho'ra",
+          activity: stage === 'bond' ? 'resonant bonding' : 'resonance exploration',
+          signal: stage === 'bond' ? 0.95 : 0.74,
+          resonance: stage === 'bond' ? 0.92 : 0.72,
+        });
+        // Direct Beu transmission to ASI
+        BeuTransmission.show({
+          name: 'ORION',
+          coordX: beuGlowPos?.x ?? this.playerManager.getJaneSprite()?.x ?? 0,
+          coordY: beuGlowPos?.y ?? this.playerManager.getJaneSprite()?.y ?? 0,
+          confidence: stage === 'bond' ? 0.97 : 0.81,
+          janeAware: true,
+          priority: stage === 'bond' ? 1 : 2,
+        });
+      }
+    });
+
+    // UL / anchor events
+    this.eventBus.on('UL_PUZZLE_SUCCESS', (ev) => {
+      log.add('ANCHOR', `UL symbol deployed — ${ev.data?.resultSymbol ?? '?'} — effect: ${ev.data?.effect ?? 'unknown'}`);
+    });
+    this.eventBus.on('CHECKPOINT_SET', (ev) => {
+      log.add('ANCHOR', `Anchor updated — ${ev.data?.checkpointId ?? 'unknown'}`);
+    });
+
+    // Timeline events
+    this.eventBus.on('TIMELINE_SCORE_UPDATED', () => {
+      log.add('TIMELINE', 'Timeline delta recorded');
+    });
+    this.eventBus.on('JONO_FIRST_CONTACT', () => {
+      log.add('BRIDGE', 'Encrypted transmission incoming — source: JONO', true);
+    });
+    this.eventBus.on('JONO_DIALOGUE_TRIGGERED', () => {
+      log.add('BRIDGE', 'Packet received — decoding', true);
+    });
+
+    // ── Observer stats increments (Stage 5.2) ─────────────────────────────
+    this.eventBus.on('ASI_WAYPOINT_PLACED', () => {
+      SessionPersistence.incrementStat('guidancePulsesDelivered');
+    });
+    this.eventBus.on('LEYLINE_ACTIVATED', () => {
+      SessionPersistence.incrementStat('leyLinesRestored');
+    });
+    this.eventBus.on('RIFT_SEALED', () => {
+      SessionPersistence.incrementStat('nefariumNodesDisrupted');
+    });
+    this.eventBus.on('UL_RIFT_SEALED', () => {
+      SessionPersistence.incrementStat('nefariumNodesDisrupted');
+    });
+    this.eventBus.on('BEU_STAGE_CHANGED', (ev) => {
+      if (ev.data?.stage === 'bond') {
+        SessionPersistence.incrementStat('beuBondsFacilitated');
+      }
+    });
+    this.eventBus.on('JANE_DEFEATED', () => {
+      SessionPersistence.incrementStat('coherenceCollapses');
+    });
+    this.eventBus.on('JANE_HEALED', (ev) => {
+      const hp = ev.data?.health ?? 0;
+      const existing = SessionPersistence.load();
+      const peak = existing?.stats?.peakCoherenceObserved ?? 0;
+      if (hp > peak) SessionPersistence.incrementStat('peakCoherenceObserved', hp - peak);
+    });
+    this.eventBus.on('MISSION_COMPLETED', () => {
+      SessionPersistence.incrementStat('timelinesCorreected');
+    });
+    this.eventBus.on('PLAYER_DEFEATED', () => {
+      SessionPersistence.incrementStat('timelinesFailed');
+    });
+  }
+
+  /**
+   * Stage 4 — Wire vision degradation, channel saturation, Jane aura, and
+   * mission-complete resonance events.
+   */
+  private wireStage4Events(): void {
+    const vd  = this.visionDegradation;
+    const sat = this.channelSaturation;
+    const log = this.psiNetLog;
+
+    // ── Vision degradation: Nefarium / disruption ─────────────────────────
+    this.eventBus.on('RIFT_FORMED', () => vd?.setState('nefarium'));
+    this.eventBus.on('RIFT_SPAWNED', () => vd?.setState('nefarium'));
+    this.eventBus.on('RIFT_SEALED', () => vd?.setState('clear'));
+    this.eventBus.on('UL_RIFT_SEALED', () => vd?.setState('clear'));
+    this.eventBus.on('LEYLINE_DISRUPTION', () => vd?.setState('disrupted'));
+    this.eventBus.on('LEYLINE_INSTABILITY', () => vd?.setState('disrupted'));
+    this.eventBus.on('LEYLINE_ACTIVATED', () => vd?.setState('clear'));
+    this.eventBus.on('JANE_DEFEATED', () => {
+      vd?.setState('critical');
+      vd?.triggerInversion(120);
+    });
+    this.eventBus.on('JANE_RESPAWN', () => vd?.setState('clear'));
+
+    // ── Channel saturation milestones → log + vision ──────────────────────
+    sat.on(({ tier, value }) => {
+      if (tier === 'elevated') {
+        log?.add('BRIDGE', `Channel saturation: ${Math.round(value)}% — interventions limited`);
+      } else if (tier === 'impaired') {
+        log?.add('BRIDGE', `Channel saturation: ${Math.round(value)}% — some actions blocked`);
+        vd?.setState('saturated');
+      } else if (tier === 'locked') {
+        log?.add('BRIDGE', 'Channel saturation: CRITICAL — passive observation only');
+        vd?.setState('critical');
+      } else {
+        // Returned to clear
+        vd?.setState('clear');
+      }
+    });
+
+    // ── Near-node decay for saturation ────────────────────────────────────
+    this.eventBus.on('LEYLINE_ENTERED', () => sat?.setNearNode(true));
+    this.eventBus.on('LEYLINE_EXITED', () => sat?.setNearNode(false));
+
+    // ── Jane psionic flare: UL success clears saturation ─────────────────
+    this.eventBus.on('UL_PUZZLE_SUCCESS', () => {
+      sat?.applyPsionicFlare();
+      // Brief aura bloom
+      if (this.janeAura) {
+        const jS = this.playerManager?.getJaneSprite();
+        if (jS) {
+          this.tweens.add({
+            targets: this.janeAura, alpha: { from: 0.22, to: 0.75 },
+            duration: 250, yoyo: true, repeat: 1,
+          });
+        }
+      }
+    });
+
+    // ── Mission complete: resonance restored ──────────────────────────────
+    this.eventBus.on('MISSION_COMPLETED', (ev) => {
+      log?.add('TIMELINE', 'Sector resonance — RESTORED', true);
+      log?.add('TIMELINE', `Mission complete — ${ev.data?.missionId ?? 'objective'}`, false);
+      this.holoDeckGrid?.setState('stable');
+      vd?.setState('clear');
+    });
+    this.eventBus.on('MISSION_OBJECTIVE_COMPLETED', () => {
+      log?.add('TIMELINE', 'Objective resolved — timeline delta improving');
+    });
+
+    // ── Cleanup on scene shutdown ─────────────────────────────────────────
+    this.events.on('shutdown', () => vd?.destroy());
+    this.events.on('destroy',  () => vd?.destroy());
+  }
+
+  /**
    * FE-6: Show the guided first-puzzle overlay (5 UL symbols, 'point' glowing).
    * Single-symbol selection, no modifier. Wrong pick = gentle bounce.
    */
@@ -1717,6 +2189,11 @@ export class GameScene extends Phaser.Scene {
               this.beuGlow.fillStyle(0xffdd88, 0.5);
               this.beuGlow.fillCircle(0, 0, 5);
               this.beuGlow.setPosition(janeSprite.x + 14, janeSprite.y - 12);
+              // Stage 6.2 — Beu signature renderer (orbit rings + waveform)
+              if (!this.beuSig) {
+                this.beuSig = new BeuSignatureRenderer(this);
+                this.beuSig.setStage('seed');
+              }
               // Pulse loop
               this.tweens.add({
                 targets: this.beuGlow,
@@ -2000,32 +2477,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   private showJonoLine(text: string): void {
-    const el = document.createElement('div');
-    el.style.cssText = `
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,10,20,0.95) 60%, transparent);
-      padding: 28px 48px 36px;
-      z-index: 88888;
-      font-family: monospace;
-      color: #00ffcc;
-    `;
-    const speaker = document.createElement('div');
-    speaker.style.cssText = 'font-size: 12px; letter-spacing: 3px; color: #006666; margin-bottom: 8px;';
-    speaker.textContent = 'JONO // PSINET FRAGMENT';
-    const textEl = document.createElement('div');
-    textEl.style.cssText = 'font-size: 18px; line-height: 1.6;';
-    textEl.textContent = text;
-    el.appendChild(speaker);
-    el.appendChild(textEl);
-    document.body.appendChild(el);
-    setTimeout(() => {
-      el.style.transition = 'opacity 800ms';
-      el.style.opacity = '0';
-      setTimeout(() => el.remove(), 850);
-    }, 4500);
+    JonoTransmission.show(text, () => {
+      this.psiNetLog?.add('BRIDGE', 'Encrypted packet — decryption complete', false);
+    });
   }
 
   private addBasicPlayerControls() {
@@ -2119,6 +2573,25 @@ export class GameScene extends Phaser.Scene {
       const jS = this.playerManager?.getJaneSprite();
       if (jS) {
         this.beuGlow.setPosition(jS.x + 14, jS.y - 12);
+        // Stage 6.2: Render Beu orbit rings + waveform
+        if (this.beuSig) {
+          this.beuSig.render(jS.x + 14, jS.y - 12, this.time.now);
+        }
+      }
+    }
+
+    // Stage 4.1.3: Update Jane psionic aura position
+    if (this.janeAura) {
+      const jS = this.playerManager?.getJaneSprite();
+      if (jS) {
+        this.janeAura.clear();
+        const sat = this.channelSaturation?.value ?? 0;
+        // Aura contracts under high saturation / stress
+        const radius = 14 - sat * 0.06;
+        this.janeAura.lineStyle(1, 0xffffff, 0.55);
+        this.janeAura.strokeCircle(jS.x, jS.y - 4, radius);
+        this.janeAura.lineStyle(0.5, 0xffffff, 0.20);
+        this.janeAura.strokeCircle(jS.x, jS.y - 4, radius + 5);
       }
     }
 
@@ -2135,14 +2608,20 @@ export class GameScene extends Phaser.Scene {
   private updateUIElements() {
     if (!this.uiBarSystem) return;
 
+    // Animate COHERENCE waveform + RESONANCE dot (time-based)
+    this.uiBarSystem.update();
+
+    // Channel saturation passive decay
+    this.channelSaturation?.tick();
+
     const jane = this.playerManager?.getJane();
     const health = jane?.stats.health ?? 100;
     const maxHealth = jane?.stats.maxHealth ?? 100;
     const psi = jane?.stats.psi ?? 75;
     const maxPsi = jane?.stats.maxPsi ?? 100;
 
-    this.uiBarSystem.updateHealth(health, maxHealth);
-    this.uiBarSystem.updatePSI(psi, maxPsi);
+    this.uiBarSystem.updateCoherence(health, maxHealth);
+    this.uiBarSystem.updateResonance(psi, maxPsi);
     
     const asiControlled = this.playerManager?.isJaneASIControlled() ? 'ASI' : 'Manual';
     const trustLevel = this.asiIntegration?.getTrustLevel() || 50;
@@ -2151,6 +2630,71 @@ export class GameScene extends Phaser.Scene {
     
     const navigationSpeed = 1.0;
     this.uiBarSystem.updateSpeed(navigationSpeed);
+
+    // Stage 6.3: Update sector scan radar with current entity positions
+    if (this.sectorScanRadar) {
+      const jS = this.playerManager?.getJaneSprite();
+      if (jS) {
+        const radarEntities: RadarEntity[] = [];
+
+        // Ley line nodes
+        const nodes = this.nodeManager?.getAllNodes() ?? [];
+        for (const node of nodes) {
+          radarEntities.push({
+            id:     `node-${node.id}`,
+            type:   node.stability < 40 ? 'ley-disrupted' : 'ley-node',
+            worldX: node.position?.x ?? 0,
+            worldY: node.position?.y ?? 0,
+          });
+        }
+
+        // Active rifts (Nefarium)
+        const rifts = this.riftManager?.getActiveRifts() ?? [];
+        for (const rift of rifts) {
+          radarEntities.push({
+            id:     `rift-${rift.id}`,
+            type:   'nefarium',
+            worldX: rift.x,
+            worldY: rift.y,
+          });
+        }
+
+        // Enemies
+        const enemies = this.enemyManager?.enemies ?? [];
+        for (const enemy of enemies) {
+          const eSprite = this.enemyManager?.enemySprites?.get(enemy);
+          if (eSprite) {
+            radarEntities.push({
+              id:     `enemy-${enemy.definition?.id ?? Math.random()}`,
+              type:   'enemy',
+              worldX: eSprite.x,
+              worldY: eSprite.y,
+            });
+          }
+        }
+
+        // Timeline anchors (latest only, as a waypoint echo)
+        const anchorManager = (this as any).anchorManager as import('./AnchorManager').AnchorManager | undefined;
+        const anchors = anchorManager?.anchors ?? [];
+        for (const anchor of anchors) {
+          radarEntities.push({
+            id:     `anchor-${anchor.seed}`,
+            type:   'anchor',
+            worldX: anchor.center.x,
+            worldY: anchor.center.y,
+          });
+        }
+
+        // Scan quality follows leyline/rift disruption state
+        const disrupted = rifts.length > 0;
+        const nefariumActive = rifts.length >= 2;
+        this.sectorScanRadar.setScanQuality(
+          nefariumActive ? 'nefarium' : disrupted ? 'disrupted' : 'normal',
+        );
+
+        this.sectorScanRadar.updateEntities(jS.x, jS.y, radarEntities);
+      }
+    }
   }
 
   private updateBasicPlayerMovement() {

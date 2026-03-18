@@ -43,6 +43,8 @@ export class PlayerController {
     this.stats = new PlayerStats({ health: this.health, attack: 5, defense: 2, speed: 100 });
     this.healthBar = new HealthBar({ scene: this.scene, x: 0, y: 0, max: this.maxHealth, value: this.health });
     this.healthBar.create();
+    // Floating health bar suppressed — UIBarSystem COHERENCE waveform (HUD) displays this data.
+    this.healthBar.setVisible(false);
     this.createAnimations(config.animations);
   }
 
@@ -103,8 +105,7 @@ export class PlayerController {
       this.lastState = this.state;
     }
 
-    // Update health bar position
-    this.healthBar.update(this.sprite.x, this.sprite.y - 34, this.health);
+    // Floating health bar update suppressed (hidden — see UIBarSystem for COHERENCE display)
   }
 
   public canJump(): boolean {

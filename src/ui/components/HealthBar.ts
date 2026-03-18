@@ -50,6 +50,11 @@ export class HealthBar {
     this.bar.width = this.width * (value / this.max);
   }
 
+  setVisible(visible: boolean) {
+    this.bg.setVisible(visible);
+    this.bar.setVisible(visible);
+  }
+
   destroy() {
     this.bg.destroy();
     this.bar.destroy();

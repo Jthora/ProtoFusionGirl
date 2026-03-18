@@ -31,8 +31,10 @@ jest.mock('../ui/layout/UILayoutManager', () => ({
 }));
 jest.mock('../ui/layout/UIBarSystem', () => ({
   UIBarSystem: class {
-    updateHealth = jest.fn();
-    updatePSI = jest.fn();
+    updateCoherence = jest.fn();
+    updateResonance = jest.fn();
+    updateHealth = jest.fn();    // deprecated alias
+    updatePSI = jest.fn();       // deprecated alias
     updateStatus = jest.fn();
     updateSpeed = jest.fn();
     onResize = jest.fn();

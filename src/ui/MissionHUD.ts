@@ -75,8 +75,8 @@ export class MissionHUD {
         .find(m => m.status === 'completed');
       if (completed) {
         this.drawBg(true);
-        this.titleText.setText('✓ ' + completed.title);
-        this.objectiveText.setText('Mission complete!');
+        this.titleText.setText('[OP] ' + completed.title);
+        this.objectiveText.setText('Field op resolved.');
       } else {
         this.setVisible(false);
       }
@@ -85,13 +85,13 @@ export class MissionHUD {
 
     this.setVisible(true);
     this.drawBg(false);
-    this.titleText.setText('▸ ' + activeMission.title);
+    this.titleText.setText('// ' + activeMission.title);
 
     const nextObj = activeMission.objectives.find(o => o.status === 'incomplete');
     if (nextObj) {
-      this.objectiveText.setText('○ ' + nextObj.description);
+      this.objectiveText.setText('· ' + nextObj.description);
     } else {
-      this.objectiveText.setText('All objectives complete');
+      this.objectiveText.setText('All directives resolved.');
     }
   }
 

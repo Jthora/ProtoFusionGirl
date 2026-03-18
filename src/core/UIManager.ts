@@ -20,6 +20,49 @@ export interface UIManagerOptions {
   createLoreTerminal?: boolean;
   /** If ASI overlay is created, show it immediately (default: false). */
   showASIOnStart?: boolean;
+  /**
+   * Create the legacy rectangular Minimap (default: false).
+   * Leave false when SectorScanRadar is active — the radar supersedes the minimap.
+   */
+  createMinimap?: boolean;
+}
+
+// ── UIComponentRegistry ───────────────────────────────────────────────────────
+// Lightweight registry that maps string keys → Phaser GameObjects (or any
+// object with setVisible).  Provides a stable API for show/hide/toggle so
+// callers never need to hold direct references.
+export interface UIComponentEntry {
+  instance: { setVisible(v: boolean): any };
+  defaultVisible: boolean;
+}
+
+export class UIComponentRegistry {
+  private map = new Map<string, UIComponentEntry>();
+
+  register(name: string, instance: UIComponentEntry['instance'], defaultVisible = true): void {
+    this.map.set(name, { instance, defaultVisible });
+    instance.setVisible(defaultVisible);
+  }
+
+  show(name: string): void   { this.map.get(name)?.instance.setVisible(true); }
+  hide(name: string): void   { this.map.get(name)?.instance.setVisible(false); }
+
+  toggle(name: string): void {
+    const entry = this.map.get(name);
+    if (!entry) return;
+    // Infer current visibility from the object if possible
+    const obj = entry.instance as any;
+    const cur = typeof obj.visible === 'boolean' ? obj.visible : true;
+    obj.setVisible(!cur);
+  }
+
+  get<T>(name: string): T | undefined {
+    return this.map.get(name)?.instance as T | undefined;
+  }
+
+  has(name: string): boolean {
+    return this.map.has(name);
+  }
 }
 
 export class UIManager {
@@ -29,6 +72,8 @@ export class UIManager {
   asiOverlay: ASIOverlay | undefined;
   timelinePanel: TimelinePanel | undefined;
   scene: any;
+  /** Centralised component registry — use show/hide/toggle/get instead of direct field access where possible. */
+  readonly components = new UIComponentRegistry();
   private eventBus: EventBus;
   private lastLeyLines: LeyLine[] = [];
   private leyLineStabilizationModal?: LeyLineStabilizationModal;
@@ -51,22 +96,26 @@ export class UIManager {
       createASIOverlay: false,
       createLoreTerminal: false,
       showASIOnStart: false,
+      createMinimap: false,
       ...options,
     };
   // Centralized modal handling to avoid popup clutter
   this.modalManager = new ModalManager(scene);
-    // Minimap
-    this.minimap = new Minimap(
-      scene,
-      tilemapManager,
-      playerSprite,
-      () => enemies.filter((e: any) => e.isAlive).map((e: any) => {
-        const sprite = enemySprites.get(e);
-        return sprite ? { x: sprite.x, y: sprite.y } : { x: e.x, y: e.y };
-      })
-    );
-    scene.add.existing(this.minimap);
-    this.minimap.attachEventBus(eventBus);
+    // Minimap — only created when explicitly requested (SectorScanRadar supersedes it by default)
+    if (this.options.createMinimap) {
+      this.minimap = new Minimap(
+        scene,
+        tilemapManager,
+        playerSprite,
+        () => enemies.filter((e: any) => e.isAlive).map((e: any) => {
+          const sprite = enemySprites.get(e);
+          return sprite ? { x: sprite.x, y: sprite.y } : { x: e.x, y: e.y };
+        })
+      );
+      scene.add.existing(this.minimap);
+      this.minimap.attachEventBus(eventBus);
+      this.components.register('minimap', this.minimap, true);
+    }
 
     // Lore Terminal (opt-in to avoid clutter near spawn)
     if (this.options.createLoreTerminal && Array.isArray(loreEntries) && loreEntries.length > 0) {
@@ -98,13 +147,11 @@ export class UIManager {
       });
     }
 
-    // Timeline Panel
+    // Timeline Panel — hidden by default; T-key toggles it
     this.timelinePanel = new TimelinePanel(scene, tilemapManager, 320, 240);
-    this.timelinePanel.setVisible(false);
+    this.components.register('timelinePanel', this.timelinePanel, false);
     scene.input.keyboard?.on('keydown-T', () => {
-      if (this.timelinePanel) {
-        this.timelinePanel.setVisible(!this.timelinePanel.visible);
-      }
+      this.components.toggle('timelinePanel');
     });
 
     // Feedback Modal (created on demand)
@@ -247,6 +294,21 @@ export class UIManager {
     );
     // Queue and show via ModalManager to avoid stacking
     this.modalManager.showContainer(this.leyLineStabilizationModal, { id: `leyline:${event.leyLineId}` });
+  }
+
+  // ── Component visibility shortcuts ───────────────────────────────────────
+  /** Show a named component that was registered via UIComponentRegistry. */
+  showComponent(name: string): void  { this.components.show(name); }
+  /** Hide a named component that was registered via UIComponentRegistry. */
+  hideComponent(name: string): void  { this.components.hide(name); }
+  /** Toggle a named component's visibility. */
+  toggleComponent(name: string): void { this.components.toggle(name); }
+  /**
+   * Register any Phaser-side UI object so the rest of the app can control it
+   * by name (e.g. the SectorScanRadar DOM wrapper, custom overlays, etc.).
+   */
+  registerUIComponent(name: string, instance: { setVisible(v: boolean): any }, defaultVisible = true): void {
+    this.components.register(name, instance, defaultVisible);
   }
 
   // Add this method for ModularGameLoop integration
