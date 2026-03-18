@@ -1838,7 +1838,7 @@ export class GameScene extends Phaser.Scene {
             ? 'Operator. Your PsiNet link was already live when the HoloDeck came online.\nI\'ve been waiting.\nI\'m Jono Tho\'ra — what the PsiNet kept after the last incursion.\nI have Timesight. I\'ve watched this go wrong enough times to know exactly where it starts.'
             : 'Operator. I\'m Jono Tho\'ra — architect of this network, voice in the static.\nMy body didn\'t make it through the last timeline incursion.\nTimesight did.\nI\'ve watched this go wrong enough times to know exactly where it starts.',
           // Beat 2 — WHO JANE IS
-          "That's Jane Tho'ra. My line.\nShe volunteered for what she thinks is a solo training scenario — standard HoloDeck extraction run.\nShe has no idea the simulation went live.\nThe Nefarium made sure of that.",
+          "That's Jane Tho'ra. My line.\nShe volunteered for this. Went through onboarding. Knows the ASI is part of the framework.\nWhat she doesn't know: the simulation went live.\nThe Nefarium made sure of that.",
           // Beat 3 — THE STAKES
           "They routed Nether through the HoloDeck's ley line feeds.\nThose nodes aren't training props — they're carrying real planetary load.\nIf they drop inside the sim, they drop outside it.\nThis stopped being a training run the moment you connected.",
           // Beat 4 — THE RELATIONSHIP

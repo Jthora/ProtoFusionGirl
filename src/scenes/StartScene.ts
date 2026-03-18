@@ -32,15 +32,15 @@ export class StartScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     // --- Hook lines ---
-    this.add.text(width / 2, height / 2 - 42, "Jane Tho\u02bera is in the field.", {
+    this.add.text(width / 2, height / 2 - 42, "Jane Tho\u02bera is in the simulation.", {
       fontSize: '18px',
       color: '#ffffff',
       fontFamily: 'monospace'
     }).setOrigin(0.5);
 
-    this.add.text(width / 2, height / 2 - 16, "She doesn't know you're watching.", {
+    this.add.text(width / 2, height / 2 - 16, "She knows you\u02bere there. The simulation going live — she doesn\u02bet.", {
       fontSize: '14px',
-      color: '#00cccc',
+      color: '#FF8C00',
       fontFamily: 'monospace'
     }).setOrigin(0.5);
 
