@@ -1,6 +1,18 @@
 import Phaser from 'phaser';
 import { AudioManager, preloadAllAudio, AUDIO_KEYS } from '../audio/AudioManager';
+import { SessionPersistence } from '../save/SaveSystem';
 
+/**
+ * StartScene — thin pass-through.
+ *
+ * The PsiSys Kernel (DOM layer) runs before Phaser starts and handles all
+ * entry UX (cold boot, callsign, return session status diff).
+ * StartScene exists only so Phaser has a first scene — it immediately proceeds
+ * to GameScene after playing the boot SFX.
+ *
+ * The ley-line title screen copy is kept intact for now as a fallback, but
+ * the primary ENTER route skips it via autoStart if Kernel already ran.
+ */
 export class StartScene extends Phaser.Scene {
   private cursorVisible = true;
   private cursorText!: Phaser.GameObjects.Text;
@@ -15,6 +27,16 @@ export class StartScene extends Phaser.Scene {
   }
 
   create() {
+    // If the PsiSys Kernel already ran (callsign registered), skip the title
+    // screen and go straight to the simulation entry overlay.
+    const session = SessionPersistence.load();
+    if (session?.callsign) {
+      this.audioManager = new AudioManager(this);
+      this.audioManager.playSfx(AUDIO_KEYS.SFX_BOOT_SEQUENCE);
+      this.time.delayedCall(400, () => this.enterSimulation());
+      return;
+    }
+
     const { width, height } = this.cameras.main;
 
     // --- Background ---

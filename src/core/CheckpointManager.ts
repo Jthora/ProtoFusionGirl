@@ -1,8 +1,10 @@
 // CheckpointManager.ts
-// Manages Jane's death → respawn checkpoint system for P2.
-// See: docs/rebuild/02-prototype/build-sequence.md
+// Manages Jane's coherence collapse → timeline rollback system.
+// Death is reframed as psionic bridge coherence collapse; respawn is a timeline
+// rollback to the last placed anchor point.
 
 import { EventBus } from '../core/EventBus';
+import { CoherenceCollapseOverlay } from '../ui/CoherenceCollapseOverlay';
 
 export interface Checkpoint {
   id: string;
@@ -46,13 +48,18 @@ export class CheckpointManager {
 
   private onDeath(): void {
     const cp = this.activeCheckpoint;
-    this.eventBus.emit({
-      type: 'JANE_RESPAWN',
-      data: { x: cp.x, y: cp.y, checkpointId: cp.id }
+    // Show coherence collapse overlay, then perform the timeline rollback.
+    CoherenceCollapseOverlay.show({
+      anchorDescription: cp.id,
+    }).then(() => {
+      this.eventBus.emit({
+        type: 'JANE_RESPAWN',
+        data: { x: cp.x, y: cp.y, checkpointId: cp.id }
+      });
+      if (this.respawnCallback) {
+        this.respawnCallback(cp.x, cp.y);
+      }
     });
-    if (this.respawnCallback) {
-      this.respawnCallback(cp.x, cp.y);
-    }
   }
 
   destroy(): void {
