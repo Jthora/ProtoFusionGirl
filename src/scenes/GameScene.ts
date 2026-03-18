@@ -468,8 +468,8 @@ export class GameScene extends Phaser.Scene {
       // Physics collision and camera
       this.physics.add.collider(janeSprite, this.groundGroup);
       this.cameras.main.startFollow(janeSprite);
-      // FE-1: Start drop-in sequence from omniscient height
-      this.cameras.main.setZoom(0.4);
+      // FE-1: Start drop-in sequence — slightly pulled back to show the landing zone
+      this.cameras.main.setZoom(0.7);
       janeSprite.setAlpha(0);
 
       // --- MAGNETO SPEEDER SETUP (delegated to SpeederController) ---
@@ -1803,9 +1803,13 @@ export class GameScene extends Phaser.Scene {
               });
             });
 
-            // [T~10s] Jono fires — clear scripted waypoint first so Jane is free
-            this.time.delayedCall(8500, () => {
+            // [T~6s] Clear scripted waypoint — player has manual control from here
+            this.time.delayedCall(4500, () => {
               this.janeAI?.clearScriptedWaypoint();
+            });
+
+            // [T~7s] Jono fires first contact
+            this.time.delayedCall(5500, () => {
               this.jonoHologram.triggerFirstContact(isFirstVisit, fromMainSite);
             });
           });
