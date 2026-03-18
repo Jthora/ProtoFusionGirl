@@ -31,7 +31,7 @@ export class SideScrollCameraController {
   private cameraConfigs: Map<SpeedCategory, CameraConfig> = new Map();
   private phaserCamera?: Phaser.Cameras.Scene2D.Camera;
   
-  constructor() {
+  constructor(camera?: any) {
     this.currentState = {
       position: { x: 0, y: 0 },
       zoom: 1.0,
@@ -42,6 +42,11 @@ export class SideScrollCameraController {
     this.targetState = { ...this.currentState };
     
     this.initializeCameraConfigs();
+    if (camera && typeof camera.setZoom === 'function') {
+      // Treat passed object as a phaser-like camera
+      // @ts-ignore
+      this.phaserCamera = camera;
+    }
   }
 
   private initializeCameraConfigs(): void {
@@ -178,7 +183,12 @@ export class SideScrollCameraController {
     this.phaserCamera.setZoom(this.currentState.zoom);
     
     // Apply camera position (Phaser uses center-based positioning)
-    this.phaserCamera.centerOn(this.currentState.position.x, this.currentState.position.y);
+    if (typeof (this.phaserCamera as any).centerOn === 'function') {
+      (this.phaserCamera as any).centerOn(this.currentState.position.x, this.currentState.position.y);
+    } else {
+      (this.phaserCamera as any).x = this.currentState.position.x;
+      (this.phaserCamera as any).y = this.currentState.position.y;
+    }
   }
 
   /**
@@ -259,4 +269,13 @@ export class SideScrollCameraController {
     
     return { left, right, viewWidth };
   }
+
+  // Legacy wrapper used by integration tests (simplified signature)
+  updateForSpeed(positionX: number, speedKmh: number, category?: SpeedCategory) {
+    // category param retained for backward compatibility / future logic
+    this.updateCamera(positionX, 0, speedKmh, (speedKmh * 1000 / 3600));
+  }
+
+  // Alias for test expectations
+  getCameraState() { return this.getCurrentState(); }
 }

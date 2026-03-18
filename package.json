@@ -8,13 +8,23 @@
     "build": "vite build",
     "build:vercel": "vite build --mode production",
     "preview": "vite preview",
-    "test": "jest --config=jest.config.mjs --detectOpenHandles",
+    "test": "npm run test:best",
+    "test:best": "jest --config=jest.best.config.mjs --runInBand --detectOpenHandles --forceExit --no-cache",
+    "test:full": "jest --config=jest.config.mjs --runInBand --detectOpenHandles --forceExit --no-cache",
     "deploy": "npm run build:vercel && vercel --prod",
     "deploy:preview": "npm run build:vercel && vercel",
     "security:audit": "npm audit",
     "security:fix": "npm audit fix",
     "security:check": "npm audit && npm outdated",
-    "security:update": "npm update && npm audit"
+    "security:update": "npm update && npm audit",
+    "sprites:prep-blend": "bash scripts/prep-jane-blend.sh",
+    "sprites:prep-blend-dry": "bash scripts/prep-jane-blend.sh --dry-run",
+    "sprites": "bash scripts/build-sprites.sh",
+    "sprites:jane": "bash scripts/build-sprites.sh --character jane",
+    "sprites:force": "bash scripts/build-sprites.sh --force",
+    "sprites:validate": "node scripts/validate-atlas.js",
+    "sprites:dry-run": "bash scripts/build-sprites.sh --dry-run",
+    "sprite-factory": "vite --config tools/sprite-factory/vite.config.ts"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
@@ -29,7 +39,12 @@
     "prettier": "^3.5.3",
     "ts-jest": "^29.4.0",
     "typescript": "~5.8.3",
-    "vite": "^7.0.5"
+    "vite": "^7.0.5",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.6.0"
+  },
+  "optionalDependencies": {
+    "@ul-forge/core": "file:./universal_language/ul-forge/packages/core"
   },
   "dependencies": {
     "axios": "^1.9.0",

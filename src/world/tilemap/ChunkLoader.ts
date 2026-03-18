@@ -17,6 +17,7 @@
  */
 import { TilemapManager } from './TilemapManager';
 import { TileSpriteFactory, TileType } from './TileSpriteFactory';
+import { TILE_SIZE } from './constants';
 import Phaser from 'phaser';
 
 export class ChunkLoader {
@@ -32,7 +33,7 @@ export class ChunkLoader {
   private errorCount: number = 0;
   private maxErrors: number = 50; // Stop after 50 errors to prevent spam
   private chunksLoadedThisSession: number = 0;
-  private maxChunksPerSession: number = 25; // Limit total chunks loaded
+  private maxChunksPerSession: number = 120; // Less restrictive; suitable for streaming while testing
 
   /**
    * Optional: Called after a chunk is loaded and sprites are created.
@@ -94,10 +95,10 @@ export class ChunkLoader {
       dynamicRadius = Math.min(6, this.chunkRadius * 2);
     }
     
-    const chunkSize = this.tilemapManager.chunkManager.chunkSize;
-    const tileSize = 16;
-    const playerChunkX = Math.floor(TilemapManager.wrapX(playerX) / (chunkSize * tileSize));
-    const playerChunkY = Math.floor(playerY / (chunkSize * tileSize));
+  const chunkSize = this.tilemapManager.chunkManager.chunkSize;
+  const tileSize = TILE_SIZE;
+  const playerChunkX = Math.floor(TilemapManager.wrapX(playerX) / (chunkSize * tileSize));
+  const playerChunkY = Math.floor(playerY / (chunkSize * tileSize));
     // Load/generate visible chunks using dynamic radius
     for (let dx = -dynamicRadius; dx <= dynamicRadius; dx++) {
       for (let dy = -dynamicRadius; dy <= dynamicRadius; dy++) {
@@ -121,7 +122,9 @@ export class ChunkLoader {
                     const sprite = TileSpriteFactory.createTileSprite(this.scene, wx, wy, tileType);
                     group.add(sprite);
                     if (["grass", "dirt", "stone"].includes(tileType)) {
-                      this.groundGroup.add(this.scene.physics.add.existing(sprite, true));
+                      // Ensure physics body is created on the sprite, then add to ground group
+                      this.scene.physics.add.existing(sprite, true);
+                      this.groundGroup.add(sprite);
                     }
                   } catch (error) {
                     this.errorCount++;

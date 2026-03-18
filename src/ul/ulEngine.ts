@@ -3,9 +3,12 @@
 // Version: 0.1.0 (dev)
 // Author: GitHub Copilot (corrected)
 
-import { ULExpression, ULFeedback } from "./ulTypes";
+import { ULExpression, ULFeedback } from "./ulCanonicalTypes";
 import { ULResourceLoader } from './ulResourceLoader';
 import grammarRules from './grammarRules';
+import { getULEngine } from './ulWasmAdapter';
+import { expressionToGir } from './ulTypeBridge';
+import type { Gir, ValidationResult, AnimationSequence } from './ulForgeTypes';
 
 // Load all UL resources at runtime (stub: returns empty data for now)
 const ulResources = ULResourceLoader.loadAll();
@@ -78,6 +81,20 @@ export function encodeULExpression(sequence: string[]): ULExpression {
     error = "NOT_WELL_FORMED";
   }
 
+  // WASM layer: validate through the formal Σ_UL engine
+  if (valid) {
+    try {
+      const gir = expressionToGir({ predicates, valid: true });
+      const wasmResult = getULEngine().validate(gir);
+      if (!wasmResult.valid && wasmResult.errors.length > 0) {
+        valid = false;
+        error = wasmResult.errors[0];
+      }
+    } catch {
+      // WASM validation unavailable — game-layer result stands
+    }
+  }
+
   return { predicates, valid, error };
 }
 
@@ -130,6 +147,21 @@ export function validateULSequence(sequence: string[]): { valid: boolean; error?
     }
   }
 
+  // WASM layer: validate through the formal Σ_UL engine
+  if (valid) {
+    try {
+      const preds = usedSymbols.map(s => `${s}(${s[0]})`);
+      const gir = expressionToGir({ predicates: preds, valid: true });
+      const wasmResult = getULEngine().validate(gir);
+      if (!wasmResult.valid && wasmResult.errors.length > 0) {
+        valid = false;
+        error = wasmResult.errors[0];
+      }
+    } catch {
+      // WASM validation unavailable — game-layer result stands
+    }
+  }
+
   return { valid, error };
 }
 
@@ -141,6 +173,23 @@ export function getAnimationSequence(ulExpression: ULExpression): string[] {
     const symbol = match[1];
     return symbolMovementMap[symbol]?.animation || "UNKNOWN_ANIMATION";
   });
+}
+
+// --- WASM-powered functions for direct formal Σ_UL access ---
+
+/** Parse a text expression into a formal GIR document via the WASM engine. */
+export function parseToGir(input: string): Gir {
+  return getULEngine().parse(input);
+}
+
+/** Validate a GIR document through the formal Σ_UL validator. */
+export function validateGir(gir: Gir): ValidationResult {
+  return getULEngine().validate(gir);
+}
+
+/** Get a rich keyframed animation sequence from the WASM engine. */
+export function getWasmAnimationSequence(gir: Gir, width: number, height: number): AnimationSequence {
+  return getULEngine().getAnimationSequence(gir, width, height);
 }
 
 // --- Extensibility: Add new symbol/primitive/animation at runtime ---

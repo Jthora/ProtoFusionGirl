@@ -10,6 +10,9 @@ export class TrustManager {
   private trustState: TrustState;
   private config: TrustManagerConfig;
   private updateTimer: NodeJS.Timeout | null = null;
+  // Keep track of processed guidance responses to avoid duplicate trust updates
+  private processedGuidance: Map<string, number> = new Map(); // guidanceId -> timestamp
+  private subscriptions: Array<() => void> = [];
 
   constructor(config: TrustManagerConfig) {
     this.eventBus = config.eventBus;
@@ -29,35 +32,65 @@ export class TrustManager {
 
   private setupEventHandlers(): void {
     // Listen for guidance events
-    this.eventBus.on('GUIDANCE_SELECTED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('GUIDANCE_SELECTED', (event: any) => {
       this.handleGuidanceGiven(event.data);
-    });
+    }));
 
-    this.eventBus.on('JANE_RESPONSE', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('JANE_RESPONSE', (event: any) => {
+      const { guidanceId } = event.data || {};
+      if (guidanceId) {
+        // Idempotency: drop duplicate responses for the same guidanceId within 10s
+        const now = Date.now();
+        const prev = this.processedGuidance.get(guidanceId) || 0;
+        if (now - prev < 10000) return;
+        this.processedGuidance.set(guidanceId, now);
+      }
       if (event.data.followed) {
         this.handleGuidanceFollowed(event.data);
       } else {
         this.handleGuidanceIgnored(event.data);
       }
-    });
+      // Garbage collect old entries (keep map small)
+      if (this.processedGuidance.size > 100) {
+        const threshold = Date.now() - 60000; // 1 min TTL
+        for (const [id, ts] of this.processedGuidance) {
+          if (ts < threshold) this.processedGuidance.delete(id);
+        }
+      }
+    }));
 
     // Listen for mission and combat outcomes
-    this.eventBus.on('MISSION_COMPLETED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('MISSION_COMPLETED', (event: any) => {
       this.handlePlayerSuccess(event.data);
-    });
+    }));
 
-    this.eventBus.on('JANE_DEFEATED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('JANE_DEFEATED', (event: any) => {
       this.handlePlayerFailure(event.data);
-    });
+    }));
 
-    this.eventBus.on('PLAYER_DEFEATED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('PLAYER_DEFEATED', (event: any) => {
       this.handlePlayerFailure(event.data);
-    });
+    }));
 
     // Listen for magic usage
-    this.eventBus.on('MAGIC_CAST', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('MAGIC_CAST', (event: any) => {
       this.handleMagicUsage(event.data);
-    });
+    }));
+
+    // Enemy defeated → player successfully protected Jane
+    this.subscriptions.push(this.eventBus.on('ENEMY_DEFEATED', (event: any) => {
+      this.handlePlayerSuccess({ context: 'Enemy defeated', asiInfluenced: true, ...event.data });
+    }));
+
+    // Rift sealed → major node stabilization success
+    this.subscriptions.push(this.eventBus.on('RIFT_SEALED', (event: any) => {
+      this.handlePlayerSuccess({ context: 'Rift sealed', asiInfluenced: true, ...event.data });
+    }));
+
+    // UL puzzle sealed a rift
+    this.subscriptions.push(this.eventBus.on('UL_RIFT_SEALED', (event: any) => {
+      this.handleMagicUsage({ success: true, symbolId: event.data?.symbolUsed || 'ul', ...event.data });
+    }));
   }
 
   private startUpdateTimer(): void {
@@ -301,9 +334,10 @@ export class TrustManager {
       clearInterval(this.updateTimer);
       this.updateTimer = null;
     }
-    
-    // Remove event listeners
-    // Note: EventBus doesn't have removeListener method in current implementation
-    // This would need to be added to EventBus for proper cleanup
+    // Unsubscribe all listeners
+    this.subscriptions.forEach(unsub => {
+      try { unsub(); } catch {}
+    });
+    this.subscriptions = [];
   }
 }

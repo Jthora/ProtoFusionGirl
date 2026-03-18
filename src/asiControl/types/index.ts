@@ -200,6 +200,7 @@ export interface GuidanceEngineConfig {
   threatDetector: any; // ThreatDetector instance
   contextUpdateInterval: number;
   maxSuggestions: number;
+  simulateResponses?: boolean; // if true, engine will emit simulated JANE_RESPONSE events
 }
 
 export interface TrustManagerConfig {

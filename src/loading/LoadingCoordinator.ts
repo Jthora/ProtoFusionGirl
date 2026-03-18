@@ -55,7 +55,7 @@ export class LoadingCoordinator {
           showLogo: true,
           showSubtitle: true,
           showASIIntro: true,
-          duration: options.developmentMode ? 2000 : 4000,
+          duration: options.developmentMode ? 500 : 1000, // Much faster for development
           skipable: true
         });
       }
@@ -72,14 +72,14 @@ export class LoadingCoordinator {
 
   private async initializeGame(): Promise<void> {
     // This is where we would initialize game systems
-    // For now, we'll simulate the process
+    // Fast initialization for development
     
     return new Promise(resolve => {
-      // Simulate game initialization time
+      // Simulate game initialization time (fast for development)
       setTimeout(() => {
         console.log('✅ Game systems initialized');
         resolve();
-      }, 500);
+      }, 50);
     });
   }
 

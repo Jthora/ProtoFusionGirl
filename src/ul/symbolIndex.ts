@@ -1,9 +1,31 @@
 // src/ul/symbolIndex.ts
-// Auto-generated from artifacts/ul_symbol_index.artifact
-// Provides canonical symbol index and lookup utilities for Universal Language (UL)
+// Universal Language symbol index — grounded in the real Σ_UL formal algebra
+// Reference: https://github.com/Jthora/universal_language
+//
+// ARCHITECTURE:
+//   Tier 1 (Geometrically Forced): The 5 UL primitives — Point, Line, Angle, Curve, Enclosure
+//   Tier 2 (Structurally Distinguished): Canonical compositions of primitives (circle, spiral, wave, etc.)
+//   Tier 3 (Conventional): Game-layer element/modality/cosmic mappings
+//
+// The game's original 11 symbols (point, line, circle, triangle, square, curve, angle, wave, spiral,
+// zigzag, leap) are ALL valid geometric constructions in real UL. They were never wrong — they were
+// just underdocumented. This index provides their proper geometric grounding.
+//
+// Jordan Traña (Jono Tho'ra) discovered Universal Language as a real mathematical structure.
+// The game is literally about teaching it. The symbols are the proof-of-concept.
+
+import { ULPrimitive, ULTier, ULConstructiveLevel } from './ulCanonicalTypes';
 
 export interface ULSymbolIndexEntry {
   ul_symbol: string;
+  /** The real UL primitive(s) this symbol is grounded in */
+  ul_primitive: ULPrimitive | ULPrimitive[];
+  /** Tier per the UL Lexicon 3-tier justification system */
+  ul_tier: ULTier;
+  /** Constructive level (min steps from void) */
+  ul_level: ULConstructiveLevel;
+  /** Geometric characterization from the real UL lexicon */
+  geometric_description: string;
   meaning: string;
   geometric_property: string;
   formal_axiom: string;
@@ -11,25 +33,244 @@ export interface ULSymbolIndexEntry {
   animation_ref: string;
   example_equation: string;
   usage: string;
+  /** Modality is a T3 conventional game-layer mapping (Cardinal/Fixed/Mutable) */
   modality: string;
+  /** Element is a T3 conventional game-layer semantic coordinate */
   element: string;
+  /** Cosmic force is a T3 conventional game-layer meaning-space label */
   cosmic_force: string;
   phonetic: string;
   glyph: string;
 }
 
 export const symbolIndex: ULSymbolIndexEntry[] = [
-  { ul_symbol: 'point', meaning: 'core, instance, origin', geometric_property: 'zero-dimensional, P ∈ ℝⁿ, μ(P)=0', formal_axiom: 'point(x) ↔ x ∈ ℝⁿ ∧ μ(x)=0', movement_primitive: 'tap', animation_ref: 'point_tap', example_equation: 'P = (x, y)', usage: 'focus, start, anchor', modality: 'Core', element: 'N/A', cosmic_force: 'Core', phonetic: 'pɔɪnt', glyph: '•' },
-  { ul_symbol: 'line', meaning: 'link, order, stability', geometric_property: 'one-dimensional, connects two points, direction vector d = P₂ - P₁', formal_axiom: 'line(x) ↔ ∃P₁,P₂ ∈ ℝⁿ, x = { (1-t)P₁ + tP₂ | t ∈ (0,1) }', movement_primitive: 'step_line', animation_ref: 'line_walk', example_equation: 'L = { (1-t)P₁ + tP₂ | t ∈ (0,1) }', usage: 'progression, connection', modality: 'Fixed', element: 'Air', cosmic_force: 'Order', phonetic: 'laɪn', glyph: '―' },
-  { ul_symbol: 'circle', meaning: 'unity, closure, grouping', geometric_property: 'set of points equidistant from center (h,k), (x-h)²+(y-k)²=r²', formal_axiom: 'circle(x) ↔ ∃h,k,r, x = { (x,y) | (x-h)²+(y-k)²=r², r>0 }', movement_primitive: 'spin', animation_ref: 'spin_360', example_equation: '(x-h)²+(y-k)²=r²', usage: 'enclosure, ritual, closure', modality: 'Mutable', element: 'Water', cosmic_force: 'Void', phonetic: 'sɜːrkəl', glyph: '○' },
-  { ul_symbol: 'triangle', meaning: 'change, transformation, stability', geometric_property: 'polygon with 3 vertices, 3 edges, sum of angles = 180°', formal_axiom: 'triangle(x) ↔ x is a set of 3 points in ℝ², forming a closed path', movement_primitive: 'step_sequence_triangle', animation_ref: 'triangle_footwork', example_equation: 'ΔABC: A,B,C ∈ ℝ²', usage: 'hierarchy, transformation', modality: 'Cardinal', element: 'Fire', cosmic_force: 'Alpha', phonetic: 'traɪæŋɡəl', glyph: '△' },
-  { ul_symbol: 'square', meaning: 'stability, order, protection', geometric_property: 'polygon with 4 equal sides, 4 right angles', formal_axiom: 'square(x) ↔ x is a set of 4 points in ℝ², equal sides, right angles', movement_primitive: 'box_step', animation_ref: 'box_step_anim', example_equation: 'ABCD: |AB|=|BC|=|CD|=|DA|, ∠=90°', usage: 'defense, structure', modality: 'Fixed', element: 'Earth', cosmic_force: 'Order', phonetic: 'skwɛər', glyph: '□' },
-  { ul_symbol: 'curve', meaning: 'flow, adaptation, change', geometric_property: 'one-dimensional, non-linear, parametric: C(t) = (x(t), y(t)), t ∈ (a, b)', formal_axiom: 'curve(x) ↔ ∃f: ℝ→ℝ², x = { f(t) | t ∈ (a, b) }, f twice differentiable, curvature κ ≠ 0', movement_primitive: 'arm_curve', animation_ref: 'curve_arm_anim', example_equation: 'C(t) = (x(t), y(t)), κ = |x\'y\'' - y\'x\''|/(x\'^2 + y\'^2)^{3/2}', usage: 'transition, flow, adaptation', modality: 'Mutable', element: 'Water', cosmic_force: 'Flux', phonetic: 'kɜːrv', glyph: '〰' },
-  { ul_symbol: 'angle', meaning: 'direction, divergence, focus', geometric_property: 'two lines sharing a vertex, measure θ', formal_axiom: 'angle(x) ↔ ∃P, Q, R ∈ ℝ², x = ∠QPR, Q ≠ P ≠ R', movement_primitive: 'angle_pose', animation_ref: 'angle_pose_anim', example_equation: 'θ = arccos((\vec{PQ}·\vec{PR})/(|PQ||PR|))', usage: 'focus, divergence, direction', modality: 'Cardinal', element: 'Fire', cosmic_force: 'Power', phonetic: 'æŋɡəl', glyph: '∠' },
-  { ul_symbol: 'wave', meaning: 'rhythm, oscillation, signal', geometric_property: 'periodic curve, y = A sin(ωx + φ)', formal_axiom: 'wave(x) ↔ x is a function f: ℝ→ℝ, periodic', movement_primitive: 'arm_wave', animation_ref: 'wave_arm', example_equation: 'y = A sin(ωx + φ)', usage: 'signal, adaptation', modality: 'Mutable', element: 'Air', cosmic_force: 'Chaos', phonetic: 'weɪv', glyph: '~' },
-  { ul_symbol: 'spiral', meaning: 'growth, evolution, energy', geometric_property: 'curve with increasing radius, r = a + bθ', formal_axiom: 'spiral(x) ↔ x = { (r cos θ, r sin θ) | r = a + bθ, θ ∈ ℝ }', movement_primitive: 'spiral_turn', animation_ref: 'spiral_turn_anim', example_equation: 'r = a + bθ', usage: 'healing, transformation', modality: 'Mutable', element: 'Air', cosmic_force: 'Flux', phonetic: 'spaɪrəl', glyph: '🌀' },
-  { ul_symbol: 'zigzag', meaning: 'agility, unpredictability, disruption', geometric_property: 'piecewise linear, alternating direction', formal_axiom: 'zigzag(x) ↔ x is a sequence of line segments with alternating slopes', movement_primitive: 'zigzag_dash', animation_ref: 'zigzag_dash_anim', example_equation: 'y = (-1)^n x + c_n', usage: 'evasion, disruption', modality: 'Mutable', element: 'Air', cosmic_force: 'Flux', phonetic: 'zɪɡzæɡ', glyph: '〽' },
-  { ul_symbol: 'leap', meaning: 'aspiration, breakthrough, courage', geometric_property: 'parabolic arc, y = ax² + bx + c', formal_axiom: 'leap(x) ↔ x is a parabolic trajectory in ℝ²', movement_primitive: 'high_leap', animation_ref: 'high_leap_anim', example_equation: 'y = ax² + bx + c', usage: 'escape, challenge', modality: 'Cardinal', element: 'Fire', cosmic_force: 'Power', phonetic: 'liːp', glyph: '⤴' },
+  // -------------------------------------------------------------------------
+  // TIER 1 — Geometrically Forced (the 5 UL primitives)
+  // These are the atomic alphabet of Universal Language. Not invented. Discovered.
+  // -------------------------------------------------------------------------
+  {
+    ul_symbol: 'point',
+    ul_primitive: ULPrimitive.Point,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.AtomicCarriers,
+    geometric_description: 'A single point: the minimum act of meaning. Asserts that something IS. Dependency rank 0 — presupposed by all other primitives, depending on nothing. Maximally symmetric (invariant under all rotations).',
+    meaning: 'existence, core, instance, origin',
+    geometric_property: 'zero-dimensional, P in R^n, measure zero',
+    formal_axiom: 'point(x) iff x in R^n and measure(x)=0',
+    movement_primitive: 'tap',
+    animation_ref: 'point_tap',
+    example_equation: 'P = (x, y)',
+    usage: 'focus, start, anchor, assert existence',
+    modality: 'Core',
+    element: 'N/A',
+    cosmic_force: 'Core',
+    phonetic: 'pɔɪnt',
+    glyph: '•',
+  },
+  {
+    ul_symbol: 'line',
+    ul_primitive: ULPrimitive.Line,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.AtomicCarriers,
+    geometric_description: 'Two points connected by a straight segment. The unique minimum structure connecting two existences. Introduces directionality. 1 degree of freedom. The geometric realization of predicate(e1, r, e2) — the foundation of every statement.',
+    meaning: 'relation, link, order, connection, stability',
+    geometric_property: 'one-dimensional, connects two points, direction vector d = P2 - P1',
+    formal_axiom: 'line(x) iff exists P1,P2 in R^n: x = { (1-t)*P1 + t*P2 | t in (0,1) }',
+    movement_primitive: 'step_line',
+    animation_ref: 'line_walk',
+    example_equation: 'L = { (1-t)*P1 + t*P2 | t in (0,1) }',
+    usage: 'progression, connection, establish relation',
+    modality: 'Fixed',
+    element: 'Air',
+    cosmic_force: 'Order',
+    phonetic: 'laɪn',
+    glyph: '―',
+  },
+  {
+    ul_symbol: 'angle',
+    ul_primitive: ULPrimitive.Angle,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.AtomicCarriers,
+    geometric_description: 'Two rays sharing a vertex. Requires two Lines meeting at a Point. The unique way to introduce Quality — the character of a relationship. Parameterized by theta, a continuous spectrum of quality.',
+    meaning: 'quality, direction, divergence, focus, character',
+    geometric_property: 'two rays sharing a vertex, measure theta',
+    formal_axiom: 'angle(x) iff exists P,Q,R in R^2: x = angle(QPR), Q != P != R',
+    movement_primitive: 'angle_pose',
+    animation_ref: 'angle_pose_anim',
+    example_equation: 'theta = arccos((PQ_vec . PR_vec) / (|PQ| * |PR|))',
+    usage: 'focus, divergence, direction, qualify a relation',
+    modality: 'Cardinal',
+    element: 'Fire',
+    cosmic_force: 'Power',
+    phonetic: 'æŋɡəl',
+    glyph: '∠',
+  },
+  {
+    ul_symbol: 'curve',
+    ul_primitive: ULPrimitive.Curve,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.AtomicCarriers,
+    geometric_description: 'A non-straight continuous path. A relation whose direction changes continuously along its length. Curvature kappa(s) parameterizes the rate of change. Requires 2D embedding. Introduces Process — becoming, change, transformation.',
+    meaning: 'process, flow, adaptation, change, becoming',
+    geometric_property: 'one-dimensional non-linear path: C(t) = (x(t), y(t)), curvature kappa != 0',
+    formal_axiom: 'curve(x) iff exists f: R -> R^2 where x = { f(t) | t in (a,b) }, f twice differentiable, kappa != 0',
+    movement_primitive: 'arm_curve',
+    animation_ref: 'curve_arm_anim',
+    example_equation: 'C(t) = (x(t), y(t)), kappa = |x_prime*y_double_prime - y_prime*x_double_prime| / (x_prime^2 + y_prime^2)^(3/2)',
+    usage: 'transition, flow, adaptation, express process',
+    modality: 'Mutable',
+    element: 'Water',
+    cosmic_force: 'Flux',
+    phonetic: 'kɜːrv',
+    glyph: '〰',
+  },
+
+  // -------------------------------------------------------------------------
+  // TIER 1 — Enclosure variants (geometric shapes — T1 for triangle and circle
+  //          by Erlangen symmetry argument; T2 for square)
+  // -------------------------------------------------------------------------
+  {
+    ul_symbol: 'circle',
+    ul_primitive: ULPrimitive.Enclosure,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.Distinguished,
+    geometric_description: 'A closed curve with constant curvature — all points equidistant from center. Maximum symmetry (SO(2), infinite rotation group). The unique maximum-symmetry enclosure. Signifies universality, completeness, the most general concept-class.',
+    meaning: 'unity, closure, universality, completeness, the most general kind of',
+    geometric_property: 'set of points equidistant from center (h,k): (x-h)^2 + (y-k)^2 = r^2',
+    formal_axiom: 'circle(x) iff exists h,k,r: x = { (x,y) | (x-h)^2 + (y-k)^2 = r^2, r > 0 }',
+    movement_primitive: 'spin',
+    animation_ref: 'spin_360',
+    example_equation: '(x-h)^2 + (y-k)^2 = r^2',
+    usage: 'enclosure, ritual, closure, express universal concept',
+    modality: 'Mutable',
+    element: 'Water',
+    cosmic_force: 'Void',
+    phonetic: 'sɜːrkəl',
+    glyph: '○',
+  },
+  {
+    ul_symbol: 'triangle',
+    ul_primitive: ULPrimitive.Enclosure,
+    ul_tier: ULTier.T1_GeometricallyForced,
+    ul_level: ULConstructiveLevel.Distinguished,
+    geometric_description: 'The minimum polygon (3 sides — fewest sides that can enclose area). Symmetry D3. The unique minimum-complexity enclosure. Signifies the fundamental, atomic, irreducible — the simplest kind of concept.',
+    meaning: 'change, transformation, fundamental structure, irreducibility',
+    geometric_property: 'polygon with 3 vertices, 3 edges, interior angle sum = 180deg',
+    formal_axiom: 'triangle(x) iff x is a set of 3 non-collinear points in R^2, forming a closed path',
+    movement_primitive: 'step_sequence_triangle',
+    animation_ref: 'triangle_footwork',
+    example_equation: 'Triangle ABC: A, B, C in R^2',
+    usage: 'hierarchy, transformation, fundamental structure',
+    modality: 'Cardinal',
+    element: 'Fire',
+    cosmic_force: 'Alpha',
+    phonetic: 'traɪæŋɡəl',
+    glyph: '△',
+  },
+  {
+    ul_symbol: 'square',
+    ul_primitive: ULPrimitive.Enclosure,
+    ul_tier: ULTier.T2_StructurallyDistinguished,
+    ul_level: ULConstructiveLevel.Distinguished,
+    geometric_description: 'The unique regular polygon that tessellates the Euclidean plane by itself with only translations. Symmetry D4. Signifies systematic ordered coverage — the structured, organized concept-class.',
+    meaning: 'stability, order, protection, systematic structure',
+    geometric_property: 'polygon with 4 equal sides and 4 right angles (90deg each)',
+    formal_axiom: 'square(x) iff x is a set of 4 points in R^2 with equal sides and right angles',
+    movement_primitive: 'box_step',
+    animation_ref: 'box_step_anim',
+    example_equation: 'ABCD: |AB|=|BC|=|CD|=|DA|, angle=90deg',
+    usage: 'defense, structure, express ordered concept',
+    modality: 'Fixed',
+    element: 'Earth',
+    cosmic_force: 'Order',
+    phonetic: 'skwɛər',
+    glyph: '□',
+  },
+
+  // -------------------------------------------------------------------------
+  // TIER 2 — Structurally Distinguished (canonical curve variants)
+  // -------------------------------------------------------------------------
+  {
+    ul_symbol: 'wave',
+    ul_primitive: ULPrimitive.Curve,
+    ul_tier: ULTier.T2_StructurallyDistinguished,
+    ul_level: ULConstructiveLevel.Distinguished,
+    geometric_description: 'A curve whose curvature alternates sign periodically. The simplest periodic function (single Fourier component, minimal harmonic content). The canonical oscillation — distinguished among all periodic curves.',
+    meaning: 'rhythm, oscillation, signal, alternation',
+    geometric_property: 'periodic curve: y = A*sin(omega*x + phi)',
+    formal_axiom: 'wave(x) iff x is a function f: R -> R that is periodic with period T, minimal Fourier content',
+    movement_primitive: 'arm_wave',
+    animation_ref: 'wave_arm',
+    example_equation: 'y = A * sin(omega * x + phi)',
+    usage: 'signal, adaptation, express rhythm',
+    modality: 'Mutable',
+    element: 'Air',
+    cosmic_force: 'Chaos',
+    phonetic: 'weɪv',
+    glyph: '~',
+  },
+  {
+    ul_symbol: 'spiral',
+    ul_primitive: ULPrimitive.Curve,
+    ul_tier: ULTier.T2_StructurallyDistinguished,
+    ul_level: ULConstructiveLevel.Distinguished,
+    geometric_description: 'A curve whose distance from a center point monotonically increases. Simultaneously rotates (angular change) and expands (radial increase). The unique curve class that is periodic in angle and monotonic in radius. Signifies growth, development, evolution.',
+    meaning: 'growth, evolution, energy, unfolding development',
+    geometric_property: 'curve with monotonically increasing radius: r = a + b*theta',
+    formal_axiom: 'spiral(x) iff x = { (r*cos(theta), r*sin(theta)) | r = a + b*theta, theta in R }',
+    movement_primitive: 'spiral_turn',
+    animation_ref: 'spiral_turn_anim',
+    example_equation: 'r = a + b*theta',
+    usage: 'healing, transformation, express growth',
+    modality: 'Mutable',
+    element: 'Air',
+    cosmic_force: 'Flux',
+    phonetic: 'spaɪrəl',
+    glyph: '🌀',
+  },
+
+  // -------------------------------------------------------------------------
+  // TIER 3 — Conventional (game-specific compound expressions)
+  // These are valid UL constructions but are T3 design choices, not geometric necessities.
+  // -------------------------------------------------------------------------
+  {
+    ul_symbol: 'zigzag',
+    ul_primitive: [ULPrimitive.Line, ULPrimitive.Angle],
+    ul_tier: ULTier.T3_Conventional,
+    ul_level: ULConstructiveLevel.TwoPrimitive,
+    geometric_description: 'A compound of Lines composed with alternating Angles — piecewise linear, alternating direction. Conventionally associated with agility and disruption in the game layer. Geometrically: a composition of directed relations with periodic angle inversions.',
+    meaning: 'agility, unpredictability, disruption',
+    geometric_property: 'piecewise linear with alternating direction angles',
+    formal_axiom: 'zigzag(x) iff x is a sequence of line segments with alternating slopes',
+    movement_primitive: 'zigzag_dash',
+    animation_ref: 'zigzag_dash_anim',
+    example_equation: 'y = (-1)^n * x + c_n',
+    usage: 'evasion, disruption',
+    modality: 'Mutable',
+    element: 'Air',
+    cosmic_force: 'Flux',
+    phonetic: 'zɪɡzæɡ',
+    glyph: '〽',
+  },
+  {
+    ul_symbol: 'leap',
+    ul_primitive: [ULPrimitive.Curve, ULPrimitive.Angle],
+    ul_tier: ULTier.T3_Conventional,
+    ul_level: ULConstructiveLevel.TwoPrimitive,
+    geometric_description: 'A Curve (parabolic arc) expressing an Angle trajectory — directed aspiration reaching a peak and descending. Conventionally associated with breakthrough and courage. Geometrically: a process with a distinguished angular character (aspiration arc).',
+    meaning: 'aspiration, breakthrough, courage, reaching beyond',
+    geometric_property: 'parabolic arc: y = a*x^2 + b*x + c, a < 0',
+    formal_axiom: 'leap(x) iff x is a parabolic trajectory in R^2 with negative leading coefficient',
+    movement_primitive: 'high_leap',
+    animation_ref: 'high_leap_anim',
+    example_equation: 'y = a*x^2 + b*x + c',
+    usage: 'escape, challenge, breakthrough',
+    modality: 'Cardinal',
+    element: 'Fire',
+    cosmic_force: 'Power',
+    phonetic: 'liːp',
+    glyph: '⤴',
+  },
 ];
 
 export function getSymbolEntry(symbol: string): ULSymbolIndexEntry | undefined {
@@ -48,10 +289,26 @@ export function getSymbolByMovementPrimitive(primitive: string): ULSymbolIndexEn
   return symbolIndex.find(e => e.movement_primitive === primitive);
 }
 
+/** Get all symbols grounded in a given UL primitive */
+export function getSymbolsByPrimitive(primitive: ULPrimitive): ULSymbolIndexEntry[] {
+  return symbolIndex.filter(e =>
+    Array.isArray(e.ul_primitive)
+      ? e.ul_primitive.includes(primitive)
+      : e.ul_primitive === primitive
+  );
+}
+
+/** Get the 5 canonical T1+T2 primitive-level symbols (the core alphabet) */
+export function getPrimitiveSymbols(): ULSymbolIndexEntry[] {
+  return symbolIndex.filter(e => e.ul_level === ULConstructiveLevel.AtomicCarriers);
+}
+
 export default {
   symbolIndex,
   getSymbolEntry,
   getSymbolByGlyph,
   getSymbolByPhonetic,
   getSymbolByMovementPrimitive,
+  getSymbolsByPrimitive,
+  getPrimitiveSymbols,
 };

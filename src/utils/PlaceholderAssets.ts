@@ -292,6 +292,36 @@ export function createMagnetoSpeederSprite(): HTMLCanvasElement {
   return canvas;
 }
 
+export function createDropPodTexture(): HTMLCanvasElement {
+  const canvas = document.createElement('canvas');
+  canvas.width = 20;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d')!;
+  // Capsule top (dome)
+  ctx.fillStyle = '#ccddff';
+  ctx.beginPath();
+  ctx.ellipse(10, 10, 10, 10, 0, 0, Math.PI * 2);
+  ctx.fill();
+  // Capsule body
+  ctx.fillStyle = '#aabbee';
+  ctx.fillRect(2, 10, 16, 18);
+  // Center stripe (ley line accent)
+  ctx.strokeStyle = '#00eeff';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(10, 2);
+  ctx.lineTo(10, 30);
+  ctx.stroke();
+  // Heat ring at base
+  ctx.strokeStyle = '#ff8844';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(2, 26);
+  ctx.lineTo(18, 26);
+  ctx.stroke();
+  return canvas;
+}
+
 export function createHypersonicEffectSprite(): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
   canvas.width = 64; // Larger for trail effect

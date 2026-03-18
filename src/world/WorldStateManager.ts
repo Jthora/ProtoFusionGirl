@@ -81,9 +81,19 @@ export class WorldStateManager {
   private eventBus: EventBus;
   public leyLineSystem: LeyLineSystem; // Canonical API for graph queries
 
-  constructor(initialState: WorldState, eventBus: EventBus) {
+  constructor(initialState: WorldState, eventBus: any) {
     this.state = initialState;
-    this.eventBus = eventBus;
+    // Support legacy test stubs that provide publish() instead of emit()
+    if (eventBus && typeof eventBus.emit !== 'function' && typeof eventBus.publish === 'function') {
+      this.eventBus = {
+        emit: (e: any) => eventBus.publish(e),
+        on: (_t: any, _h: any) => () => {},
+        once: (_t: any, _h: any) => () => {},
+        off: (_t: any, _h: any) => {}
+      } as unknown as EventBus;
+    } else {
+      this.eventBus = eventBus;
+    }
     this.leyLineSystem = new LeyLineSystem();
     // Sync leyLineSystem nodes/lines with state
     if (this.state.leyLines && this.state.leyLines.length > 0) {
@@ -270,7 +280,7 @@ export class WorldStateManager {
       // Trigger narrative event for Holo Tech unlock
       this.eventBus.emit({
         type: 'NARRATIVE_EVENT',
-        data: { eventId: 'holo_tech_unlocked', data: { /* ... */ } }
+  data: { eventId: 'holo_tech_unlocked' }
       });
     }
     this.eventBus.emit({
@@ -295,7 +305,7 @@ export class WorldStateManager {
         // Trigger regression narrative event (stub)
         this.eventBus.emit({
           type: 'NARRATIVE_EVENT',
-          data: { eventId: 'holo_tech_regressed', data: { /* ... */ } }
+          data: { eventId: 'holo_tech_regressed' }
         });
       }
       this.eventBus.emit({

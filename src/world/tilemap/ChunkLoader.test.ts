@@ -16,11 +16,11 @@ describe('ChunkLoader', () => {
     tilemapManager = {
       chunkManager: {
         chunkSize: 2,
-        loadChunk: jest.fn((x, y) => ({ tiles: [["grass", "dirt"], ["stone", "air"]] })),
+        loadChunk: jest.fn((_x, _y) => ({ tiles: [["grass", "dirt"], ["stone", "air"]] })),
         unloadChunk: jest.fn()
       },
       wrapX: (x: number) => x,
-      wrapChunkX: (x: number, size: number) => x
+  wrapChunkX: (x: number, _size: number) => x
     };
     // Mock ground group
     groundGroup = { add: jest.fn(), children: { iterate: jest.fn() } };

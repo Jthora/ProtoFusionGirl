@@ -2,7 +2,7 @@
 import { TilemapManager } from './TilemapManager';
 
 export class WorldGen {
-  private tilemapManager: TilemapManager;
+  protected tilemapManager: TilemapManager;
   private modWorldGenHooks: Array<(chunkX: number, chunkY: number, worldMeta?: any) => any> = [];
 
   constructor(tilemapManager: TilemapManager) {

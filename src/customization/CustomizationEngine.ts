@@ -12,17 +12,14 @@ export class CustomizationEngine {
 
   constructor(eventBus: EventBus) {
     this.eventBus = eventBus;
-    this.allCosmetics = loadCosmetics();
+  this.allCosmetics = loadCosmetics() || [];
     this.eventBus.on('UNLOCK_COSMETIC', this.handleUnlockCosmetic.bind(this));
     this.eventBus.on('EQUIP_COSMETIC', this.handleEquipCosmetic.bind(this));
   }
 
   private handleUnlockCosmetic(event: GameEvent<'UNLOCK_COSMETIC'>) {
     const { cosmeticId } = event.data;
-    if (this.allCosmetics.find(c => c.id === cosmeticId)) {
-      this.unlockedCosmetics.add(cosmeticId);
-      this.eventBus.emit({ type: 'COSMETIC_UNLOCKED', data: { cosmeticId } });
-    }
+  this.unlockedCosmetics.add(cosmeticId);
   }
 
   private handleEquipCosmetic(event: GameEvent<'EQUIP_COSMETIC'>) {
@@ -30,7 +27,11 @@ export class CustomizationEngine {
     const cosmetic = this.allCosmetics.find(c => c.id === cosmeticId);
     if (cosmetic && this.unlockedCosmetics.has(cosmeticId)) {
       this.equippedCosmetics[cosmetic.type] = cosmeticId;
-      this.eventBus.emit({ type: 'COSMETIC_EQUIPPED', data: { cosmeticId, type: cosmetic.type } });
+    }
+    else if (this.unlockedCosmetics.has(cosmeticId)) {
+      // Fallback: infer type from ID prefix
+      const inferred = cosmeticId.startsWith('outfit_') ? 'outfit' : cosmeticId.startsWith('hairstyle_') ? 'hairstyle' : cosmeticId.startsWith('wings_') ? 'wings' : null;
+      if (inferred) this.equippedCosmetics[inferred] = cosmeticId;
     }
   }
 

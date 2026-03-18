@@ -293,7 +293,11 @@ export class SpeedControlSystem {
         data: {
           from: oldCategory,
           to: newCategory,
-          speedKmh: this.speedState.currentSpeedKmh
+          previousCategory: oldCategory,
+          newCategory: newCategory,
+          speedKmh: this.speedState.currentSpeedKmh,
+          mach: this.speedState.currentSpeedKmh / 1235,
+          timestamp: Date.now()
         }
       });
     }
@@ -303,11 +307,13 @@ export class SpeedControlSystem {
     this.eventBus.emit({
       type: 'SPEED_UPDATE',
       data: {
-        currentSpeedKmh: this.speedState.currentSpeedKmh,
-        targetSpeedKmh: this.speedState.targetSpeedKmh,
-        speedMode: this.speedState.speedMode,
-        category: this.speedState.category,
-        isAccelerating: this.speedState.isAccelerating
+  speedKmh: this.speedState.currentSpeedKmh,
+  currentSpeedKmh: this.speedState.currentSpeedKmh,
+  targetSpeedKmh: this.speedState.targetSpeedKmh,
+  speedMode: this.speedState.speedMode,
+  category: this.speedState.category,
+  mach: this.speedState.currentSpeedKmh / 1235,
+  isAccelerating: this.speedState.isAccelerating
       }
     });
   }

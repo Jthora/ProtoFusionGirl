@@ -12,6 +12,7 @@ export class ThreatDetector {
   private activeThreats: Map<string, ThreatInfo> = new Map();
   private updateTimer: NodeJS.Timeout | null = null;
   private threatIdCounter = 0;
+  private subscriptions: Array<() => void> = [];
 
   constructor(config: ThreatDetectorConfig) {
     this.eventBus = config.eventBus;
@@ -24,26 +25,26 @@ export class ThreatDetector {
 
   private setupEventHandlers(): void {
     // Listen for enemy movements and actions
-    this.eventBus.on('ENEMY_ATTACKED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('ENEMY_ATTACKED', (event: any) => {
       this.handleEnemyAction(event.data);
-    });
+    }));
 
-    this.eventBus.on('CHARACTER_MOVED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('CHARACTER_MOVED', (event: any) => {
       this.updateThreatProximity(event.data);
-    });
+  }));
 
-    this.eventBus.on('COMBAT_STARTED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('COMBAT_STARTED', (event: any) => {
       this.handleCombatStart(event.data);
-    });
+  }));
 
     // Listen for environmental changes
-    this.eventBus.on('LEYLINE_INSTABILITY', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('LEYLINE_INSTABILITY', (event: any) => {
       this.handleLeylineInstability(event.data);
-    });
+  }));
 
-    this.eventBus.on('RIFT_FORMED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('RIFT_FORMED', (event: any) => {
       this.handleRiftFormation(event.data);
-    });
+  }));
   }
 
   private startUpdateTimer(): void {
@@ -299,7 +300,7 @@ export class ThreatDetector {
       if (threat.timeToImpact < 3000 && !threat.janeAware) {
         this.eventBus.emit({
           type: 'THREAT_DETECTED',
-          data: threat
+          data: { threat }
         });
       }
     });
@@ -462,5 +463,10 @@ export class ThreatDetector {
     }
     
     this.activeThreats.clear();
+    // Unsubscribe event handlers
+    this.subscriptions.forEach(unsub => {
+      try { unsub(); } catch {}
+    });
+    this.subscriptions = [];
   }
 }

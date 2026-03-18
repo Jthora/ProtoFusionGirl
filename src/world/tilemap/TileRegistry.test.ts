@@ -19,7 +19,7 @@ describe('TileRegistry', () => {
   };
 
   beforeEach(() => {
-    registry = new TileRegistry();
+    registry = new TileRegistry({ includeDefaults: false });
   });
 
   it('registers and retrieves a tile', () => {
@@ -54,7 +54,7 @@ describe('TileRegistry', () => {
     registry.registerTile(tileA, 'mod1');
     registry.registerTile(tileB, 'mod2');
     const json = registry.toJSON();
-    const newRegistry = new TileRegistry();
+  const newRegistry = new TileRegistry({ includeDefaults: false });
     newRegistry.fromJSON(json);
     expect(newRegistry.getTile('grass')).toEqual(tileA);
     expect(newRegistry.getTile('stone')).toEqual(tileB);

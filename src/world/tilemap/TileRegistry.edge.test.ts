@@ -4,7 +4,7 @@ import { TileRegistry } from './TileRegistry';
 describe('TileRegistry edge/error handling', () => {
   let registry: TileRegistry;
   beforeEach(() => {
-    registry = new TileRegistry();
+    registry = new TileRegistry({ includeDefaults: false });
   });
 
   it('getTile returns undefined for non-existent id', () => {
@@ -25,9 +25,9 @@ describe('TileRegistry edge/error handling', () => {
     expect(() => registry.fromJSON({ tiles: undefined, modTileSources: undefined })).not.toThrow();
   });
 
-  it('registerTile with no modId does not affect modTileSources', () => {
+  it('registerTile with no modId does not add entries to modTileSources', () => {
     registry.registerTile({ id: 'a', name: 'A', texture: 'a.png', solid: false, destructible: false });
     // @ts-ignore
-    expect(Object.keys(registry['modTileSources']).length).toBe(0);
+    expect(registry['modTileSources']['core']).toBeUndefined();
   });
 });

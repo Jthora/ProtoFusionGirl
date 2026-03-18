@@ -1,0 +1,163 @@
+{
+  "_comment": "Pipeline: unzip meshy_zip → import GLB into Blender → apply PFG_Silhouette mat → render frames → assemble atlas. blend_file is the master to be created. blender_action is the expected Blender action name after GLB import (verify/correct after first import test).",
+  "characters": {
+    "jane": {
+      "blend_file": "assets-src/jane/jane_master.blend",
+      "armature": "Armature",
+      "output_dir": "public/assets/sprites/jane",
+      "atlas_name": "jane_atlas",
+      "atlas_size": 2048,
+      "animations": [
+        {
+          "key": "jane_idle",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-idle.zip",
+          "blender_action": "biped-idle",
+          "frame_step": 4, "fps": 8,  "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_walk",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-quick-walk.zip",
+          "blender_action": "biped-quick-walk",
+          "frame_step": 3, "fps": 12, "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_run",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-run-fast.zip",
+          "blender_action": "biped-run-fast",
+          "frame_step": 2, "fps": 16, "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_stand",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-stand-and-chat.zip",
+          "blender_action": "biped-stand-and-chat",
+          "frame_step": 5, "fps": 6,  "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_combat_idle",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-relax-arms-then-strike-battle-pose.zip",
+          "blender_action": "biped-relax-arms-then-strike-battle-pose",
+          "frame_step": 4, "fps": 8,  "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_attack_1",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-left-jab-from-guard.zip",
+          "blender_action": "biped-left-jab-from-guard",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_attack_2",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-right-uppercut-from-guard.zip",
+          "blender_action": "biped-right-uppercut-from-guard",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_combo",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-punch-combo.zip",
+          "blender_action": "biped-punch-combo",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_dash",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-standard-forward-charge.zip",
+          "blender_action": "biped-standard-forward-charge",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_skid",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-stand-dodge.zip",
+          "blender_action": "biped-stand-dodge",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_leap_start",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-regular-jump.zip",
+          "blender_action": "biped-regular-jump",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_retreat",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-walk-backward.zip",
+          "blender_action": "biped-walk-backward",
+          "frame_step": 3, "fps": 12, "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_jump_start",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-regular-jump.zip",
+          "blender_action": "biped-regular-jump",
+          "_note": "Use early frames only (frame_end override in render script if needed)",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_jump_apex",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-swim-idle.zip",
+          "blender_action": "biped-swim-idle",
+          "frame_step": 4, "fps": 8,  "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_fall",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-fall-1.zip",
+          "blender_action": "biped-fall-1",
+          "frame_step": 4, "fps": 8,  "loop": true,  "hold_last": false
+        },
+        {
+          "key": "jane_land_hard",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-dive-down-and-land-1.zip",
+          "blender_action": "biped-dive-down-and-land-1",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_land_mid",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-dive-down-and-land-2.zip",
+          "blender_action": "biped-dive-down-and-land-2",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_land_light",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-regular-jump.zip",
+          "blender_action": "biped-regular-jump",
+          "_note": "Use final frames only",
+          "frame_step": 2, "fps": 16, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_death",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-dead.zip",
+          "blender_action": "biped-dead",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_bored",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-long-breathe-and-look-around.zip",
+          "blender_action": "biped-long-breathe-and-look-around",
+          "frame_step": 4, "fps": 8,  "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_refusing",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-shouting-angrily.zip",
+          "blender_action": "biped-shouting-angrily",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_ul_gesture",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-charged-spell-cast.zip",
+          "blender_action": "biped-charged-spell-cast",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": true
+        },
+        {
+          "key": "jane_celebrate",
+          "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-victory-cheer.zip",
+          "blender_action": "biped-victory-cheer",
+          "frame_step": 3, "fps": 12, "loop": false, "hold_last": false
+        }
+      ],
+      "bonus_animations": [
+        { "key": "jane_backflip",     "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-backflip.zip",            "blender_action": "biped-backflip" },
+        { "key": "jane_ul_gesture_2", "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-mage-spell-cast-3.zip",  "blender_action": "biped-mage-spell-cast-3" },
+        { "key": "jane_bored_dance",  "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-shake-it-off-dance.zip", "blender_action": "biped-shake-it-off-dance" },
+        { "key": "jane_talk",         "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-talk-passionately.zip",  "blender_action": "biped-talk-passionately" },
+        { "key": "jane_wave",         "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-wave-for-help.zip",      "blender_action": "biped-wave-for-help" },
+        { "key": "jane_slam",         "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-charged-ground-slam.zip","blender_action": "biped-charged-ground-slam" },
+        { "key": "jane_call",         "meshy_zip": "FusionGirl_3DAnim/Meshy_AI_biped-call-gesture.zip",       "blender_action": "biped-call-gesture" }
+      ]
+    }
+  }
+}

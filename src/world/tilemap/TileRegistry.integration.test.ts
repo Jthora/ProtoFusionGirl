@@ -20,7 +20,8 @@ describe('TileRegistry Integration & Edge Cases', () => {
   };
 
   beforeEach(() => {
-    registry = new TileRegistry();
+  // Disable default tile population so tests can assert precise counts
+  registry = new TileRegistry({ includeDefaults: false });
   });
 
   it('overwrites a tile with the same id', () => {

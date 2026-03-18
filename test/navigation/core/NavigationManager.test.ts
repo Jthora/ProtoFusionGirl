@@ -13,6 +13,7 @@ class MockPlayerManager {
       sprite: {
         x: 100,
         y: 200,
+  setVelocityX: jest.fn(),
         body: {
           velocity: { x: 0, y: 0 },
           acceleration: { x: 0, y: 0 },

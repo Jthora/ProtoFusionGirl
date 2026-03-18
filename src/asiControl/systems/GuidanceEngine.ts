@@ -9,26 +9,22 @@ import {
   GuidanceSuggestion,
   JaneState,
   Vector2,
-  EnvironmentalFactor,
-  SocialContext,
-  MissionContext
 } from '../types';
 import { TrustManager } from './TrustManager';
 import { ThreatDetector } from './ThreatDetector';
 
 export class GuidanceEngine {
   private eventBus: EventBus;
-  private scene: Phaser.Scene;
   private trustManager: TrustManager;
   private threatDetector: ThreatDetector;
   private config: GuidanceEngineConfig;
   private activeSuggestions: GuidanceSuggestion[] = [];
   private contextUpdateTimer: NodeJS.Timeout | null = null;
   private suggestionIdCounter = 0;
+  private subscriptions: Array<() => void> = [];
 
   constructor(config: GuidanceEngineConfig) {
     this.eventBus = config.eventBus;
-    this.scene = config.scene;
     this.trustManager = config.trustManager;
     this.threatDetector = config.threatDetector;
     this.config = config;
@@ -39,30 +35,30 @@ export class GuidanceEngine {
 
   private setupEventHandlers(): void {
     // Listen for game state changes that might require new guidance
-    this.eventBus.on('JANE_MOVED', (event: any) => {
+    this.subscriptions.push(this.eventBus.on('JANE_MOVED', (event: any) => {
       this.handleJaneMovement(event.data);
-    });
+    }));
 
-    this.eventBus.on('COMBAT_STARTED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('COMBAT_STARTED', (event: any) => {
       this.handleCombatStart(event.data);
-    });
+  }));
 
-    this.eventBus.on('THREAT_DETECTED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('THREAT_DETECTED', (event: any) => {
       this.handleThreatDetected(event.data);
-    });
+  }));
 
-    this.eventBus.on('MISSION_STARTED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('MISSION_STARTED', (event: any) => {
       this.handleMissionStart(event.data);
-    });
+  }));
 
-    this.eventBus.on('TRUST_CHANGED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('TRUST_CHANGED', (event: any) => {
       this.handleTrustChanged(event.data);
-    });
+  }));
 
     // Listen for guidance selection
-    this.eventBus.on('GUIDANCE_SELECTED', (event: any) => {
+  this.subscriptions.push(this.eventBus.on('GUIDANCE_SELECTED', (event: any) => {
       this.handleGuidanceSelection(event.data);
-    });
+  }));
   }
 
   private startContextUpdateTimer(): void {
@@ -123,8 +119,10 @@ export class GuidanceEngine {
       }
     });
 
-    // Simulate Jane's response based on trust and suggestion confidence
-    this.simulateJaneResponse(suggestion);
+    // Optionally simulate Jane's response (dev/testing only). In production, GameScene handles arrival/timeout.
+    if (this.config.simulateResponses) {
+      this.simulateJaneResponse(suggestion);
+    }
   }
 
   public updateContext(): void {
@@ -530,7 +528,8 @@ export class GuidanceEngine {
     ];
   }
 
-  private getSocialContext(position: Vector2): any {
+  private getSocialContext(_position: Vector2): any {
+  // position currently unused in placeholder implementation
     // Get social context around the given position
     return {
       nearbyNPCs: [],
@@ -554,27 +553,27 @@ export class GuidanceEngine {
     };
   }
 
-  private calculateOptimalPath(context: GuidanceContext): Vector2 | null {
+  private calculateOptimalPath(_context: GuidanceContext): Vector2 | null {
     return null;
   }
 
-  private findExplorationTarget(context: GuidanceContext): Vector2 | null {
+  private findExplorationTarget(_context: GuidanceContext): Vector2 | null {
     return null;
   }
 
-  private calculateTacticalPosition(context: GuidanceContext): Vector2 | null {
+  private calculateTacticalPosition(_context: GuidanceContext): Vector2 | null {
     return null;
   }
 
-  private getRecommendedCombatAbility(context: GuidanceContext): any {
+  private getRecommendedCombatAbility(_context: GuidanceContext): any {
     return null;
   }
 
-  private getEnvironmentalMagicOptions(context: GuidanceContext): any[] {
+  private getEnvironmentalMagicOptions(_context: GuidanceContext): any[] {
     return [];
   }
 
-  private generateMissionSuggestions(context: GuidanceContext, missionData: any): GuidanceSuggestion[] {
+  private generateMissionSuggestions(_context: GuidanceContext, _missionData: any): GuidanceSuggestion[] {
     return [];
   }
 
@@ -589,7 +588,7 @@ export class GuidanceEngine {
     }
   }
 
-  private hasConflictingAction(suggestion: GuidanceSuggestion, context: GuidanceContext): boolean {
+  private hasConflictingAction(_suggestion: GuidanceSuggestion, _context: GuidanceContext): boolean {
     return false;
   }
 
@@ -604,5 +603,10 @@ export class GuidanceEngine {
     }
     
     this.activeSuggestions = [];
+    // Unsubscribe event handlers
+    this.subscriptions.forEach(unsub => {
+      try { unsub(); } catch {}
+    });
+    this.subscriptions = [];
   }
 }

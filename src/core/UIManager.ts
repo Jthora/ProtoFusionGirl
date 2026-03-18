@@ -10,6 +10,17 @@ import { TimelinePanel } from '../ui/components/TimelinePanel';
 import { LeyLine } from '../world/leyline/types';
 import { EventBus } from './EventBus';
 import { LeyLineStabilizationModal } from '../ui/components/LeyLineStabilizationModal';
+import { ModalManager } from '../ui/layout/ModalManager';
+
+// UIManager configuration to control which components are created/shown by default
+export interface UIManagerOptions {
+  /** Create the ASI overlay from UIManager (default: false to avoid duplication with GameScene-owned overlay). */
+  createASIOverlay?: boolean;
+  /** Create the Lore Terminal (default: false; only enable when actual lore entries are provided and desired). */
+  createLoreTerminal?: boolean;
+  /** If ASI overlay is created, show it immediately (default: false). */
+  showASIOnStart?: boolean;
+}
 
 export class UIManager {
   minimap: Minimap | undefined;
@@ -21,7 +32,9 @@ export class UIManager {
   private eventBus: EventBus;
   private lastLeyLines: LeyLine[] = [];
   private leyLineStabilizationModal?: LeyLineStabilizationModal;
-
+  private options: UIManagerOptions;
+  private modalManager: ModalManager;
+  
   constructor(
     scene: Phaser.Scene,
     tilemapManager: any,
@@ -29,10 +42,19 @@ export class UIManager {
     enemies: any[],
     enemySprites: Map<any, Phaser.GameObjects.Sprite>,
     loreEntries: any[],
-    eventBus: EventBus
+    eventBus: EventBus,
+    options: UIManagerOptions = {}
   ) {
     this.scene = scene;
     this.eventBus = eventBus;
+    this.options = {
+      createASIOverlay: false,
+      createLoreTerminal: false,
+      showASIOnStart: false,
+      ...options,
+    };
+  // Centralized modal handling to avoid popup clutter
+  this.modalManager = new ModalManager(scene);
     // Minimap
     this.minimap = new Minimap(
       scene,
@@ -46,33 +68,35 @@ export class UIManager {
     scene.add.existing(this.minimap);
     this.minimap.attachEventBus(eventBus);
 
-    // Lore Terminal
-    this.loreTerminal = new LoreTerminal({
-      scene,
-      x: 500,
-      y: 300,
-      texture: 'terminal',
-      scale: 1.2,
-      loreEntries,
-      onShowEntry: (entry: string) => {
-        scene.add.text(
-          this.loreTerminal!.sprite.x,
-          this.loreTerminal!.sprite.y - 80,
-          entry,
-          { color: '#ffffcc', fontSize: '16px', backgroundColor: '#333366', padding: { x: 10, y: 6 }, wordWrap: { width: 320 } }
-        ).setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
-      }
-    });
-    scene.physics.add.overlap(
-      playerSprite,
-      this.loreTerminal.sprite,
-      () => this.loreTerminal!.handlePlayerOverlap(),
-      undefined,
-      scene
-    );
-    scene.input.keyboard?.on('keydown-E', () => {
-      this.loreTerminal!.handleInteract();
-    });
+    // Lore Terminal (opt-in to avoid clutter near spawn)
+    if (this.options.createLoreTerminal && Array.isArray(loreEntries) && loreEntries.length > 0) {
+      this.loreTerminal = new LoreTerminal({
+        scene,
+        x: 500,
+        y: 300,
+        texture: 'terminal',
+        scale: 1.2,
+        loreEntries,
+        onShowEntry: (entry: string) => {
+          scene.add.text(
+            this.loreTerminal!.sprite.x,
+            this.loreTerminal!.sprite.y - 80,
+            entry,
+            { color: '#ffffcc', fontSize: '16px', backgroundColor: '#333366', padding: { x: 10, y: 6 }, wordWrap: { width: 320 } }
+          ).setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
+        }
+      });
+      scene.physics.add.overlap(
+        playerSprite,
+        this.loreTerminal.sprite,
+        () => this.loreTerminal!.handlePlayerOverlap(),
+        undefined,
+        scene
+      );
+      scene.input.keyboard?.on('keydown-E', () => {
+        this.loreTerminal!.handleInteract();
+      });
+    }
 
     // Timeline Panel
     this.timelinePanel = new TimelinePanel(scene, tilemapManager, 320, 240);
@@ -84,14 +108,20 @@ export class UIManager {
     });
 
     // Feedback Modal (created on demand)
-    // ASI Overlay
-    this.asiOverlay = new ASIOverlay({
-      scene,
-      width: scene.scale.width,
-      height: scene.scale.height,
-      eventBus: this.eventBus
-    });
-    this.asiOverlay.show();
+    // ASI Overlay (opt-in to avoid duplication with GameScene-owned overlay)
+    if (this.options.createASIOverlay) {
+      this.asiOverlay = new ASIOverlay({
+        scene,
+        width: scene.scale.width,
+        height: scene.scale.height,
+        eventBus: this.eventBus
+      });
+      if (this.options.showASIOnStart) {
+        this.asiOverlay.show();
+      } else {
+        this.asiOverlay.hide();
+      }
+    }
 
     // Listen for ley line instability events and show feedback (artifact-driven)
     // Artifact: leyline_instability_event_narrative_examples_2025-06-08.artifact
@@ -146,7 +176,7 @@ export class UIManager {
         }
       );
     });
-    this.eventBus.on('LEYLINE_DISRUPTION', (event) => {
+  this.eventBus.on('LEYLINE_DISRUPTION', () => {
       // Play disruption audio cue
       if (this.scene.sound) {
         this.scene.sound.play('leyline_disruption', { volume: 0.8 });
@@ -154,7 +184,7 @@ export class UIManager {
       // Show pop-up: "Ley Line Disruption: Fast travel disabled in this region."
       this.showFeedback('Ley Line Disruption: Fast travel disabled in this region.');
     });
-    this.eventBus.on('RIFT_FORMED', (event) => {
+  this.eventBus.on('RIFT_FORMED', () => {
       // Play rift audio cue
       if (this.scene.sound) {
         this.scene.sound.play('leyline_rift', { volume: 1.0 });
@@ -165,13 +195,8 @@ export class UIManager {
   }
 
   showFeedback(message: string) {
-    if (!this.feedbackModal) {
-      this.feedbackModal = new FeedbackModal(this.scene, this.scene.scale.width / 2);
-    }
-    this.feedbackModal.show();
-    this.scene.add.text(this.scene.scale.width / 2, 100, message, {
-      fontSize: '20px', color: '#ff0', backgroundColor: '#222', padding: { x: 12, y: 6 }
-    }).setOrigin(0.5).setDepth(1002).setScrollFactor(0);
+  // Route through ModalManager as a lightweight text modal (auto-closes)
+  this.modalManager.showTextModal(message, { id: `toast:${message.slice(0, 24)}`, autoCloseMs: 1800 });
   }
 
   /**
@@ -210,20 +235,22 @@ export class UIManager {
       event,
       () => {
         onStabilize();
-        this.leyLineStabilizationModal?.destroy();
+        // Ensure modal overlay is cleared even if container self-destroys
+        this.modalManager.closeCurrent();
         this.leyLineStabilizationModal = undefined;
       },
       () => {
         onEscalate();
-        this.leyLineStabilizationModal?.destroy();
+        this.modalManager.closeCurrent();
         this.leyLineStabilizationModal = undefined;
       }
     );
-    this.scene.add.existing(this.leyLineStabilizationModal);
+    // Queue and show via ModalManager to avoid stacking
+    this.modalManager.showContainer(this.leyLineStabilizationModal, { id: `leyline:${event.leyLineId}` });
   }
 
   // Add this method for ModularGameLoop integration
-  update(dt: number, context?: any) {
+  update(_dt: number, _context?: any) {
     // TODO: Implement UI updates, overlays, or feedback polling as needed
   }
 }

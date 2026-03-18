@@ -22,7 +22,9 @@ export class TileSpriteFactory {
     }
 
     // Create base sprite
-    const sprite = scene.add.sprite(x, y, 'tilesheet');
+  const sprite = scene.add.sprite(x, y, 'tilesheet');
+  // Align tiles to top-left to match world coordinates and physics bodies
+  sprite.setOrigin(0, 0);
     
     // Get tile definition from registry
     const tileDefinition = TileSpriteFactory.tileRegistry?.getTile(tileType);

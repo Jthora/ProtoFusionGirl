@@ -15,18 +15,19 @@ export class PreloaderManager {
   private currentProgress = 0;
   private isComplete = false;
 
-  // Loading steps with realistic timing
+  // Loading steps — each step is 150ms so messages are readable
   private loadingSteps: LoadingStep[] = [
-    { name: 'init', duration: 500, message: 'Initializing ASI Control Interface...' },
-    { name: 'assets', duration: 800, message: 'Loading FusionGirl assets...' },
-    { name: 'leylines', duration: 600, message: 'Calibrating ley line network...' },
-    { name: 'asi_systems', duration: 700, message: 'Activating ASI systems...' },
-    { name: 'trust_protocols', duration: 400, message: 'Establishing trust protocols...' },
-    { name: 'threat_detection', duration: 500, message: 'Initializing threat detection...' },
-    { name: 'guidance_engine', duration: 600, message: 'Loading guidance algorithms...' },
-    { name: 'world_generation', duration: 900, message: 'Generating world chunks...' },
-    { name: 'final_checks', duration: 300, message: 'Running final diagnostics...' },
-    { name: 'ready', duration: 200, message: 'ASI Control Interface ready!' }
+    { name: 'init', duration: 150, message: 'Initializing ASI Control Interface...' },
+    { name: 'assets', duration: 150, message: 'Loading FusionGirl assets...' },
+    { name: 'leylines', duration: 150, message: 'Calibrating ley line network...' },
+    { name: 'asi_systems', duration: 150, message: 'Activating ASI systems...' },
+    { name: 'trust_protocols', duration: 150, message: 'Establishing trust protocols...' },
+    { name: 'threat_detection', duration: 150, message: 'Initializing threat detection...' },
+    { name: 'guidance_engine', duration: 150, message: 'Loading guidance algorithms...' },
+    { name: 'world_generation', duration: 150, message: 'Generating world chunks...' },
+    { name: 'final_checks', duration: 150, message: 'Running final diagnostics...' },
+    { name: 'locate_jane', duration: 150, message: "Locating Jane Tho\u02bera... FOUND" },
+    { name: 'ready', duration: 150, message: 'Connection established.' }
   ];
 
   private constructor() {
@@ -80,7 +81,7 @@ export class PreloaderManager {
     this.updateProgress(100, 'Complete!');
     
     // Wait a moment before hiding
-    await this.delay(500);
+    await this.delay(100);
     await this.hidePreloader();
   }
 

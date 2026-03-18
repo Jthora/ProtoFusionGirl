@@ -1,11 +1,98 @@
-# docs/
+# Proto FusionGirl — Documentation Hub
 
-This folder contains all human-facing documentation, guides, and reference material for the project. Documentation is indexed in `.manifest` and referenced by `.primer` and `.dashboard` for onboarding and deep dives.
+> Complete project documentation for the Proto FusionGirl prototype. Covers game design, technical architecture, planning, and reference material.
 
-## Usage
-- Keep docs cross-linked with artifacts and custom files for seamless navigation.
+---
 
-## Related Files
-- ../.primer
-- ../.dashboard
-- ../.manifest
+## Quick Start Reading Order
+
+If you're new to this project, read these in order:
+
+1. **[proto-scope/01-vision-and-identity.md](proto-scope/01-vision-and-identity.md)** — What the game is, who Jane is, what the player-as-ASI means
+2. **[proto-scope/02-codebase-audit.md](proto-scope/02-codebase-audit.md)** — File-by-file audit with method maps and honest ratings
+3. **[proto-scope/03-gap-analysis-and-plan.md](proto-scope/03-gap-analysis-and-plan.md)** — What's built vs what's designed, priorities P0-P5
+4. **[proto-scope/04-architectural-roadmap.md](proto-scope/04-architectural-roadmap.md)** — Phaser → Rust UL → Godot 4 path
+
+---
+
+## Documentation Tree
+
+### [game-design/](game-design/) — Game Design Documents
+Everything about what the game *should be*: mechanics, characters, world, lore, ASI control.
+
+| Section | Contents |
+|---------|----------|
+| [core/](game-design/core/) | Core game loop, gameplay mechanics, immersive experience |
+| [characters/](game-design/characters/) | Jane, Beu, robots, Earth Alliance faction |
+| [world/](game-design/world/) | Game world overview, ley lines, timestreams |
+| [universal-language/](game-design/universal-language/) | Mind puzzles, Cosmic Cypher, Base-12 harmonics, whitepaper |
+| [combat/](game-design/combat/) | Dynamic threats, combat mechanics |
+| [missions/](game-design/missions/) | Mission types, outcomes |
+| [progression/](game-design/progression/) | Player progression, tech levels, difficulty, economy |
+| [narrative/](game-design/narrative/) | Story documents, lore entries |
+| [asi-control/](game-design/asi-control/) | ASI control interfaces (8 docs) + MVP specifications (8 docs) |
+| [business/](game-design/business/) | Innovative concept, pitch strategy |
+
+### [technical/](technical/) — Technical Documentation
+Everything about what the code *actually does*: architecture, systems, data, testing.
+
+| Section | Contents |
+|---------|----------|
+| [architecture/](technical/architecture/) | **Start here for code understanding** |
+| — [event-bus-reference.md](technical/architecture/event-bus-reference.md) | All 110+ events catalogued by system |
+| — [system-dependency-map.md](technical/architecture/system-dependency-map.md) | Import graph, creation chain, coupling hotspots |
+| — [game-scene-analysis.md](technical/architecture/game-scene-analysis.md) | P0 decomposition plan with extraction checklist |
+| [systems/navigation/](technical/systems/navigation/) | Speed physics, camera, terrain LOD (20+ docs) |
+| [systems/world/](technical/systems/world/) | Planetary architecture, ley line implementation |
+| [systems/asi-control/](technical/systems/asi-control/) | ASI system architecture diagram |
+| [systems/universal-language/](technical/systems/universal-language/) | UL engine component map |
+| [data/](technical/data/) | Data loaders, modding infrastructure |
+| [testing/](technical/testing/) | Test analysis, automation, pre-commit hooks |
+| [ai-development/](technical/ai-development/) | AI development plan (JaneAI status) |
+
+### [planning/](planning/) — Plans & Audits
+Strategic documents, work tracking, audit status.
+
+| Section | Contents |
+|---------|----------|
+| [proto-scope/](proto-scope/) | **Strategic assessment** — vision, audit, gap analysis, roadmap |
+| [audit/](planning/audit/) | Audit status tracking |
+| Root | Web3 strategy |
+
+### [reference/](reference/) — Reference Material
+Q&A, instructions, and lookup material.
+
+---
+
+## Key Findings (Summary)
+
+- **1,675-line GameScene** is Priority 0 — see [game-scene-analysis.md](technical/architecture/game-scene-analysis.md) for extraction plan
+- **110+ EventBus events** — 13 unregistered, 3 orphaned — see [event-bus-reference.md](technical/architecture/event-bus-reference.md)
+- **Player-as-ASI identity** is designed but not implemented — WASD controls Jane directly
+- **22 of 97 test suites fail** — see [testing/README.md](technical/testing/README.md) for breakdown
+- **Speed physics engine** is the best code in the codebase — ~1,200 lines, production quality
+- **JaneAI class is empty** (6 lines) — no autonomous behavior exists
+- **Accepted path**: Finish Proto (Phaser/TS) → Rust UL engine → Godot 4
+
+---
+
+## Legacy Directories
+
+These directories contain original files that have been copied to the new structure above. They will be removed once migration is verified:
+
+- `asiControl/` → moved to `game-design/asi-control/`
+- `navigation/` → copied to `technical/systems/navigation/`
+- `planetary-architecture/` → copied to `technical/systems/world/planetary-architecture/`
+- `gameworld/` → copied to `technical/systems/world/leylines/`
+- `audit/` → moved to `planning/audit/`
+- `rebuild/` → archived
+
+---
+
+## Auto-Generated Indexes
+
+These JSON files are auto-generated by onboarding scripts and should not be edited manually:
+
+- `docs_index.json`
+- `docs_index_L1.json`
+- `docs_index_L2.json`

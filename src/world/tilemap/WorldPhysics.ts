@@ -2,8 +2,10 @@
 // Centralizes world physics configuration and helpers (gravity, collision, etc.)
 import Phaser from 'phaser';
 
+export const DEFAULT_GRAVITY_Y = 900;
+
 export class WorldPhysics {
-  static setupGravity(scene: Phaser.Scene, gravityY: number = 900) {
+  static setupGravity(scene: Phaser.Scene, gravityY: number = DEFAULT_GRAVITY_Y) {
     if (scene.physics && scene.physics.world) {
       scene.physics.world.gravity.y = gravityY;
     }

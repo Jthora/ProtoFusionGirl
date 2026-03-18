@@ -17,8 +17,10 @@ export class TileRegistry {
   private tiles: Map<string, TileDefinition> = new Map();
   private modTileSources: Record<string, string[]> = {};
 
-  constructor() {
-    this.registerDefaultTiles();
+  constructor(options?: { includeDefaults?: boolean }) {
+    if (options?.includeDefaults !== false) {
+      this.registerDefaultTiles();
+    }
   }
 
   private registerDefaultTiles() {
@@ -149,7 +151,7 @@ export class TileRegistry {
       }
     ];
 
-    defaultTiles.forEach(tile => this.registerTile(tile, 'core'));
+  defaultTiles.forEach(tile => this.registerTile(tile, 'core'));
     console.log(`🎨 Registered ${defaultTiles.length} default colored tiles`);
   }
 

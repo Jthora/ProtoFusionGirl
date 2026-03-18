@@ -113,11 +113,11 @@ export class AppIconManager {
   public getAppIconUrl(size: 'small' | 'medium' | 'large' = 'medium'): string {
     switch (size) {
       case 'small':
-        return '/favicon.png';
+        return '/favicon-192.png';
       case 'large':
         return '/favicon-512.png';
       default:
-        return '/favicon.png';
+        return '/favicon-192.png';
     }
   }
 }

@@ -5,6 +5,7 @@ import { GameScene } from './scenes/GameScene';
 import { MinimalGameScene } from './scenes/MinimalGameScene';
 import { PauseMenuScene } from './scenes/PauseMenuScene';
 import { SettingsScene } from './scenes/SettingsScene';
+import { TimelineResultScene } from './scenes/TimelineResultScene';
 
 // Import comprehensive error logging system
 import { errorLogger } from './utils/ErrorLogger';
@@ -38,18 +39,17 @@ loadingCoordinator.setGameReadyCallback(() => {
 });
 
 // Check if we should use development loading (faster for development)
-const isDevelopment = import.meta.env.DEV;
 const urlParams = new URLSearchParams(window.location.search);
 const quickStart = urlParams.has('quick');
 
 if (quickStart) {
   // Quick start for development
   loadingCoordinator.quickStart();
-} else if (isDevelopment) {
-  // Development mode with shorter timings
+} else if (import.meta.env.DEV) {
+  // Development mode: fast timings
   loadingCoordinator.developmentStart();
 } else {
-  // Full production loading experience
+  // Production: full loading sequence with proper timing
   loadingCoordinator.startFullLoadingSequence();
 }
 
@@ -74,15 +74,16 @@ function initializePhaserGame() {
       width: '100%',
       height: '100%'
     },
-    physics: {
+  physics: {
       default: 'arcade',
       arcade: {
-        gravity: { x: 0, y: 500 },
+    // Gravity is controlled at runtime by WorldPhysics.setupGravity. Keep config gravity neutral.
+    gravity: { x: 0, y: 0 },
         debug: false, // Set to true for development
       },
     },
     // Include both GameScene and MinimalGameScene for flexibility
-    scene: [StartScene, GameScene, MinimalGameScene, PauseMenuScene, SettingsScene],
+    scene: [StartScene, GameScene, MinimalGameScene, PauseMenuScene, SettingsScene, TimelineResultScene],
     backgroundColor: '#222',
     callbacks: {
       preBoot: () => {

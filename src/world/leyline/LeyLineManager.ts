@@ -124,8 +124,16 @@ export class LeyLineManager {
    * Publishes a ley line activation event (if eventBus provided).
    */
   activateLeyLine(leyLineId: string) {
-    if (this.events) this.events.publishActivation(leyLineId);
-    // Optionally, update ley line state here as well
+  const leyLines = [...this.getLeyLines()];
+  const idx = leyLines.findIndex(l => l.id === leyLineId);
+  if (idx === -1) return;
+  const leyLine = { ...leyLines[idx] } as any;
+  const alreadyActive = leyLine.nodes.every((n: any) => n.state === 'active');
+  if (alreadyActive) return;
+  leyLine.nodes = leyLine.nodes.map((n: any) => ({ ...n, state: 'active' }));
+  leyLines[idx] = leyLine;
+  this.setLeyLines(leyLines);
+  if (this.events) this.events.publishActivation(leyLineId);
   }
 
   /**

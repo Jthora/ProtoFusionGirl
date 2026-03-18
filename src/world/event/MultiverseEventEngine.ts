@@ -1,7 +1,8 @@
 // MultiverseEventEngine: Branch-aware event and quest state engine for ProtoFusionGirl
 // Integrates with WorldPersistence for per-branch event/quest state and propagation/merge logic.
 import { WorldPersistence } from '../tilemap/WorldPersistence';
-import { EventBus, Event } from '../../core/EventBus';
+import { EventBus } from '../../core/EventBus';
+import { EventName } from '../../core/EventTypes';
 
 export interface QuestState {
   id: string;
@@ -16,13 +17,11 @@ export interface MultiverseEventState {
 }
 
 export class MultiverseEventEngine {
-  private worldPersistence: WorldPersistence;
   private eventBus: EventBus;
   // Per-branch event/quest state
   private branchEventState: Record<string, MultiverseEventState> = {};
 
-  constructor(worldPersistence: WorldPersistence, eventBus: EventBus) {
-    this.worldPersistence = worldPersistence;
+  constructor(_worldPersistence: WorldPersistence, eventBus: EventBus) {
     this.eventBus = eventBus;
   }
 
@@ -47,7 +46,7 @@ export class MultiverseEventEngine {
   propagateEventToBranch(eventId: string, data: any, targetBranchId: string) {
     this.getBranchEventState(targetBranchId).events[eventId] = data;
     // Optionally emit event on eventBus
-    this.eventBus.emit({ type: eventId, data });
+  this.eventBus.emit({ type: eventId as EventName, data } as any); // runtime may ignore unknown
   }
 
   mergeBranchEvents(targetBranchId: string, sourceBranchId: string) {
@@ -68,15 +67,15 @@ export class MultiverseEventEngine {
     // Record event in branch state
     this.getBranchEventState(branchId).events[eventId] = data;
     // Emit on event bus for listeners (e.g., UI, simulation, analytics)
-    this.eventBus.emit({ type: eventId, data });
+  this.eventBus.emit({ type: eventId as EventName, data } as any);
   }
 
   // --- Narrative Triggers & World Change Hooks ---
   onNarrativeTrigger(branchId: string, eventId: string, handler: (data: any) => void) {
     // Listen for narrative event on the event bus, scoped to branch
-    this.eventBus.on(eventId, (event) => {
-      // Optionally filter by branchId if event data includes it
-      if (!event.data || event.data.branchId === branchId) {
+  this.eventBus.on(eventId as EventName, (event: any) => {
+      const bId = (event.data && (event.data as any).branchId);
+      if (!event.data || bId === branchId) {
         handler(event.data);
       }
     });
@@ -85,7 +84,7 @@ export class MultiverseEventEngine {
   triggerWorldChange(branchId: string, changeId: string, data: any) {
     // Record world change event and emit for listeners
     this.getBranchEventState(branchId).events[changeId] = data;
-    this.eventBus.emit({ type: changeId, data: { ...data, branchId } });
+  this.eventBus.emit({ type: changeId as EventName, data: { ...data, branchId } } as any);
   }
 
   /**
@@ -95,7 +94,7 @@ export class MultiverseEventEngine {
   propagateLeyLineInstability(event: import('../../world/leyline/types').LeyLineInstabilityEvent, targetBranchId: string) {
     // Example: propagate event to branch event state and emit on eventBus
     this.getBranchEventState(targetBranchId).events[event.id] = event;
-    this.eventBus.emit({ type: event.type, data: event });
+  this.eventBus.emit({ type: event.type as EventName, data: event } as any);
     // Escalation/mission/narrative hooks (stub)
     // TODO: If event.severity escalates, trigger mission/narrative consequences
   }

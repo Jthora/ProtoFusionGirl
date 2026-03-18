@@ -51,16 +51,13 @@ export class SceneValidator {
   private detectKnownIssues(): string[] {
     const issues: string[] = [];
     
-    // Critical issue: StartScene tries to start 'GameScene' but config might not include it
-    issues.push('StartScene.ts calls this.scene.start("GameScene") - verify GameScene is in main.ts scenes array');
-    
-    // Check if we can detect the actual configuration
+    // Only check for scene issues if we can actually validate them
     try {
-      // Try to access the current configuration
       const sceneIssues = this.analyzeCurrentConfiguration();
       issues.push(...sceneIssues);
     } catch (error) {
-      issues.push(`Configuration analysis failed: ${error}`);
+      // Don't report configuration analysis failures as user-facing errors
+      console.debug(`Configuration analysis failed: ${error}`);
     }
     
     return issues;
@@ -243,7 +240,27 @@ export const sceneValidator = SceneValidator.getInstance();
 // Expose globally for debugging
 (window as any).sceneValidator = sceneValidator;
 
-// Auto-run diagnostics
+// Auto-run diagnostics with proper timing
 setTimeout(() => {
-  sceneValidator.runFullDiagnostics();
-}, 1000); // Run after initial setup
+  // Check if game is actually ready before validating
+  const gameCanvas = document.querySelector('canvas');
+  const phaserGame = (window as any).game;
+  
+  if (gameCanvas && phaserGame) {
+    console.log('✅ Game canvas found, running scene diagnostics...');
+    sceneValidator.runFullDiagnostics();
+  } else {
+    console.log('⏳ Game not fully initialized yet, skipping premature validation');
+    // Try again in a few seconds if needed
+    setTimeout(() => {
+      const retryCanvas = document.querySelector('canvas');
+      const retryGame = (window as any).game;
+      if (retryCanvas && retryGame) {
+        console.log('✅ Game ready on retry, running scene diagnostics...');
+        sceneValidator.runFullDiagnostics();
+      } else {
+        console.log('⚠️ Game still not ready after delay - manual diagnostics available');
+      }
+    }, 3000);
+  }
+}, 2000); // Run after game has had time to initialize

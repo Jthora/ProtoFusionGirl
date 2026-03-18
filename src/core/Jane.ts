@@ -6,6 +6,10 @@
 import { EventBus } from './EventBus';
 import { MagnetoSpeeder } from '../magneto/MagnetoSpeeder';
 import { LeyLineManager } from '../world/leyline/LeyLineManager';
+import { getCharacterData } from '../data/characterLoader';
+import { loadSkills, SkillDefinition } from '../data/skillLoader';
+import { loadCosmetics, CosmeticDefinition } from '../data/cosmeticLoader';
+import { loadFactions, FactionDefinition } from '../data/factionLoader';
 
 export interface JaneStats {
   health: number;
@@ -37,11 +41,17 @@ export class Jane {
   // World position (shared with speeder if mounted)
   public position: { x: number; y: number } = { x: 0, y: 0 };
   private leyLineManager?: LeyLineManager;
+  // Data-driven enrichments
+  public skills: SkillDefinition[] = [];
+  public cosmetics: CosmeticDefinition[] = [];
+  public faction: FactionDefinition | null = null;
 
   constructor(config: JaneConfig & { leyLineManager?: LeyLineManager }) {
     this.id = config.id || 'jane';
     this.name = config.name || "Jane Tho'ra";
     this.eventBus = config.eventBus;
+    const data = getCharacterData('jane');
+    const dataStats = data?.baseStats;
     this.stats = {
       health: 100,
       maxHealth: 100,
@@ -50,9 +60,40 @@ export class Jane {
       level: 1,
       experience: 0,
       skills: {},
+      ...dataStats,
       ...config.initialStats
     };
     this.leyLineManager = config.leyLineManager;
+
+    // Load skills from data based on level requirements
+    try {
+      const allSkills = loadSkills();
+      this.skills = allSkills.filter(skill => {
+        return skill.requirements.every(req => {
+          if (typeof req === 'string' && req.startsWith('Jane:level>=')) {
+            const minLevel = parseInt(req.split('>=')[1], 10);
+            return this.stats.level >= minLevel;
+          }
+          return true;
+        });
+      });
+    } catch {}
+
+    // Load cosmetics from data by cosmeticIds
+    try {
+      const allCosmetics = loadCosmetics();
+      const ids = (data?.cosmeticIds || []) as string[];
+      this.cosmetics = ids
+        .map(cid => allCosmetics.find(c => c.id === cid))
+        .filter(Boolean) as CosmeticDefinition[];
+    } catch {}
+
+    // Assign faction from data
+    try {
+      const factions = loadFactions();
+      const factionId = (data?.factionId || 'earth_alliance') as string;
+      this.faction = factions.find(f => f.id === factionId) || null;
+    } catch {}
   }
 
   // AI/ASI duality: allow ASI to take control
@@ -158,13 +199,15 @@ export class Jane {
    * Move Jane or the speeder (if mounted) to a new position.
    */
   moveTo(x: number, y: number) {
+    this.position = { x, y };
     if (this.isMounted && this.speeder) {
       this.speeder.setPosition(x, y);
-      this.position = { x, y };
       this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } });
+      this.eventBus.emit({ type: 'SPEEDER_MOVED', data: { x, y } });
     } else {
-      this.position = { x, y };
       this.eventBus.emit({ type: 'CHARACTER_MOVED', data: { id: this.name, x, y } });
+      // For UI systems expecting Jane-specific movement
+      this.eventBus.emit({ type: 'JANE_MOVED', data: { x, y } });
     }
   }
 

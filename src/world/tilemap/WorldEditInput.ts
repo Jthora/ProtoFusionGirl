@@ -8,6 +8,10 @@ export class WorldEditInput {
     this.session = session;
   }
 
+  static createTestInput(): WorldEditInput {
+    return new WorldEditInput(WorldEditSession.createTestSession());
+  }
+
   handlePointerDown(x: number, y: number) {
     // Convert screen to world coordinates if needed (integration point)
     const { wx, wy } = this.toWorldCoords(x, y);

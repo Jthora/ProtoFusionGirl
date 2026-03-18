@@ -1,6 +1,7 @@
 // characterLoader.ts
 // Utility to load character data from JSON for data-driven design
-import characterData from './characters.json';
+import characterDataRaw from './characters.json';
+const characterData: any[] = Array.isArray(characterDataRaw) ? characterDataRaw : [];
 
 export interface CharacterData {
   id: string;
@@ -19,5 +20,6 @@ export interface CharacterData {
 }
 
 export function getCharacterData(id: string): CharacterData | undefined {
+  if (!Array.isArray(characterData)) return undefined;
   return (characterData as CharacterData[]).find(c => c.id === id);
 }

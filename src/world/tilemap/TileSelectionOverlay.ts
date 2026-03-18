@@ -2,13 +2,26 @@
 import { WorldSelection } from './WorldSelection';
 
 export class TileSelectionOverlay {
-  private selection: WorldSelection;
+  private _selection?: WorldSelection;
 
-  constructor(selection: WorldSelection) {
-    this.selection = selection;
+  // Allow tests to construct without args
+  constructor(selection?: WorldSelection) {
+    this._selection = selection;
   }
 
-  renderOverlay(scene: Phaser.Scene) {
+  setSelection(sel: WorldSelection) {
+    this._selection = sel;
+  }
+
+  clearSelection() {
+    this._selection = undefined;
+  }
+
+  getSelection(): WorldSelection | undefined {
+    return this._selection;
+  }
+
+  renderOverlay(_scene: Phaser.Scene) {
     // TODO: Draw selection rectangle/overlay in the scene
   }
 }

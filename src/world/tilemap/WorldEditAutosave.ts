@@ -9,6 +9,11 @@ export class WorldEditAutosave {
     this.tilemapManager = tilemapManager;
   }
 
+  static createTestAutosave(): WorldEditAutosave {
+    const dummyManager: any = { saveWorld: () => {} };
+    return new WorldEditAutosave(dummyManager);
+  }
+
   start(intervalMs: number = 30000) {
     this.stop();
     this.intervalId = setInterval(() => {

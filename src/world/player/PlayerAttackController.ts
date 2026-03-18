@@ -6,6 +6,7 @@ import { DamageNumber } from '../../ui/components/DamageNumber';
 import Phaser from 'phaser';
 import { Jane } from '../../core/Jane';
 import { CombatSystem } from '../../combat/CombatSystem';
+import { EventBus } from '../../core/EventBus';
 
 export interface PlayerAttackControllerConfig {
   scene: Phaser.Scene;
@@ -17,6 +18,7 @@ export interface PlayerAttackControllerConfig {
   onEnemyDefeated: (enemy: EnemyInstance) => void;
   jane: Jane;
   combatSystem: CombatSystem;
+  eventBus?: EventBus;
 }
 
 export class PlayerAttackController {
@@ -29,6 +31,7 @@ export class PlayerAttackController {
   private onEnemyDefeated: (enemy: EnemyInstance) => void;
   private jane: Jane;
   private combatSystem: CombatSystem;
+  private eventBus?: EventBus;
 
   constructor(config: PlayerAttackControllerConfig) {
     this.scene = config.scene;
@@ -40,6 +43,7 @@ export class PlayerAttackController {
     this.onEnemyDefeated = config.onEnemyDefeated;
     this.jane = config.jane;
     this.combatSystem = config.combatSystem;
+    this.eventBus = config.eventBus;
   }
 
   public attackNearestEnemy() {
@@ -75,6 +79,7 @@ export class PlayerAttackController {
       }
       if (!nearest.isAlive) {
         this.onEnemyDefeated(nearest);
+        this.eventBus?.emit({ type: 'ENEMY_DEFEATED', data: { enemyId: nearest.definition.id || 'unknown' } });
       }
       return;
     }
@@ -91,6 +96,7 @@ export class PlayerAttackController {
     }
     if (!nearest.isAlive) {
       this.onEnemyDefeated(nearest);
+      this.eventBus?.emit({ type: 'ENEMY_DEFEATED', data: { enemyId: nearest.definition.id || 'unknown' } });
     }
   }
 }

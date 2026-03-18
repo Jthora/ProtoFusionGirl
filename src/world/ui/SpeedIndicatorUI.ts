@@ -73,12 +73,16 @@ export class SpeedIndicatorUI {
   }
 
   // Main update and render methods
-  public update(state: SpeedTransitionState): void {
+  public update(state: SpeedTransitionState, emergencyMode?: boolean): void {
     const now = Date.now();
     const deltaTime = now - this.animationState.lastUpdateTime;
 
     // Update animation state
     this.updateAnimationState(state, deltaTime);
+    if (emergencyMode) {
+      // Boost emergency intensity immediately
+      this.animationState.emergencyIntensity = Math.min(1, this.animationState.emergencyIntensity + 0.5);
+    }
 
     // Check if redraw is needed
     this.needsRedrawFlag = this.shouldRedraw(state);

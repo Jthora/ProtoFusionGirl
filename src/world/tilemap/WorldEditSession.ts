@@ -18,6 +18,14 @@ export class WorldEditSession {
     this.selection = selection;
   }
 
+  static createTestSession(overrides?: Partial<{ brush: TileBrush; clipboard: TileClipboard; history: EditorHistory; selection: WorldSelection }>): WorldEditSession {
+    const dummyBrush: any = overrides?.brush || { paint: () => {}, erase: () => {}, getTilemapManager: () => ({ editService: { fillArea: () => {} } }), getTileId: () => 'grass' };
+    const dummyClipboard: any = overrides?.clipboard || { copy: () => {}, paste: () => {} };
+    const dummyHistory: any = overrides?.history || { undo: () => {}, redo: () => {} };
+    const dummySelection: any = overrides?.selection || { isActive: () => false };
+    return new WorldEditSession(dummyBrush, dummyClipboard, dummyHistory, dummySelection);
+  }
+
   setActiveTool(tool: 'brush' | 'fill' | 'select' | 'erase' | 'move') {
     this.activeTool = tool;
   }

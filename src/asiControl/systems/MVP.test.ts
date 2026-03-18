@@ -45,7 +45,7 @@ describe('MVP ASI Interface Integration', () => {
       trustManager,
       threatDetector,
       contextUpdateInterval: 2000,
-      maxSuggestions: 5
+  maxSuggestions: 5
     });
   });
 
@@ -214,8 +214,6 @@ describe('MVP ASI Interface Integration', () => {
     });
 
     it('should handle guidance selection', () => {
-      const eventSpy = jest.spyOn(eventBus, 'emit');
-      
       // Add a test suggestion
       guidanceEngine.updateContext();
       
@@ -259,8 +257,9 @@ describe('MVP ASI Interface Integration', () => {
       guidanceEngine.updateContext();
       
       // Should generate threat-based suggestions
-      const suggestions = guidanceEngine.getActiveSuggestions();
-      // In full implementation, we'd expect threat-based suggestions here
+  const suggestions = guidanceEngine.getActiveSuggestions();
+  expect(Array.isArray(suggestions)).toBe(true);
+  // In full implementation, we'd expect threat-based suggestions here
     });
 
     it('should maintain event-driven architecture', () => {
@@ -352,8 +351,7 @@ describe('MVP ASI Interface Integration', () => {
       ];
       
       scenarios.forEach(scenario => {
-        const initialTrust = trustManager.getTrustLevel();
-        trustManager.updateTrust(scenario.trustChange, scenario.name);
+  trustManager.updateTrust(scenario.trustChange, scenario.name);
         
         const receptivity = trustManager.getGuidanceReceptivity();
         expect(typeof receptivity).toBe('number');

@@ -24,6 +24,8 @@ export class UILayoutManager {
   private scene: Phaser.Scene;
   private layout: UILayoutConfig;
   private registeredComponents: Map<string, any> = new Map();
+  private registeredMeta: Map<string, { zone: keyof UILayoutConfig; priority: 'essential' | 'contextual' | 'debug'; visible: boolean }> = new Map();
+  private mode: 'minimal' | 'standard' | 'debug' = 'standard';
   
   // UI Component categories
   private essentialComponents: string[] = []; // Always visible (health, minimap)
@@ -98,12 +100,8 @@ export class UILayoutManager {
   }
 
   public registerComponent(id: string, component: any, zone: keyof UILayoutConfig, priority: 'essential' | 'contextual' | 'debug' = 'contextual') {
-    this.registeredComponents.set(id, {
-      component,
-      zone,
-      priority,
-      visible: true
-    });
+  this.registeredComponents.set(id, { component });
+  this.registeredMeta.set(id, { zone, priority, visible: true });
     
     // Add to appropriate category
     switch (priority) {
@@ -118,14 +116,15 @@ export class UILayoutManager {
         break;
     }
     
-    this.positionComponent(id);
+  this.positionComponent(id);
+  // Apply current mode visibility rules to the newly registered component
+  this.applyVisibilityFor(id);
   }
 
   public positionComponent(id: string) {
-    const componentData = this.registeredComponents.get(id);
-    if (!componentData) return;
-    
-    const { component, zone } = componentData;
+  const component = this.registeredComponents.get(id)?.component;
+  const zone = this.registeredMeta.get(id)?.zone;
+  if (!component || !zone) return;
     const zoneConfig = this.layout[zone];
     
     // Position the component based on its zone
@@ -158,35 +157,27 @@ export class UILayoutManager {
   }
 
   public hideComponent(id: string) {
-    const componentData = this.registeredComponents.get(id);
-    if (componentData) {
-      componentData.visible = false;
-      if (componentData.component.setVisible) {
-        componentData.component.setVisible(false);
-      }
+    const meta = this.registeredMeta.get(id);
+    const comp = this.registeredComponents.get(id)?.component;
+    if (meta && comp) {
+      meta.visible = false;
+      comp.setVisible?.(false);
     }
   }
 
   public showComponent(id: string) {
-    const componentData = this.registeredComponents.get(id);
-    if (componentData) {
-      componentData.visible = true;
-      if (componentData.component.setVisible) {
-        componentData.component.setVisible(true);
-      }
+    const meta = this.registeredMeta.get(id);
+    const comp = this.registeredComponents.get(id)?.component;
+    if (meta && comp) {
+      meta.visible = true;
+      comp.setVisible?.(true);
       this.positionComponent(id);
     }
   }
 
   public toggleComponent(id: string) {
-    const componentData = this.registeredComponents.get(id);
-    if (componentData) {
-      if (componentData.visible) {
-        this.hideComponent(id);
-      } else {
-        this.showComponent(id);
-      }
-    }
+    const isVisible = this.isComponentVisible(id);
+    if (isVisible) this.hideComponent(id); else this.showComponent(id);
   }
 
   public hideContextualUI() {
@@ -223,8 +214,8 @@ export class UILayoutManager {
   }
 
   public isComponentVisible(id: string): boolean {
-    const componentData = this.registeredComponents.get(id);
-    return componentData ? componentData.visible : false;
+  const meta = this.registeredMeta.get(id);
+  return meta ? meta.visible : false;
   }
 
   public cleanup() {
@@ -292,5 +283,39 @@ export class UILayoutManager {
     const centerZone = this.layout.centerSafe;
     graphics.fillStyle(0x00ff00, 0.1);
     graphics.fillRect(centerZone.x, centerZone.y, centerZone.width, centerZone.height);
+  }
+
+  // --- UI Mode Management ---
+  public getMode(): 'minimal' | 'standard' | 'debug' {
+    return this.mode;
+  }
+
+  public setMode(mode: 'minimal' | 'standard' | 'debug') {
+    this.mode = mode;
+    // Apply visibility rules to all components
+    this.registeredComponents.forEach((_, id) => this.applyVisibilityFor(id));
+  }
+
+  private applyVisibilityFor(id: string) {
+    const meta = this.registeredMeta.get(id);
+    const comp = this.registeredComponents.get(id)?.component;
+    if (!meta || !comp) return;
+
+    // Decide visibility based on mode and priority
+    let shouldShow = false;
+    switch (this.mode) {
+      case 'minimal':
+        shouldShow = meta.priority === 'essential';
+        break;
+      case 'standard':
+        shouldShow = meta.priority === 'essential' || meta.priority === 'contextual';
+        break;
+      case 'debug':
+        shouldShow = true;
+        break;
+    }
+    comp.setVisible?.(shouldShow);
+    meta.visible = shouldShow;
+    if (shouldShow) this.positionComponent(id);
   }
 }

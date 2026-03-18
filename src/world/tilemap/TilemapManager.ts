@@ -7,6 +7,7 @@ import { WorldEditService } from './WorldEditService';
 import { TileRegistry } from './TileRegistry';
 import { WorldPersistence } from './WorldPersistence';
 import { WorldGen } from './WorldGen';
+import { WorldGenV3 } from './WorldGenV3';
 import { CraftingPanel } from '../../ui/components/CraftingPanel';
 import { CraftingRegistry } from '../crafting/CraftingRegistry';
 import { CraftingService } from '../crafting/CraftingService';
@@ -22,6 +23,11 @@ import { EquipmentPanel } from '../../ui/components/EquipmentPanel';
 import { WorldStateManager } from '../WorldStateManager';
 import { EventBus } from '../../core/EventBus';
 import { TileSpriteFactory } from './TileSpriteFactory';
+
+export interface TilemapManagerDependencies {
+  worldStateManager?: WorldStateManager;
+  eventBus?: EventBus; // reserved for future use
+}
 
 export class TilemapManager {
   chunkManager: ChunkManager;
@@ -42,19 +48,23 @@ export class TilemapManager {
   equipmentService: EquipmentService;
   playerStats: PlayerStats;
   equipmentPanel: EquipmentPanel;
+  private currentBranch: string = 'main';
 
-  constructor() {
+  constructor(deps: TilemapManagerDependencies = {}) {
     this.chunkManager = new ChunkManager(this);
-    // Provide a minimal valid WorldStateManager for WorldEditService
-    const minimalState = { version: 1, leyLines: [], rifts: [], players: [], economy: { resources: {}, marketPrices: {}, scarcity: {} }, events: [], meta: { online: false, aiAgents: [], mods: [] } };
-    this.editService = new WorldEditService(this, new WorldStateManager(minimalState, new EventBus()));
+    if (deps.worldStateManager) {
+      this.editService = new WorldEditService(this, deps.worldStateManager);
+    } else {
+      const minimalState = { version: 1, leyLines: [], rifts: [], players: [], economy: { resources: {}, marketPrices: {}, scarcity: {} }, events: [], meta: { online: false, aiAgents: [], mods: [] } };
+      this.editService = new WorldEditService(this, new WorldStateManager(minimalState, new EventBus()));
+    }
     this.tileRegistry = new TileRegistry();
     
     // Set up the TileSpriteFactory with our tile registry
     TileSpriteFactory.setTileRegistry(this.tileRegistry);
     
     this.persistence = new WorldPersistence(this);
-    this.worldGen = new WorldGen(this);
+  this.worldGen = new WorldGenV3(this);
     this.craftingRegistry = new CraftingRegistry();
     this.craftingService = new CraftingService(
       this.craftingRegistry,
@@ -84,6 +94,14 @@ export class TilemapManager {
     this.equipmentService = new EquipmentService(this.equipment, this.equipmentRegistry);
     this.playerStats = new PlayerStats({ health: 100, attack: 5, defense: 2, speed: 1 }, this.equipmentService);
     this.equipmentPanel = new EquipmentPanel(this.equipmentService, this.playerStats);
+    // Ensure main branch exists in persistence
+    if (this.persistence && (this.persistence as any).createBranch) {
+      try {
+        if (!(this.persistence as any).getBranch('main')) {
+          (this.persistence as any).createBranch('main', 'seed-main');
+        }
+      } catch { /* ignore if already exists or async */ }
+    }
   }
 
   // Example: load world from file or seed
@@ -430,6 +448,10 @@ export class TilemapManager {
     const branchId = this.getCurrentBranch();
     // Use WorldPersistence to record delta in the correct branch
     if (this.persistence && this.persistence.recordDelta) {
+      // Auto-create branch if missing
+      if (!(this.persistence as any).getBranch(branchId) && (this.persistence as any).createBranch) {
+        try { (this.persistence as any).createBranch(branchId, 'seed-' + branchId, branchId === 'main' ? undefined : 'main'); } catch { /* ignore */ }
+      }
       this.persistence.recordDelta(branchId, { x, y, prevTile, newTile, timestamp: Date.now() });
     } else {
       // Fallback: legacy in-memory branchDeltas
@@ -453,6 +475,7 @@ export class TilemapManager {
   }
 
   deleteBranch(branchId: string) {
+    if (branchId === 'main') return; // Protect main branch
     if (this.persistence && this.persistence.pruneBranch) {
       this.persistence.pruneBranch(branchId);
     }
@@ -474,8 +497,7 @@ export class TilemapManager {
 
   // --- Stubs for branch/delta/anchor UI integration ---
   getCurrentBranch(): string {
-    // TODO: Track current branch in TilemapManager; for now, return 'main' or a default
-    return 'main';
+  return this.currentBranch;
   }
 
   getBranchDeltas(branchId: string): any[] {
@@ -492,9 +514,17 @@ export class TilemapManager {
     // Example: for (const delta of deltas) { ...apply delta... }
   }
 
-  switchBranch(_branchId: string) {
-    // TODO: Implement branch switching logic (update current branch, reload world state, etc.)
-    // For now, this is a stub
+  switchBranch(branchId: string, createIfMissing: boolean = true) {
+    if (!branchId || branchId === this.currentBranch) return;
+    if (this.persistence && this.persistence.getBranch) {
+      const existing = this.persistence.getBranch(branchId);
+      if (!existing && createIfMissing && (this.persistence as any).createBranch) {
+        try {
+          (this.persistence as any).createBranch(branchId, 'seed-' + branchId, this.currentBranch);
+        } catch { /* ignore */ }
+      }
+    }
+    this.currentBranch = branchId;
   }
 
   /**

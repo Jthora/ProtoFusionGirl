@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 export const ULSymbolSchema = z.object({
   name: z.string(),
-  properties: z.record(z.any()),
+  properties: z.record(z.string(), z.any()),
   movement: z.string().optional(),
   animation: z.string().optional(),
 });
@@ -41,18 +41,18 @@ export const ULEventPayloadSchema = z.object({
 
 export const ULResourceDataSchema = z.object({
   symbols: z.array(ULSymbolSchema),
-  animations: z.record(z.any()),
+  animations: z.record(z.string(), z.any()),
   grammar: z.array(ULGrammarRuleSchema),
-  api: z.record(z.any()),
+  api: z.record(z.string(), z.any()),
   examples: z.array(z.string()),
-  puzzles: z.array(z.record(z.any())),
+  puzzles: z.array(z.record(z.string(), z.any())),
 });
 
 export const UniversalSymbolSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string(),
-  properties: z.record(z.any()).optional(),
+  properties: z.record(z.string(), z.any()).optional(),
 });
 
 export const SpellRecipeSchema = z.object({
