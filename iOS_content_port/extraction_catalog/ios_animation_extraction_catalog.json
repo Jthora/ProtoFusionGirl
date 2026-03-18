@@ -1,0 +1,1093 @@
+{
+  "generatedAt": "2026-03-16T21:33:11.090Z",
+  "source": {
+    "iosSubmodulePath": "iOS_content_port/protofusiongirl_ios",
+    "engine": "Objective-C++ cocos2d era prototype (pre-Swift)",
+    "target": "Vite + React + TypeScript migration workspace"
+  },
+  "wiring": {
+    "startupEntities": {
+      "gameLayerAnchors": {
+        "createJane": [
+          39
+        ],
+        "createDrone": [
+          40
+        ],
+        "addViewport": [
+          49
+        ]
+      },
+      "gameLayerFile": "iOS_content_port/protofusiongirl_ios/FusionGirl/GameLayer.m"
+    },
+    "factory": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/FusionGirlCoreFactory.mm",
+      "animationPackBindings": [
+        {
+          "key": "JANE_READY",
+          "line": 19
+        },
+        {
+          "key": "JANE_READY_TO_STAND",
+          "line": 20
+        },
+        {
+          "key": "JANE_STAND_TO_READY",
+          "line": 21
+        },
+        {
+          "key": "JANE_STAND",
+          "line": 22
+        },
+        {
+          "key": "JANE_READY_TO_DASH",
+          "line": 24
+        },
+        {
+          "key": "JANE_DASH",
+          "line": 25
+        },
+        {
+          "key": "JANE_DASH_TO_SKID",
+          "line": 26
+        },
+        {
+          "key": "JANE_SKID",
+          "line": 27
+        },
+        {
+          "key": "JANE_SKID_TO_READY",
+          "line": 28
+        },
+        {
+          "key": "JANE_RUN",
+          "line": 30
+        },
+        {
+          "key": "JANE_READY_TO_JUMP",
+          "line": 32
+        },
+        {
+          "key": "JANE_JUMP",
+          "line": 33
+        },
+        {
+          "key": "JANE_JUMP_TO_FALL",
+          "line": 34
+        },
+        {
+          "key": "JANE_FALL",
+          "line": 35
+        },
+        {
+          "key": "JANE_FALL_TO_READY_HARD",
+          "line": 36
+        },
+        {
+          "key": "JANE_FALL_TO_READY_MID",
+          "line": 37
+        },
+        {
+          "key": "JANE_FALL_TO_READY_LIGHT",
+          "line": 38
+        },
+        {
+          "key": "JANE_READY_TO_LEAP",
+          "line": 40
+        },
+        {
+          "key": "JANE_LEAP",
+          "line": 41
+        },
+        {
+          "key": "JANE_LEAP_TO_FALL_FAR",
+          "line": 42
+        },
+        {
+          "key": "JANE_FALL_FAR",
+          "line": 43
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_HARD",
+          "line": 44
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_MID",
+          "line": 45
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_LIGHT",
+          "line": 46
+        },
+        {
+          "key": "DRONE_STANCE_PRONE",
+          "line": 63
+        },
+        {
+          "key": "DRONE_ATTACK_TO_JUMP",
+          "line": 64
+        },
+        {
+          "key": "DRONE_ATTACK_JUMP",
+          "line": 65
+        },
+        {
+          "key": "DRONE_ATTACK_FROM_JUMP",
+          "line": 66
+        }
+      ],
+      "janeControllerAnchor": [
+        12,
+        54
+      ],
+      "droneControllerAnchor": [
+        13,
+        71
+      ]
+    },
+    "atlasLoadList": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/GameAnimationLoadList.m",
+      "loadJaneAtlasAnchors": [
+        19
+      ],
+      "loadDroneAtlasAnchors": [
+        20
+      ],
+      "packs": [
+        {
+          "key": "JANE_RUN",
+          "frameStart": 128,
+          "frameEnd": 137,
+          "imageSequenceName": "Jane_Anim_Run_",
+          "loop": null,
+          "reverse": null,
+          "delay": null,
+          "line": 24
+        },
+        {
+          "key": "JANE_STAND",
+          "frameStart": 1,
+          "frameEnd": 16,
+          "imageSequenceName": "Jane_Anim_Stand_",
+          "loop": null,
+          "reverse": null,
+          "delay": null,
+          "line": 25
+        },
+        {
+          "key": "JANE_STAND_TO_READY",
+          "frameStart": 20,
+          "frameEnd": 23,
+          "imageSequenceName": "Jane_Anim_Stand_To_Ready_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.08,
+          "line": 26
+        },
+        {
+          "key": "JANE_READY_TO_STAND",
+          "frameStart": 18,
+          "frameEnd": 24,
+          "imageSequenceName": "Jane_Anim_Stand_To_Ready_",
+          "loop": "NO",
+          "reverse": "YES",
+          "delay": 0.1,
+          "line": 27
+        },
+        {
+          "key": "JANE_READY",
+          "frameStart": 25,
+          "frameEnd": 40,
+          "imageSequenceName": "Jane_Anim_Ready_",
+          "loop": null,
+          "reverse": null,
+          "delay": null,
+          "line": 28
+        },
+        {
+          "key": "JANE_READY_TO_DASH",
+          "frameStart": 46,
+          "frameEnd": 48,
+          "imageSequenceName": "Jane_Anim_Ready_To_Dash_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 29
+        },
+        {
+          "key": "JANE_DASH",
+          "frameStart": 49,
+          "frameEnd": 56,
+          "imageSequenceName": "Jane_Anim_Dash_",
+          "loop": "YES",
+          "reverse": "NO",
+          "delay": null,
+          "line": 30
+        },
+        {
+          "key": "JANE_DASH_TO_SKID",
+          "frameStart": 58,
+          "frameEnd": 60,
+          "imageSequenceName": "Jane_Anim_Dash_To_Skid_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 31
+        },
+        {
+          "key": "JANE_SKID",
+          "frameStart": 61,
+          "frameEnd": 68,
+          "imageSequenceName": "Jane_Anim_Skid_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": null,
+          "line": 32
+        },
+        {
+          "key": "JANE_SKID_TO_READY",
+          "frameStart": 70,
+          "frameEnd": 72,
+          "imageSequenceName": "Jane_Anim_Skid_To_Ready_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 33
+        },
+        {
+          "key": "JANE_READY_TO_JUMP",
+          "frameStart": 75,
+          "frameEnd": 77,
+          "imageSequenceName": "Jane_Anim_Ready_To_Jump_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 35
+        },
+        {
+          "key": "JANE_JUMP",
+          "frameStart": 81,
+          "frameEnd": 84,
+          "imageSequenceName": "Jane_Anim_Jump_",
+          "loop": "YES",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 36
+        },
+        {
+          "key": "JANE_JUMP_TO_FALL",
+          "frameStart": 86,
+          "frameEnd": 92,
+          "imageSequenceName": "Jane_Anim_Jump_To_Fall_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 37
+        },
+        {
+          "key": "JANE_FALL",
+          "frameStart": 93,
+          "frameEnd": 96,
+          "imageSequenceName": "Jane_Anim_Fall_",
+          "loop": "YES",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 38
+        },
+        {
+          "key": "JANE_FALL_TO_READY_HARD",
+          "frameStart": 98,
+          "frameEnd": 100,
+          "imageSequenceName": "Jane_Anim_Fall_To_Ready_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.1,
+          "line": 39
+        },
+        {
+          "key": "JANE_FALL_TO_READY_MID",
+          "frameStart": 99,
+          "frameEnd": 100,
+          "imageSequenceName": "Jane_Anim_Fall_To_Ready_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.1,
+          "line": 40
+        },
+        {
+          "key": "JANE_FALL_TO_READY_LIGHT",
+          "frameStart": 100,
+          "frameEnd": 100,
+          "imageSequenceName": "Jane_Anim_Fall_To_Ready_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.1,
+          "line": 41
+        },
+        {
+          "key": "JANE_READY_TO_LEAP",
+          "frameStart": 102,
+          "frameEnd": 104,
+          "imageSequenceName": "Jane_Anim_Ready_To_Leap_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 43
+        },
+        {
+          "key": "JANE_LEAP",
+          "frameStart": 105,
+          "frameEnd": 108,
+          "imageSequenceName": "Jane_Anim_Leap_",
+          "loop": "YES",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 44
+        },
+        {
+          "key": "JANE_LEAP_TO_FALL_FAR",
+          "frameStart": 110,
+          "frameEnd": 116,
+          "imageSequenceName": "Jane_Anim_Leap_To_Fall_Far_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 45
+        },
+        {
+          "key": "JANE_FALL_FAR",
+          "frameStart": 117,
+          "frameEnd": 120,
+          "imageSequenceName": "Jane_Anim_Fall_Far_",
+          "loop": "YES",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 46
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_HARD",
+          "frameStart": 122,
+          "frameEnd": 124,
+          "imageSequenceName": "Jane_Anim_Fall_Far_To_Skid_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 47
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_MID",
+          "frameStart": 123,
+          "frameEnd": 124,
+          "imageSequenceName": "Jane_Anim_Fall_Far_To_Skid_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 48
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_LIGHT",
+          "frameStart": 124,
+          "frameEnd": 124,
+          "imageSequenceName": "Jane_Anim_Fall_Far_To_Skid_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": 0.05,
+          "line": 49
+        },
+        {
+          "key": "DRONE_STANCE_PRONE",
+          "frameStart": 1,
+          "frameEnd": 16,
+          "imageSequenceName": "SleeperDrone_Anim_Stance_Prone_",
+          "loop": null,
+          "reverse": null,
+          "delay": null,
+          "line": 52
+        },
+        {
+          "key": "DRONE_ATTACK_TO_JUMP",
+          "frameStart": 17,
+          "frameEnd": 23,
+          "imageSequenceName": "SleeperDrone_Anim_Attack_Jump_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": null,
+          "line": 53
+        },
+        {
+          "key": "DRONE_ATTACK_JUMP",
+          "frameStart": 24,
+          "frameEnd": 29,
+          "imageSequenceName": "SleeperDrone_Anim_Attack_Jump_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": null,
+          "line": 54
+        },
+        {
+          "key": "DRONE_ATTACK_FROM_JUMP",
+          "frameStart": 30,
+          "frameEnd": 32,
+          "imageSequenceName": "SleeperDrone_Anim_Attack_Jump_",
+          "loop": "NO",
+          "reverse": "NO",
+          "delay": null,
+          "line": 55
+        }
+      ]
+    },
+    "animationManager": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/GameAnimationManager.mm",
+      "frameAssemblyAnchors": [],
+      "frameLookupAnchors": [
+        58
+      ],
+      "actionCreateAnchors": [
+        62
+      ]
+    },
+    "animationPlayback": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/AnimationSprite.m",
+      "addAnimationAnchors": [
+        40
+      ],
+      "playActionAnchors": [
+        83
+      ],
+      "callbackAnchors": [
+        67
+      ]
+    }
+  },
+  "atlases": {
+    "jane": {
+      "plist": "iOS_content_port/protofusiongirl_ios/FusionGirl/Resources/assets/animBatch_Jane.plist",
+      "frameCount": 117,
+      "frames": [
+        "Jane_Anim_Dash_49.png",
+        "Jane_Anim_Dash_50.png",
+        "Jane_Anim_Dash_51.png",
+        "Jane_Anim_Dash_52.png",
+        "Jane_Anim_Dash_53.png",
+        "Jane_Anim_Dash_54.png",
+        "Jane_Anim_Dash_55.png",
+        "Jane_Anim_Dash_56.png",
+        "Jane_Anim_Dash_To_Skid_58.png",
+        "Jane_Anim_Dash_To_Skid_59.png",
+        "Jane_Anim_Dash_To_Skid_60.png",
+        "Jane_Anim_Fall_93.png",
+        "Jane_Anim_Fall_94.png",
+        "Jane_Anim_Fall_95.png",
+        "Jane_Anim_Fall_96.png",
+        "Jane_Anim_Fall_Far_117.png",
+        "Jane_Anim_Fall_Far_118.png",
+        "Jane_Anim_Fall_Far_119.png",
+        "Jane_Anim_Fall_Far_120.png",
+        "Jane_Anim_Fall_Far_To_Skid_122.png",
+        "Jane_Anim_Fall_Far_To_Skid_123.png",
+        "Jane_Anim_Fall_Far_To_Skid_124.png",
+        "Jane_Anim_Fall_To_Ready_100.png",
+        "Jane_Anim_Fall_To_Ready_98.png",
+        "Jane_Anim_Fall_To_Ready_99.png",
+        "Jane_Anim_Jump_81.png",
+        "Jane_Anim_Jump_82.png",
+        "Jane_Anim_Jump_83.png",
+        "Jane_Anim_Jump_84.png",
+        "Jane_Anim_Jump_To_Fall_86.png",
+        "Jane_Anim_Jump_To_Fall_87.png",
+        "Jane_Anim_Jump_To_Fall_88.png",
+        "Jane_Anim_Jump_To_Fall_89.png",
+        "Jane_Anim_Jump_To_Fall_90.png",
+        "Jane_Anim_Jump_To_Fall_91.png",
+        "Jane_Anim_Jump_To_Fall_92.png",
+        "Jane_Anim_Leap_105.png",
+        "Jane_Anim_Leap_106.png",
+        "Jane_Anim_Leap_107.png",
+        "Jane_Anim_Leap_108.png",
+        "Jane_Anim_Leap_To_Fall_Far_110.png",
+        "Jane_Anim_Leap_To_Fall_Far_111.png",
+        "Jane_Anim_Leap_To_Fall_Far_112.png",
+        "Jane_Anim_Leap_To_Fall_Far_113.png",
+        "Jane_Anim_Leap_To_Fall_Far_114.png",
+        "Jane_Anim_Leap_To_Fall_Far_115.png",
+        "Jane_Anim_Leap_To_Fall_Far_116.png",
+        "Jane_Anim_Ready_25.png",
+        "Jane_Anim_Ready_26.png",
+        "Jane_Anim_Ready_27.png",
+        "Jane_Anim_Ready_28.png",
+        "Jane_Anim_Ready_29.png",
+        "Jane_Anim_Ready_30.png",
+        "Jane_Anim_Ready_31.png",
+        "Jane_Anim_Ready_32.png",
+        "Jane_Anim_Ready_33.png",
+        "Jane_Anim_Ready_34.png",
+        "Jane_Anim_Ready_35.png",
+        "Jane_Anim_Ready_36.png",
+        "Jane_Anim_Ready_37.png",
+        "Jane_Anim_Ready_38.png",
+        "Jane_Anim_Ready_39.png",
+        "Jane_Anim_Ready_40.png",
+        "Jane_Anim_Ready_To_Dash_46.png",
+        "Jane_Anim_Ready_To_Dash_47.png",
+        "Jane_Anim_Ready_To_Dash_48.png",
+        "Jane_Anim_Ready_To_Jump_74.png",
+        "Jane_Anim_Ready_To_Jump_75.png",
+        "Jane_Anim_Ready_To_Jump_76.png",
+        "Jane_Anim_Ready_To_Jump_77.png",
+        "Jane_Anim_Ready_To_Leap_102.png",
+        "Jane_Anim_Ready_To_Leap_103.png",
+        "Jane_Anim_Ready_To_Leap_104.png",
+        "Jane_Anim_Run_128.png",
+        "Jane_Anim_Run_129.png",
+        "Jane_Anim_Run_130.png",
+        "Jane_Anim_Run_131.png",
+        "Jane_Anim_Run_132.png",
+        "Jane_Anim_Run_133.png",
+        "Jane_Anim_Run_134.png",
+        "Jane_Anim_Run_135.png",
+        "Jane_Anim_Run_136.png",
+        "Jane_Anim_Run_137.png",
+        "Jane_Anim_Skid_61.png",
+        "Jane_Anim_Skid_62.png",
+        "Jane_Anim_Skid_63.png",
+        "Jane_Anim_Skid_64.png",
+        "Jane_Anim_Skid_65.png",
+        "Jane_Anim_Skid_66.png",
+        "Jane_Anim_Skid_67.png",
+        "Jane_Anim_Skid_68.png",
+        "Jane_Anim_Skid_To_Ready_70.png",
+        "Jane_Anim_Skid_To_Ready_71.png",
+        "Jane_Anim_Skid_To_Ready_72.png",
+        "Jane_Anim_Stand_1.png",
+        "Jane_Anim_Stand_10.png",
+        "Jane_Anim_Stand_11.png",
+        "Jane_Anim_Stand_12.png",
+        "Jane_Anim_Stand_13.png",
+        "Jane_Anim_Stand_14.png",
+        "Jane_Anim_Stand_15.png",
+        "Jane_Anim_Stand_16.png",
+        "Jane_Anim_Stand_2.png",
+        "Jane_Anim_Stand_3.png",
+        "Jane_Anim_Stand_4.png",
+        "Jane_Anim_Stand_5.png",
+        "Jane_Anim_Stand_6.png",
+        "Jane_Anim_Stand_7.png",
+        "Jane_Anim_Stand_8.png",
+        "Jane_Anim_Stand_9.png",
+        "Jane_Anim_Stand_To_Ready_18.png",
+        "Jane_Anim_Stand_To_Ready_19.png",
+        "Jane_Anim_Stand_To_Ready_20.png",
+        "Jane_Anim_Stand_To_Ready_21.png",
+        "Jane_Anim_Stand_To_Ready_22.png",
+        "Jane_Anim_Stand_To_Ready_23.png",
+        "Jane_Anim_Stand_To_Ready_24.png"
+      ],
+      "metadata": {
+        "format": 3,
+        "size": "{2048, 2048}",
+        "premultipliedAlpha": false,
+        "name": "Jane_Stance.zwd",
+        "target": {
+          "textureFileName": "animBatch_Jane",
+          "coordinatesFileName": "animBatch_Jane",
+          "premultipliedAlpha": false,
+          "coordinatesFileExtension": ".plist",
+          "name": "default",
+          "textureFileExtension": ".png"
+        },
+        "version": "1.5.5"
+      },
+      "metadataAnchors": {
+        "framesKey": 5,
+        "metadataKey": 2583,
+        "formatKey": 2587,
+        "sizeKey": 2589,
+        "textureFileNameKey": 2599
+      }
+    },
+    "sleeperDrone": {
+      "plist": "iOS_content_port/protofusiongirl_ios/FusionGirl/Resources/assets/SpriteSheet_SleeperDrone.plist",
+      "frameCount": 32,
+      "frames": [
+        "SleeperDrone_Anim_Attack_Jump_17.png",
+        "SleeperDrone_Anim_Attack_Jump_18.png",
+        "SleeperDrone_Anim_Attack_Jump_19.png",
+        "SleeperDrone_Anim_Attack_Jump_20.png",
+        "SleeperDrone_Anim_Attack_Jump_21.png",
+        "SleeperDrone_Anim_Attack_Jump_22.png",
+        "SleeperDrone_Anim_Attack_Jump_23.png",
+        "SleeperDrone_Anim_Attack_Jump_24.png",
+        "SleeperDrone_Anim_Attack_Jump_25.png",
+        "SleeperDrone_Anim_Attack_Jump_26.png",
+        "SleeperDrone_Anim_Attack_Jump_27.png",
+        "SleeperDrone_Anim_Attack_Jump_28.png",
+        "SleeperDrone_Anim_Attack_Jump_29.png",
+        "SleeperDrone_Anim_Attack_Jump_30.png",
+        "SleeperDrone_Anim_Attack_Jump_31.png",
+        "SleeperDrone_Anim_Attack_Jump_32.png",
+        "SleeperDrone_Anim_Stance_Prone_1.png",
+        "SleeperDrone_Anim_Stance_Prone_10.png",
+        "SleeperDrone_Anim_Stance_Prone_11.png",
+        "SleeperDrone_Anim_Stance_Prone_12.png",
+        "SleeperDrone_Anim_Stance_Prone_13.png",
+        "SleeperDrone_Anim_Stance_Prone_14.png",
+        "SleeperDrone_Anim_Stance_Prone_15.png",
+        "SleeperDrone_Anim_Stance_Prone_16.png",
+        "SleeperDrone_Anim_Stance_Prone_2.png",
+        "SleeperDrone_Anim_Stance_Prone_3.png",
+        "SleeperDrone_Anim_Stance_Prone_4.png",
+        "SleeperDrone_Anim_Stance_Prone_5.png",
+        "SleeperDrone_Anim_Stance_Prone_6.png",
+        "SleeperDrone_Anim_Stance_Prone_7.png",
+        "SleeperDrone_Anim_Stance_Prone_8.png",
+        "SleeperDrone_Anim_Stance_Prone_9.png"
+      ],
+      "metadata": {
+        "format": 3,
+        "size": "{1024, 1024}",
+        "premultipliedAlpha": false,
+        "name": "SleeperDrone_Stance",
+        "target": {
+          "textureFileName": "SpriteSheet_SleeperDrone",
+          "coordinatesFileName": "SpriteSheet_SleeperDrone",
+          "premultipliedAlpha": false,
+          "coordinatesFileExtension": ".plist",
+          "name": "default",
+          "textureFileExtension": ".png"
+        },
+        "version": "1.5.5"
+      },
+      "metadataAnchors": {
+        "framesKey": 5,
+        "metadataKey": 713,
+        "formatKey": 717,
+        "sizeKey": 719,
+        "textureFileNameKey": 729
+      }
+    }
+  },
+  "sourceArt": {
+    "jane": {
+      "sourceDir": "iOS_content_port/protofusiongirl_ios/Asset Development/Jane/Anim",
+      "frameCount": 139,
+      "frames": [
+        "Jane_Anim_Aim_1.png",
+        "Jane_Anim_Aim_10.png",
+        "Jane_Anim_Aim_2.png",
+        "Jane_Anim_Aim_3.png",
+        "Jane_Anim_Aim_4.png",
+        "Jane_Anim_Aim_5.png",
+        "Jane_Anim_Aim_6.png",
+        "Jane_Anim_Aim_7.png",
+        "Jane_Anim_Aim_8.png",
+        "Jane_Anim_Aim_9.png",
+        "Jane_Anim_Dash_49.png",
+        "Jane_Anim_Dash_50.png",
+        "Jane_Anim_Dash_51.png",
+        "Jane_Anim_Dash_52.png",
+        "Jane_Anim_Dash_53.png",
+        "Jane_Anim_Dash_54.png",
+        "Jane_Anim_Dash_55.png",
+        "Jane_Anim_Dash_56.png",
+        "Jane_Anim_Dash_To_Skid_58.png",
+        "Jane_Anim_Dash_To_Skid_59.png",
+        "Jane_Anim_Dash_To_Skid_60.png",
+        "Jane_Anim_Fall_93.png",
+        "Jane_Anim_Fall_94.png",
+        "Jane_Anim_Fall_95.png",
+        "Jane_Anim_Fall_96.png",
+        "Jane_Anim_Fall_Far_117.png",
+        "Jane_Anim_Fall_Far_118.png",
+        "Jane_Anim_Fall_Far_119.png",
+        "Jane_Anim_Fall_Far_120.png",
+        "Jane_Anim_Fall_Far_To_Skid_122.png",
+        "Jane_Anim_Fall_Far_To_Skid_123.png",
+        "Jane_Anim_Fall_Far_To_Skid_124.png",
+        "Jane_Anim_Fall_To_Ready_100.png",
+        "Jane_Anim_Fall_To_Ready_98.png",
+        "Jane_Anim_Fall_To_Ready_99.png",
+        "Jane_Anim_Jump_81.png",
+        "Jane_Anim_Jump_82.png",
+        "Jane_Anim_Jump_83.png",
+        "Jane_Anim_Jump_84.png",
+        "Jane_Anim_Jump_To_Fall_86.png",
+        "Jane_Anim_Jump_To_Fall_87.png",
+        "Jane_Anim_Jump_To_Fall_88.png",
+        "Jane_Anim_Jump_To_Fall_89.png",
+        "Jane_Anim_Jump_To_Fall_90.png",
+        "Jane_Anim_Jump_To_Fall_91.png",
+        "Jane_Anim_Jump_To_Fall_92.png",
+        "Jane_Anim_Leap_105.png",
+        "Jane_Anim_Leap_106.png",
+        "Jane_Anim_Leap_107.png",
+        "Jane_Anim_Leap_108.png",
+        "Jane_Anim_Leap_To_Fall_Far_110.png",
+        "Jane_Anim_Leap_To_Fall_Far_111.png",
+        "Jane_Anim_Leap_To_Fall_Far_112.png",
+        "Jane_Anim_Leap_To_Fall_Far_113.png",
+        "Jane_Anim_Leap_To_Fall_Far_114.png",
+        "Jane_Anim_Leap_To_Fall_Far_115.png",
+        "Jane_Anim_Leap_To_Fall_Far_116.png",
+        "Jane_Anim_Ready_25.png",
+        "Jane_Anim_Ready_26.png",
+        "Jane_Anim_Ready_27.png",
+        "Jane_Anim_Ready_28.png",
+        "Jane_Anim_Ready_29.png",
+        "Jane_Anim_Ready_30.png",
+        "Jane_Anim_Ready_31.png",
+        "Jane_Anim_Ready_32.png",
+        "Jane_Anim_Ready_33.png",
+        "Jane_Anim_Ready_34.png",
+        "Jane_Anim_Ready_35.png",
+        "Jane_Anim_Ready_36.png",
+        "Jane_Anim_Ready_37.png",
+        "Jane_Anim_Ready_38.png",
+        "Jane_Anim_Ready_39.png",
+        "Jane_Anim_Ready_40.png",
+        "Jane_Anim_Ready_To_Dash_46.png",
+        "Jane_Anim_Ready_To_Dash_47.png",
+        "Jane_Anim_Ready_To_Dash_48.png",
+        "Jane_Anim_Ready_To_Jump_74.png",
+        "Jane_Anim_Ready_To_Jump_75.png",
+        "Jane_Anim_Ready_To_Jump_76.png",
+        "Jane_Anim_Ready_To_Jump_77.png",
+        "Jane_Anim_Ready_To_Leap_102.png",
+        "Jane_Anim_Ready_To_Leap_103.png",
+        "Jane_Anim_Ready_To_Leap_104.png",
+        "Jane_Anim_Run_12.png",
+        "Jane_Anim_Run_128.png",
+        "Jane_Anim_Run_129.png",
+        "Jane_Anim_Run_13.png",
+        "Jane_Anim_Run_130.png",
+        "Jane_Anim_Run_131.png",
+        "Jane_Anim_Run_132.png",
+        "Jane_Anim_Run_133.png",
+        "Jane_Anim_Run_134.png",
+        "Jane_Anim_Run_135.png",
+        "Jane_Anim_Run_136.png",
+        "Jane_Anim_Run_137.png",
+        "Jane_Anim_Run_14.png",
+        "Jane_Anim_Run_15.png",
+        "Jane_Anim_Run_16.png",
+        "Jane_Anim_Run_17.png",
+        "Jane_Anim_Run_18.png",
+        "Jane_Anim_Run_19.png",
+        "Jane_Anim_Run_20.png",
+        "Jane_Anim_Run_21.png",
+        "Jane_Anim_Run_22.png",
+        "Jane_Anim_Run_23.png",
+        "Jane_Anim_Skid_61.png",
+        "Jane_Anim_Skid_62.png",
+        "Jane_Anim_Skid_63.png",
+        "Jane_Anim_Skid_64.png",
+        "Jane_Anim_Skid_65.png",
+        "Jane_Anim_Skid_66.png",
+        "Jane_Anim_Skid_67.png",
+        "Jane_Anim_Skid_68.png",
+        "Jane_Anim_Skid_To_Ready_70.png",
+        "Jane_Anim_Skid_To_Ready_71.png",
+        "Jane_Anim_Skid_To_Ready_72.png",
+        "Jane_Anim_Stand_1.png",
+        "Jane_Anim_Stand_10.png",
+        "Jane_Anim_Stand_11.png",
+        "Jane_Anim_Stand_12.png",
+        "Jane_Anim_Stand_13.png",
+        "Jane_Anim_Stand_14.png",
+        "Jane_Anim_Stand_15.png",
+        "Jane_Anim_Stand_16.png",
+        "Jane_Anim_Stand_2.png",
+        "Jane_Anim_Stand_3.png",
+        "Jane_Anim_Stand_4.png",
+        "Jane_Anim_Stand_5.png",
+        "Jane_Anim_Stand_6.png",
+        "Jane_Anim_Stand_7.png",
+        "Jane_Anim_Stand_8.png",
+        "Jane_Anim_Stand_9.png",
+        "Jane_Anim_Stand_To_Ready_18.png",
+        "Jane_Anim_Stand_To_Ready_19.png",
+        "Jane_Anim_Stand_To_Ready_20.png",
+        "Jane_Anim_Stand_To_Ready_21.png",
+        "Jane_Anim_Stand_To_Ready_22.png",
+        "Jane_Anim_Stand_To_Ready_23.png",
+        "Jane_Anim_Stand_To_Ready_24.png"
+      ]
+    },
+    "sleeperDrone": {
+      "activeAnimFrameCount": 32,
+      "activeAnimFrames": [
+        "SleeperDrone_Anim_Attack_Jump_17.png",
+        "SleeperDrone_Anim_Attack_Jump_18.png",
+        "SleeperDrone_Anim_Attack_Jump_19.png",
+        "SleeperDrone_Anim_Attack_Jump_20.png",
+        "SleeperDrone_Anim_Attack_Jump_21.png",
+        "SleeperDrone_Anim_Attack_Jump_22.png",
+        "SleeperDrone_Anim_Attack_Jump_23.png",
+        "SleeperDrone_Anim_Attack_Jump_24.png",
+        "SleeperDrone_Anim_Attack_Jump_25.png",
+        "SleeperDrone_Anim_Attack_Jump_26.png",
+        "SleeperDrone_Anim_Attack_Jump_27.png",
+        "SleeperDrone_Anim_Attack_Jump_28.png",
+        "SleeperDrone_Anim_Attack_Jump_29.png",
+        "SleeperDrone_Anim_Attack_Jump_30.png",
+        "SleeperDrone_Anim_Attack_Jump_31.png",
+        "SleeperDrone_Anim_Attack_Jump_32.png",
+        "SleeperDrone_Anim_Stance_Prone_1.png",
+        "SleeperDrone_Anim_Stance_Prone_10.png",
+        "SleeperDrone_Anim_Stance_Prone_11.png",
+        "SleeperDrone_Anim_Stance_Prone_12.png",
+        "SleeperDrone_Anim_Stance_Prone_13.png",
+        "SleeperDrone_Anim_Stance_Prone_14.png",
+        "SleeperDrone_Anim_Stance_Prone_15.png",
+        "SleeperDrone_Anim_Stance_Prone_16.png",
+        "SleeperDrone_Anim_Stance_Prone_2.png",
+        "SleeperDrone_Anim_Stance_Prone_3.png",
+        "SleeperDrone_Anim_Stance_Prone_4.png",
+        "SleeperDrone_Anim_Stance_Prone_5.png",
+        "SleeperDrone_Anim_Stance_Prone_6.png",
+        "SleeperDrone_Anim_Stance_Prone_7.png",
+        "SleeperDrone_Anim_Stance_Prone_8.png",
+        "SleeperDrone_Anim_Stance_Prone_9.png"
+      ],
+      "extraStanceFrameCount": 16,
+      "extraStanceFrames": [
+        "SleeperDrone_Stance_1.png",
+        "SleeperDrone_Stance_10.png",
+        "SleeperDrone_Stance_11.png",
+        "SleeperDrone_Stance_12.png",
+        "SleeperDrone_Stance_13.png",
+        "SleeperDrone_Stance_14.png",
+        "SleeperDrone_Stance_15.png",
+        "SleeperDrone_Stance_16.png",
+        "SleeperDrone_Stance_2.png",
+        "SleeperDrone_Stance_3.png",
+        "SleeperDrone_Stance_4.png",
+        "SleeperDrone_Stance_5.png",
+        "SleeperDrone_Stance_6.png",
+        "SleeperDrone_Stance_7.png",
+        "SleeperDrone_Stance_8.png",
+        "SleeperDrone_Stance_9.png"
+      ]
+    },
+    "packProjects": [
+      "iOS_content_port/protofusiongirl_ios/Asset Development/Jane/Jane_Stance.zwd",
+      "iOS_content_port/protofusiongirl_ios/Asset Development/SleeperDrone_Stance.zwd"
+    ],
+    "legacyRuntimeAssetFiles": [
+      "Sprite_Jane_Stance_Base.png",
+      "jane_run_128x128.png",
+      "jane_stand_128x128.png",
+      "jane_test1.png",
+      "jane_test2.png"
+    ]
+  },
+  "usageMap": {
+    "janeController": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/JaneController.mm",
+      "setAnimationCalls": [
+        {
+          "key": "JANE_STAND",
+          "line": 92
+        },
+        {
+          "key": "JANE_STAND_TO_READY",
+          "line": 100
+        },
+        {
+          "key": "JANE_READY",
+          "line": 111
+        },
+        {
+          "key": "JANE_READY_TO_STAND",
+          "line": 125
+        },
+        {
+          "key": "JANE_STAND",
+          "line": 142
+        },
+        {
+          "key": "JANE_RUN",
+          "line": 171
+        },
+        {
+          "key": "JANE_READY_TO_JUMP",
+          "line": 204
+        },
+        {
+          "key": "JANE_JUMP",
+          "line": 210
+        },
+        {
+          "key": "JANE_FALL_TO_READY_HARD",
+          "line": 231
+        },
+        {
+          "key": "JANE_FALL_TO_READY_MID",
+          "line": 235
+        },
+        {
+          "key": "JANE_FALL_TO_READY_LIGHT",
+          "line": 239
+        },
+        {
+          "key": "JANE_JUMP_TO_FALL",
+          "line": 247
+        },
+        {
+          "key": "JANE_FALL",
+          "line": 253
+        },
+        {
+          "key": "JANE_READY_TO_LEAP",
+          "line": 266
+        },
+        {
+          "key": "JANE_LEAP",
+          "line": 272
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_HARD",
+          "line": 293
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_MID",
+          "line": 297
+        },
+        {
+          "key": "JANE_FALL_FAR_TO_SKID_LIGHT",
+          "line": 301
+        },
+        {
+          "key": "JANE_LEAP_TO_FALL_FAR",
+          "line": 309
+        },
+        {
+          "key": "JANE_FALL_FAR",
+          "line": 315
+        },
+        {
+          "key": "JANE_READY_TO_DASH",
+          "line": 331
+        },
+        {
+          "key": "JANE_DASH",
+          "line": 339
+        },
+        {
+          "key": "JANE_DASH_TO_SKID",
+          "line": 363
+        },
+        {
+          "key": "JANE_SKID",
+          "line": 376
+        },
+        {
+          "key": "JANE_SKID_TO_READY",
+          "line": 387
+        },
+        {
+          "key": "JANE_RUN",
+          "line": 402
+        }
+      ]
+    },
+    "droneController": {
+      "file": "iOS_content_port/protofusiongirl_ios/FusionGirl/DroneController.mm",
+      "setAnimationCalls": [
+        {
+          "key": "DRONE_STANCE_PRONE",
+          "line": 32
+        },
+        {
+          "key": "DRONE_ATTACK_TO_JUMP",
+          "line": 50
+        },
+        {
+          "key": "DRONE_ATTACK_JUMP",
+          "line": 56
+        },
+        {
+          "key": "DRONE_ATTACK_FROM_JUMP",
+          "line": 64
+        }
+      ]
+    },
+    "visualTransforms": {
+      "note": "No character-specific tint/shader pipeline found in controllers; facing is handled by scaleX sign changes.",
+      "anchors": {
+        "janeScaleX": [
+          73,
+          75
+        ],
+        "droneScaleX": [
+          72
+        ]
+      }
+    }
+  },
+  "gaps": {
+    "janeSourceMissingInAtlasCount": 22,
+    "janeSourceMissingInAtlas": [
+      "Jane_Anim_Aim_1.png",
+      "Jane_Anim_Aim_10.png",
+      "Jane_Anim_Aim_2.png",
+      "Jane_Anim_Aim_3.png",
+      "Jane_Anim_Aim_4.png",
+      "Jane_Anim_Aim_5.png",
+      "Jane_Anim_Aim_6.png",
+      "Jane_Anim_Aim_7.png",
+      "Jane_Anim_Aim_8.png",
+      "Jane_Anim_Aim_9.png",
+      "Jane_Anim_Run_12.png",
+      "Jane_Anim_Run_13.png",
+      "Jane_Anim_Run_14.png",
+      "Jane_Anim_Run_15.png",
+      "Jane_Anim_Run_16.png",
+      "Jane_Anim_Run_17.png",
+      "Jane_Anim_Run_18.png",
+      "Jane_Anim_Run_19.png",
+      "Jane_Anim_Run_20.png",
+      "Jane_Anim_Run_21.png",
+      "Jane_Anim_Run_22.png",
+      "Jane_Anim_Run_23.png"
+    ],
+    "janeAtlasMissingInSourceCount": 0,
+    "janeAtlasMissingInSource": [],
+    "highlighted": {
+      "janeAimMissingCount": 10,
+      "janeAimMissing": [
+        "Jane_Anim_Aim_1.png",
+        "Jane_Anim_Aim_10.png",
+        "Jane_Anim_Aim_2.png",
+        "Jane_Anim_Aim_3.png",
+        "Jane_Anim_Aim_4.png",
+        "Jane_Anim_Aim_5.png",
+        "Jane_Anim_Aim_6.png",
+        "Jane_Anim_Aim_7.png",
+        "Jane_Anim_Aim_8.png",
+        "Jane_Anim_Aim_9.png"
+      ],
+      "janeRunEarlyMissingCount": 12,
+      "janeRunEarlyMissing": [
+        "Jane_Anim_Run_12.png",
+        "Jane_Anim_Run_13.png",
+        "Jane_Anim_Run_14.png",
+        "Jane_Anim_Run_15.png",
+        "Jane_Anim_Run_16.png",
+        "Jane_Anim_Run_17.png",
+        "Jane_Anim_Run_18.png",
+        "Jane_Anim_Run_19.png",
+        "Jane_Anim_Run_20.png",
+        "Jane_Anim_Run_21.png",
+        "Jane_Anim_Run_22.png",
+        "Jane_Anim_Run_23.png"
+      ]
+    }
+  },
+  "migrationHint": {
+    "forViteReactTS": [
+      "Use this catalog as source-of-truth to script atlas extraction into sprite sheets or frame manifests.",
+      "Mirror iOS animation keys exactly first, then map to modern state machine transitions in TypeScript.",
+      "Treat missing-in-atlas source frames as optional recovery candidates unless gameplay requires them."
+    ]
+  }
+}
