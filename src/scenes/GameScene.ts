@@ -170,6 +170,8 @@ export class GameScene extends Phaser.Scene {
   private channelSaturation!: ChannelSaturation;
   // Jane psionic aura (Stage 4.1.3)
   private janeAura?: Phaser.GameObjects.Graphics;
+  // FPS counter (always-on diagnostic)
+  private fpsText?: Phaser.GameObjects.Text;
 
   // P3: Content wiring (5511-5514)
   private terra!: Terra;
@@ -1441,6 +1443,13 @@ export class GameScene extends Phaser.Scene {
 
     this.wireStage4Events();
 
+    // ── FPS counter (always visible — top-right, PsiSys style) ───────────────
+    this.fpsText = this.add.text(
+      this.scale.width - 8, 8,
+      'FPS: --',
+      { fontFamily: 'Courier New, monospace', fontSize: '12px', color: '#FF8C00', alpha: 0.7 }
+    ).setOrigin(1, 0).setScrollFactor(0).setDepth(10000);
+
     // Unlock ley-line modals and other interruptive UI after world init settles.
     // Small delay so any events fired synchronously during create() are ignored.
     this.time.delayedCall(2000, () => {
@@ -2609,6 +2618,11 @@ export class GameScene extends Phaser.Scene {
     
     // Speeder interaction hint
     this.speederController?.updateInteractionHint();
+
+    // FPS counter update
+    if (this.fpsText) {
+      this.fpsText.setText(`FPS: ${Math.round(this.game.loop.actualFps)}`);
+    }
   }
 
   private updateUIElements() {
